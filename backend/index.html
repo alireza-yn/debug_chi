@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="message"/>
+    <button id="sendButton">send</button>
+</body>
+<script src="https://cdn.socket.io/4.6.1/socket.io.min.js"></script>
+<script>
+
+
+    let message = []
+
+    const socket = io("http://127.0.0.1:8000", {
+        transports: ["websocket"], // استفاده فقط از WebSocket
+    });
+
+    socket.on("connect", () => {
+        console.log("Connected to server!");
+    });
+
+    socket.on("response", (data) => {
+        console.log("Message from server:", data.message);
+    });
+
+    socket.emit("message", "Hello from client!");
+
+    socket.on("connect_error", (err) => {
+        console.error("Connection error:", err);
+    });
+
+    socket.on("userMessage",(data)=>{
+        message.push(data[0])
+
+        console.log(message)
+    })
+
+
+
+    const sendMessage = () => {
+        const message = document.getElementById('message').value;
+        console.log(message);
+
+        // اطمینان از اتصال و ارسال پیام
+        if (socket.connected) {
+            socket.emit("room", { message: message });
+        } else {
+            console.log("Not connected to the server yet!");
+        }
+    }
+
+    // افزودن رویداد کلیک به دکمه ارسال
+    document.getElementById('sendButton').addEventListener('click', sendMessage);
+
+</script>
+
+</html>

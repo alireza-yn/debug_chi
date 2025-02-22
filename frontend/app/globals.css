@@ -1,0 +1,17 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'iran-sans';
+  src: url(./fonts/IRANSans\(FaNum\)_Medium.ttf);
+}
+
+body {
+  font-family: iran-sans;
+  font-size: 20px;
+}
+
+span{
+  font-size: 14px;
+}
