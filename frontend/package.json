@@ -50,7 +50,6 @@
     "date-fns": "^3.6.0",
     "embla-carousel-react": "^8.5.1",
     "express": "^4.21.2",
-    "flowbite-react": "^0.10.2",
     "flubber": "^0.4.2",
     "framer-motion": "^12.4.7",
     "input-otp": "^1.4.1",

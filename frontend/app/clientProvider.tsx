@@ -38,7 +38,7 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
         {showLayout && <Navigation />}
         {children}
       </HeroUIProvider>
-      {/* {showLayout && <Footer />} */}
+      {showLayout && <Footer />}
       {/* </ThemeProvider> */}
     </Provider>
   );
