@@ -8,6 +8,7 @@ import { usePathname } from "next/navigation";
 import { Provider } from "react-redux";
 import { HeroUIProvider } from "@heroui/react";
 import Navigation from "@/components/Layout/Navigation";
+import TestNav from "@/components/Layout/TestNavigation";
 // List of paths where header and footer should not be shown
 const HIDDEN_LAYOUT_PATHS = [
   "/user/intro",
@@ -34,6 +35,7 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
       {/* <header className="sticky top-0 z-50 bg-background"> */}
       {/* </header> */}
       <HeroUIProvider>
+        <TestNav />
         {showLayout && <Header />}
         {showLayout && <Navigation />}
         {children}

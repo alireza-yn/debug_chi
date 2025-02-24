@@ -15,7 +15,6 @@ export default function Home() {
   return (
     <div className="w-full flex flex-col items-center justify-center mx-auto gap-4">
       <div className="max-w-7xl mt-20">
-
       <Slider />
       </div>
       <Services />
