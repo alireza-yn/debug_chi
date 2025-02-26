@@ -16,7 +16,7 @@ export const navigation = [
         title_fa:"دیباگ",
         
         title_en:"Debug",
-        url:"/",
+        url:"/debug",
         icon:<DebugIcon />
     },
     {

@@ -103,6 +103,7 @@
 // } satisfies Config;
 // tailwind.config.js
 import {heroui} from "@heroui/react";
+import { fontFamily } from 'tailwindcss/defaultTheme';
 
 /** @type {import('tailwindcss').Config} */
 const config = {
@@ -115,7 +116,25 @@ const config = {
     "./node_modules/@heroui/theme/dist/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+
+      fontFamily: {
+        iranSans: ["var(--font-iran-sans)", ...fontFamily.sans],
+      },
+      animation: {
+        ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
+      },
+      keyframes: {
+        ripple: {
+          "0%, 100%": {
+            transform: "translate(-50%, -50%) scale(1)",
+          },
+          "50%": {
+            transform: "translate(-50%, -50%) scale(0.9)",
+          },
+        },
+      },
+    },
   },
   darkMode: "class",
   plugins: [heroui()]

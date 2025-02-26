@@ -35,7 +35,7 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
       {/* <header className="sticky top-0 z-50 bg-background"> */}
       {/* </header> */}
       <HeroUIProvider>
-        <TestNav />
+        {/* <TestNav /> */}
         {showLayout && <Header />}
         {showLayout && <Navigation />}
         {children}

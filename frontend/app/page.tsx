@@ -1,6 +1,8 @@
 import Header from "@/components/Layout/Header";
 import Tabs from "@/components/Layout/Tabs";
+import ClassInfo from "@/components/routes/home/ClassInfo";
 import Hero from "@/components/routes/home/Hero";
+import LiveUsers from "@/components/routes/home/LiveDebugers";
 import MainSLider from "@/components/routes/home/MainSlider";
 import NavCard from "@/components/routes/home/NavCard";
 import Services from "@/components/routes/home/Services";
@@ -13,12 +15,18 @@ import * as React from "react";
 
 export default function Home() {
   return (
-    <div className="w-full flex flex-col items-center justify-center mx-auto gap-4">
-      <div className="max-w-7xl mt-20">
+    <div className="w-full flex flex-col items-center justify-center mx-auto gap-10">
+      <div className="max-w-7xl">
       <Slider />
       </div>
       <Services />
-      <ThreeDCardDemo />
+      <LiveUsers />
+
+
+      <ClassInfo />
+
+
+      {/* <ThreeDCardDemo /> */}
       {/* <Hero />
       <div className="w-full h-[500px]  dark:bg-violet-950 relative bg-dotted-pattern">
         <h2 className="text-background absolute top-[40%] right-10 z-50 border rounded-xl w-1/4 h-10 text-center">کلاس های ویژه</h2>

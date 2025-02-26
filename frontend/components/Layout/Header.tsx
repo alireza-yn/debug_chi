@@ -231,24 +231,16 @@ import { Button } from "@heroui/react";
 import React from "react";
 import { CoustomUserIcon, CustomLoginIcon, LogoIcon } from "../ui/icons";
 import Link from "next/link";
+import SignUp from "../routes/auth/sign-up/sign-up";
+import Login from "../routes/auth/login";
 
 type Props = {};
 
 const Header = (props: Props) => {
   return (
     <header className="flex items-center gap-4 mt-4 max-w-7xl mx-auto" >
-      <Button variant="flat" color="warning" startContent={<CoustomUserIcon />} >
-        <span className="text-foreground">
-        ثبت نام
-        </span>
-
-      </Button>
-      <Button variant="flat"  color="warning" startContent={<CustomLoginIcon />}>
-      <span className="text-foreground">
-      ورود
-      </span>
-
-      </Button>
+   <SignUp />
+    <Login />
       <div className="flex-1"></div>
       <Link href={"/"}>
       <LogoIcon />
