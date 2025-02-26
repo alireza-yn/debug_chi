@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, StringRelatedField
+from rest_framework.serializers import ModelSerializer, StringRelatedField,ValidationError,CharField,EmailField
 from .models import *
 from user_resume.serializers import *
 from django.contrib.auth import get_user_model
@@ -95,3 +95,40 @@ class CustomRoleSerializers(ModelSerializer):
             "name",
             "users"
         ]
+
+class RegisterSerializers(ModelSerializer):
+    user_phone = CharField(max_length=11, min_length=11, required=True)
+    email = EmailField(required=True)
+    first_name = CharField(max_length=50, required=True)
+    last_name = CharField(max_length=50, required=True)
+    username = CharField(max_length=150, required=True)
+    password = CharField(write_only=True, min_length=8)
+
+    class Meta:
+        model = CustomUser
+        fields = ['user_phone', 'email', 'first_name', 'last_name', 'username', 'password']
+
+    def validate_user_phone(self, value):
+        """ بررسی فرمت شماره موبایل ایرانی """
+        if not value.isdigit() or not value.startswith('09'):
+            raise ValidationError("شماره تلفن معتبر نیست، باید با 09 شروع شود.")
+        if CustomUser.objects.filter(user_phone=value).exists():
+            raise ValidationError("این شماره تلفن قبلاً ثبت شده است.")
+        return value
+
+    def validate_username(self, value):
+        """ بررسی یکتا بودن نام کاربری """
+        if CustomUser.objects.filter(username=value).exists():
+            raise ValidationError("این نام کاربری قبلاً ثبت شده است.")
+        return value
+
+    def validate_email(self, value):
+        """ بررسی یکتا بودن ایمیل """
+        if CustomUser.objects.filter(email=value).exists():
+            raise ValidationError("این ایمیل قبلاً ثبت شده است.")
+        return value
+
+    def create(self, validated_data):
+        """ ایجاد کاربر جدید با هش کردن رمز عبور """
+        user = CustomUser.objects.create_user(**validated_data)
+        return user

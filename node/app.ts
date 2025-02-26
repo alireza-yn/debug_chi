@@ -7,7 +7,7 @@ import cors from "cors";
 import { Server } from 'socket.io';
 import { chatSocket } from './sockets/chatSocket';
 import trendSocket from './sockets/trendSocket';
-
+import { redisHandler } from './redis/redis';
 const app: Application = express();
 const PORT: number = 3000;
 
@@ -86,6 +86,12 @@ io.on('connection', (socket) => {
 });
 chatSocket(io);
 trendSocket(io);
+redisHandler()
+
+
+
+
+
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });

@@ -78,3 +78,17 @@ export const getUserChatList = async (token: string) => {
     console.error("Error fetching data:", error);
   }
 };
+
+
+
+export const perform_post = async (url: string, data: any) => {
+  try {
+    const post_data = await axios.post(`${process.env.server}/${url}`,data)
+    const response = await post_data.data
+    return response
+  } catch (e) {
+    console.log(e)
+
+  }
+
+}

@@ -54,5 +54,8 @@ class OTPView(APIView,UserService):
         if otp_code is None and phone is None :
             return Response({"error":"phone or otp is required"},status=status.HTTP_400_BAD_REQUEST)
         return self.activate_user(phone=phone,otp_code=otp_code)            
-             
-# 1040240042
+
+
+class UserRegister(APIView,UserService):
+    def post(self,request):
+        return self.create_user(request)
