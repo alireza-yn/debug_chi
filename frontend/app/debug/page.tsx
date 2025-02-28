@@ -1,4 +1,5 @@
 import Hero from '@/components/routes/debug/Hero';
+import HeroService from '@/components/routes/debug/Hero/HeroService';
 import OnlineDebugers from '@/components/routes/debug/OnlineDebugers';
 import DebugService from '@/components/routes/debug/Services';
 import { Ripple } from '@/components/ui/magicUI/Ripple';
@@ -12,8 +13,11 @@ const iranSans = localFont({
 });
 const page = () => {
   return (
-   <main >
+   <main className='dark:bg-stone-900'>
+    <div className='relative'>
     <Hero iranSans={iranSans}/>
+    <HeroService />
+    </div>
     <DebugService />
     <OnlineDebugers />
    </main>

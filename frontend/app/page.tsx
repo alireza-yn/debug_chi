@@ -9,7 +9,7 @@ import Services from "@/components/routes/home/Services";
 import Slider from "@/components/routes/home/Slider";
 import ChatSpcket from "@/components/Socket/ChatSpcket";
 import SockectTest from "@/components/Socket/SockectTest";
-import {LinearGradiant} from "@/components/Tools/LinearGradiant";
+import { LinearGradiant } from "@/components/Tools/LinearGradiant";
 import { ThreeDCardDemo } from "@/components/ui/ace/Test";
 import * as React from "react";
 
@@ -17,14 +17,11 @@ export default function Home() {
   return (
     <div className="w-full flex flex-col items-center justify-center mx-auto gap-10">
       <div className="max-w-7xl">
-      <Slider />
+        <Slider />
       </div>
       <Services />
       <LiveUsers />
-
-
       <ClassInfo />
-
 
       {/* <ThreeDCardDemo /> */}
       {/* <Hero />

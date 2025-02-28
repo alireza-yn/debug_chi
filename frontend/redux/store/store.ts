@@ -6,10 +6,12 @@ import userReducer from '../slices/userSlice'
 import chatReducer from '../slices/chatSlice'
 import consultReducer from '../slices/consultSlice'
 import feedbackReducer from '../slices/feedbackSlice'
+import globalSlice from '../slices/globalSlice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
+    gloabal:globalSlice,
     user:userReducer,
     chat:chatReducer,
     consult:consultReducer,

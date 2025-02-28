@@ -51,7 +51,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(unique=True, blank=False,null=True)
     first_name = models.CharField(max_length=30, blank=True)
     last_name = models.CharField(max_length=30, blank=True)
-    user_phone = models.CharField(max_length=11, unique=True, validators=[phone_validator])
+    user_phone = models.CharField(max_length=11, unique=True, validators=[phone_validator],blank=True,null=True)
     is_active = models.BooleanField(default=False, verbose_name="کاربر فعال")
     is_staff = models.BooleanField(default=False, verbose_name="عضو کارکنان")
     unlimited = models.BooleanField(default=False, verbose_name="بدون محدودیت")

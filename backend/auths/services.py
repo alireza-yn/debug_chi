@@ -8,6 +8,7 @@ from .serializers import RegisterSerializers
 from rest_framework.request import Request
 import redis
 import json
+from django.db.models import Q
 
 redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 
@@ -32,11 +33,9 @@ class UserService:
             redis_client.publish("new_user", message)
             
             self.create_otp(user.user_phone)
-            print(user.user_phone)
-            print(user)
 
             return Response(
-                {"message": "کاربر با موفقیت ثبت شد", "user_id": user.id},
+                {"message": "کاربر با موفقیت ثبت شد", "user_id": user.id,"success":True},
                 status=status.HTTP_201_CREATED
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
@@ -115,7 +114,38 @@ class UserService:
                     {"error": "credentials are not valid"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
-    
+    def user_login(self, request: Request):
+        username = request.data.get("username")
+        password = request.data.get("password")
+        print(username,password)
+        
+        if not password:
+            return Response(
+                {"error": "Password is required"},
+                status=status.HTTP_400_BAD_REQUEST,
+            )
+
+        user = CustomUser.objects.filter(
+        Q(username=username) | Q(email=username) | Q(user_phone=username)
+            ).first()
+
+        print(user.email)
+
+        if user and user.check_password(password):
+            refresh = RefreshToken.for_user(user)
+            return Response(
+                {
+                    "success": True,
+                    "refresh": str(refresh),
+                    "access": str(refresh.access_token),
+                },
+                status=status.HTTP_200_OK,
+            )
+
+        return Response(
+            {"error": "Credentials are not valid"},
+            status=status.HTTP_400_BAD_REQUEST,
+        )
     def create_otp(self,user_phone):
         user = CustomUser.objects.filter(user_phone=user_phone).first()
         otp_exist = OTP.objects.filter(user=user).first()

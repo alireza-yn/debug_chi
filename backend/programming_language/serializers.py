@@ -17,3 +17,8 @@ class ProgrammerExpertiseSerializer(ModelSerializer):
     class Meta:
         model = ProgrammerExpertise
         fields = '__all__'
+        
+class ProgrammingListSerializer(ModelSerializer):
+    class Meta:
+        model = ProgrammingLanguage
+        fields = ['id','name' ,'image']

@@ -11,8 +11,25 @@ import {
 import { ArrowLeft } from "lucide-react";
 import SignUpForm from "./sign-up-form";
 import * as motion from "motion/react-client"
+import { useEffect } from "react";
+import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
+import { showLogin } from "@/redux/slices/globalSlice";
 export default function SignUp() {
-  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const { isOpen, onOpen, onOpenChange,onClose } = useDisclosure();
+
+  const {sign_up} = useAppSelector((state:RootState)=>state.gloabal)
+  const dispatch = useAppDispatch()
+  useEffect(()=>{
+    if (sign_up){
+      onOpen()
+    }
+  },[sign_up])
+
+  const closeHandler = ()=>{
+    onClose()
+    dispatch(showLogin(true))
+
+  }
 
   return (
     <>
@@ -63,7 +80,7 @@ export default function SignUp() {
                       }}
                     className="w-[500px] min-h-[600px] rounded-lg border border-amber-950 flex items-center justify-center"
                     >
-                        <SignUpForm />
+                        <SignUpForm switchToLogin={closeHandler}/>
                     </motion.div>
               </DrawerBody>
               <DrawerFooter>

@@ -47,6 +47,12 @@ class AdminLoginView(APIView,UserService):
     def post(self, request: Request):
         return self.admin_login(request=request)
 
+
+class UserLoginView(APIView,UserService):
+    def post(self,request):
+        return self.user_login(request=request)
+
+
 class OTPView(APIView,UserService):
     def post(self, request: Request):
         phone = request.data.get("phone")

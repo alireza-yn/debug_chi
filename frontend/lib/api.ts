@@ -2,7 +2,7 @@ import axios from "axios";
 import Cookies from "js-cookie";
 
 export const headers = () => {
-  if (Cookies.get("token") == undefined) {
+  if (Cookies.get("token") !== undefined) {
     return {
       Authorization: "Bearer " + Cookies.get("token"),
       "Content-Type": "application/json",
@@ -83,12 +83,35 @@ export const getUserChatList = async (token: string) => {
 
 export const perform_post = async (url: string, data: any) => {
   try {
-    const post_data = await axios.post(`${process.env.server}/${url}`,data)
+    const post_data = await axios.post(`${process.env.server}/${url}`,data,{
+      headers:headers()
+    })
     const response = await post_data.data
     return response
-  } catch (e) {
-    console.log(e)
+  } catch (e:any) {
+    return {
+      data :e.response.data,
+      status:e.status
+    }
 
   }
 
+}
+
+
+export const perform_get = async (url:string)=>{
+  try {
+    const request = await axios.get(`${process.env.server}/${url}`,{
+      headers:headers()
+    })
+    const response = await request.data
+    return response
+  }
+  catch (e:any) {
+    return {
+      data :e.response.data,
+      status:e.status
+    }
+  }
+  
 }

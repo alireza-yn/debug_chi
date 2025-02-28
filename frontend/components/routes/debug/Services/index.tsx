@@ -5,7 +5,7 @@ type Props = {}
 
 const DebugService = (props: Props) => {
   return (
-    <section className='max-w-7xl mx-auto min-h-[400px]'>
+    <section className='max-w-7xl mx-auto min-h-[400px] mt-[212px]'>
         <Services />
     </section>
   )

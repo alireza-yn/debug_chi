@@ -228,22 +228,46 @@
 //#endregion
 
 import { Button } from "@heroui/react";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { CoustomUserIcon, CustomLoginIcon, LogoIcon } from "../ui/icons";
 import Link from "next/link";
 import SignUp from "../routes/auth/sign-up/sign-up";
 import Login from "../routes/auth/login";
-
+import Cookies from "js-cookie";
+import axios from "axios";
+import { perform_get } from "@/lib/api";
+import ProfileMenuButton from "../routes/user/ProfileMenuButton";
 type Props = {};
 
 const Header = (props: Props) => {
+  const [userData, setUserData] = useState(null);
+  useEffect(() => {
+    const token = Cookies.get("token");
+    const getUserData = async () => {
+      const response  = await perform_get("auths/user_info/");
+      console.log(response)
+      setUserData(response);  
+    };
+    if (token) {
+
+      getUserData();
+
+    }
+  }, []);
+
   return (
-    <header className="flex items-center gap-4 mt-4 max-w-7xl mx-auto" >
-   <SignUp />
-    <Login />
+    <header className="flex items-center gap-4 mt-4 max-w-7xl mx-auto">
+      {userData ? (
+        <ProfileMenuButton user={userData}/>
+      ) : (
+        <>
+          <SignUp />
+          <Login />
+        </>
+      )}
       <div className="flex-1"></div>
       <Link href={"/"}>
-      <LogoIcon />
+        <LogoIcon />
       </Link>
     </header>
   );

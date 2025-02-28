@@ -38,7 +38,7 @@ export const Ripple = React.memo(function Ripple({
         return (
           <div
             key={i}
-            className={`[--i: absolute ${props.animate === "true" ? 'animate-ripple' : ''} rounded-full border bg-foreground/25 shadow-xl${i}]`}
+            className={`[--i: absolute ${props.animate === "true" ? 'animate-ripple' : ''} rounded-full border bg-amber-500 shadow-xl${i}]`}
             style={
               {
                 width: `${size}px`,

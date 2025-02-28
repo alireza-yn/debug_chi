@@ -69,6 +69,10 @@ urlpatterns = [
     path('schema/', SpectacularAPIView.as_view(), name='schema'),
     path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
+     #region  ConsultantAPI
+    path('v1/programming-list/',ProgrammingLanguageList.as_view(),name='programming-list'),
+    #endregion 
+    
     
     #region  ConsultantAPI
     path('v1/debug/accept_debug_session/',view=AcceptDebugSession.as_view(),name='قبول کردن جلسه دیباگ'),
