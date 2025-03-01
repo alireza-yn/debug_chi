@@ -12,7 +12,7 @@ const page = () => {
         <div className='min-w-[500px] bg-[#181818] p-4 box-border rounded-lg'>
             <ChatList />
         </div>
-        <MainChat />
+        <MainChat mode='chat'/>
     </main>
   )
 }

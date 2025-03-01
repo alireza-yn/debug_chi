@@ -14,7 +14,8 @@ const HIDDEN_LAYOUT_PATHS = [
   "/user/intro",
   "/new_project",
   "user/dashboard",
-  "community/chat"
+  "community/chat",
+  "assistent/request"
 ] as const;
 
 const ClientProvider: React.FC<{ children: React.ReactNode }> = ({

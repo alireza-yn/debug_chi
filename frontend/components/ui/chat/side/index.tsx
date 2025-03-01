@@ -15,6 +15,7 @@ interface Main {
 }
 
 const ChatSidebar = (props: Props) => {
+
   const [language, setLanguage] = useState<Main[]>([]);
   const [selected, setSelected] = useState<number[]>([]);
 
@@ -37,14 +38,15 @@ const ChatSidebar = (props: Props) => {
   return (
     <div className="w-full flex flex-col justify-start py-2 box-border h-full overflow-hidden">
       <SelectOption />
-      <ScrollArea>
+      <ScrollArea aria-label="scroll-area">
         <div className="w-full flex flex-col items-center flex-1 py-4 box-border gap-2">
-          {language.map((item) => {
+          {
+          language.length > 0 && language.map((item) => {
             const isSelected = selected.includes(item.id);
-
             return (
               <Button
                 key={item.id}
+                aria-label={item.name}
                 onPress={() => handleSelect(item.id)}
                 className={`${isSelected ? 'w-full' : 'w-full'} h-14 transition-all duration-500 ease-in-out`}
                 variant={isSelected ? "flat" : "light"}

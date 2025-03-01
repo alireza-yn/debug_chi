@@ -17,13 +17,15 @@ export const techCategories = [
 ];
 
 export default function SelectOption() {
+
   return (
     <div className="flex w-full flex-wrap md:flex-nowrap gap-4">
-      <Select className="max-w-xs text-xs" defaultSelectedKeys={["web_dev"]}>
+      <Select className="max-w-xs text-xs" defaultSelectedKeys={["web_dev"]} aria-label="select-language">
         {techCategories.map((category) => (
-          <SelectItem key={category.key}>{category.label}</SelectItem>
+          <SelectItem  key={category.key}>{category.label}</SelectItem>
         ))}
       </Select>
     </div>
+
   );
 }
