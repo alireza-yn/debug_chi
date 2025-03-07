@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Socket.IO Client</title>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+  </head>
+  <body>
+    <h1>Socket.IO Client</h1>
+    <button onclick="sendMessage()">Send Message</button>
+    <script>
+      const socket = io("https://panel-mohsenmodhej.com");
+
+      socket.on("server_message", (data) => {
+        console.log("Received:", data);
+      });
+
+      socket.on("user", (msg) => {
+        console.log(msg);
+      });
+
+      let messageCount = 0;
+      const maxMessages = 500;
+      const interval = 1; // Send message every 1 millisecond
+      socket.on("message",(msg)=>{
+        console.log(msg)
+      })
+      function sendMessage() {
+        socket.emit("message", `hello from client`);
+       
+      }
+    </script>
+  </body>
+</html>

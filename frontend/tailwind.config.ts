@@ -105,7 +105,9 @@
 // tailwind.config.js
 import {heroui} from "@heroui/react";
 import { fontFamily } from 'tailwindcss/defaultTheme';
-
+const {
+  default: flattenColorPalette,
+} = require("tailwindcss/lib/util/flattenColorPalette");
 /** @type {import('tailwindcss').Config} */
 const config = {
   content: [
@@ -120,12 +122,23 @@ const config = {
     extend: {
 
       fontFamily: {
-        iranSans: ["var(--font-iran-sans)", ...fontFamily.sans],
+        iranSans: ["var(--font-iran-sans)",...fontFamily.sans,],
+        lightSans: ['iran-sans-lt'],
+        mediumSans: ['iran-sans-md'],
+        blackSans: ['iran-sans-bl'],
+        ultraLightSans: ['iran-sans-ul'],
       },
       animation: {
         ripple: "ripple var(--duration,2s) ease calc(var(--i, 0)*.2s) infinite",
+        scroll: "scroll var(--animation-duration, 40s) var(--animation-direction, forwards) linear infinite"
       },
+   
       keyframes: {
+        scroll: {
+          to: {
+            transform: "translate(calc(-50% - 0.5rem))",
+          },
+        },
         ripple: {
           "0%, 100%": {
             transform: "translate(-50%, -50%) scale(1)",
@@ -138,7 +151,20 @@ const config = {
     },
   },
   darkMode: "class",
-  plugins: [heroui()]
+  plugins: [heroui(),addVariablesForColors]
 }
+
+
+function addVariablesForColors({ addBase, theme }: any) {
+  let allColors = flattenColorPalette(theme("colors"));
+  let newVars = Object.fromEntries(
+    Object.entries(allColors).map(([key, val]) => [`--${key}`, val])
+  );
+ 
+  addBase({
+    ":root": newVars,
+  });
+}
+
 
 export default config;

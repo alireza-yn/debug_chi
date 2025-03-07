@@ -1,10 +1,20 @@
-import Details from '@/components/ui/chat/details'
-import MainChat from '@/components/ui/chat/main'
+import Details from '@/components/chat/details'
+import MainChat from '@/components/chat/main'
 import React from 'react'
 
-type Props = {}
 
-const page = (props: Props) => {
+const page = async ({
+  params,
+  searchParams,
+}: {
+  params: Promise<{ slug: string }>
+  searchParams: Promise<{ [key: string]: string | string[] | undefined }>
+}) => {
+
+const data = await searchParams
+console.log(data.query)
+
+
   return (
     <main className='h-screen p-5 box-border flex '>
         <Details />

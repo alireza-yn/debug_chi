@@ -9,13 +9,16 @@ import { Provider } from "react-redux";
 import { HeroUIProvider } from "@heroui/react";
 import Navigation from "@/components/Layout/Navigation";
 import TestNav from "@/components/Layout/TestNavigation";
+import Login from "@/components/routes/auth/login";
+import SignUp from "@/components/routes/auth/sign-up/sign-up";
 // List of paths where header and footer should not be shown
 const HIDDEN_LAYOUT_PATHS = [
   "/user/intro",
   "/new_project",
   "user/dashboard",
   "community/chat",
-  "assistent/request"
+  "assistent/request",
+  "community/chat/c"
 ] as const;
 
 const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -41,6 +44,8 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
         {showLayout && <Header />}
         {showLayout && <Navigation />}
         {children}
+        <Login/>
+        <SignUp/>
       </HeroUIProvider>
       {showLayout && <Footer />}
       {/* </ThemeProvider> */}

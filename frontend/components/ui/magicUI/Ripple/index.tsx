@@ -9,6 +9,7 @@ interface RippleProps extends ComponentPropsWithoutRef<"div"> {
   animate?:string;
   mainSize?:number;
   top?:string;
+  bg_color?:string
 }
 
 export const Ripple = React.memo(function Ripple({
@@ -17,6 +18,7 @@ export const Ripple = React.memo(function Ripple({
   numCircles = 10,
   mainSize = 70,
   top="100%",
+  bg_color = "", 
   className,
   ...props
 }: RippleProps) {
@@ -38,7 +40,7 @@ export const Ripple = React.memo(function Ripple({
         return (
           <div
             key={i}
-            className={`[--i: absolute ${props.animate === "true" ? 'animate-ripple' : ''} rounded-full border bg-amber-500 shadow-xl${i}]`}
+            className={`[--i: absolute ${props.animate === "true" ? 'animate-ripple' : ''} ${bg_color} z-0 rounded-full border shadow-xl${i}]`}
             style={
               {
                 width: `${size}px`,
@@ -56,6 +58,7 @@ export const Ripple = React.memo(function Ripple({
           />
         );
       })}
+    
     </div>
   );
 });

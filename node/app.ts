@@ -9,7 +9,7 @@ import { chatSocket } from './sockets/chatSocket';
 import trendSocket from './sockets/trendSocket';
 import { redisHandler } from './redis/redis';
 const app: Application = express();
-const PORT: number = 3000;
+const PORT: number = 3001;
 
 // اتصال به MongoDB
 connectDB();
@@ -17,7 +17,7 @@ connectDB();
 // میدل‌ورها
 app.use(express.json());
 app.use(cors({
-  origin: "http://localhost:3001",
+  origin: ["http://localhost:3000","http://127.0.0.1:5500"],
   methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
 }));
@@ -30,10 +30,9 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:3001",
+    origin: ["http://localhost:3000","http://127.0.0.1:5500"],
     methods: ["GET", "POST"],
     credentials: true,
-  
   }
 });
 
@@ -41,6 +40,18 @@ const online_users: any[] = [];
 
 io.on('connection', (socket) => {
   console.log('A user connected:', socket.id);
+  io.emit("user",`${socket.id} connected to server`)
+  socket.on("message", (msg) => {
+    const startTime = Date.now();
+    console.log(`Received message: ${msg}`);
+  
+    io.emit("server_message", `Response to: ${msg}`);
+  
+    const endTime = Date.now();
+    console.log(`Processing Time: ${endTime - startTime}ms`);
+  });
+
+
 
   socket.on('join', (userId) => {
 
@@ -95,3 +106,4 @@ redisHandler()
 server.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+

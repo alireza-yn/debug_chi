@@ -51,7 +51,6 @@ const ChatSidebar = (props: Props) => {
                 className={`${isSelected ? 'w-full' : 'w-full'} h-14 transition-all duration-500 ease-in-out`}
                 variant={isSelected ? "flat" : "light"}
                 color={isSelected ? "primary" : "default"}
-                // radius={isSelected ? "none" : "full"}
                 radius="none"
                 isIconOnly
                 startContent={

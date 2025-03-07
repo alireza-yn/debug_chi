@@ -237,32 +237,47 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import { perform_get } from "@/lib/api";
 import ProfileMenuButton from "../routes/user/ProfileMenuButton";
+import { useAppDispatch, useAppSelector } from "@/redux/store/store";
+import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
 type Props = {};
 
 const Header = (props: Props) => {
   const [userData, setUserData] = useState(null);
+  const dispatch = useAppDispatch();
   useEffect(() => {
     const token = Cookies.get("token");
     const getUserData = async () => {
-      const response  = await perform_get("auths/user_info/");
-      console.log(response)
-      setUserData(response);  
+      const response = await perform_get("auths/user_info/");
+      console.log(response);
+      setUserData(response);
     };
     if (token) {
-
       getUserData();
-
     }
   }, []);
 
   return (
     <header className="flex items-center gap-4 mt-4 max-w-7xl mx-auto">
       {userData ? (
-        <ProfileMenuButton user={userData}/>
+        <ProfileMenuButton user={userData} />
       ) : (
         <>
-          <SignUp />
-          <Login />
+          <Button
+            onPress={() => dispatch(showSignUp(true))}
+            variant="flat"
+            color="default"
+            startContent={<CoustomUserIcon />}
+          >
+            <span className="text-foreground">ثبت نام</span>
+          </Button>
+          <Button
+            onPress={() => dispatch(showLogin(true))}
+            variant="flat"
+            color="default"
+            startContent={<CustomLoginIcon />}
+          >
+            <span className="text-foreground">ورود</span>
+          </Button>
         </>
       )}
       <div className="flex-1"></div>

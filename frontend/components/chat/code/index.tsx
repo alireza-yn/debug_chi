@@ -1,0 +1,186 @@
+import React, { useState } from "react";
+import MonacoEditor from "@monaco-editor/react";
+import {
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  Select,
+  SelectItem,
+  useDisclosure,
+} from "@heroui/react";
+import { Code } from "lucide-react";
+
+// Full list of Monaco-supported languages
+const languages = [
+  "abap",
+  "apex",
+  "azcli",
+  "bat",
+  "c",
+  "clojure",
+  "coffeescript",
+  "cpp",
+  "csharp",
+  "csp",
+  "css",
+  "dart",
+  "dockerfile",
+  "ecl",
+  "elixir",
+  "erlang",
+  "fsharp",
+  "go",
+  "graphql",
+  "handlebars",
+  "hcl",
+  "html",
+  "ini",
+  "java",
+  "javascript",
+  "json",
+  "julia",
+  "kotlin",
+  "less",
+  "lua",
+  "markdown",
+  "matlab",
+  "mdx",
+  "mysql",
+  "objective-c",
+  "pascal",
+  "perl",
+  "pgsql",
+  "php",
+  "plaintext",
+  "postiats",
+  "powerquery",
+  "powershell",
+  "proto",
+  "pug",
+  "python",
+  "r",
+  "razor",
+  "redis",
+  "redshift",
+  "restructuredtext",
+  "ruby",
+  "rust",
+  "sb",
+  "scala",
+  "scheme",
+  "scss",
+  "shell",
+  "sol",
+  "sql",
+  "st",
+  "swift",
+  "systemverilog",
+  "tcl",
+  "twig",
+  "typescript",
+  "vb",
+  "xml",
+  "yaml",
+].map((lang) => ({ key: lang, label: lang.toUpperCase() })); // Format labels
+
+const fontSizes = [
+  { key: "14", label: "14px" },
+  { key: "18", label: "18px" },
+  { key: "24", label: "24px" },
+  { key: "32", label: "32px" },
+  { key: "40", label: "40px" },
+  { key: "52", label: "52px" },
+];
+
+const SendCode = () => {
+  const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [code, setCode] = useState("");
+  const [language, setLanguage] = useState("javascript");
+  const [fontSize, setFontSize] = useState(18);
+
+  return (
+    <>
+      <Button
+        onPress={onOpen}
+        isIconOnly
+        startContent={<Code />}
+        variant="flat"
+        size="sm"
+        radius="full"
+      ></Button>
+
+      <Drawer
+      hideCloseButton   
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        size="3xl"
+        placement="left"
+      >
+        <DrawerContent>
+          {(onClose) => (
+            <>
+              <DrawerHeader className="flex  gap-3">
+                {/* Language Selector */}
+                <Select
+                  label="انتخاب زبان"
+                  selectedKeys={[language]}
+                  onSelectionChange={(keys) =>
+                    setLanguage(Array.from(keys)[0] as string)
+                  }
+                >
+                  {languages.map((lang) => (
+                    <SelectItem key={lang.key}>{lang.label}</SelectItem>
+                  ))}
+                </Select>
+
+                {/* Font Size Selector */}
+                <Select
+                  label="اندازه فونت"
+                  selectedKeys={[String(fontSize)]}
+                  onSelectionChange={(keys) =>
+                    setFontSize(Number(Array.from(keys)[0]))
+                  }
+                >
+                  {fontSizes.map((size) => (
+                    <SelectItem key={size.key}>{size.label}</SelectItem>
+                  ))}
+                </Select>
+              </DrawerHeader>
+
+              <DrawerBody dir="ltr">
+                <MonacoEditor
+                  width="100%"
+                  height="100%"
+                  language={language}
+                  theme="vs-dark"
+                  value={code}
+                  onChange={(newValue) => setCode(newValue || "")}
+                  options={{
+                    scrollBeyondLastLine: false,
+                    minimap: { enabled: true },
+                    automaticLayout: true,
+                    fontSize: fontSize,
+                  }}
+                />
+              </DrawerBody>
+
+              <DrawerFooter>
+                <Button color="danger" variant="light" onPress={onClose}>
+                  Close
+                </Button>
+                <Button color="primary" onPress={onClose}>
+                  Action
+                </Button>
+              </DrawerFooter>
+            </>
+          )}
+        </DrawerContent>
+      </Drawer>
+    </>
+  );
+};
+
+export default SendCode;

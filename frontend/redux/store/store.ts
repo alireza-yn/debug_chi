@@ -6,16 +6,17 @@ import userReducer from '../slices/userSlice'
 import chatReducer from '../slices/chatSlice'
 import consultReducer from '../slices/consultSlice'
 import feedbackReducer from '../slices/feedbackSlice'
-import globalSlice from '../slices/globalSlice'
-
+import globalReduce from '../slices/globalSlice'
+import aiQuestionReducer from '../slices/aiSlice'
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
-    gloabal:globalSlice,
+    gloabal:globalReduce,
     user:userReducer,
     chat:chatReducer,
     consult:consultReducer,
-    feedback:feedbackReducer
+    feedback:feedbackReducer,
+    aiQuestion:aiQuestionReducer
 
   },
 });

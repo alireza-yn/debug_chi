@@ -62,8 +62,8 @@ router.register(r'debug-hub', DebuggerHubView,basename="debug-hub")
 urlpatterns = [
     path('v1/',include(router.urls)),
     path('v1/user-by-role/',UsersByRoleListView.as_view(),name='user-by-role'),
-    path('v1/get-user-info/',GetUserInfo.as_view(),name='get-user-info'),
-    path('v1/get-user-consult/',DebuggerApplicatorView.as_view(),name='get-user-info'),
+    path('v1/user-info/<uuid:uuid>/', GetUserInfoByUUID.as_view(), name='get-user-info'),
+    path('v1/get-user-consult/',DebuggerApplicatorView.as_view(),name='get-user-consult'),
     path('v1/get-request-debug/',RequestDebugeFromUsers.as_view(),name='get-request-debug'),
     path('v1/get-user-debug/',UserOpendDebugList.as_view(),name='get-user-debug'),
     path('schema/', SpectacularAPIView.as_view(), name='schema'),

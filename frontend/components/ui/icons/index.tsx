@@ -524,40 +524,219 @@ export const PublicClassIcon = () => {
   );
 };
 
-
-
-export const DebugServiceIcon = ()=>{
+export const DebugServiceIcon = () => {
   return (
-    <svg width="80" height="80" viewBox="0 0 80 80" fill="none" xmlns="http://www.w3.org/2000/svg">
-<rect width="80" height="80" rx="20" fill="url(#paint0_linear_3211_1349)"/>
-<rect x="15" y="20" width="32.7322" height="34.2423" rx="6" stroke="white" strokeWidth="2"/>
-<path d="M20.04 30.3257H41.1814" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-<path d="M20.04 47.6919H41.1814" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-<path d="M29.1006 35.6108H41.1814" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-<path d="M20.04 35.6108H24.5703" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-<path d="M38.1611 41.6514H41.1813" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-<path d="M20.04 41.6514H33.6309" stroke="white" strokeWidth="2" strokeLinecap="round"/>
-<path d="M66.2076 62.3711C66.5443 62.8088 67.1721 62.8907 67.6099 62.554C68.0477 62.2173 68.1295 61.5894 67.7928 61.1517L66.2076 62.3711ZM57.0003 50.4017L66.2076 62.3711L67.7928 61.1517L58.5856 49.1823L57.0003 50.4017Z" fill="white"/>
-<g filter="url(#filter0_d_3211_1349)">
-<circle cx="49.4875" cy="39.3864" r="13.3459" stroke="white" strokeWidth="2" shapeRendering="crispEdges"/>
-</g>
-<defs>
-<filter id="filter0_d_3211_1349" x="22.9416" y="16.8405" width="53.0914" height="53.0919" filterUnits="userSpaceOnUse" colorInterpolationFilters="sRGB">
-<feFlood floodOpacity="0" result="BackgroundImageFix"/>
-<feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
-<feOffset dy="4"/>
-<feGaussianBlur stdDeviation="6.1"/>
-<feComposite in2="hardAlpha" operator="out"/>
-<feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 0.639216 0 0 0 0 0.0627451 0 0 0 1 0"/>
-<feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_3211_1349"/>
-<feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_3211_1349" result="shape"/>
-</filter>
-<linearGradient id="paint0_linear_3211_1349" x1="40" y1="0" x2="40" y2="80" gradientUnits="userSpaceOnUse">
-<stop stopColor="#E74C3C"/>
-<stop offset="1" stopColor="#812A22"/>
-</linearGradient>
-</defs>
-</svg>
+    <svg
+      width="80"
+      height="80"
+      viewBox="0 0 80 80"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        width="80"
+        height="80"
+        rx="20"
+        fill="url(#paint0_linear_3211_1349)"
+      />
+      <rect
+        x="15"
+        y="20"
+        width="32.7322"
+        height="34.2423"
+        rx="6"
+        stroke="white"
+        strokeWidth="2"
+      />
+      <path
+        d="M20.04 30.3257H41.1814"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20.04 47.6919H41.1814"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M29.1006 35.6108H41.1814"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20.04 35.6108H24.5703"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M38.1611 41.6514H41.1813"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M20.04 41.6514H33.6309"
+        stroke="white"
+        strokeWidth="2"
+        strokeLinecap="round"
+      />
+      <path
+        d="M66.2076 62.3711C66.5443 62.8088 67.1721 62.8907 67.6099 62.554C68.0477 62.2173 68.1295 61.5894 67.7928 61.1517L66.2076 62.3711ZM57.0003 50.4017L66.2076 62.3711L67.7928 61.1517L58.5856 49.1823L57.0003 50.4017Z"
+        fill="white"
+      />
+      <g filter="url(#filter0_d_3211_1349)">
+        <circle
+          cx="49.4875"
+          cy="39.3864"
+          r="13.3459"
+          stroke="white"
+          strokeWidth="2"
+          shapeRendering="crispEdges"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_3211_1349"
+          x="22.9416"
+          y="16.8405"
+          width="53.0914"
+          height="53.0919"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="6.1" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 1 0 0 0 0 0.639216 0 0 0 0 0.0627451 0 0 0 1 0"
+          />
+          <feBlend
+            mode="normal"
+            in2="BackgroundImageFix"
+            result="effect1_dropShadow_3211_1349"
+          />
+          <feBlend
+            mode="normal"
+            in="SourceGraphic"
+            in2="effect1_dropShadow_3211_1349"
+            result="shape"
+          />
+        </filter>
+        <linearGradient
+          id="paint0_linear_3211_1349"
+          x1="40"
+          y1="0"
+          x2="40"
+          y2="80"
+          gradientUnits="userSpaceOnUse"
+        >
+          <stop stopColor="#E74C3C" />
+          <stop offset="1" stopColor="#812A22" />
+        </linearGradient>
+      </defs>
+    </svg>
+  );
+};
 
-  )
-}
+export const WaveAudio = (size: any) => {
+  return (
+    <svg
+      width={size}
+      height={size}
+      viewBox={`0 0 ${size} ${size}`}
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect x="32" y="8" width="4" height="24" rx="2" fill="white" />
+      <rect x="25" y="4" width="4" height="32" rx="2" fill="white" />
+      <rect x="18" y="9" width="4" height="22" rx="2" fill="white" />
+      <rect x="4" y="8" width="4" height="25" rx="2" fill="white" />
+      <rect x="11" y="14" width="4" height="13" rx="2" fill="white" />
+    </svg>
+  );
+};
+
+export const AnyDeskIcon: React.FC<React.SVGProps<SVGSVGElement>> = (props) => {
+  return (
+    <svg
+      width="50"
+      height="50"
+      viewBox="0 0 50 50"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      {...props}
+    >
+      <g clipPath="url(#clip0_27_209)">
+        <g filter="url(#filter0_d_27_209)">
+          <rect
+            x="6"
+            y="26.7592"
+            width="19.0955"
+            height="19.0955"
+            transform="rotate(-46.0996 6 26.7592)"
+            fill="#66aaf9"
+          />
+        </g>
+        <rect
+          x="29.0808"
+          y="16.7185"
+          width="4.55198"
+          height="14.3969"
+          transform="rotate(-46.1578 29.0808 16.7185)"
+          fill="#66aaf9"
+        />
+        <rect
+          x="32.3308"
+          y="37.8523"
+          width="4.55256"
+          height="17.5384"
+          transform="rotate(-136.158 32.3308 37.8523)"
+          fill="#66aaf9"
+        />
+      </g>
+      <defs>
+        <filter
+          id="filter0_d_27_209"
+          x="-9.2"
+          y="1.8"
+          width="57.4"
+          height="57.4001"
+          filterUnits="userSpaceOnUse"
+          colorInterpolationFilters="sRGB"
+        >
+          <feFlood floodOpacity="0" result="BackgroundImageFix" />
+          <feColorMatrix
+            in="SourceAlpha"
+            type="matrix"
+            values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0"
+            result="hardAlpha"
+          />
+          <feOffset dy="4" />
+          <feGaussianBlur stdDeviation="7.6" />
+          <feComposite in2="hardAlpha" operator="out" />
+          <feColorMatrix
+            type="matrix"
+            values="0 0 0 0 0.921569 0 0 0 0 0.513726 0 0 0 0 0.0352941 0 0 0 0.07 0"
+          />
+          <feBlend mode="normal" in2="BackgroundImageFix" result="effect1_dropShadow_27_209" />
+          <feBlend mode="normal" in="SourceGraphic" in2="effect1_dropShadow_27_209" result="shape" />
+        </filter>
+        <clipPath id="clip0_27_209">
+          <rect width="50" height="50" rx="25" fill="white" />
+        </clipPath>
+      </defs>
+    </svg>
+  );
+};

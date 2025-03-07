@@ -18,7 +18,7 @@ export async function fetchMultipleRequests(urls: string[]) {
   } catch (error) {
     console.error("Error fetching data:", error);
   }
-}
+};
 
 export const performRequest = async (url: string) => {
   try {
@@ -79,8 +79,6 @@ export const getUserChatList = async (token: string) => {
   }
 };
 
-
-
 export const perform_post = async (url: string, data: any) => {
   try {
     const post_data = await axios.post(`${process.env.server}/${url}`,data,{
@@ -115,3 +113,4 @@ export const perform_get = async (url:string)=>{
   }
   
 }
+

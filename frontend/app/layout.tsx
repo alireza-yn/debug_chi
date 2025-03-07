@@ -4,6 +4,7 @@ import "./globals.css";
 import ClientProvider from "./clientProvider";
 import Header from "@/components/Layout/Header";
 import { Toaster } from "@/components/ui/sonner";
+import { NavigationProgress } from "@/components/Tools/NavigationProgress";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -36,6 +37,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased mx-auto`}
       >
+         <NavigationProgress />
         <ClientProvider>
          
           {children}

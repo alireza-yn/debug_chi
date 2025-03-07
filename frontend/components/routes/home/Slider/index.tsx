@@ -1,6 +1,6 @@
 "use client";
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Navigation, EffectCoverflow } from "swiper/modules";
+import { Navigation, EffectCoverflow, Autoplay } from "swiper/modules";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 
@@ -21,12 +21,12 @@ interface ImageData {
 
 const images: ImageData[] = [
   {
-    alt_name: "کلاس خصوصی",
+    alt_name: "دیباگ",
     image_url: "/images/slider/main/image_1.png",
-    title: "کلاس خصوصی",
+    title: "دیباگ",
     description: `از هر نقطه‌ی دنیا در هر ساعت از روز و شب با خدمات کلاس خصوصی هر باگ یا مشکلی را در حوزه
 برنامه‌نویسی در کنار یک مدرس خبره رفع کن در سریع‌ترین زمان ممکن.`,
-    link_url: "",
+    link_url: "/community/chat",
   },
   {
     alt_name: "کلاس خصوصی",
@@ -34,22 +34,39 @@ const images: ImageData[] = [
     title: "کلاس خصوصی",
     description: `از هر نقطه‌ی دنیا در هر ساعت از روز و شب با خدمات کلاس خصوصی هر باگ یا مشکلی را در حوزه
 برنامه‌نویسی در کنار یک مدرس خبره رفع کن در سریع‌ترین زمان ممکن.`,
-    link_url: "",
+link_url: "/community/chat",
+
   },
   {
-    alt_name: "کلاس خصوصی",
+    alt_name: "کلاس عمومی",
     image_url: "/images/slider/main/image_1.png",
-    title: "کلاس خصوصی",
+    title: "کلاس عمومی",
     description: `از هر نقطه‌ی دنیا در هر ساعت از روز و شب با خدمات کلاس خصوصی هر باگ یا مشکلی را در حوزه
 برنامه‌نویسی در کنار یک مدرس خبره رفع کن در سریع‌ترین زمان ممکن.`,
-    link_url: "",
+link_url: "/community/chat",
+
   },
+  {
+    alt_name: "مشاوره",
+    image_url: "/images/slider/main/image_1.png",
+    title: "مشاوره",
+    description: `از هر نقطه‌ی دنیا در هر ساعت از روز و شب با خدمات کلاس خصوصی هر باگ یا مشکلی را در حوزه
+برنامه‌نویسی در کنار یک مدرس خبره رفع کن در سریع‌ترین زمان ممکن.`,
+link_url: "/community/chat",
+
+  }
 ];
 
 export default function Slider() {
   return (
     <Swiper
       navigation={true}
+      loop={true}
+      // dir="rtl"
+      autoplay={{
+        delay: 5000,
+        disableOnInteraction: false,
+      }}
       effect={"coverflow"}
       slidesPerView={"auto"}
       centeredSlides={true}
@@ -58,8 +75,9 @@ export default function Slider() {
         stretch: 0,
         depth: 100,
         modifier: 2.5,
+        slideShadows: false,
       }}
-      modules={[Navigation, EffectCoverflow]}
+      modules={[Navigation, EffectCoverflow, Autoplay]}
       className="mySwiper h-[500px]"
     >
       {images.map((img, index) => (
@@ -75,7 +93,7 @@ export default function Slider() {
                   zIndex: isActive ? 1 : 0,
                 }}
                 transition={{ duration: 0.3 }}
-                className="relative h-full rounded-lg overflow-hidden"
+                className={`relative h-full  rounded-lg overflow-hidden`}
               >
                 {/* Image with Next.js */}
                 <Image
@@ -85,9 +103,9 @@ export default function Slider() {
                   priority
                   sizes="(max-width: 800px) 100vw, 800px"
                   style={{ objectFit: "cover" }}
-                  className="rounded-lg"
+                  className="rounded-lg shadow-md shadow-amber-500"
                 />
-                
+
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent w-[675px] rounded-lg h-auto mx-auto"></div>
 
@@ -96,7 +114,9 @@ export default function Slider() {
                   <h2 className="text-[37px] font-bold text-amber-500">{img.title}</h2>
                   <p className="text-sm text-gray-300">{img.description}</p>
                 </div>
-                  <Button as={Link} color="warning" className="absolute left-20 bottom-20 ">ورود</Button>
+                <Button as={Link} color="warning" className="absolute left-20 bottom-20" href={img.link_url}>
+                  ورود
+                </Button>
               </motion.div>
             </AnimatePresence>
           )}

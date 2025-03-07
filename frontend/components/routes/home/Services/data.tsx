@@ -3,52 +3,52 @@ import { DebugServiceIcon } from "@/components/ui/icons";
 export const service = [
     {
         name: "مشاوره",
-        icon: "",
-        url: "",
+        icon: "/svg/Rectangle 125.svg",
+        url: "/consult",
     },
     {
-        name: "کوچینگ",
-        icon: "",
-        url: "",
+        name: "مشاوره مدیریت",
+        icon: "/svg/Rectangle 126.svg",
+        url: "/community/chat/",
     },
     {
         name: "کلاس خصوصی",
-        icon: "",
-        url: "",
+        icon: "/svg/Rectangle 127.svg",
+        url: "/private_class",
     },
     {
         name: "کلاس عمومی",
-        icon: "",
-        url: "",
+        icon: "/svg/Rectangle 128.svg",
+        url: "/public_class",
     },
     {
         name: "دیباگ",
         icon: <DebugServiceIcon />,
-        url: "",
+        url: "/debug",
     },
     {
         name: "حل مشکل",
-        icon: "",
-        url: "",
+        icon: "/svg/Rectangle 129.svg",
+        url: "/commuinty/chat",
     },
     {
-        name: "کوچ کارآفرینی",
-        icon: "",
-        url: "",
+        name: "دیباگ سرور",
+        icon: "/svg/Rectangle 130.svg",
+        url: "/community/chat",
     },
     {
         name: "کسب درآمد",
-        icon: "",
+        icon: "/svg/Rectangle 131.svg",
         url: "",
     },
     {
         name: "تیم سازی",
-        icon: "",
-        url: "",
+        icon: "/svg/Rectangle 132.svg",
+        url: "/consult",
     },
     {
-        name: "استخدام",
-        icon: "",
-        url: "",
+        name: "بیشتر",
+        icon: "/svg/Rectangle 125.svg",
+        url: "/community/chat",
     }
 ];

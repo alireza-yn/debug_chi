@@ -12,6 +12,13 @@ import SockectTest from "@/components/Socket/SockectTest";
 import { LinearGradiant } from "@/components/Tools/LinearGradiant";
 import { ThreeDCardDemo } from "@/components/ui/ace/Test";
 import * as React from "react";
+import { service } from "@/components/routes/home/Services/data";
+import { LogoIcon } from "@/components/ui/icons";
+import { Chip } from "@heroui/react";
+import { data } from "@/components/routes/home/ClassInfo/data";
+
+
+
 
 export default function Home() {
   return (
@@ -19,20 +26,11 @@ export default function Home() {
       <div className="max-w-7xl">
         <Slider />
       </div>
-      <Services />
+      <Services data={service} title="خدمات" title_placement="justify-center"/>
       <LiveUsers />
-      <ClassInfo />
+      <ClassInfo data={data} title={"آموزش"} highlight="دیباگچی" special="ویژه مبدتیان"/>
 
-      {/* <ThreeDCardDemo /> */}
-      {/* <Hero />
-      <div className="w-full h-[500px]  dark:bg-violet-950 relative bg-dotted-pattern">
-        <h2 className="text-background absolute top-[40%] right-10 z-50 border rounded-xl w-1/4 h-10 text-center">کلاس های ویژه</h2>
-        <LinearGradiant from="from-green-500" to="to-transparent" />
-        <MainSLider />
-      </div>
-      <NavCard />
-      <Services /> */}
-      {/* <Header /> */}
+     
     </div>
   );
 }
