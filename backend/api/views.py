@@ -7,9 +7,11 @@ from rest_framework.generics import ListAPIView,RetrieveAPIView
 from rest_framework.viewsets import ViewSet
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
+from rest_framework.request import Request
 from rest_framework import status
 from rest_framework.exceptions import NotFound
-
+from rest_framework.views import APIView 
+import requests
 User = get_user_model()
 class UsersByRoleListView(ListAPIView):
     serializer_class = CustomRoleSerializers
@@ -41,6 +43,43 @@ class GetUserInfoByUUID(RetrieveAPIView):
             return User.objects.get(uuid=uuid)
         except User.DoesNotExist:
             raise NotFound(detail="User not found.")
+
+
+class GetUserInfo(APIView):
+    def get(self,request:Request):
+        return request.user    
+        
+    
+    
+    
+
+class TextToSpeech(APIView):
+    def post(self,request:Request):
+        text = request.data.get('text')
+        headers = {
+    'Authorization': 'Bearer sk-7c5371ca2a70048898931c4c448017ad'
+        }
+
+        data = {
+            'text': text,
+            'server': 'farsi',
+            'sound': '2'
+        }
+
+        url = 'https://api.talkbot.ir/v1/media/text-to-speech/REQ'
+
+        response = requests.post(url, headers=headers, data=data)
+
+        if response.status_code == 200:
+            
+            data = response.json()
+            return Response (
+                {
+                    "url":data["response"]['download']
+                }
+            )
+        else:
+            print(f'Error: {response.status_code} - {response.text}')
 
 # class GetUserInfoByUUID(RetrieveAPIView):
 #     serializer_class = UserSerializer

@@ -19,12 +19,12 @@ const SubmitRequest = (props: Props) => {
 
   return (
     <div className="flex flex-col box-border p-4 gap-4">
-      <Button radius="full" className="w-full text-foreground" variant="bordered" color="primary" onPress={()=>{
+      <Button radius="full" className="w-full text-foreground" variant="bordered" color="default" onPress={()=>{
         dispatch(setShowRequest(true))
       }}>
         خدمات
       </Button>
-      <Button radius="full" className="w-full text-foreground" variant="bordered" color="primary" >
+      <Button radius="full" className="w-full text-foreground" variant="bordered" color="default" >
         پرداخت
       </Button>
       <Button radius="full" className="w-full" variant="flat" color="danger" >

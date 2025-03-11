@@ -1,7 +1,8 @@
 "use client";
 import ChatList from "@/components/chat/chatList.tsx";
 import { Main } from "@/components/types/user.types";
-import UserProfile from "@/components/user/Profile";
+import UserProfile from "@/components/ui/Profile";
+import AIBotProfile from "@/components/ui/Profile/aibotprofile";
 import { OpenSideBar } from "@/redux/slices/globalSlice";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { useSearchParams } from "next/navigation";
@@ -9,11 +10,13 @@ import React, { useState } from "react";
 
 type Props = {
   user:Main;
+  url:string;
 };
 
 const CommunityAside = (props: Props) => {
   const searchParams = useSearchParams();
   const mode = searchParams.get("mode");
+  const hide = searchParams.get("hide")
 
   const open = useAppSelector((state: RootState) => state.gloabal.side);
   const dispatch = useAppDispatch();
@@ -29,7 +32,8 @@ const CommunityAside = (props: Props) => {
       } duration-500 transition-all ease-in-out`}
     >
       {mode == "chat" && <ChatList />}
-      {mode == "ai" && <div>Ai</div>}
+      
+      {props.url == "ai" && <AIBotProfile />}
 
       {mode == "profile" && <UserProfile user={props.user} />}
     </aside>

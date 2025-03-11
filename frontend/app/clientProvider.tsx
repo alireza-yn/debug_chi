@@ -11,6 +11,7 @@ import Navigation from "@/components/Layout/Navigation";
 import TestNav from "@/components/Layout/TestNavigation";
 import Login from "@/components/routes/auth/login";
 import SignUp from "@/components/routes/auth/sign-up/sign-up";
+import {ThemeProvider as NextThemesProvider} from "next-themes";
 // List of paths where header and footer should not be shown
 const HIDDEN_LAYOUT_PATHS = [
   "/user/intro",
@@ -40,15 +41,18 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
       {/* <header className="sticky top-0 z-50 bg-background"> */}
       {/* </header> */}
       <HeroUIProvider>
+        <NextThemesProvider attribute="class" defaultTheme="dark">
+
         {/* <TestNav /> */}
-        {showLayout && <Header />}
-        {showLayout && <Navigation />}
+        {/* {showLayout && <Header />} */}
+        {/* {showLayout && <Navigation />} */}
         {children}
         <Login/>
         <SignUp/>
+        </NextThemesProvider>
       </HeroUIProvider>
-      {showLayout && <Footer />}
       {/* </ThemeProvider> */}
+      {/* {showLayout && <Footer />} */}
     </Provider>
   );
 };

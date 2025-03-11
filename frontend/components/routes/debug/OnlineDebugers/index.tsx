@@ -1,22 +1,53 @@
 "use client";
 import { PinContainer } from '@/components/ui/ace/3d-pin'
 import { CardItem, ExpandableCard } from '@/components/ui/ace/evaluation-card';
-import React, { useEffect } from 'react'
+import socket from '@/config/socket-config';
+import React, { useEffect, useState } from 'react'
 
 type Props = {
   data:CardItem[]
-  button_title?:string
+  button_title?:string;
+  title:string
 }
 
 
 
 const OnlineDebugers = (props: Props) => {
-  useEffect(()=>{
 
-  },[])
+  const [onlineUsers,setOnlienUser] = useState<any[]>([])
+
+  useEffect(() => {
+    socket.emit("get_data", "online_debuger");
+  
+    const handleReceivedData = (data: any[]) => {
+      setOnlienUser(data);
+    };
+  
+    const handleNewDebugger = (user: any) => {
+      setOnlienUser((prev) => [...prev, user]);
+
+    };
+  
+    socket.off("recieved_data").on("recieved_data", handleReceivedData);
+    socket.off("new_online_debuger").on("new_online_debuger", handleNewDebugger);
+  
+    return () => {
+      socket.off("recieved_data", handleReceivedData);
+      socket.off("new_online_debuger", handleNewDebugger);
+    };
+  }, [socket]);
+
+  useEffect(() => {
+    console.log("Updated online users: ", onlineUsers);
+  }, [onlineUsers]);
+
+
   return (
-    <section className='w-full  mx-auto min-h-[400px] my-10 flex flex-col items-center justify-around' dir='ltr'>
-      <span>تیتر خود را بنویسید</span>
+    <section className='max-w-7xl  mx-auto min-h-[400px] my-10 flex flex-col items-center justify-around gap-4' dir='ltr'>
+      <div className='w-full flex justify-end items-center  h-14'>
+
+      <span className='text-amber-500 font-blackSans text-lg'>{props.title}</span>
+      </div>
        <ExpandableCard
         cards={props.data}
         className="mb-10"

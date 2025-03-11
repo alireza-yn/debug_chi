@@ -13,6 +13,7 @@ const SendMessageButton = (props: Props) => {
     const token = Cookies.get("token");
     const {login} = useAppSelector((state:RootState)=>state.gloabal)
     const dispatch = useAppDispatch()
+
   
   if (token) {
     return (

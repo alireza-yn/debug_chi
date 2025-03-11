@@ -9,11 +9,11 @@ type Props = {
 
 const ProfileMenuButton = (props: Props) => {
   return (
-    <div className='w-auto px-4 flex gap-2'>
+    // <div className='w-auto px-4 flex gap-2'>
         <MenuButton user={props.user}/>
-        <Button as={Link} variant='flat' size='lg' color='warning' startContent={<ArrowRightSquare />}>داشبورد</Button>
-    </div>
-  )
-}
-
-export default ProfileMenuButton
+        // </div>
+      )
+    }
+    
+    export default ProfileMenuButton
+    {/* <Button as={Link} variant='flat' size='lg' color='warning' startContent={<ArrowRightSquare />}>داشبورد</Button> */}

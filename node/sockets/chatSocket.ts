@@ -110,7 +110,7 @@ export const chatSocket = (io: Server): void => {
 
 
     socket.on("test_message",(msg)=>{
-      socket.emit("new_test_message",msg)
+      io.emit("new_test_message",msg)
     })
 
 

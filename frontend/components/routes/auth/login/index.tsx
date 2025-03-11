@@ -1,5 +1,5 @@
 import { CoustomUserIcon, CustomLoginIcon } from "@/components/ui/icons";
-import { perform_post } from "@/lib/api";
+import { perform_get, perform_post } from "@/lib/api";
 import {
   Drawer,
   DrawerContent,
@@ -14,7 +14,7 @@ import {
 } from "@heroui/react";
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
-import { usePathname } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 import SignUp from "../sign-up/sign-up";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
@@ -24,6 +24,9 @@ export default function Login() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
   const [isLoading, setIsLoading] = useState(false);
   const path = usePathname();
+  const pathParams  = useSearchParams()
+  const mode = pathParams.get("mode")
+  const hide = pathParams.get("hide")
   console.log(path);
   const dispatch = useAppDispatch();
   const { login } = useAppSelector((state: RootState) => state.gloabal);
@@ -81,13 +84,19 @@ export default function Login() {
                 className="w-full max-w-96 flex flex-col min-h-[500px] items-center justify-center shadow-sm shadow-yellow-500  p-5 rounded-lg"
                 onSubmit={async (e) => {
                   e.preventDefault();
+                  Cookies.remove('token')
                   setIsLoading(true);
                   let data = Object.fromEntries(new FormData(e.currentTarget));
                   const response = await perform_post("auths/login/", data);
                   console.log(response);
                   if (response.success) {
                     Cookies.set("token", response.access);
+                    const user_data = await perform_get('auths/user_info/')
+                    if(user_data){
+                      Cookies.set("user_data",JSON.stringify(user_data))
+                    }
                     setIsLoading(false);
+              
                     window.location.href = path;
                   }
                 }}

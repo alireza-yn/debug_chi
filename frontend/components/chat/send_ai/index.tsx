@@ -1,36 +1,24 @@
 "use client";
 import { useAppDispatch, useAppSelector } from "@/redux/store/store";
-import { Button, Textarea } from "@heroui/react";
+import { addToast, Avatar, Button, cn, Textarea } from "@heroui/react";
 import {
+  setAnalyze,
   setContinue,
+  setConversation,
   setDebuggers,
+  setDelay,
+  setLastQuestion,
   showQuestion,
 } from "@/redux/slices/aiSlice";
 import React, { useState } from "react";
 import { perform_get } from "@/lib/api";
 import axios from "axios";
-
-
-
-const AddDescription = () => {
-  return (
-    <div className="flex items-center justify-center">
-      <Textarea 
-      minRows={4}
-      maxRows={6}
-      label="اگر توضیحاتی دارید وارد کنید"
-      
-      />
-    </div>
-  )
-}
-
-
-
-
-
+import { ArrowUp } from "lucide-react";
+import { Main } from "@/components/types/user.types";
+import { useRouter } from "next/navigation";
 
 const ChatWithAi = () => {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const {
     question_id,
@@ -38,14 +26,44 @@ const ChatWithAi = () => {
     selected_category,
     answers,
     disabled,
+    is_last_question,
   } = useAppSelector((state) => state.aiQuestion);
   const [loading, setLoading] = useState(false);
+  const [description, SetDescription] = useState<string>("");
 
   const handleNextQuestion = () => {
+    const message = answers.join(" ");
+
+    dispatch(
+      setConversation({
+        ai: false,
+        message: message,
+      })
+    );
     if (selected_category) {
       const nextQuestionId = question_id + 1;
       if (nextQuestionId < selected_category.questions.length) {
         dispatch(showQuestion(nextQuestionId));
+        dispatch(
+          setDelay({
+            state: true,
+            message: selected_category.questions[nextQuestionId].question,
+          })
+        );
+        dispatch(
+          setConversation({
+            ai: true,
+            message: selected_category.questions[nextQuestionId].question,
+          })
+        );
+        setTimeout(() => {
+          dispatch(
+            setDelay({
+              state: false,
+              message: "",
+            })
+          );
+        }, 1500);
       }
     }
   };
@@ -103,41 +121,51 @@ const ChatWithAi = () => {
   const isLastQuestion =
     selected_category && question_id === selected_category.questions.length - 1;
 
-  return (
-    <div className="w-full flex items-center justify-center mx-auto h-20 mb-10 ">
-      {isLastQuestion ? (
-        <Button
-          isLoading={loading}
-          className="w-2/4 h-full"
-          onPress={handleGemminiRequest}
-        >
-          آنالیز و پیدا کردن
-        </Button>
-      ) : (
-        <Button
-          isDisabled={disabled}
-          color="primary"
-          className="w-2/4 h-full mb-10"
-          onPress={() => {
-            handleNextQuestion();
-            dispatch(setContinue(true));
-          }}
-          disabled={selected_answers.length === 0}
-        >
-          ادامه دادن
-        </Button>
-      )}
-
-      {/* نمایش کاربران آنالیز شده در صورت وجود */}
-      {/* {debuggers.length > 0 && (
-        <div className="mt-4 p-2 border rounded">
-          <h3 className="font-bold">نتایج آنالیز:</h3>
-          <pre className="text-xs">{JSON.stringify(debuggers, null, 2)}</pre>
-        </div>
-      )} */}
-
-    </div>
-  );
+  if (is_last_question) {
+    return null;
+  } else {
+    return (
+      <div className="w-full flex items-center justify-center mx-auto h-20">
+        {isLastQuestion ? (
+          <Button
+            isDisabled={disabled}
+            color="primary"
+            className="w-full h-full"
+            onPress={() => {
+              handleNextQuestion();
+              dispatch(setLastQuestion(!is_last_question));
+              dispatch(
+                setAnalyze({
+                  ai: true,
+                  message: "اگر توضیحاتی دارید وارد کنید ؟",
+                  analyze: true,
+                })
+              );
+              // dispatch(setConversation({
+              //   ai:
+              // }))
+            }}
+            disabled={selected_answers.length === 0}
+          >
+            ادامه دادن
+          </Button>
+        ) : (
+          <Button
+            isDisabled={disabled}
+            color="primary"
+            className="w-full h-full"
+            onPress={() => {
+              handleNextQuestion();
+              dispatch(setContinue(true));
+            }}
+            disabled={selected_answers.length === 0}
+          >
+            ادامه دادن
+          </Button>
+        )}
+      </div>
+    );
+  }
 };
 
 export default ChatWithAi;

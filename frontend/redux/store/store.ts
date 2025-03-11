@@ -8,6 +8,7 @@ import consultReducer from '../slices/consultSlice'
 import feedbackReducer from '../slices/feedbackSlice'
 import globalReduce from '../slices/globalSlice'
 import aiQuestionReducer from '../slices/aiSlice'
+import chatWithUser from "../slices/chatWithUser"
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
@@ -16,7 +17,8 @@ export const store = configureStore({
     chat:chatReducer,
     consult:consultReducer,
     feedback:feedbackReducer,
-    aiQuestion:aiQuestionReducer
+    aiQuestion:aiQuestionReducer,
+    chat_user:chatWithUser
 
   },
 });

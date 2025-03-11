@@ -1,3 +1,4 @@
+"use client"
 import { Main } from "@/components/types/user.types";
 import {
     Dropdown,
@@ -47,21 +48,20 @@ type Props = {
     
     return (
       <Dropdown
-        showArrow
-        classNames={{
-          base: "before:bg-default-200", // change arrow background
-          content: "p-0 border-small border-divider bg-background",
-        }}
+        
+        // classNames={{
+        //   base: "before:bg-default-200", // change arrow background
+        //   content: "p-0 border-small border-divider bg-background",
+        // }}
         radius="sm"
       >
         <DropdownTrigger >
-          <Button variant="flat" color="warning"
-          size="lg"
+          <Button radius="full" isIconOnly variant="flat" color="warning"
+          size="sm"
             startContent={
-                <Avatar isBordered color="warning" name="hello" size="sm" src={user.image_profile} fallback={user.username[0]} />
+                <Avatar isBordered color="warning" name={user.first_name} size="sm" src={user.image_profile} fallback={user.username[0]} />
             }
           >
-           {user.username}
           </Button>
         </DropdownTrigger>
         <DropdownMenu
@@ -87,14 +87,14 @@ type Props = {
               <User
                 avatarProps={{
                   size: "sm",
-                  src: "https://avatars.githubusercontent.com/u/30373425?v=4",
+                  src: user.image_profile,
                 }}
                 classNames={{
                   name: "text-default-600",
                   description: "text-default-500",
                 }}
-                description="@jrgarciadev"
-                name="Junior Garcia"
+                description={user.email}
+                name={user.first_name + " " + user.last_name}
               />
             </DropdownItem>
             <DropdownItem key="dashboard">Dashboard</DropdownItem>

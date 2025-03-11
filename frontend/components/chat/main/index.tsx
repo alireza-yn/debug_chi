@@ -27,10 +27,7 @@ const MainChat = (props: Props) => {
         {props.mode == "chat" ? <ChatContent /> : ""}
       </ScrollArea>
       {props.mode == "ai" ? (
-        <div
-          className="max-w-7xl h-full
-      "
-        >
+        <div className="max-w-7xl h-full">
           <AiContent />
         </div>
       ) : (

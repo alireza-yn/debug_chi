@@ -4,7 +4,7 @@ export const Questions = [
       questions: [
         {
           id: 1,
-          question: "چه نوع وب‌سایتی نیاز دارید؟ (فروشگاهی، شرکتی، شخصی و ...)",
+          question: "چه نوع وب‌سایتی نیاز دارید؟ فروشگاهی، شرکتی، شخصی و ...",
           answers: [
             { id: 1, answer: "فروشگاهی" },
             { id: 2, answer: "شرکتی" },
@@ -65,7 +65,7 @@ export const Questions = [
             { id: 2, answer: "بخش فران اند" },
             { id: 3, answer: "هر دو" }
           ]
-        }
+        },
       ]
     },
     {

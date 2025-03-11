@@ -8,6 +8,7 @@
     side:boolean;
     showRequest:boolean;
     more_request:boolean;
+    find_user:boolean;
   }
 
   const initialState: CounterState = {
@@ -16,7 +17,9 @@
     login:false,
     side:true,
     showRequest:false,
-    more_request:false
+    more_request:false,
+    find_user:false
+
   };
 
   const globalSlice = createSlice({
@@ -43,9 +46,12 @@
       },
       showMoreRequest:(state,action:PayloadAction<boolean>)=>{
         state.more_request = action.payload
+      },
+      setFindUser:(state,action:PayloadAction<boolean>)=>{
+        state.find_user = action.payload
       }
     },
   });
 
-  export const { showLogin, showSignUp, incrementByAmount,OpenSideBar,showMoreRequest,setShowRequest } = globalSlice.actions;
+  export const { showLogin, showSignUp, incrementByAmount,OpenSideBar,showMoreRequest,setShowRequest,setFindUser } = globalSlice.actions;
   export default globalSlice.reducer;

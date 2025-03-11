@@ -18,7 +18,7 @@ export async function fetchMultipleRequests(urls: string[]) {
   } catch (error) {
     console.error("Error fetching data:", error);
   }
-};
+}
 
 export const performRequest = async (url: string) => {
   try {
@@ -81,36 +81,31 @@ export const getUserChatList = async (token: string) => {
 
 export const perform_post = async (url: string, data: any) => {
   try {
-    const post_data = await axios.post(`${process.env.server}/${url}`,data,{
-      headers:headers()
-    })
-    const response = await post_data.data
-    return response
-  } catch (e:any) {
+    const post_data = await axios.post(`${process.env.server}/${url}`, data, {
+      headers: headers(),
+    });
+    const response = await post_data.data;
+    return response;
+  } catch (e: any) {
     return {
-      data :e.response.data,
-      status:e.status
-    }
-
+      data: e.response.data,
+      status: e.status,
+    };
   }
+};
 
-}
-
-
-export const perform_get = async (url:string)=>{
+export const perform_get = async (url: string) => {
+  console.log(headers());
   try {
-    const request = await axios.get(`${process.env.server}/${url}`,{
-      headers:headers()
-    })
-    const response = await request.data
-    return response
-  }
-  catch (e:any) {
+    const request = await axios.get(`${process.env.server}/${url}`, {
+      headers: headers(),
+    });
+    const response = await request.data;
+    return response;
+  } catch (e: any) {
     return {
-      data :e.response.data,
-      status:e.status
-    }
+      data: e.response.data,
+      status: e.status,
+    };
   }
-  
-}
-
+};

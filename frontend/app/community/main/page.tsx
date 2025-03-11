@@ -134,6 +134,7 @@ const cards:CardItem[] = [
       "مریم صادقی متخصص در زمینه دیباگ سیستم‌های تعبیه شده (Embedded Systems) است. با ۱۲ سال تجربه در توسعه و عیب‌یابی نرم‌افزارهای سطح پایین، او مهارت بالایی در شناسایی و رفع مشکلات در سیستم‌های IoT و میکروکنترلرها دارد.\n\nمهارت‌های کلیدی:\n• تسلط بر دیباگ کد C/C++ برای سیستم‌های تعبیه شده\n• تجربه در استفاده از دیباگرهای سخت‌افزاری و JTAG\n• عیب‌یابی مشکلات مربوط به زمان‌بندی و وقفه‌ها\n• بهینه‌سازی مصرف انرژی و عملکرد در سیستم‌های با منابع محدود",
   },
 ]
+
 const page = () => {
   return (
     <main>
@@ -166,7 +167,10 @@ const page = () => {
           </div>
         </div>
       </div>
-      <OnlineDebugers data={cards} button_title="دریافت خدمات" />
+      <OnlineDebugers title="دیباگر های آماده خدمت رسانی" data={cards} button_title="دریافت خدمات" />
+      <OnlineDebugers title="مشاور های آماده خدمت رسانی" data={cards} button_title="دریافت خدمات" />
+      <OnlineDebugers title="مدرسان آماده آماده خدمت رسانی" data={cards} button_title="دریافت خدمات" />
+      <OnlineDebugers title="متخصصین هوش مصنوعی آماده خدمت رسانی" data={cards} button_title="دریافت خدمات" />
       {/* <Services /> */}
     </main>
   );

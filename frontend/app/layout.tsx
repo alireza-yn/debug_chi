@@ -5,6 +5,7 @@ import ClientProvider from "./clientProvider";
 import Header from "@/components/Layout/Header";
 import { Toaster } from "@/components/ui/sonner";
 import { NavigationProgress } from "@/components/Tools/NavigationProgress";
+import { ToastProvider } from "@heroui/react";
 
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
@@ -30,19 +31,17 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-
-  
   return (
-    <html lang="en" dir="rtl" className="dark">
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased mx-auto`}
       >
-         <NavigationProgress />
+        <NavigationProgress />
         <ClientProvider>
-         
+          <ToastProvider placement="top-center" />
           {children}
-          
-          <Toaster position="top-center" richColors/>
+
+          <Toaster position="top-center" richColors />
         </ClientProvider>
       </body>
     </html>

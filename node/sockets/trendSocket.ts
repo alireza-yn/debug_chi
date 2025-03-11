@@ -1,45 +1,45 @@
 import { Server, Socket } from "socket.io";
+import Redis from "ioredis";
 
-import Redis from "ioredis"
-import { channel } from "diagnostics_channel";
+const redis = new Redis();
 
+const trendSocket = (io: Server) => {
+    // ایجاد یک namespace سفارشی به نام "/trend"
+    const trendNamespace = io.of("/trend");
 
-const redis = new Redis()
+    trendNamespace.on("connection", (socket: Socket) => {
+        console.log("User connected in /trend namespace:", socket.id);
 
-const trendSocket = (io:Server)=>{
-    io.on('connection',(socket:Socket)=>{
-        console.log("user connected in trend",socket.id)
-        socket.on('trend',(data)=>{
-            console.log(data)
-            redis.set('hi','hello django')
+        socket.on("trend", (data) => {
+            console.log("Received trend data:", data);
+            redis.set("hi", "hello django");
+        });
 
-            
-        })
+        socket.on("get", async () => {
+            const result = await redis.get("hi");
+            console.log("Stored value:", result);
+            socket.emit("trend_response", result);
+        });
 
-        socket.on('get',(data)=>{
-            redis.get("hi").then(result => console.log(result));
-        })
+        // گوش دادن به پیام‌های Redis
+        redis.subscribe("new_bid");
+        redis.subscribe("new_trend");
 
-
-        redis.subscribe('new_bid')
-        redis.on("message",(channel,message:any)=>{
+        redis.on("message", (channel, message) => {
             if (channel === "new_bid") {
                 console.log("New bid received:", message);
-                io.emit("new_bid_notification", message);
+                trendNamespace.emit("new_bid_notification", message);
             }
-        })
-        redis.subscribe('new_trend')
-        redis.on("message",(channel,message)=>{
-            if (channel === 'new_trend'){
-                console.log("New bid received:", message);
-                io.emit("new_trend_notification", message);
-
+            if (channel === "new_trend") {
+                console.log("New trend received:", message);
+                trendNamespace.emit("new_trend_notification", message);
             }
-        })
-    })
+        });
 
-}
+        socket.on("disconnect", () => {
+            console.log(`User disconnected from /trend namespace: ${socket.id}`);
+        });
+    });
+};
 
-
-
-export default trendSocket
+export default trendSocket;

@@ -34,6 +34,7 @@ export type CardItem = {
   ctaLink: string;
   content: string | React.ReactNode | (() => React.ReactNode);
   url: any;
+  uuid?:string
 };
 
 interface ExpandableCardProps {
@@ -42,6 +43,7 @@ interface ExpandableCardProps {
   sliderClassName?: string;
   cardClassName?: string;
   button_name?: string;
+  uuid?:string;
 }
 
 export function ExpandableCard({
@@ -184,7 +186,7 @@ export function ExpandableCard({
             {cards.map((card) => (
               <motion.div
                 layoutId={`card-${card.title}-${id}`}
-                key={card.title}
+                key={card.uuid}
                 onClick={() => setActive(card)}
                 className={`flex-[0_0_280px] mx-2 p-4 flex flex-col hover:bg-neutral-50 dark:hover:bg-neutral-800 rounded-xl cursor-pointer ${cardClassName}`}
               >
