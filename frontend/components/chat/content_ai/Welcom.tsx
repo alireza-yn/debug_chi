@@ -1,58 +1,187 @@
 "use client";
 
 import type React from "react";
-
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@heroui/react";
-import AiMesage from "./AiMesage"; // Using your existing message component
 import AiContent from ".";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
-import { setConversation, setDelay, setSelectedCategory } from "@/redux/slices/aiSlice";
+import {
+  setAiConversation,
+  setClearAi,
+  setDelay,
+  setSelectedCategory,
+} from "@/redux/slices/aiSlice";
 import { useSearchParams } from "next/navigation";
-import {Questions} from '@/data/AIQuestion'
-import ChatWithAi from "../send_ai";
+import { Questions } from "@/data/AIQuestion";
+import Cookies from "js-cookie";
+import SendMessageButton from "@/components/chatApp/send-button";
+import { ArrowUp, MessageCircleCode } from "lucide-react";
+import { setFindUser } from "@/redux/slices/globalSlice";
+
 const AiWelcome: React.FC = () => {
   const [started, setStarted] = useState(false);
-  const { selected_category } = useAppSelector(
-    (state: RootState) => state.aiQuestion
-  );
-  const searchParams = useSearchParams()
-  const mode = searchParams.get("mode")
+  const [showHelp, setShowHelp] = useState(false);
+
+  const searchParams = useSearchParams();
+  const mode = searchParams.get("mode");
   const dispatch = useAppDispatch();
+  const [message_id, setMessageId] = useState(0);
+  const filterMode: any = Questions.find(
+    (item) => item.category == "starter"
+  );
+  useEffect(() => {
+    const check_start = Cookies.get("started");
+   
+    if (check_start == "true") {
+      setShowHelp(true);
+      dispatch(
+        setAiConversation({
+          ai: true,
+          message: filterMode?.questions[0].question || "",
+          sound: filterMode?.questions[0].sound || "",
+        })
+      );
+      dispatch(
+        setDelay({
+          state: true,
+          message: filterMode?.questions[0].question || "",
+        })
+      );
+      dispatch(setSelectedCategory(filterMode));
+      setTimeout(() => {
+        dispatch(
+          setDelay({
+            state: false,
+            message: "",
+          })
+        );
+      }, 1500);
+    }
+  }, []);
 
   const handleQuestion = () => {
-    const filterMode = Questions.find((item)=>item.category == "starter")
-    console.log(filterMode)
-    
+    Cookies.set("started", "true");
+   
+
     setStarted(true);
     dispatch(
-
-      setConversation({
-        ai:true,
-        message:filterMode?.questions[0].question || ''
+      setAiConversation({
+        ai: true,
+        message: filterMode?.questions[0].question || "",
+        sound: filterMode?.questions[0].sound || "",
       })
-    
-    )
-    dispatch(setDelay({
-      state:true,
-      message:filterMode?.questions[0].question || ''
-    }))
-    dispatch(setSelectedCategory(filterMode))
-   setTimeout(()=>{
-    dispatch(setDelay({
-      state:false,
-      message:''
-    }))
-   },1500)
-    
+    );
+    dispatch(
+      setDelay({
+        state: true,
+        message: filterMode?.questions[0].question || "",
+      })
+    );
+    dispatch(setSelectedCategory(filterMode));
+    setTimeout(() => {
+      dispatch(
+        setDelay({
+          state: false,
+          message: "",
+        })
+      );
+    }, 1500);
+  };
+
+  const showMessage = (id: number) => {
+    setMessageId(id);
+  };
+
+  const showQuestion = (id: number) => {
+    if (id == 2){
+      dispatch(setClearAi())
+      dispatch(setFindUser(false))
+      Cookies.remove('started')
+      setStarted(true);
+      dispatch(   
+        setAiConversation({
+          ai: true,
+          message: filterMode?.questions[0].question || "",
+          sound: filterMode?.questions[0].sound || "",
+        })
+      );
+      dispatch(
+        setDelay({
+          state: true,
+          message: filterMode?.questions[0].question || "",
+        })
+      );
+      dispatch(setSelectedCategory(filterMode));
+      setTimeout(() => {
+        dispatch(
+          setDelay({
+            state: false,
+            message: "",
+          })
+        );
+      }, 1500);
+    }
+
 
   };
 
   if (started) {
+    return <AiContent />;
+  } else if (showHelp) {
     return (
-    <AiContent />
-    )
+      <div className="w-full flex-1 h-full flex flex-col items-center justify-end ">
+        <div className="flex-1 w-full flex flex-col items-center justify-center gap-1">
+          <MessageCircleCode className="stroke-lime-300" size={64} />
+          <span className="text-4xl mb-20">چطور میتونم کمکت کنم؟</span>
+        </div>
+        <div
+          className=" w-[56%] min-h-[150px] grid grid-cols-2 gap-4 mb-4"
+          id="questions"
+        >
+          {[
+            "به مشاوره نیاز دارم",
+            "دیباگینگ میخوام",
+            "به کلاس خصوصی نیاز دارم",
+            "کلاس عمومی میخوام",
+          ].map((item, index) => {
+            return (
+              <div
+                key={index + 1}
+                className="flex items-center justify-center gap-4 bg-[#232035] px-4 box-border rounded-md"
+                onMouseEnter={() => showMessage(index + 1)}
+                onMouseLeave={() => setMessageId(0)}
+              >
+                <div className="flex-1 flex flex-col">
+                  <h2
+                    className={`font-mediumSans ${
+                      message_id == index + 1 ? "text-lime-300" : ""
+                    }`}
+                  >
+                    {item}
+                  </h2>
+                </div>
+                <div
+                  className={`transition-all duration-500 ease-in-out ${
+                    message_id === index + 1
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-2"
+                  }`}
+                >
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    className="bg-lime-300"
+                    startContent={<ArrowUp color="black" />}
+                    onPress={() => showQuestion(index + 1)}
+                  ></Button>
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -93,9 +222,7 @@ const AiWelcome: React.FC = () => {
             </Button>
           </motion.div>
         </div>
-
       </motion.div>
-
     </div>
   );
 };

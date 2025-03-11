@@ -4,18 +4,19 @@ import { addToast, Avatar, Button, cn, Textarea } from "@heroui/react";
 import {
   setAnalyze,
   setContinue,
-  setConversation,
+  setAiConversation,
   setDebuggers,
   setDelay,
   setLastQuestion,
   showQuestion,
 } from "@/redux/slices/aiSlice";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { perform_get } from "@/lib/api";
 import axios from "axios";
 import { ArrowUp } from "lucide-react";
 import { Main } from "@/components/types/user.types";
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 const ChatWithAi = () => {
   const router = useRouter();
@@ -31,31 +32,50 @@ const ChatWithAi = () => {
   const [loading, setLoading] = useState(false);
   const [description, SetDescription] = useState<string>("");
 
+  useEffect(() => {
+    const checkStarted = Cookies.get("started");
+    if (checkStarted === "true") {
+      dispatch(
+        setAiConversation({
+          ai: true,
+          message: "مشخصات شما به روز رسانی شده است",
+        })
+      );
+    }
+  }, []);
+
   const handleNextQuestion = () => {
     const message = answers.join(" ");
 
     dispatch(
-      setConversation({
+      setAiConversation({
         ai: false,
         message: message,
       })
     );
+
     if (selected_category) {
       const nextQuestionId = question_id + 1;
+
       if (nextQuestionId < selected_category.questions.length) {
+        const nextQuestion = selected_category.questions[nextQuestionId];
+
         dispatch(showQuestion(nextQuestionId));
         dispatch(
           setDelay({
             state: true,
-            message: selected_category.questions[nextQuestionId].question,
+            message: nextQuestion.question,
           })
         );
+
         dispatch(
-          setConversation({
+          setAiConversation({
             ai: true,
-            message: selected_category.questions[nextQuestionId].question,
+            message: nextQuestion.question,
+            sound: nextQuestion.sound || "", // اضافه کردن صدا در صورت وجود
           })
         );
+
         setTimeout(() => {
           dispatch(
             setDelay({
@@ -102,15 +122,10 @@ const ChatWithAi = () => {
         }
       );
 
-      console.log("Response Data:", response.data);
-
-      // اصلاح مسیر دسترسی به پاسخ API
       let rawText = response.data.candidates[0].content.parts[0].text;
       rawText = rawText.replace(/```json|```/g, "").trim();
       const parsedDebuggers = JSON.parse(rawText);
-      console.log(parsedDebuggers);
       dispatch(setDebuggers(parsedDebuggers));
-      console.log("Parsed Debuggers:", parsedDebuggers);
     } catch (error) {
       console.error("Error fetching debuggers:", error);
     } finally {
@@ -118,6 +133,18 @@ const ChatWithAi = () => {
     }
   };
 
+  const [hidden, setHidden] = useState(false);
+
+  useEffect(() => {
+    if (Cookies.get("started") === "true") {
+      setHidden(true);
+    }
+  }, []);
+
+
+  if (hidden) return null;
+
+  
   const isLastQuestion =
     selected_category && question_id === selected_category.questions.length - 1;
 
@@ -141,9 +168,6 @@ const ChatWithAi = () => {
                   analyze: true,
                 })
               );
-              // dispatch(setConversation({
-              //   ai:
-              // }))
             }}
             disabled={selected_answers.length === 0}
           >

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { baseObjectInputType } from "zod";
 
 interface AnswerProps {
   id: number;
@@ -10,6 +9,7 @@ interface Conversation {
   ai: boolean;
   message: string;
   analyze?: boolean;
+  sound?: string;
 }
 
 interface Delay {
@@ -64,35 +64,58 @@ const aiSlice = createSlice({
   reducers: {
     addCustomAnswer: (state, action: PayloadAction<AnswerProps>) => {
       state.addedAnswers.push(action.payload);
-      state.selected_answers.push(action.payload.id); // ✅ پیش‌فرض انتخاب‌شده
+      state.selected_answers.push(action.payload.id); 
     },
     clearAddedAnswers: (state) => {
-      state.addedAnswers = []; // ✅ پاک کردن پاسخ‌های اضافه‌شده هنگام تغییر سوال
+      state.addedAnswers = [];
     },
     setContinue: (state, action: PayloadAction<boolean>) => {
       state.disabled = action.payload;
     },
     showQuestion: (state, action: PayloadAction<number>) => {
       state.question_id = action.payload;
-      state.selected_answers = []; // ✅ وقتی سوال تغییر کرد، پاسخ‌ها ریست شوند
+      // وقتی سوال تغییر کرد، پاسخ‌های قبلی ریست شوند
+      state.selected_answers = [];
     },
+
+    // ـــــــــــــــــــــــــــــ تغییر اصلی در این اکشن ـــــــــــــــــــــــــــــ
     toggleAnswer: (state, action: PayloadAction<number>) => {
-      if (state.selected_answers.includes(action.payload)) {
-        state.selected_answers = state.selected_answers.filter(
-          (id) => id !== action.payload
-        );
+      // اگر در سؤال اول از دسته starter هستیم
+      // Question_id === 0 یعنی سوال اول
+      // category.toLowerCase() === "starter" یعنی در دسته‌ی استارتر
+      if (
+        state.question_id === 0 &&
+        state.selected_category?.category.toLowerCase() === "starter"
+      ) {
+        // حالت تک‌گزینه‌ای
+        // اگر همان پاسخ انتخاب‌شده دوباره کلیک شود، حذفش کن
+        if (state.selected_answers.includes(action.payload)) {
+          state.selected_answers = [];
+        } else {
+          // در حالت تک‌گزینه‌ای فقط یکی می‌تواند انتخاب شود
+          state.selected_answers = [action.payload];
+        }
       } else {
-        state.selected_answers.push(action.payload);
+        // در بقیه سوالات، حالت چندگزینه‌ای
+        if (state.selected_answers.includes(action.payload)) {
+          state.selected_answers = state.selected_answers.filter(
+            (id) => id !== action.payload
+          );
+        } else {
+          state.selected_answers.push(action.payload);
+        }
       }
     },
+    // ـــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــــ
+
     addAnswer: (state, action: PayloadAction<string>) => {
+      // اگر جواب وجود داشته باشد، حذف کن
       if (state.answers.includes(action.payload)) {
-        // اگر رشته وجود داشت، آن را حذف کن
         state.answers = state.answers.filter(
           (answer) => answer !== action.payload
         );
       } else {
-        // اگر رشته وجود نداشت، آن را اضافه کن
+        // اگر جواب وجود نداشت، اضافه کن
         state.answers.push(action.payload);
       }
     },
@@ -119,13 +142,12 @@ const aiSlice = createSlice({
     setLastQuestion: (state, action: PayloadAction<boolean>) => {
       state.is_last_question = action.payload;
     },
-    setConversation: (state, action: PayloadAction<Conversation>) => {
+    setAiConversation: (state, action: PayloadAction<Conversation>) => {
       state.conversation.push(action.payload);
     },
     setDelay: (state, action: PayloadAction<Delay>) => {
       state.delay = action.payload;
     },
-
     setDescription: (state, action: PayloadAction<string>) => {
       state.description = action.payload;
     },
@@ -138,40 +160,28 @@ const aiSlice = createSlice({
       state.conversation.push(action.payload);
     },
     setClearAi: (state) => {
-      (state.description = ""),
-        (state.addedAnswers = []),
-        (state.disabled = true),
-        (state.question_id = 0),
-        (state.selected_answers = []),
-        (state.selected_category = "starter"),
-        (state.answer_colors = {}),
-        (state.answers = []),
-        (state.debuggers = []),
-        (state.is_last_question = false),
-        (state.conversation = []),
-        (state.delay = {
-          state: false,
-          message: "",
-        });
+      Object.assign(state, initialState);
     },
   },
 });
 
 export const {
   showQuestion,
-  setClearAi,
   toggleAnswer,
+  setClearAi,
   setSelectedCategory,
   setAnswerColors,
   addAnswer,
   setDebuggers,
   setContinue,
   setLastQuestion,
-  setConversation,
+  setAiConversation,
   setDelay,
   addCustomAnswer,
   clearAddedAnswers,
   addSelectedAnswerToCustom,
   setAnalyze,
+  setDescription,
 } = aiSlice.actions;
+
 export default aiSlice.reducer;

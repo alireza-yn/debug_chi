@@ -67,14 +67,14 @@ const FindUser = (props: Props) => {
         } absolute bottom-0 z-50 w-full bg-transparent box-border transition-all duration-500`}
       >
         <div className="w-full h-full rounded-xl bg-foreground-100 relative">
-          <div className="w-full h-2/4 absolute bottom-0 z-50 flex items-center justify-center box-border p-5">
-            <div className="rounded-xl bg-foreground-200 flex flex-col items-center justify-start gap-4 w-full h-full box-border py-5">
-              <div className="text-right">
-                <span>در حال پیدا کردن برنامه</span>
-                <span className="flex items-center justify-center gap-2">
-                  <Spinner variant="wave" color="primary" />
-                  نویس برای شما هستیم
+          <div className="w-full h-3/5 absolute bottom-0 z-50 flex items-center justify-center box-border p-5">
+            <div className="rounded-xl bg-foreground-100 flex flex-col items-center justify-start gap-4 w-full h-full box-border py-5">
+              <div className="text-center font-mediumSans text-2xl">
+                <span>در حال پیدا کردن برنامه نویس</span>
+                <span className="flex items-center justify-center gap-2  mt-2">
+                   برای شما هستیم
                 </span>
+                  <Spinner variant="wave" color="primary" />
               </div>
               <motion.div
                 className="w-52 h-52 mt-5 cursor-pointer"
@@ -102,8 +102,11 @@ const FindUser = (props: Props) => {
                   variant="flat"
                   color="danger"
                   onPress={() => {
-                    dispatch(setFindUser(false));
-                    dispatch(setClearAi());
+                      dispatch(setClearAi());
+                    //   dispatch(setSelectedCategory("starter"))
+                    window.location.href = '/'
+                      dispatch(setFindUser(false));
+
                   }}
                 >
                   لغو
@@ -113,7 +116,7 @@ const FindUser = (props: Props) => {
           </div>
           <Ripple
             animate={"true"}
-            mainSize={45}
+            mainSize={100}
             top="50%"
             bg_color="bg-gray-500"
           />

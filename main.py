@@ -6,7 +6,7 @@ headers = {
 }
 
 data = {
-    'text': 'مشکل شما در چه حوزه ای است',
+    'text': 'کمکی که نیاز دارید در چه حوزه های است',
     'server': 'farsi',
     'sound': '1'
 }
@@ -22,3 +22,6 @@ if response.status_code == 200:
     
 else:
     print(f'Error: {response.status_code} - {response.text}')
+    
+    
+    

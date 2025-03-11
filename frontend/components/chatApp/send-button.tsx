@@ -18,7 +18,7 @@ const SendMessageButton = (props: Props) => {
   if (token) {
     return (
       <Button
-      disabled={props.disabled}
+        disabled={props.disabled}
         isIconOnly
         size="sm"
         className="bg-lime-300"
