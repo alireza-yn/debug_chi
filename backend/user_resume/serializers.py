@@ -1,6 +1,6 @@
 from rest_framework.serializers import ModelSerializer
 from .models import *
-from programming_language.serializers import ProgrammingLanguageSerializer
+from programming_language.serializers import ProgrammingLanguageSerializer,ProgrammerExpertiseSerializer
 class UserResumeSerializer(ModelSerializer):
     class Meta:
         model = UserResume
@@ -35,6 +35,8 @@ class UserSocialMediaLinksSerializer(ModelSerializer):
         fields = '__all__'
 
 class UserExpertiseSerializer(ModelSerializer):
+    expertise = ProgrammerExpertiseSerializer(many=True,read_only=True)
+    
     class Meta:
         model = UserExpertise
-        fields = '__all__'
+        fields = ['id','expertise','created_at','updated_at']

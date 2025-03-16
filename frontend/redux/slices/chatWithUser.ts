@@ -30,7 +30,7 @@ const initialState: ChatState = {
 };
 
 const aiSlice = createSlice({
-  name: "aiQuestion",
+  name: "chatWithUser",
   initialState,
   reducers: {
     setConversation:(state,action:PayloadAction<Conversation>)=>{

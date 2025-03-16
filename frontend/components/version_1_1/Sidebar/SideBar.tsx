@@ -4,7 +4,7 @@
 "use client";
 
 import { Button, ButtonGroup, Tooltip } from "@heroui/react";
-import { Book, Bug, User } from "lucide-react";
+import { Book, Bug, HandCoins, PackageSearch, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -119,6 +119,8 @@ const linkData = [
   { name: "دیباگ پروژه", path: "/debug", icon: Bug },
   { name: "کلاس خصوصی", path: "/private_class", icon: User },
   { name: "دوره‌های آموزشی", path: "/courses", icon: Book },
+  { name: "اکسپلور", path: "/landing", icon: PackageSearch },
+  { name: "مزایده و مناقصه", path: "/bid", icon: HandCoins },
 ];
 
 import React from "react";
@@ -133,7 +135,7 @@ const SidebarBody = (props: Props) => {
         return (
           <Tooltip content={item.name} placement="right" key={index}>
             <Link href={item.path}>
-              <Button
+              <Button className={`${item.path === pathname ? "scale-125" : '' } hover:scale-125 transition-all duration-500 ease-in-out`}
                 variant={item.path === pathname ? "solid" : "light"}
                 name={item.name}
                 isIconOnly

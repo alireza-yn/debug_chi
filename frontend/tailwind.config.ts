@@ -127,6 +127,8 @@ const config = {
         mediumSans: ['iran-sans-md'],
         blackSans: ['iran-sans-bl'],
         ultraLightSans: ['iran-sans-ul'],
+        Giest:['en-font'],
+        GiestMono:['en-font-mono'],
       },
       animation: {
         "shiny-text": "shiny-text 8s infinite",

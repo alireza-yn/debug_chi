@@ -177,7 +177,7 @@ const ChatWithAi = () => {
           <Button
             isDisabled={disabled}
             color="primary"
-            className="w-full h-full"
+            className="w-2/4 h-full"
             onPress={() => {
               handleNextQuestion();
               dispatch(setContinue(true));

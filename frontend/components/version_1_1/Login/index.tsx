@@ -11,7 +11,7 @@ const Login = () => {
   const [userData, setUserData] = useState<any>(null)
 
   useEffect(() => {
-    const user_data = Cookies.get('user_data')
+    const user_data = localStorage.getItem('user_data')
     if (user_data) {
       setUserData(JSON.parse(user_data))
     }

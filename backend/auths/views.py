@@ -4,7 +4,7 @@ from rest_framework.request import Request
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .serializers import *
-from .serializers_services.userSerializers import UserSerializers as testSerializer
+# from .serializers_services.userSerializers import UserSerializers as testSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
@@ -16,7 +16,7 @@ from .utils import IsStaffPermission
 
 class UserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
-    serializer_class = testSerializer
+    serializer_class = UserSerializer
     # permission_classes=[IsAdminUser,IsStaffPermission]
 
 class GetUserData(RetrieveAPIView):

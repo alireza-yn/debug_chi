@@ -110,9 +110,10 @@ const RequestModal = (props: Props) => {
     // SetshowRequest(false);
     dispatch(setShowRequest(false))
   };
-
+  
   return (
     <div
+    dir="rtl"
       className={`${
         showRequest
           ? "h-min-[340px] w-full bg-[#232035] rounded-tr-lg rounded-tl-lg"

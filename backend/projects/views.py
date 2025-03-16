@@ -1,102 +1,128 @@
-from rest_framework.viewsets import ModelViewSet,ViewSet
+from rest_framework.viewsets import ModelViewSet, ViewSet
 from django.contrib.auth import get_user_model
 from .serializers import *
+from rest_framework import serializers
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, JSONParser
-from .models import EducationPeoject,TenderProject
+from .models import EducationPeoject, TenderProject
 from programming_language.models import ProgrammingLanguage, ProgrammerExpertise
 import json
 from rest_framework.request import Request
 from .service import TenderService
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
+from rest_framework.exceptions import AuthenticationFailed
+
 User = get_user_model()
 import redis
 
-redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
-
-
+redis_client = redis.StrictRedis(
+    host="localhost", port=6379, db=0, decode_responses=True
+)
 
 
 class TenderProjectViewSet(ModelViewSet):
     queryset = TenderProject.objects.all()
     serializer_class = TenderSerializers
+
     def perform_create(self, serializer):
-        trend = serializer.save()
-        
+        trend: TenderProject = serializer.save()
+
         # ارسال اطلاعات مزایده به Redis برای اطلاع‌رسانی به Node.js
         trend_data = {
-            "title":trend.title,
-            "description":trend.description,
-            "start_time":str(trend.start_time),
-            "end_time":str(trend.end_time),
-            "created_by":trend.created_by.user_phone,
-            "start_bid":str(trend.start_bid)
+            "title": trend.title,
+            "description": trend.description,
+            "start_time": str(trend.start_time),
+            "end_time": str(trend.end_time),
+            "created_by": trend.created_by.user_phone,
+            "start_bid": str(trend.start_bid),
         }
         message = json.dumps(trend_data)
         redis_client.publish("new_trend", message)
 
-class BidProjectViewSet(ModelViewSet):
-    queryset = Bid.objects.all()
-    serializer_class = BidSerializers
-    def perform_create(self, serializer):
-        bid = serializer.save()
-        
-        # ارسال اطلاعات مزایده به Redis برای اطلاع‌رسانی به Node.js
-        bid_data = {
-            "bid_id": bid.id,
-            "amount": float(bid.amount),
-            "user_id": bid.user.id,
-            "tender_id": bid.tender.id,
-            "tender_title": bid.tender.title
-        }
-        message = json.dumps(bid_data)
-        redis_client.publish("new_bid", message)
+
+class BidProjectAPIView(APIView, TenderService):
+
+    def post(self, request: Request):
+
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("لطفاً وارد حساب کاربری خود شوید.")
+
+        serializer = BidSerializers(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        success, message = self.submit_bid(serializer, request)
+
+        if not success:
+            raise ValidationError({"success": success, "message": message})
+
+        return Response(
+            {"success": success, "message": message}, status=status.HTTP_201_CREATED
+        )
+
+    def put(self, request: Request):
+
+        if not request.user.is_authenticated:
+            raise AuthenticationFailed("لطفاً وارد حساب کاربری خود شوید.")
+        serializer = BidSerializers(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        success, message = self.update_bid(serializer, request)
+
+        if not success:
+            raise ValidationError({"success": success, "message": message})
+
+        return Response(
+            {"success": success, "message": message}, status=status.HTTP_201_CREATED
+        )
 
 
-class TenderProjectListView(APIView,TenderService):
-    def get(self,request:Request):
-        tender_id = request.query_params.get('tender_id')
+class TenderProjectListView(APIView, TenderService):
+    def get(self, request: Request):
+
+        tender_id = request.query_params.get("tender_id")
         return self.tender_users_list(tender_id)
 
-class ProjectViewSet(ModelViewSet):
-    queryset = EducationPeoject.objects.all().order_by('-created_at')
-    serializer_class = ProjectSerializer
 
+class ProjectViewSet(ModelViewSet):
+    queryset = EducationPeoject.objects.all().order_by("-created_at")
+    serializer_class = ProjectSerializer
 
 
 class CreateProjectAPIView(ViewSet):
     parser_classes = (MultiPartParser, JSONParser)  # برای پشتیبانی از FormData و JSON
 
-    def create(self, request:Request , *args, **kwargs):
+    def create(self, request: Request, *args, **kwargs):
         try:
             # دریافت داده‌ها
-            type_class = request.data.get('type_class')
-            class_session = request.data.get('class_session')
-            educational_heading = request.data.get('educational_heading')
-            price = request.data.get('price')
-            discount = request.data.get('discount')
-            description = request.data.get('description')
-            user_id = request.data.get('user')
+            type_class = request.data.get("type_class")
+            class_session = request.data.get("class_session")
+            educational_heading = request.data.get("educational_heading")
+            price = request.data.get("price")
+            discount = request.data.get("discount")
+            description = request.data.get("description")
+            user_id = request.data.get("user")
 
             # دریافت فایل‌ها
-            educational_heading_file = request.FILES.get('educational_heading_file')
+            educational_heading_file = request.FILES.get("educational_heading_file")
 
             # دریافت آرایه‌ها و تبدیل به لیست Python
             try:
-                language = json.loads(request.data.get('language', '[]'))
-                expertise = json.loads(request.data.get('expertise', '[]'))
+                language = json.loads(request.data.get("language", "[]"))
+                expertise = json.loads(request.data.get("expertise", "[]"))
             except json.JSONDecodeError:
                 return Response(
                     {"error": "Invalid JSON format for language or expertise"},
-                    status=status.HTTP_400_BAD_REQUEST
+                    status=status.HTTP_400_BAD_REQUEST,
                 )
 
             # بررسی موجودیت کاربر
             try:
                 user = User.objects.get(id=user_id)
             except User.DoesNotExist:
-                return Response({"error": "User not found"}, status=status.HTTP_404_NOT_FOUND)
+                return Response(
+                    {"error": "User not found"}, status=status.HTTP_404_NOT_FOUND
+                )
 
             # ایجاد نمونه پروژه
             project = EducationPeoject.objects.create(
@@ -135,10 +161,37 @@ class CreateProjectAPIView(ViewSet):
             # ذخیره نهایی پروژه
             project.save()
 
-            return Response({"message": "Project created successfully", "project_id": project.id}, status=status.HTTP_201_CREATED)
+            return Response(
+                {"message": "Project created successfully", "project_id": project.id},
+                status=status.HTTP_201_CREATED,
+            )
 
         except Exception as e:
             return Response(
-                {"error": str(e)},
-                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+                {"error": str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR
             )
+
+
+class ShowTenderProject(ListAPIView):
+    queryset = TenderProject.objects.all()
+    serializer_class = CustomTenderSerializers
+
+    # def get_object(self):
+    #     return super().get_object()
+
+
+class GetBidTender(APIView):
+    def get(self, request: Request):
+        tenders = TenderProject.objects.all().order_by("-created_at")
+        data = []
+
+        for tender in tenders:
+            bids = Bid.objects.filter(tender=tender)  # دریافت بیدهای مرتبط با هر تندر
+            data.append(
+                {
+                    "tender": CustomTenderSerializers(tender).data,
+                    "bids": BidSerializers(bids, many=True).data,
+                }
+            )
+
+        return Response({"results": data}, status=status.HTTP_200_OK)

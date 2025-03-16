@@ -3,7 +3,6 @@ import localFont from "next/font/local";
 import "./globals.css";
 import ClientProvider from "./clientProvider";
 import Header from "@/components/Layout/Header";
-import { Toaster } from "@/components/ui/sonner";
 import { NavigationProgress } from "@/components/Tools/NavigationProgress";
 import { ToastProvider } from "@heroui/react";
 
@@ -41,7 +40,7 @@ export default function RootLayout({
           <ToastProvider placement="top-center" />
           {children}
 
-          <Toaster position="top-center" richColors />
+          {/* <Toaster position="top-center" richColors /> */}
         </ClientProvider>
       </body>
     </html>

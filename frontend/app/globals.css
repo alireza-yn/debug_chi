@@ -33,6 +33,21 @@
   font-style: normal;
 }
 
+@font-face {
+  font-family: 'en-font';
+  src: url(./fonts/GeistVF.woff);
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'en-font-mono';
+  src: url(./fonts/GeistMonoVF.woff);
+  font-weight: normal;
+  font-style: normal;
+}
+
+
 
 
 body {

@@ -8,8 +8,7 @@ import { Server } from "socket.io";
 import { chatSocket } from "./sockets/chatSocket";
 import trendSocket from "./sockets/trendSocket";
 import { redisHandler } from "./redis/redis";
-import { on } from "stream";
-import { Socket } from "dgram";
+import path from "path";
 import { UserSocket } from "./sockets/userSocket";
 const app: Application = express();
 const PORT: number = 3001;
@@ -30,7 +29,7 @@ app.use(
 // مسیرها
 app.use("/api/users", userRoutes);
 app.use("/api/chat", chatRoutes);
-
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 const server = http.createServer(app);
 
 const io = new Server(server, {

@@ -153,8 +153,8 @@ const Answers: React.FC = () => {
   }
 
   return (
-    <div>
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4" id="button_list">
+    <div className="w-3/4 mx-auto">
+      <div className="grid grid-cols-1 md:grid-cols-4 place-content-between gap-4 box-border w-full" id="button_list">
         {debuggers.length > 0
           ? null
           : [...questionAnswers, ...addedAnswers].map(

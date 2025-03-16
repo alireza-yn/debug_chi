@@ -125,7 +125,7 @@ const Footer = () => {
   };
 
   return (
-    <footer className="w-full mx-auto mt-14 overflow-hidden">
+    <footer className="w-full mx-auto mt-14 overflow-hidden" dir="rtl">
       <motion.div
         className=" bg-gradient-to-br from-amber-50 to-amber-100 dark:from-gray-950 dark:to-amber-950 p-8 shadow-sm"
         variants={backgroundVariants}

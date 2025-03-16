@@ -1,13 +1,48 @@
+"use client";
 import { Button, Tooltip } from '@heroui/react';
 import { PhoneCall, Search, Video, Volume2, VolumeOff } from 'lucide-react';
 import React, { useState } from 'react'
 import { AnyDeskIcon } from '../../ui/icons';
+import { RootState, useAppDispatch, useAppSelector } from '@/redux/store/store';
+import { setMessage } from '@/redux/slices/chatSocketSlice';
+import { v4 } from 'uuid';
+import {socket} from '@/config/socket-config';
+import { Main } from '@/components/types/user.types';
+import { text } from 'stream/consumers';
 
-type Props = {}
+type Props = {
+  reciever:string
+}
 
-const Action = (props: Props) => {
+const Action = ({reciever}: Props) => {
   const [mute, setMute] = useState(false);
+  // const {chat}= useAppSelector((state:RootState)=>state)
+  const dispatch = useAppDispatch()
 
+  
+
+
+  const sendMessage = () => {
+      let user: any;
+      const user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        user = JSON.parse(user_data);
+      }
+    const data = {
+      id:v4(),
+      sender: user.uuid,
+      receiver: reciever,
+      data: {
+        type:"anydesk",
+        text:"12345678911",
+        created_at: String(new Date()),
+        status:"pending",
+      }
+    }
+
+    dispatch(setMessage(data))
+    socket.emit("test_message", data );
+  }
   return (
     <>
      <Tooltip color="primary" content="جستجو...">
@@ -19,7 +54,7 @@ const Action = (props: Props) => {
             startContent={<Search />}
           ></Button>
         </Tooltip>
-        <Tooltip color="primary" content="صدا">
+        {/* <Tooltip color="primary" content="صدا">
           <Button
             isIconOnly
             variant="flat"
@@ -30,7 +65,7 @@ const Action = (props: Props) => {
               setMute(!mute);
             }}
           ></Button>
-        </Tooltip>
+        </Tooltip> */}
         {/* <div className="flex flex-1 justify-end gap-4 items-center"> */}
             
 
@@ -58,6 +93,7 @@ const Action = (props: Props) => {
           <Tooltip color="primary" content="انی دسک">
             <Button
               isIconOnly
+              onPress={sendMessage}
               startContent={<AnyDeskIcon />}
               color="primary"
               variant="flat"

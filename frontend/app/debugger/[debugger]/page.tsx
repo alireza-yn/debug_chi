@@ -8,8 +8,9 @@ const page = async (props: any) => {
     const searchParams = await props.searchParams
 try{
 
-  const request_user_info = await axios.get(`${process.env.server}/api/v1/get-user-info/?user=${param.debugger}`)
+  const request_user_info = await axios.get(`${process.env.server}/api/v1/user-info/${param.debugger}`)
   const response = await request_user_info.data
+  console.log(response,"eqwd")
   
 
   return (
@@ -20,6 +21,7 @@ try{
   )
   
 }catch(error){
+  console.log(error)
   return <div>user not found</div>
 }
 }

@@ -1,3 +1,4 @@
+"use client";
 import TopChat from "@/components/chat/header";
 import Action from "@/components/chat/header/action";
 import SubmitRequest from "@/components/Tools/Actions/submit-request";
@@ -13,7 +14,23 @@ type Props = {
 
 const skills = ["python", "typescript", "javascript", "REST API", "NGINX"];
 
+
+
+
+
 const UserProfile = ({ user }: Props) => {
+
+  const user_expertise = ()=>{
+ 
+    if (user.user_expertise[0].expertise){
+      return user.user_expertise[0].expertise
+    }
+    else{
+      return []
+    }
+  }
+
+
 
   return (
     <div className="h-full w-full box-border p-2">
@@ -45,17 +62,17 @@ const UserProfile = ({ user }: Props) => {
               </Chip>
             );
           })}
-          {user.user_expertise.map((item, index) => {
+          {user_expertise().map((item, index) => {
             return (
               <Chip key={index} color="default" variant="flat" size="sm">
-                {item}
+                {item.title}
               </Chip>
             );
           })}
         </div>
       </div>
       <div className="flex items-center gap-4 justify-center flex-1">
-        <Action />
+        {/* <Action /> */}
       </div>
 
       <SubmitRequest />

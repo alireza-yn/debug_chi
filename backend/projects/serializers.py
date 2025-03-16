@@ -1,6 +1,9 @@
-from rest_framework.serializers import ModelSerializer,SerializerMethodField
-from .models import EducationPeoject,TenderProject,Bid
-from programming_language.serializers import ProgrammingLanguageSerializer,ProgrammerExpertiseSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
+from .models import EducationPeoject, TenderProject, Bid
+from programming_language.serializers import (
+    ProgrammingLanguageSerializer,
+    ProgrammerExpertiseSerializer,
+)
 from rest_framework.exceptions import ValidationError
 from auths.serializers import CustomUserSerializer
 
@@ -14,6 +17,7 @@ class ProjectSerializer(ModelSerializer):
     language = ProgrammingLanguageSerializer(many=True)
     expertise = ProgrammerExpertiseSerializer(many=True)
     user = CustomUserSerializer(read_only=True)
+
     class Meta:
         model = EducationPeoject
         fields = [
@@ -21,7 +25,7 @@ class ProjectSerializer(ModelSerializer):
             "type_class",
             "class_session",
             "educational_heading",
-            'description',
+            "description",
             "educational_heading_file",
             "price",
             "discount",
@@ -33,18 +37,53 @@ class ProjectSerializer(ModelSerializer):
             "is_deleted",
             "language",
             "expertise",
-            "user"
+            "user",
         ]
-           
+
+
 class TenderSerializers(ModelSerializer):
+
     class Meta:
         model = TenderProject
-        fields = '__all__'
+        fields = "__all__"
         # depth = 1
 
 
 class BidSerializers(ModelSerializer):
+    user = CustomUserSerializer(read_only=True)
+    
     class Meta:
         model = Bid
-        fields = '__all__'
-     
+        fields = ['id','user','amount','created_at','updated_at','tender']
+
+
+class CustomTenderSerializers(ModelSerializer):
+    created_by = CustomUserSerializer()
+
+    class Meta:
+        model = TenderProject
+        fields = [
+            'id',
+            "created_by" ,
+            "active",
+            "title",
+            "description",
+            "image",
+            "file",
+            "start_time",
+            "end_time",
+            "start_bid",
+            "highest_bid",
+            "winner",
+            "language",
+            "skills",
+        ]
+        depth = 2
+
+
+class CustomBidSerializers(ModelSerializer):
+    user = CustomUserSerializer()
+
+    class Meta:
+        model = Bid
+        fields = ["id", "user", "amount"]

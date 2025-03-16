@@ -40,28 +40,32 @@ class EducationPeoject(models.Model):
 
 
 class TenderProject(Timestamp):
-    title = models.CharField(max_length=255) 
+    active = models.BooleanField(default=False)
+    title = models.CharField(max_length=255)    
     description = models.TextField() 
+    image = models.ImageField(upload_to='static/tender/image',blank=True,null=True)
+    file = models.FileField(upload_to='static/tender/files',blank=True,null=True)
     start_time = models.DateTimeField()  
     end_time = models.DateTimeField()  
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_tenders') 
-    start_bid = models.DecimalField(max_digits=10,decimal_places=2,default=0) 
-    highest_bid = models.DecimalField(max_digits=10, decimal_places=2, default=0)  
+    start_bid = models.IntegerField(default=0) 
+    highest_bid = models.IntegerField(default=0)  
     winner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='won_tenders')  # برنده نهایی
     language = models.ManyToManyField('programming_language.ProgrammingLanguage',related_name='tender_language')
     skills = models.ManyToManyField('programming_language.ProgrammerSkill',related_name='tender_skill')
     
     
+    def save(self, *args, **kwargs):
+        """ اطمینان از اینکه مقدار highest_bid برابر با start_bid خواهد بود در زمان ایجاد """
+        if not self.pk:  # فقط هنگام ایجاد مقداردهی کن، نه هنگام آپدیت
+            self.highest_bid = self.start_bid
+        
+        super().save(*args, **kwargs)  # ذخیره مدل
+
     def __str__(self):
         user = self.created_by
-        user_name = f"{user.first_name} {user.last_name}".strip()
-        
-        if not user_name:  # اگر نام و نام خانوادگی ثبت نشده بود
-            user_name = user.email or getattr(user, 'phone_number', 'Unknown User')
-
+        user_name = user.get_full_name().strip() or user.email or getattr(user, 'phone_number', 'Unknown User')
         return f"{self.title} created by {user_name}"
-    
-    
     
 class Bid(Timestamp):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='bids')  

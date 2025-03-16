@@ -8,7 +8,7 @@ from .views import *
 from user_resume.views import *
 from projects.views import *
 from ConsultHub.views import *
-
+from questions.views import *
 
 
 
@@ -42,7 +42,7 @@ router.register(r'programmer-exprertise', ProgrammerExpertiseViewSet)
 router.register(r'create_project', ProjectViewSet,basename="project_created")
 router.register(r'new_project', CreateProjectAPIView,basename="new_project")
 router.register(r'tender_project',TenderProjectViewSet,basename='tender_project')
-router.register(r'bid_project',BidProjectViewSet,basename='bid_project')
+# router.register(r'bid_project',BidProjectViewSet,basename='bid_project')
 
 #endregion
 
@@ -59,6 +59,13 @@ router.register(r'debug-hub', DebuggerHubView,basename="debug-hub")
 #endregion
 
 
+
+
+#region Question
+router.register(r'questions',QuestionView,basename='پرسش سوال')
+router.register(r'category',CategoryView,basename='دسته بندی')
+#endregion
+
 urlpatterns = [
     path('v1/',include(router.urls)),
     path('v1/user-by-role/',UsersByRoleListView.as_view(),name='user-by-role'),
@@ -70,7 +77,7 @@ urlpatterns = [
     path('schema/swagger-ui/', SpectacularSwaggerView.as_view(url_name='schema'), name='swagger-ui'),
     path('schema/redoc/', SpectacularRedocView.as_view(url_name='schema'), name='redoc'),
     path('v1/text_to_speech/',TextToSpeech.as_view(),name="text_to_speech"),
-     #region  ConsultantAPI
+    #region  ConsultantAPI
     path('v1/programming-list/',ProgrammingLanguageList.as_view(),name='programming-list'),
     #endregion 
     
@@ -83,6 +90,10 @@ urlpatterns = [
     
     #region TenderProject
     path('v1/tender/',TenderProjectListView.as_view(),name='tender_info'),
+    path('v1/tender_list/',ShowTenderProject.as_view(),name='tender_list'),
+    path('v1/bids_tender_list/',GetBidTender.as_view(),name='bid_tender_list'),
+    path('v1/submit_bid/',BidProjectAPIView.as_view(),name='submit_bid'),
+    
     #endregion
     
     

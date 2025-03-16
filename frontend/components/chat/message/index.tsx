@@ -2,7 +2,7 @@ import { Avatar, Button } from "@heroui/react";
 import React, { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { RootState, useAppSelector } from "@/redux/store/store";
-import { ArrowRightIcon, Check, Volume1, VolumeX } from "lucide-react";
+import { ArrowRightIcon, Check, Copy, Volume1, VolumeX } from "lucide-react";
 import Cookies from "js-cookie";
 import { Main } from "@/components/types/user.types";
 
@@ -17,7 +17,7 @@ const Message = (props: Props) => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
   const [user_data, setUserData] = useState<Main>();
-  const user = Cookies.get("user_data");
+  const user = localStorage.getItem("user_data");
 
   useEffect(() => {
     if (user) {
@@ -103,7 +103,7 @@ const Message = (props: Props) => {
   if (props.person) {
     return (
       <div
-        className="w-full h-auto box-border p-4 flex flex-col items-end"
+        className="w-full h-auto box-border p-4 flex flex-col justify-center items-end"
         dir="rtl"
       >
         {delay.state && delay.message === props.message ? (
@@ -112,7 +112,57 @@ const Message = (props: Props) => {
           </div>
         ) : (
           <>
-            <div className="flex gap-2 items-center flex-row-reverse">
+            <div
+              className="w-full flex flex-col h-auto box-border p-4 gap-4 font-iranSans"
+              dir="ltr"
+            >
+              <div className="flex gap-2 items-center h-auto">
+                {/* <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0"> */}
+                <Avatar
+                  src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnhASaYjeDzOkzQX9Q3UCafoh61EfV3mtVkw&s"
+                  name="Name"
+                  size="sm"
+                />
+                <span>debugchi.io</span>
+              </div>
+
+              {/* </div> */}
+              <div
+                className={`flex flex-col gap-2 relative max-w-96 font-sans rounded-2xl bg-gray-100 dark:bg-stone-800 text-foreground-800 text-right px-4 py-2`}
+              >
+                <span className="break-words whitespace-pre-wrap font-mediumSans">
+                  {props.message}
+                </span>
+              </div>
+              <div className="flex gap-2">
+                {props.sound && (
+                  <div>
+                    <Button
+                      isIconOnly
+                      startContent={
+                        isPlaying ? (
+                          <VolumeX className="text-stone-500" />
+                        ) : (
+                          <Volume1 className="text-stone-500" />
+                        )
+                      }
+                      size="sm"
+                      variant="light"
+                      onPress={togglePlayPause}
+                    ></Button>
+                  </div>
+                )}
+                <Button
+                  startContent={<Copy size={16} />}
+                  isIconOnly
+                  variant="light"
+                  size="sm"
+                  className="text-stone-500"
+                ></Button>
+              </div>
+            </div>
+
+            {/* <div className="flex gap-2 items-center flex-row-reverse">
               <Avatar
                 src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSnhASaYjeDzOkzQX9Q3UCafoh61EfV3mtVkw&s"
                 name="Name"
@@ -156,18 +206,7 @@ const Message = (props: Props) => {
                   ))}
                 </motion.div>
               )}
-            </div>
-            {props.sound && (
-              <div>
-                <Button
-                  isIconOnly
-                  startContent={isPlaying ? <VolumeX /> : <Volume1 />}
-                  size="sm"
-                  variant="light"
-                  onPress={togglePlayPause}
-                ></Button>
-              </div>
-            )}
+            </div> */}
           </>
         )}
       </div>
@@ -175,21 +214,20 @@ const Message = (props: Props) => {
   } else {
     return (
       <div className="w-full box-border p-4 flex flex-col rounded-lg" dir="rtl">
-        <div className="min-w-10 flex flex-col p-4 box-border rounded-lg bg-[#2b2c42] border">
+        <div className="min-w-10 flex flex-col p-4 box-border rounded-lg  ">
           <div className="flex gap-2 items-center">
             <Avatar
-              src={user_data?.image_profile || ""}
-              name={user_data?.first_name}
+              src={user_data && user_data?.image_profile || ""}
+              name={user_data &&  user_data?.first_name || "کاربر"}
               size="sm"
             />
             <span>
-              {user_data?.first_name + " " + user_data?.last_name ||
-                "کاربر عادی"}
+              { user_data && user_data?.first_name + " " + user_data?.last_name ||"کاربر عادی"}
             </span>
           </div>
           <div className="w-max box-border min-h-14 pr-10 rounded-bl-full flex gap-4 items-center">
             <motion.div
-              className="flex flex-wrap gap-x-1 justify-end"
+              className="flex flex-wrap gap-x-1 justify-end bg-stone-800 rounded-xl max-w-96 px-4 py-2"
               variants={container}
               initial="hidden"
               animate="visible"
@@ -204,7 +242,7 @@ const Message = (props: Props) => {
                 </motion.span>
               ))}
             </motion.div>
-            <Check size={20} />
+            {/* <Check size={20} /> */}
           </div>
         </div>
       </div>

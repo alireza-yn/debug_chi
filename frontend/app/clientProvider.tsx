@@ -6,12 +6,12 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import { store } from "@/redux/store/store";
 import { usePathname } from "next/navigation";
 import { Provider } from "react-redux";
-import { HeroUIProvider } from "@heroui/react";
+import { HeroUIProvider, ToastProvider } from "@heroui/react";
 import Navigation from "@/components/Layout/Navigation";
 import TestNav from "@/components/Layout/TestNavigation";
 import Login from "@/components/routes/auth/login";
 import SignUp from "@/components/routes/auth/sign-up/sign-up";
-import {ThemeProvider as NextThemesProvider} from "next-themes";
+import { ThemeProvider as NextThemesProvider } from "next-themes";
 // List of paths where header and footer should not be shown
 const HIDDEN_LAYOUT_PATHS = [
   "/user/intro",
@@ -19,7 +19,7 @@ const HIDDEN_LAYOUT_PATHS = [
   "user/dashboard",
   "community/chat",
   "assistent/request",
-  "community/chat/c"
+  "community/chat/c",
 ] as const;
 
 const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -42,13 +42,12 @@ const ClientProvider: React.FC<{ children: React.ReactNode }> = ({
       {/* </header> */}
       <HeroUIProvider>
         <NextThemesProvider attribute="class" defaultTheme="dark">
-
-        {/* <TestNav /> */}
-        {/* {showLayout && <Header />} */}
-        {/* {showLayout && <Navigation />} */}
-        {children}
-        <Login/>
-        <SignUp/>
+          {/* <TestNav /> */}
+          {/* {showLayout && <Header />} */}
+          {/* {showLayout && <Navigation />} */}
+          {children}
+          <Login />
+          <SignUp />
         </NextThemesProvider>
       </HeroUIProvider>
       {/* </ThemeProvider> */}

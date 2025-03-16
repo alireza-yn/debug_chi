@@ -60,6 +60,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name="شناسه یکتا")
     intro_completed = models.BooleanField(default=False)
     digital_wallet = models.IntegerField(default=0,verbose_name='کیف پول دیجیتال')
+    blocked_wallet = models.IntegerField(default=0,verbose_name="اعتبار بلاک شده")
     user_bio = models.CharField(max_length=1000, blank=True,null=True)
     debugger_bio = models.CharField(max_length=1000, blank=True,null=True)
     user_score = models.IntegerField(default=0,validators=[MaxValueValidator(5,"امتیاز نمیتواند بیشتر از 5 باشد")])

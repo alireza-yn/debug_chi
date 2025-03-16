@@ -1,3 +1,4 @@
+import { Expertise } from '@/components/types/user.types';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Star, User } from 'lucide-react';
 import React from 'react'
@@ -5,7 +6,7 @@ import React from 'react'
 type Props = {
     name:string,
     image:string,
-    speciality:string[],
+    speciality:Expertise[],
     user_score:number
 }
 const StarRating = ({ score }: { score: number }) => {
@@ -49,7 +50,11 @@ const ProfileWithImageCard = ({name,image,speciality,user_score}: Props) => {
       </div>
       
       <p className="text-sm text-gray-500 mt-2">
-        {speciality.map((exp) => exp)}
+        {speciality.map((exp) => {
+          return (
+            <span key={exp.id}>{exp.title}</span>
+          )
+        })}
       </p>
     </div>
     </div>

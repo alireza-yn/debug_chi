@@ -49,11 +49,11 @@ const AIBotProfile = () => {
 
       {/* بخش اقدامات (Actions) */}
       <div className="flex items-center gap-4 justify-center flex-1">
-        <Action />
+        {/* <Action /> */}
       </div>
 
       {/* دکمه ارسال درخواست */}
-      <SubmitRequest />
+      {/* <SubmitRequest /> */}
     </div>
   );
 };

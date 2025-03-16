@@ -1,5 +1,6 @@
 import { io } from "socket.io-client";
 
-const socket = io(process.env.nodejs_server)
+export const socket = io(process.env.nodejs_server)
 
-export default socket
+export const trend_socket = io(`${process.env.nodejs_server}/trend`)
+

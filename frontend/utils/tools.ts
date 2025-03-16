@@ -35,6 +35,8 @@ export const formatCurrency = (number: number) => {
 
 
 
+
+
 export const formatTimeAgo = (timestamp: string) => {
   return formatDistanceToNow(timestamp, { addSuffix: true,locale: faIR });
 };

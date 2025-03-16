@@ -12,6 +12,10 @@ import {
   useDisclosure,
 } from "@heroui/react";
 import { Code } from "lucide-react";
+import { useAppDispatch } from "@/redux/store/store";
+import { v4 } from "uuid";
+import { setMessage } from "@/redux/slices/chatSocketSlice";
+import { socket } from "@/config/socket-config";
 
 // Full list of Monaco-supported languages
 const languages = [
@@ -95,12 +99,34 @@ const fontSizes = [
   { key: "52", label: "52px" },
 ];
 
-const SendCode = () => {
+type Props = {
+  sender:string;
+  reciever:string;
+}
+
+const SendCode = ({sender,reciever}:Props) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [code, setCode] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [fontSize, setFontSize] = useState(18);
+  const dispatch = useAppDispatch();
+  const sendMessage = () => {
+    const data = {
+      id:v4(),
+      sender: sender,
+      receiver: reciever,
+      data: {
+        type:"code",
+        text: code,
+        language:language,
+        created_at: String(new Date()),
+        status:"pending",
+      }
+    }
 
+    dispatch(setMessage(data))
+    socket.emit("test_message", data );
+  };
   return (
     <>
       <Button
@@ -168,11 +194,12 @@ const SendCode = () => {
               </DrawerBody>
 
               <DrawerFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
+                
+                <Button color="primary" variant="flat" onPress={sendMessage}>
+                  ارسال کد
                 </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
+                <Button color="primary" variant="flat" onPress={onClose}>
+                  بستن
                 </Button>
               </DrawerFooter>
             </>

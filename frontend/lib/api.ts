@@ -1,5 +1,6 @@
 import axios from "axios";
 import Cookies from "js-cookie";
+import { cookies } from "next/headers";
 
 export const headers = () => {
   if (Cookies.get("token") !== undefined) {
@@ -93,9 +94,22 @@ export const perform_post = async (url: string, data: any) => {
     };
   }
 };
+export const perform_update = async (url: string, data: any) => {
+  try {
+    const post_data = await axios.put(`${process.env.server}/${url}`, data, {
+      headers: headers(),
+    });
+    const response = await post_data.data;
+    return response;
+  } catch (e: any) {
+    return {
+      data: e.response.data,
+      status: e.status,
+    };
+  }
+};
 
 export const perform_get = async (url: string) => {
-  console.log(headers());
   try {
     const request = await axios.get(`${process.env.server}/${url}`, {
       headers: headers(),

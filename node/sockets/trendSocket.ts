@@ -9,7 +9,9 @@ const trendSocket = (io: Server) => {
 
     trendNamespace.on("connection", (socket: Socket) => {
         console.log("User connected in /trend namespace:", socket.id);
-
+        socket.emit(socket.id,{
+            msg:"coonected_successfully"
+        })
         socket.on("trend", (data) => {
             console.log("Received trend data:", data);
             redis.set("hi", "hello django");

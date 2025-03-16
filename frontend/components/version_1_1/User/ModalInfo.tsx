@@ -13,25 +13,36 @@ import {
   Tooltip,
   Avatar,
 } from "@heroui/react";
-import { Music, PictureInPicture, Video } from "lucide-react";
+import { LogOut, Music, PictureInPicture, Video } from "lucide-react";
 import Image from "next/image";
 import Login from "../Login";
-
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 type Props = {
   user: Main;
 };
 
 export default function ModalInfo({ user }: Props) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
-
+  const router = useRouter();
   return (
     <>
       <Tooltip
         placement="right"
         content={user.first_name + " " + user.last_name}
       >
-        <Button size="lg" variant="light" radius="full" isIconOnly onPress={onOpen}>
-          <Avatar src={user.image_profile || ""} name={user.first_name} />
+        <Button
+          size="lg"
+          variant="light"
+          radius="full"
+          isIconOnly
+          onPress={onOpen}
+        >
+          <Avatar
+            src={`${process.env.server}/${user.image_profile}`}
+            name={"user.first_name"}
+            fallback={user.first_name}
+          />
         </Button>
       </Tooltip>
       <Drawer
@@ -72,14 +83,16 @@ export default function ModalInfo({ user }: Props) {
                   </div>
                   <div className="flex flex-row-reverse items-end gap-4  absolute right-24 -bottom-36  min-w-40 h-auto p-4 box-border">
                     <Image
-                      src="/img.jpg"
+                      src={`${process.env.server}/${user.image_profile}`}
                       alt="avatar"
                       width={200}
                       height={200}
                       className="rounded-full aspect-square border-8 border-[#18181a]"
                     />
                     <div className="flex-1 flex flex-col justify-center items-end gap-4">
-                      <h3 className="text-xl font-blackSans">{user.username + " " + user.first_name}</h3>
+                      <h3 className="text-xl font-blackSans">
+                        {user.username + " " + user.first_name}
+                      </h3>
                       <div className="w-2/4" dir="rtl">
                         <p className="text-foreground-500">
                           🚀 برنامه‌نویس و حل‌کننده مشکلات کدنویسی، متخصص در
@@ -144,6 +157,20 @@ export default function ModalInfo({ user }: Props) {
                 </div>
               </DrawerBody>
               <DrawerFooter>
+                <div className="flex-1 flex items-center justify-start">
+                  <Button
+                  variant="solid"
+                  color="danger"
+                  startContent={<LogOut />}
+                    onPress={() => {
+                      localStorage.removeItem("user_data");
+                      Cookies.remove("token");
+                      window.location.href = "/"
+                    }}
+                  >
+                    خروج
+                  </Button>
+                </div>
                 <Button color="danger" variant="light" onPress={onClose}>
                   Close
                 </Button>

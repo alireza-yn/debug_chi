@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
 import random
-from .serializers import RegisterSerializers
+from .serializers import RegisterSerializers,UserSerializer
 from rest_framework.request import Request
 import redis
 import json
@@ -117,7 +117,7 @@ class UserService:
     def user_login(self, request: Request):
         username = request.data.get("username")
         password = request.data.get("password")
-        print(username,password)
+        
         
         if not password:
             return Response(
@@ -129,7 +129,6 @@ class UserService:
         Q(username=username) | Q(email=username) | Q(user_phone=username)
             ).first()
 
-        print(user.email)
 
         if user and user.check_password(password):
             refresh = RefreshToken.for_user(user)
@@ -138,6 +137,7 @@ class UserService:
                     "success": True,
                     "refresh": str(refresh),
                     "access": str(refresh.access_token),
+                    "user":UserSerializer(user).data
                 },
                 status=status.HTTP_200_OK,
             )

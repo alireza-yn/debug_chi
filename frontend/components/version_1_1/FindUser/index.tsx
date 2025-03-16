@@ -1,7 +1,7 @@
 "use client";
 import { Ripple } from "@/components/ui/magicUI/Ripple";
 import { useAppDispatch, useAppSelector } from "@/redux/store/store";
-import { Button, Spinner } from "@heroui/react";
+import { Avatar, Button, Spinner } from "@heroui/react";
 import { useState, useRef, useEffect } from "react";
 import Lottie from "lottie-react";
 import coffee_1 from "@/public/lottie/coffee_1.json";
@@ -10,6 +10,10 @@ import { motion, AnimatePresence } from "framer-motion";
 import { setFindUser } from "@/redux/slices/globalSlice";
 import { useRouter } from "next/navigation";
 import { setClearAi, setSelectedCategory } from "@/redux/slices/aiSlice";
+import { Main } from "@/components/types/user.types";
+import { perform_get } from "@/lib/api";
+import { setUser } from "@/redux/slices/userSlice";
+import { response } from "express";
 
 type Props = {};
 type LottieAnimation = Record<string, any>;
@@ -17,11 +21,25 @@ type LottieAnimation = Record<string, any>;
 const FindUser = (props: Props) => {
   const { find_user } = useAppSelector((state) => state.gloabal);
   const dispatch = useAppDispatch();
+  const [users, setUsers] = useState<any>([{
+    image_profile:"",
+    username:""
+  }]);
   const [currentAnimation, setCurrentAnimation] =
     useState<LottieAnimation>(coffee_2);
   const router = useRouter();
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
+  // const getUsers = async () => {
+  //   const response = await perform_get("auths/register/");
+  //   if (response) {
+  //     setUser(response);
+  //   }
+  // };
+  // console.log(response)
+  // useEffect(()=>{
+  //   getUsers()
+  // },[])
   useEffect(() => {
     if (find_user) {
       const timer = setTimeout(() => {
@@ -72,9 +90,9 @@ const FindUser = (props: Props) => {
               <div className="text-center font-mediumSans text-2xl">
                 <span>در حال پیدا کردن برنامه نویس</span>
                 <span className="flex items-center justify-center gap-2  mt-2">
-                   برای شما هستیم
+                  برای شما هستیم
                 </span>
-                  <Spinner variant="wave" color="primary" />
+                <Spinner variant="wave" color="primary" />
               </div>
               <motion.div
                 className="w-52 h-52 mt-5 cursor-pointer"
@@ -102,11 +120,9 @@ const FindUser = (props: Props) => {
                   variant="flat"
                   color="danger"
                   onPress={() => {
-                      dispatch(setClearAi());
-                    //   dispatch(setSelectedCategory("starter"))
-                    window.location.href = '/'
-                      dispatch(setFindUser(false));
-
+                    dispatch(setClearAi());
+                    window.location.href = "/";
+                    dispatch(setFindUser(false));
                   }}
                 >
                   لغو
@@ -114,7 +130,18 @@ const FindUser = (props: Props) => {
               </div>
             </div>
           </div>
+          <div>
+
+          {
+            users.map((item:any)=>{
+              return(
+                <Avatar key={item.username} src={item.image_profile} name={item.username}/>
+              )
+            })
+          }
+          </div>
           <Ripple
+
             animate={"true"}
             mainSize={100}
             top="50%"

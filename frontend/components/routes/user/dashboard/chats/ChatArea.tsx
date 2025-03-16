@@ -12,7 +12,7 @@ import MessageItem from './MessageItem';
 import FileUpload from './FileUpload';
 import VoiceRecorder from './VoiceRecorder';
 import CodeSnippetDialog from './CodeSnippetDialog';
-import socket from '@/config/socket-config';
+import {socket} from '@/config/socket-config';
 import { toBase64 } from '@/utils/tools';
 
 type Props = {
@@ -37,14 +37,14 @@ export default function ChatArea({ uuid }: Props) {
 
   useEffect(() => {
     socket.emit('get_room', { debuger: uuid });
-    socket.on('room_list', (data) => {
+    socket.on('room_list', (data:any) => {
       console.log(data);
       dispatch(setChatRooms(data));
       data.forEach((room: any) => {
         socket.emit('join_room', { room_id: room.room_id, user_id: uuid });
       });
     });
-    socket.on('receive_message', (data) => {
+    socket.on('receive_message', (data:any) => {
       dispatch(addMessage({roomId:data.room_id,message:{
         _id: Date.now().toString(),
         type: data.message.type,

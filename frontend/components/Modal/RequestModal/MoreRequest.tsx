@@ -3,7 +3,7 @@ import { showMoreRequest } from "@/redux/slices/globalSlice";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { Button, ScrollShadow } from "@heroui/react";
 import { AnimatePresence, motion } from "framer-motion";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { TimePicker } from "./time-picker-component";
 
 type Props = {};
@@ -22,7 +22,21 @@ const MoreRequest = (props: Props) => {
       setSelectedTime({ hour, minute })
     }
   }
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const style = document.createElement("style");
+      style.textContent = `
+        .scrollbar-hide::-webkit-scrollbar {
+          display: none;
+        }
+      `;
+      document.head.appendChild(style);
 
+      return () => {
+        document.head.removeChild(style); // حذف استایل هنگام خروج
+      };
+    }
+  }, []);
   return (
     <AnimatePresence>
       {more_request && (

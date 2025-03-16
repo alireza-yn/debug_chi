@@ -1,4 +1,4 @@
-from rest_framework.serializers import ModelSerializer, StringRelatedField,ValidationError,CharField,EmailField
+from rest_framework.serializers import ModelSerializer, StringRelatedField,ValidationError,CharField,EmailField ,SerializerMethodField
 from .models import *
 from user_resume.serializers import *
 from django.contrib.auth import get_user_model
@@ -15,7 +15,7 @@ class UserSerializer(ModelSerializer):
     user_roles = StringRelatedField(many=True, read_only=True,help_text="نقش های کاربر")
     user_resume = UserResumeSerializer(many=True, read_only=True)
     user_language = UserLanguageSerializer(many=True, read_only=True)
-    user_expertise = StringRelatedField(many=True, read_only=True)
+    user_expertise = UserExpertiseSerializer(many=True, read_only=True)
     class Meta:
         model = User
         fields = [
@@ -43,8 +43,8 @@ class UserSerializer(ModelSerializer):
             "user_score",
             "digital_wallet"
         ]
-        # extra_kwargs = {'user_roles': {'read_only': True}}
-
+        # extra_kwargs = {'user_roles': {'read_only': True}
+    
     def create(self, validated_data):
         password = validated_data.pop("password", None)
         instance = self.Meta.model(**validated_data)
@@ -53,14 +53,6 @@ class UserSerializer(ModelSerializer):
         instance.save()
         return instance
 
-    def update(self, instance, validated_data):
-        password = validated_data.pop("password", None)
-        for attr, value in validated_data.items():
-            setattr(instance, attr, value)
-        if password is not None:
-            instance.set_password(password)
-        instance.save()
-        return instance
 
 class CustomUserSerializer(ModelSerializer):
     user_language = UserLanguageSerializer(many=True,read_only=True)

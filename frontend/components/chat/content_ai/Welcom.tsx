@@ -61,7 +61,7 @@ const AiWelcome: React.FC = () => {
   }, []);
 
   const handleQuestion = () => {
-    Cookies.set("started", "true");
+    // Cookies.set("started", "true");
    
 
     setStarted(true);

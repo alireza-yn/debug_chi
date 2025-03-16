@@ -1,10 +1,23 @@
 from django.db import models
-from core.models import Timestamp
-# Create your models here.
 
+class Category(models.Model):
+    name = models.CharField(max_length=255, unique=True)
+    def __str__(self):
+        return self.name
 
-class Questin(Timestamp):
-    title = models.CharField(max_length=200,null=False,blank=False)
-    category = models.CharField(max_length=250,null=False,blank=False)
-    category = models.CharField(max_length=250,null=False,blank=False)
+class Question(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="questions")
+    text = models.TextField()
+    sound = models.FileField(upload_to='questions_sounds/', blank=True, null=True)
+    def __str__(self):
+        return self.text
     
+    
+    
+
+class Answer(models.Model):
+    question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
+    text = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)    
+    def __str__(self):
+        return self.text
