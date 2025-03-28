@@ -9,8 +9,8 @@ from user_resume.views import *
 from projects.views import *
 from ConsultHub.views import *
 from questions.views import *
-
-
+from followers.views import *
+from post.views import *
 
 router = DefaultRouter()
 router.register('project',viewset=ProjectViewSet)
@@ -58,13 +58,27 @@ router.register(r'debug-hub', DebuggerHubView,basename="debug-hub")
 
 #endregion
 
+#region Follower Router
+router.register(r'followers',FollowerViewSet,basename='دنبال کنندگان')
+#endregion
 
 
 
 #region Question
 router.register(r'questions',QuestionView,basename='پرسش سوال')
 router.register(r'category',CategoryView,basename='دسته بندی')
+router.register(r'answers',AnswersView,basename='پایسخ سوالات')
+router.register(r'section',SectionView,basename='سکشن')
 #endregion
+
+
+#region Posts Router
+router.register(r'posts',PostsViewSet,basename='پست آموزشی'),
+router.register(r'comments',CommentViewSet,basename='کامنت ویدیوی آموزشی'),
+router.register(r'Like',LikedPostViewSet,basename='لایک ویدیوی آموزشی'),
+#endregion
+
+
 
 urlpatterns = [
     path('v1/',include(router.urls)),
@@ -96,5 +110,16 @@ urlpatterns = [
     
     #endregion
     
+    #region question
+        path('questions/', CategoryDetailAPIView.as_view(), name='category-detail'),
+    #endregion
+
+
+    #region Posts
+        path('v1/get_post/', UserPostList.as_view(), name='user-post'),
+        path('v1/like_post/', PostActionApiView.as_view(), name='user-post-action'),
+
+    
+    #endregion
     
 ]

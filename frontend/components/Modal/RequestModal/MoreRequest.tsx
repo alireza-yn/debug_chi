@@ -65,7 +65,8 @@ const MoreRequest = (props: Props) => {
             </Button>
             <Button
               color="success"
-              onPress={() => dispatch(showMoreRequest(false))}
+              onPress={() => 
+                dispatch(showMoreRequest(false))}
             >
               تایید
             </Button>

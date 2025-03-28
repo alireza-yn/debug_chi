@@ -24,10 +24,8 @@ class GetUserData(RetrieveAPIView):
     serializer_class = UserSerializer
     permission_classes = [IsAuthenticated]
 
-    # user_permission =
     def get_object(self):
-        # Return the currently authenticated user
-        return self.request.user
+        return  self.request.user
 
 class RoleViewSet(ModelViewSet):
     queryset = Role.objects.all()

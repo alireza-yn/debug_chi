@@ -1,14 +1,17 @@
-"use client"
+"use client";
 
 import { useState } from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { Menu, X, Sun, Moon } from "lucide-react";
+import { Menu, X, Sun, Moon, Coins, CoinsIcon } from "lucide-react";
 import { ThemeSwitcher } from "../ui/ThemeSwitcher";
+import { Button } from "@heroui/react";
+import { useAppDispatch } from "@/redux/store/store";
+import { showLogin } from "@/redux/slices/globalSlice";
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
-
+  const dispatch = useAppDispatch();
   return (
     <motion.header
       className="sticky top-0 z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md shadow-sm border-b border-slate-200 dark:border-slate-800 "
@@ -16,34 +19,46 @@ export default function Header() {
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
     >
-      <div className="container mx-auto px-4 py-4 flex justify-between items-center">
+      <div className="container mx-auto px-4 py-4 flex gap-4 items-center">
         <motion.div
-          className="text-2xl font-bold text-violet-500 bg-clip-text text-transparent font-GiestMono"
+          className="text-2xl flex gap-4 items-center font-bold text-violet-500 bg-clip-text text-transparent"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 0.2 }}
         >
-   debug_chi
+          <h1 className="font-GiestMono">debug_chi</h1>
+          <ThemeSwitcher />
         </motion.div>
-
-        <div className="hidden md:flex space-x-6 space-x-reverse rtl">
-          {["خانه", "خدمات", "درباره ما", "تماس با ما"].map((item, index) => (
+ 
+        <div className="flex-1"></div>
+        <div className="flex items-center space-x-4 gap-4">
+          <div className="hidden md:flex space-x-6 space-x-reverse rtl">
+          {["خانه"].map((item, index) => (
             <motion.div
               key={item}
               initial={{ opacity: 0, y: -20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 * index }}
             >
-              <Link href="#" className="text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors font-medium">
+              <Link
+                href="/"
+                className="text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors font-medium"
+              >
                 {item}
               </Link>
             </motion.div>
           ))}
         </div>
-
-        <div className="flex items-center space-x-4">
-         <ThemeSwitcher />
-
+          <Button
+            variant="solid"
+            color="secondary"
+            // href="/"
+            // as={Link}
+            onPress={()=>{dispatch(showLogin({show:true,path:""}))}}
+            endContent={<CoinsIcon />}
+          >
+            کسب درآمد
+          </Button>
           <motion.button
             className="md:hidden text-gray-700 dark:text-gray-300"
             onClick={() => setIsOpen(!isOpen)}
@@ -64,10 +79,10 @@ export default function Header() {
           transition={{ duration: 0.3 }}
         >
           <div className="flex flex-col space-y-4 items-end">
-            {["خانه", "خدمات", "درباره ما", "تماس با ما"].map((item) => (
+            {["خانه"].map((item) => (
               <Link
                 key={item}
-                href="#"
+                href="/"
                 className="text-gray-700 dark:text-gray-300 hover:text-purple-600 transition-colors font-medium"
                 onClick={() => setIsOpen(false)}
               >

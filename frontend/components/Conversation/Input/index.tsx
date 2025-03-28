@@ -11,7 +11,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { usePathname } from "next/navigation";
-import { useAppDispatch } from "@/redux/store/store";
+import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { setConversation } from "@/redux/slices/chatWithUser";
 import { AnyDeskIcon, MicIcon } from "@/components/ui/icons";
 import {socket} from "@/config/socket-config";
@@ -20,6 +20,7 @@ import Cookies from "js-cookie";
 import { setMessage  } from "@/redux/slices/chatSocketSlice";
 import { v4 as uuidv4, v4} from "uuid"
 import SendCode from "@/components/chat/code";
+import { setShowRequest } from "@/redux/slices/globalSlice";
 type Props = {
   reciever:string
 };
@@ -28,6 +29,7 @@ const InputMessage = ({reciever}: Props) => {
   const path = usePathname();
   const [description, SetDescription] = useState<string>("");
   const dispatch = useAppDispatch();
+  const {payed} = useAppSelector((state:RootState)=>state.gloabal)
   let user: any;
   const user_data = localStorage.getItem("user_data");
   if (user_data) {
@@ -35,21 +37,26 @@ const InputMessage = ({reciever}: Props) => {
   }
   
   const sendMessage = () => {
-    const data = {
-      id:v4(),
-      sender: user.uuid,
-      receiver: reciever,
-      data: {
-        type:"text",
-        text: description,
-        created_at: String(new Date()),
-        status:"pending",
-      }
-    }
+    if(!payed){
+      dispatch(setShowRequest(true))
+    }else{
 
-    dispatch(setMessage(data))
-    socket.emit("test_message", data );
-    SetDescription("");
+      const data = {
+        id:v4(),
+        sender: user.uuid,
+        receiver: reciever,
+        data: {
+          type:"text",
+          text: description,
+          created_at: String(new Date()),
+          status:"pending",
+        }
+      }
+      
+      dispatch(setMessage(data))
+      socket.emit("test_message", data );
+      SetDescription("");
+    }
   };
   return (
     <div className="flex flex-col w-[90%] rounded-xl mx-auto box-border border dark:border-none">

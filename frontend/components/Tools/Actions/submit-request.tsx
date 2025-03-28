@@ -24,10 +24,10 @@ const SubmitRequest = (props: Props) => {
       }}>
         خدمات
       </Button>
-      <Button radius="full" className="w-full text-foreground" variant="bordered" color="default" >
+      {/* <Button radius="full" className="w-full text-foreground" variant="bordered" color="default" >
         پرداخت
-      </Button>
-      <Button radius="full" className="w-full" variant="flat" color="danger" >
+      </Button> */}
+      <Button radius="full" className="w-full" variant="flat" color="danger" onPress={()=>window.location.href = '/'}>
         لغو
       </Button>
 

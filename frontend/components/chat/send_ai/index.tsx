@@ -31,7 +31,7 @@ const ChatWithAi = () => {
   } = useAppSelector((state) => state.aiQuestion);
   const [loading, setLoading] = useState(false);
   const [description, SetDescription] = useState<string>("");
-
+  const [answer,setAnswer] = useState('')
   useEffect(() => {
     const checkStarted = Cookies.get("started");
     if (checkStarted === "true") {
@@ -45,12 +45,11 @@ const ChatWithAi = () => {
   }, []);
 
   const handleNextQuestion = () => {
-    const message = answers.join(" ");
-
+    // setAnswer(answers[answers.length])
     dispatch(
       setAiConversation({
         ai: false,
-        message: message,
+        message: answers[answers.length - 1],
       })
     );
 
@@ -155,9 +154,10 @@ const ChatWithAi = () => {
       <div className="w-full flex items-center justify-center mx-auto h-20">
         {isLastQuestion ? (
           <Button
+          radius="full"
             isDisabled={disabled}
-            color="primary"
-            className="w-full h-full"
+            color="secondary"
+            className="w-1/4 h-full"
             onPress={() => {
               handleNextQuestion();
               dispatch(setLastQuestion(!is_last_question));
@@ -175,9 +175,10 @@ const ChatWithAi = () => {
           </Button>
         ) : (
           <Button
+          radius="full"
             isDisabled={disabled}
-            color="primary"
-            className="w-2/4 h-full"
+            color="secondary"
+            className={`w-1/4 h-full ${selected_answers.length === 0 ? 'hidden' : null}`}
             onPress={() => {
               handleNextQuestion();
               dispatch(setContinue(true));

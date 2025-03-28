@@ -1,9 +1,9 @@
-from rest_framework.serializers import ModelSerializer, StringRelatedField,ValidationError,CharField,EmailField ,SerializerMethodField
+from rest_framework.serializers import ModelSerializer, StringRelatedField,ValidationError,CharField,EmailField ,SerializerMethodField,PrimaryKeyRelatedField
 from .models import *
 from user_resume.serializers import *
 from django.contrib.auth import get_user_model
 from programming_language.serializers import *
-
+from followers.serializer import Followers
 User = get_user_model()
 
 class RoleSerializer(ModelSerializer):
@@ -16,6 +16,8 @@ class UserSerializer(ModelSerializer):
     user_resume = UserResumeSerializer(many=True, read_only=True)
     user_language = UserLanguageSerializer(many=True, read_only=True)
     user_expertise = UserExpertiseSerializer(many=True, read_only=True)
+    followers = SerializerMethodField()
+    # followers = FollowerSerializer(read_only=True)
     class Meta:
         model = User
         fields = [
@@ -41,8 +43,19 @@ class UserSerializer(ModelSerializer):
             "user_bio",
             "debugger_bio",
             "user_score",
-            "digital_wallet"
+            "digital_wallet",
+            "followers"
         ]
+
+    def get_followers(self, obj):
+        try:
+            followers_obj = Followers.objects.get(user=obj)
+            return {
+                "count":followers_obj.followers.count(),
+                "users":[{"id": user.id, "username": user.username,"image":str(user.image_profile),"uuid":user.uuid} for user in followers_obj.followers.all()]
+            }
+        except Followers.DoesNotExist:
+            return []  # اگر فالوئری نداشت، لیست خالی برمی‌گردانیم.
         # extra_kwargs = {'user_roles': {'read_only': True}
     
     def create(self, validated_data):

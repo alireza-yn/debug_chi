@@ -16,7 +16,7 @@ export const LinearGradiant = (props: Props) => {
 
 export const LinearGradiantDownToTop = (props:Props)=>{
   return(
-    <div className={`absolute bg-gradient-to-t ${props.from} ${props.to} w-full h-full`}>
+    <div className={`absolute bg-gradient-to-t ${props.from} ${props.to} w-full h-full z-0`}>
     </div>
   )
 }

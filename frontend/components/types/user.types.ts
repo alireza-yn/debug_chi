@@ -22,6 +22,19 @@ export interface Main {
     debugger_bio:    string;
     user_score:      number;
     digital_wallet:  number;
+    followers:       Followers;
+}
+
+export interface Followers {
+    count: number;
+    users: User[];
+}
+
+export interface User {
+    id:       number;
+    username: string;
+    image:    string;
+    uuid:     string;
 }
 
 export interface Expertise {

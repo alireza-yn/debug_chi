@@ -1,7 +1,7 @@
 "use client";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Questions } from "@/data/AIQuestion";
-import { useAppDispatch, useAppSelector } from "@/redux/store/store";
+import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import {
   showQuestion,
   setSelectedCategory,
@@ -9,12 +9,15 @@ import {
 } from "@/redux/slices/aiSlice";
 import { motion } from "framer-motion";
 import UserMessage from "../message";
+import { Button } from "@heroui/react";
+import { setWelcome } from "@/redux/slices/globalSlice";
 
 const AiContent: React.FC = () => {
   const dispatch = useAppDispatch();
   const { question_id, selected_category, conversation } = useAppSelector(
     (state) => state.aiQuestion
   );
+  const {welcome}  = useAppSelector((state:RootState)=>state.gloabal)
 
   useEffect(() => {
     // اگر هنوز selected_category ست نشده، بذار استارتر بشه
@@ -46,11 +49,58 @@ const AiContent: React.FC = () => {
     return <p className="text-gray-500">سوالی برای این دسته‌بندی یافت نشد.</p>;
   }
 
+if(welcome){
+  return (
+    <div className="w-full mx-auto h-full flex flex-col items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="text-center max-w-md"
+      >
+        <div className="flex flex-col items-center justify-center gap-4">
+          <span className="text-7xl animate-pulse">🎉</span>
+          <h1 className="text-4xl my-2">خوش آمدید</h1>
+          <p>
+            در نهایت، مشکل برنامه نویسی شما حل شدنیه! با ما همراه باشید تا بدون
+            دردسر، سریع و دقیق، مشکل شما را بررسی و حل کنیم
+            <br />
+            <br />
+            بیایید با یک پرسش و پاسخ سریع برای پیدا کردن متخصص مناسب شروع کنیم.
+          </p>
+        </div>
+
+        {/* <AiMesage message="به سیستم هوش مصنوعی خوش آمدید" audio="" /> */}
+
+        <div className="my-8">
+          <p className="text-gray-600 mb-4">
+            لطفاً برای شروع پاسخگویی به سوالات روی دکمه زیر کلیک کنید.
+          </p>
+
+          <motion.div whileHover={{ scale: 1.05 }} whileTap={{ scale: 0.95 }}>
+            <Button
+            onPress={()=>dispatch(setWelcome(false))}
+              variant="solid"
+              color="secondary"
+              className="w-full py-3"
+            >
+              شروع
+            </Button>
+          </motion.div>
+        </div>
+      </motion.div>
+    </div>
+  )
+}
+
+
+
+
   return (
     <div className="w-3/4 mx-auto flex-1 flex flex-col items-center p-4">
       <div className="w-full flex justify-start flex-col">
         <div className="h-[calc(100vh-300px)] overflow-y-auto" ref={scrollRef}>
-          {/* پیام‌های چت نمایش داده می‌شود */}
+      
           {conversation.map((item, index) => {
             return (
               <UserMessage

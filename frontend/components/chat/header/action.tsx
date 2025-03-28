@@ -9,6 +9,7 @@ import { v4 } from 'uuid';
 import {socket} from '@/config/socket-config';
 import { Main } from '@/components/types/user.types';
 import { text } from 'stream/consumers';
+import { setShowRequest } from '@/redux/slices/globalSlice';
 
 type Props = {
   reciever:string
@@ -18,33 +19,39 @@ const Action = ({reciever}: Props) => {
   const [mute, setMute] = useState(false);
   // const {chat}= useAppSelector((state:RootState)=>state)
   const dispatch = useAppDispatch()
-
+  const {payed} = useAppSelector((state:RootState)=>state.gloabal)
   
 
 
   const sendMessage = () => {
+    if(!payed){
+      dispatch(setShowRequest(true))
+    }
+    else{
+
       let user: any;
       const user_data = localStorage.getItem("user_data");
       if (user_data) {
         user = JSON.parse(user_data);
       }
-    const data = {
-      id:v4(),
-      sender: user.uuid,
-      receiver: reciever,
-      data: {
-        type:"anydesk",
-        text:"12345678911",
-        created_at: String(new Date()),
-        status:"pending",
+      const data = {
+        id:v4(),
+        sender: user.uuid,
+        receiver: reciever,
+        data: {
+          type:"anydesk",
+          text:"12345678911",
+          created_at: String(new Date()),
+          status:"pending",
+        }
       }
-    }
 
-    dispatch(setMessage(data))
-    socket.emit("test_message", data );
+      dispatch(setMessage(data))
+      socket.emit("test_message", data );
+    }
   }
-  return (
-    <>
+    return (
+      <>
      <Tooltip color="primary" content="جستجو...">
           <Button
             isIconOnly

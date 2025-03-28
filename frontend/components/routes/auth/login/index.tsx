@@ -72,7 +72,7 @@ export default function Login() {
       Cookies.set("token", response.access);
       localStorage.setItem("user_data", JSON.stringify(response.user));
       window.location.href = `${path}?${query.toString()}`
-      dispatch(showLogin(false)); // بستن مودال لاگین
+      dispatch(showLogin({show:false,path:""})); // بستن مودال لاگین
     } else {
       setError({ ...error, server: response.message || "نام کاربری یا رمز عبور نادرست است" });
       setIsLoading(false);
@@ -101,7 +101,7 @@ export default function Login() {
                 variant="flat"
                 color="warning"
                 onPress={() => {
-                  dispatch(showLogin(false));
+                  dispatch(showLogin({show:false,path:""}));
                   onClose();
                 }}
                 className="absolute left-5"

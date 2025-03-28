@@ -18,7 +18,7 @@ const AIBotProfile = () => {
   return (
     <div className="h-full w-full box-border p-2">
       {/* نمایش سطح بات */}
-      <ProgrammerRate level={"Senior"} />
+      {/* <ProgrammerRate level={"Senior"} /> */}
 
       {/* بخش اصلی پروفایل */}
       <div className="min-h-[400px] flex flex-col gap-4 items-center justify-center">
@@ -34,17 +34,17 @@ const AIBotProfile = () => {
         {/* نام بات */}
         <div className="w-full flex flex-col items-center justify-center">
           <h2 className="text-xl">{botData.name}</h2>
-          <p className="text-sm text-gray-500">{botData.description}</p>
+          <p className="text-sm text-gray-500 text-right my-4">{botData.description}</p>
         </div>
 
         {/* مهارت‌های بات */}
-        <div className="w-full flex flex-wrap justify-start flex-row-reverse gap-2 border-b border-slate-800 py-2 box-border">
+        {/* <div className="w-full flex flex-wrap justify-start flex-row-reverse gap-2 border-b border-slate-800 py-2 box-border">
           {botData.skills.map((skill, index) => (
             <Chip key={index} color="default" variant="flat" size="sm">
               {skill}
             </Chip>
           ))}
-        </div>
+        </div> */}
       </div>
 
       {/* بخش اقدامات (Actions) */}

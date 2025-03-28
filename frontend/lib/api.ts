@@ -83,7 +83,7 @@ export const getUserChatList = async (token: string) => {
 export const perform_post = async (url: string, data: any) => {
   try {
     const post_data = await axios.post(`${process.env.server}/${url}`, data, {
-      headers: headers(),
+      headers:  headers(),
     });
     const response = await post_data.data;
     return response;
@@ -109,10 +109,15 @@ export const perform_update = async (url: string, data: any) => {
   }
 };
 
-export const perform_get = async (url: string) => {
+export const perform_get = async (url: string,token?:string) => {
+  // console.log(headers())
+  console.log(token)
   try {
     const request = await axios.get(`${process.env.server}/${url}`, {
-      headers: headers(),
+      headers: !token  ? headers() : {
+        Authorization:`Bearer ${token}`,
+        "Content-Type":"application/json"
+      },
     });
     const response = await request.data;
     return response;

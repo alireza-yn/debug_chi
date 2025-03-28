@@ -34,6 +34,7 @@ import { socket, trend_socket } from "@/config/socket-config";
 import { perform_post, perform_update } from "@/lib/api";
 import { response } from "express";
 import { Main } from "@/components/types/user.types";
+import { usePathname } from "next/navigation";
 
 type Props = {
   tender: Tender;
@@ -42,6 +43,7 @@ type Props = {
 
 const Card = ({ tender, bids }: Props) => {
   const dispatch = useAppDispatch();
+  const pathname = usePathname();
   const token = Cookies.get("token");
   const user_data = localStorage.getItem("user_data");
   let user: any;
@@ -57,7 +59,7 @@ const Card = ({ tender, bids }: Props) => {
   ) => {
     if (!token) {
       setIsOpen(false);
-      dispatch(showLogin(true));
+      dispatch(showLogin({show:true,path:pathname}));
     } else if (action == "submit") {
       // Handle bid submission
       const response = await perform_post("/api/v1/submit_bid/", {

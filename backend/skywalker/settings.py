@@ -56,7 +56,9 @@ INSTALLED_APPS = [
     'ConsultHub',
     'payments',
     'core',
-    'questions'
+    'questions',
+    'followers',
+    'post'
     
 ]
 

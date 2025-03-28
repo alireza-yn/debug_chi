@@ -1,15 +1,16 @@
-import { showLogin } from '@/redux/slices/globalSlice'
+import { showLogin, showSignUp } from '@/redux/slices/globalSlice'
 import { useAppDispatch } from '@/redux/store/store'
 import { Button, Tooltip } from '@heroui/react'
 import { LogIn } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Cookies from 'js-cookie'
 import ModalInfo from '../User/ModalInfo'
+import { usePathname } from 'next/navigation'
 
 const Login = () => {
   const dispatch = useAppDispatch()
   const [userData, setUserData] = useState<any>(null)
-
+    const pathname = usePathname()
   useEffect(() => {
     const user_data = localStorage.getItem('user_data')
     if (user_data) {
@@ -29,7 +30,7 @@ const Login = () => {
         radius="full"
         isIconOnly
         startContent={<LogIn color="red" size={24} />}
-        onPress={() => dispatch(showLogin(true))}
+        onPress={() => dispatch(showLogin({show:true,path:pathname}))}
       />
     </Tooltip>
   )

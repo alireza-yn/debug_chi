@@ -120,7 +120,9 @@ const config = {
   ],
   theme: {
     extend: {
-
+      colors:{
+        c_background:"#2c2552"
+      },
       fontFamily: {
         iranSans: ["var(--font-iran-sans)",...fontFamily.sans,],
         lightSans: ['iran-sans-lt'],

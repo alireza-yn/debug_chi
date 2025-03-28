@@ -2,22 +2,43 @@ from django.db import models
 
 class Category(models.Model):
     name = models.CharField(max_length=255, unique=True)
+
     def __str__(self):
         return self.name
 
-class Question(models.Model):
-    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="questions")
-    text = models.TextField()
-    sound = models.FileField(upload_to='questions_sounds/', blank=True, null=True)
+
+class Section(models.Model):
+    category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="sections")
+    number = models.IntegerField(default=0)  # ترتیب بخش‌ها
+    
     def __str__(self):
-        return self.text
-    
-    
-    
+        return f"{self.category.name} - Section {self.number}"
+
+
+class Question(models.Model):
+    QUESTION_TYPES = (
+        ('checkbox', 'Checkbox'),
+        ('text', 'Text'),
+        ('button', 'Button'),
+        ('emoji', 'Emoji'),
+    )
+
+    section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="questions")
+    description = models.TextField(default="")
+    text = models.CharField(max_length=100)
+    sound = models.FileField(upload_to='static/sound/questions_sounds/', blank=True, null=True)
+    active = models.BooleanField(default=False)
+    question_type = models.CharField(max_length=50, choices=QUESTION_TYPES, default="button")
+    agreement = models.TextField(default="")
+    def __str__(self):
+        return f"{self.text} {self.section.category.name}" 
+
 
 class Answer(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE, related_name="answers")
     text = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)    
+    description = models.TextField(blank=True, null=True)
+    active = models.BooleanField(default=False)
+
     def __str__(self):
         return self.text

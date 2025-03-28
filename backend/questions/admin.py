@@ -21,7 +21,6 @@ class QuestionAdmin(admin.ModelAdmin):
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ('id', 'name')  # نمایش این فیلدها در لیست دسته‌بندی‌ها
     search_fields = ('name',)  # امکان جستجو در نام دسته‌بندی
-    inlines = [QuestionInline]  # نمایش سوالات در صفحه دسته‌بندی
 
 @admin.register(Answer)
 class AnswerAdmin(admin.ModelAdmin):

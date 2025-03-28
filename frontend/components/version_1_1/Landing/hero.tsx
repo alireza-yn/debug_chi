@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import { motion } from "framer-motion"
-import Image from "next/image"
+import { motion } from "framer-motion";
+import Image from "next/image";
 
 export default function Hero() {
   return (
@@ -14,10 +14,14 @@ export default function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            <h1 className="text-xl md:text-2xl font-bold mb-4 leading-tight bg-gradient-to-r from-pink-600 to-purple-700 bg-clip-text text-transparent">
-             دیابگچی یک هوش مصنوعی پیشرفته است که ارتباط سریع و آسان با متخصصان برنامه نویسی را برای آموزش، مشاوره و دیباگ ، فراهم میکند
+            <h1 className="text-xl md:text-2xl font-bold mb-4 leading-tight text-foreground">
+              دیابگچی یک هوش مصنوعی پیشرفته است که ارتباط سریع و آسان با متخصصان
+              برنامه نویسی را برای آموزش، مشاوره و دیباگ ، فراهم میکند
             </h1>
-            <p className="text-sm md:text-sm text-gray-500 mb-8">برای شروع کافیه که درخواست خدمات فوری را کلیک کنید ، ما در تما مراحل شمارو همراهی و راهنمایی میکنیم</p>
+            <p className="text-sm md:text-sm text-gray-500 mb-8">
+              برای شروع کافیه که درخواست خدمات فوری را کلیک کنید ، ما در تما
+              مراحل شمارو همراهی و راهنمایی میکنیم
+            </p>
             <motion.a
               href="/"
               className="px-8 py-3 bg-gradient-to-r from-pink-500 to-purple-600 text-white rounded-lg font-medium shadow-lg hover:shadow-xl transition-shadow"
@@ -35,12 +39,16 @@ export default function Hero() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <div className="relative w-full h-[300px] md:h-[400px] rounded-2xl overflow-hidden">
-              <Image src="/ai/image/ai_1.jpg" alt="مدیریت کسب و کار" fill className="object-cover" />
+              <Image
+                src="/ai/image/ai_1.jpg"
+                alt="مدیریت کسب و کار"
+                fill
+                className="object-cover"
+              />
             </div>
           </motion.div>
         </div>
       </div>
     </section>
-  )
+  );
 }
-

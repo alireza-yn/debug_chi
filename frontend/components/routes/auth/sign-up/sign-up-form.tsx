@@ -5,19 +5,19 @@ import { perform_post } from "@/lib/api";
 import * as motion from "motion/react-client";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
-import { useAppDispatch } from "@/redux/store/store";
-import { showSignUp } from "@/redux/slices/globalSlice";
+import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
+import { setPath, showSignUp } from "@/redux/slices/globalSlice";
 
 type Props = {
   switchToLogin: () => void;
 };
 export default function SignUpForm({ switchToLogin }: Props) {
   const dispatch = useAppDispatch();
-
+  const { path } = useAppSelector((state: RootState) => state.gloabal);
   const [show, setOtp] = React.useState(false);
   const [phone, setPhone] = React.useState<any>("");
   const [request, setRequest] = React.useState(false);
-  const path = usePathname();
+  const currnt_path = usePathname();
   const [isLoading, setIsLoading] = React.useState(false);
   const [message, setMessage] = React.useState({
     user_phone: "",
@@ -27,7 +27,6 @@ export default function SignUpForm({ switchToLogin }: Props) {
     e.preventDefault();
     let data = Object.fromEntries(new FormData(e.currentTarget));
     const response = await perform_post("auths/user_register/", data);
-
     if (response.success) {
       setOtp(true);
       setPhone(data.user_phone);
@@ -47,10 +46,13 @@ export default function SignUpForm({ switchToLogin }: Props) {
     let data = Object.fromEntries(new FormData(e.currentTarget));
     console.log(data);
     const response = await perform_post("auths/verify_otp/", data);
-
+    if (response.user_intro === false) {
+      dispatch(setPath("/intro/programmer introduction"));
+    }
     if (response.success) {
       Cookies.set("token", response.access);
-      window.location.href = path;
+
+      window.location.href = path || "";
       setIsLoading(false);
     }
   };

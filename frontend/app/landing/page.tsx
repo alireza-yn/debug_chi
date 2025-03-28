@@ -1,7 +1,8 @@
 import Footer from "@/components/Layout/Footer";
 import { MacbookScroll } from "@/components/ui/ace/mac-book";
-import CtaSection from "@/components/version_1_1/Landing/cta-section";
+import { ServiceFeatures } from "@/components/version_1_1/Landing/cta-section";
 import Features from "@/components/version_1_1/Landing/features";
+import ConsultationForm from "@/components/version_1_1/Landing/form-input";
 import Header from "@/components/version_1_1/Landing/header";
 import Hero from "@/components/version_1_1/Landing/hero";
 import KeyFeatures from "@/components/version_1_1/Landing/key-features";
@@ -41,7 +42,8 @@ export const page = () => {
       <Video />
       {/* <MainFeature /> */}
       {/* <KeyFeatures /> */}
-      <CtaSection />
+      <ServiceFeatures />
+      <ConsultationForm />
       <Testimonials />
       <MapSection />
       {/* <Footer /> */}

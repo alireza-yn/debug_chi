@@ -51,7 +51,7 @@ class GetUserInfo(APIView):
         
     
     
-    
+
 
 class TextToSpeech(APIView):
     def post(self,request:Request):

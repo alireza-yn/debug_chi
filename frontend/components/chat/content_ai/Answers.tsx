@@ -38,22 +38,7 @@ type AnswerProps = {
   description?: string;
 };
 
-function getCategoryByFirstAnswer(answer: string) {
-  switch (answer) {
-    case "توسعه وب":
-      return "Web Development";
-    case "اپلیکیشن های موبایل":
-      return "Mobile App";
-    case "داد های هوش مصنوعی":
-      return "AI Data";
-    case "بازی سازی":
-      return "Game Development";
-    case "بلاکچین وب 3":
-      return "Blockchain, Web 3";
-    default:
-      return null;
-  }
-}
+
 
 const Answers: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -68,7 +53,7 @@ const Answers: React.FC = () => {
   } = useAppSelector((state: RootState) => state.aiQuestion);
 
   const [newAnswer, setNewAnswer] = useState<string>("");
-
+  const {welcome} = useAppSelector((state:RootState)=>state.gloabal)
   useEffect(() => {
     const checkStarted = Cookies.get("started");
     if (checkStarted === "true") {
@@ -108,19 +93,7 @@ const Answers: React.FC = () => {
       dispatch(addAnswer(answer));
       dispatch(setContinue(false));
 
-      if (
-        selected_category?.category.toLowerCase() === "starter" &&
-        question_id === 0
-      ) {
-        const newCat = getCategoryByFirstAnswer(answer);
-        if (newCat) {
-          const foundCategory = Questions.find((q) => q.category === newCat);
-          if (foundCategory) {
-            dispatch(setSelectedCategory(foundCategory));
-            dispatch(showQuestion(0));
-          }
-        }
-      }
+     
     },
     [dispatch, selected_category, question_id]
   );
@@ -151,7 +124,9 @@ const Answers: React.FC = () => {
   if (!currentQuestion || is_last_question) {
     return null;
   }
-
+if(welcome){
+  return null
+}
   return (
     <div className="w-3/4 mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-4 place-content-between gap-4 box-border w-full" id="button_list">
@@ -179,14 +154,15 @@ const Answers: React.FC = () => {
                     }
                   >
                     <Button
-                      variant={isSelected ? "solid" : "faded"}
-                      color={isSelected ? "success" : answerColor}
-                      className="w-full h-12"
+                      // radius="lg"
+                      variant={"solid"}
+                      // color={isSelected ? 'primary' : 'default'}
+                      className={` ${isSelected ? 'bg-[#22418f]' : ' bg-[#1f2c4d]'} h-12  rounded-3xl`}
                       onPress={() => handlePress(answer.id, answer.answer)}
                     >
                       {answer.answer}
                     </Button>
-                  </Tooltip>
+                  </Tooltip>  
                 );
               }
             )}
@@ -194,10 +170,11 @@ const Answers: React.FC = () => {
         <Popover placement="top-end">
           <PopoverTrigger>
             <Button
+              radius="full"
               variant="faded"
-              color="success"
+              // color="primary"
               endContent={<Plus />}
-              className="w-full h-12"
+              className={"w-full h-12 text-[#4c74d7]"}
             >
               افزودن
             </Button>
@@ -212,8 +189,8 @@ const Answers: React.FC = () => {
                 onChange={(e) => setNewAnswer(e.target.value)}
                 endContent={
                   <Button
-                    variant="flat"
-                    color="success"
+                    variant="solid"
+                    color="primary"
                     size="md"
                     onPress={handleAddCustomAnswer}
                   >

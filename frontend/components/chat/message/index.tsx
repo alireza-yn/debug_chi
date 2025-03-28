@@ -217,7 +217,7 @@ const Message = (props: Props) => {
         <div className="min-w-10 flex flex-col p-4 box-border rounded-lg  ">
           <div className="flex gap-2 items-center">
             <Avatar
-              src={user_data && user_data?.image_profile || ""}
+              src={user_data && `${process.env.server}/${user_data?.image_profile}` || ""}
               name={user_data &&  user_data?.first_name || "کاربر"}
               size="sm"
             />
@@ -238,7 +238,7 @@ const Message = (props: Props) => {
                   variants={wordAnimation}
                   className="inline-block text-foreground-500"
                 >
-                  {word}
+                  {word} 
                 </motion.span>
               ))}
             </motion.div>

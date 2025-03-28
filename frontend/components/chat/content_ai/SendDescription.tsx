@@ -18,7 +18,7 @@ const SendDescription = () => {
   const dispatch = useAppDispatch();
   const token = Cookies.get("token");
   const router = useRouter();
-
+  
   const analyzeHandler = () => {
     if (token) {
       dispatch(
@@ -28,7 +28,7 @@ const SendDescription = () => {
         })
       );
       dispatch(setFindUser(true));
-    } else dispatch(showLogin(true));
+    } else dispatch(showLogin({show:true,path:""}));
   };
 
   const requestHandler = async () => {
