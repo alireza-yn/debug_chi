@@ -81,6 +81,7 @@ export default function Login() {
 
   return (
     <Drawer
+    dir="rtl"
       hideCloseButton
       size="full"
       isOpen={isOpen}
@@ -173,7 +174,8 @@ export default function Login() {
                     size="lg"
                     onPress={() => {
                       onClose();
-                      dispatch(showSignUp(true));
+                      dispatch(showSignUp({show:true,path:""}));
+
                     }}
                   >
                     ثبت نام

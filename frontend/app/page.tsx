@@ -37,10 +37,10 @@ export default function Home() {
         <SidebarFooter />
       </Sidebar>
       <div className="flex-1 flex  h-full box-border p-4 gap-4">
-        <div className="bg-c_background/50 rounded-3xl h-full w-96">
+        <div className="bg-gray-100 dark:bg-c_background/50  rounded-3xl h-full w-96">
           <AIBotProfile />
         </div>
-        <div className="relative bg-c_background/50 flex flex-col rounded-3xl h-full w-full">
+        <div className="relative bg-gray-100 dark:bg-c_background/50  flex flex-col rounded-3xl h-full w-full">
           <FindUser />
 
           <div className="flex-1 w-full">

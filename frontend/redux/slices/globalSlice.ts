@@ -33,7 +33,7 @@ const globalSlice = createSlice({
   name: "global",
   initialState,
   reducers: {
-    showSignUp: (state, action) => {
+    showSignUp: (state, action:PayloadAction<{show:boolean,path:string}>) => {
       state.login = false;
       state.sign_up = action.payload.show;
       state.path = action.payload.path;

@@ -20,5 +20,6 @@ urlpatterns = [
     path('user_register/', UserRegister.as_view(), name='user_register'),
     path('verify_otp/',OTPView.as_view(),name="verify_otp"),
     path('user_info/',GetUserData.as_view(),name="user_info"),
+    path('user_cards/',UserBankCardApiView.as_view(),name="user_cards")
     
 ]

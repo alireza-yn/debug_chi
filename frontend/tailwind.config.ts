@@ -121,7 +121,8 @@ const config = {
   theme: {
     extend: {
       colors:{
-        c_background:"#2c2552"
+          c_background:"#2c2552",
+          c_secondary:"#232035"
       },
       fontFamily: {
         iranSans: ["var(--font-iran-sans)",...fontFamily.sans,],
@@ -176,6 +177,7 @@ function addVariablesForColors({ addBase, theme }: any) {
  
   addBase({
     ":root": newVars,
+    
   });
 }
 

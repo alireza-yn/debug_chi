@@ -24,6 +24,7 @@ class DebugSession(TimeStamp):
         CHAT = 'chat', 'Chat',
         VOICE_CALL = 'voice_call', 'Voice Call',
         VIDEO_CALL = 'video_call', 'Video Call'
+    title = models.CharField(max_length=100,blank=True,null=True)
     session_id = models.UUIDField(default=uuid4)
     debuger = models.ForeignKey(User, on_delete=models.CASCADE,related_name="debuger")
     debuger_applicator = models.ForeignKey(User, on_delete=models.CASCADE,related_name="debuger_applicator")
@@ -51,7 +52,7 @@ class ConsultSession(models.Model):
         CHAT = 'chat', 'Chat'
         VOICE_CALL = 'voice_call', 'Voice Call'
         VIDEO_CALL = 'video_call', 'Video Call'
-        
+    title = models.CharField(max_length=100,blank=True,null=True)
     session_id = models.UUIDField(default=uuid4)
     consult = models.ForeignKey(User, on_delete=models.CASCADE,related_name="consult")
     consult_applicator = models.ForeignKey(User, on_delete=models.CASCADE,related_name="consult_applicator")

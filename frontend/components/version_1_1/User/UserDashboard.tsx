@@ -16,14 +16,25 @@ import {
   Video,
 } from "lucide-react";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ModalVideoPlayer from "../ModalVideoPlayer";
+import HistoryCard from "../HistoryCard";
+import { GetUserActivityHistoryTab } from "./TabsData";
 
 type Props = {
   user: UserType;
   posts: PostType[];
 };
 const UserDashboard = ({ user, posts }: Props) => {
+
+  useEffect(()=>{
+    const getUserActivityHistory = async ()=>{
+
+    }
+    getUserActivityHistory()
+  })
+
+
   const title = user?.user_expertise?.[0]?.expertise?.[0]?.title;
 
   const isLiked = () => {
@@ -159,7 +170,9 @@ const UserDashboard = ({ user, posts }: Props) => {
                 <span>تاریخچه</span>
               </div>
             }
-          ></Tab>
+          >
+           <GetUserActivityHistoryTab />
+          </Tab>
            { user.user_roles.includes("debugger") ? 
           <Tab
             className="w-full"

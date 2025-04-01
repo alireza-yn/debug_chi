@@ -121,5 +121,9 @@ urlpatterns = [
 
     
     #endregion
+
+    #region report
+        path('v1/report/',include('report.urls'))
+    #endregion
     
 ]

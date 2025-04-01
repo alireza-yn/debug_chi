@@ -28,7 +28,11 @@ export const getCookies = (token:string)=>{
 
 
 
-export const formatCurrency = (number: number) => {
+export const formatCurrency = (number: number,icon?:boolean) => {
+  if (icon){
+    return number.toLocaleString('fa-IR') + ' T';
+    
+  }
   return number.toLocaleString('fa-IR') + ' تومان';
 };
 
@@ -64,4 +68,15 @@ export const toBase64 = (file: File): Promise<string> => {
     reader.onload = () => resolve(reader.result as string);
     reader.onerror = (error) => reject(error);
   });
+};
+
+
+export const getMonthNames = (locale = "en-US") => {
+  return Array.from({ length: 12 }, (_, i) =>
+      new Date(2000, i, 1).toLocaleString(locale, { month: "long" })
+  );
+};
+
+export const getCurrentPersianMonth = () => {
+  return new Intl.DateTimeFormat("fa-IR", { month: "long" }).format(new Date());
 };

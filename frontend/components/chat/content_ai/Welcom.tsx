@@ -148,14 +148,14 @@ const AiWelcome: React.FC = () => {
             return (
               <div
                 key={index + 1}
-                className="flex items-center justify-center gap-4 bg-[#232035] px-4 box-border rounded-md"
+                className="flex items-center justify-center gap-4  bg-gray-300 dark:bg-c_secondary px-4 box-border rounded-md"
                 onMouseEnter={() => showMessage(index + 1)}
                 onMouseLeave={() => setMessageId(0)}
               >
                 <div className="flex-1 flex flex-col">
                   <h2
                     className={`font-mediumSans ${
-                      message_id == index + 1 ? "text-lime-300" : ""
+                      message_id == index + 1 ? "text-lime-300" : "text-foreground"
                     }`}
                   >
                     {item}
@@ -203,14 +203,14 @@ const AiWelcome: React.FC = () => {
         return (
           <div
             key={index + 1}
-            className="flex items-center justify-center gap-4 bg-[#232035] px-4 box-border rounded-md"
+            className="flex items-center justify-center gap-4 bg-gray-300 dark:bg-c_secondary px-4 box-border rounded-md"
             onMouseEnter={() => showMessage(index + 1)}
             onMouseLeave={() => setMessageId(0)}
           >
             <div className="flex-1 flex flex-col">
               <h2
                 className={`font-mediumSans ${
-                  message_id == index + 1 ? "text-lime-300" : ""
+                  message_id == index + 1 ? "dark:text-lime-300" : "text-foreground"
                 }`}
               >
                 {item}

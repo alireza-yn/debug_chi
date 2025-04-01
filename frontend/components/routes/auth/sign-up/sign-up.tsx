@@ -18,6 +18,7 @@ export default function SignUp() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const { sign_up } = useAppSelector((state: RootState) => state.gloabal);
+  console.log(sign_up)
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (sign_up) {
@@ -27,11 +28,12 @@ export default function SignUp() {
 
   const closeHandler = () => {
     onClose();
-    dispatch(showLogin(true));
+    dispatch(showLogin({show:true,path:""}));
   };
 
   return (
     <Drawer
+      dir="rtl"
       hideCloseButton
       size="full"
       isOpen={isOpen}
@@ -60,7 +62,7 @@ export default function SignUp() {
                 variant="flat"
                 color="warning"
                 onPress={() => {
-                  dispatch(showSignUp(false));
+                  dispatch(showSignUp({show:false,path:""}));
                   onClose();
                 }}
                 className="absolute left-5"
@@ -76,7 +78,7 @@ export default function SignUp() {
                   duration: 0.4,
                   scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
                 }}
-                className="w-[500px] min-h-[600px] rounded-lg border border-amber-950 flex items-center justify-center"
+                className="w-[500px] min-h-[600px] rounded-lg border border-amber-100 dark:border-amber-950 flex items-center justify-center"
               >
                 <SignUpForm switchToLogin={closeHandler} />
               </motion.div>

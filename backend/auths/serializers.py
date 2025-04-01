@@ -1,22 +1,36 @@
-from rest_framework.serializers import ModelSerializer, StringRelatedField,ValidationError,CharField,EmailField ,SerializerMethodField,PrimaryKeyRelatedField
+from rest_framework.serializers import (
+    ModelSerializer,
+    StringRelatedField,
+    ValidationError,
+    CharField,
+    EmailField,
+    SerializerMethodField,
+    PrimaryKeyRelatedField,
+)
 from .models import *
 from user_resume.serializers import *
 from django.contrib.auth import get_user_model
 from programming_language.serializers import *
 from followers.serializer import Followers
+
 User = get_user_model()
+
 
 class RoleSerializer(ModelSerializer):
     class Meta:
         model = Role
         fields = "__all__"
 
+
 class UserSerializer(ModelSerializer):
-    user_roles = StringRelatedField(many=True, read_only=True,help_text="نقش های کاربر")
+    user_roles = StringRelatedField(
+        many=True, read_only=True, help_text="نقش های کاربر"
+    )
     user_resume = UserResumeSerializer(many=True, read_only=True)
     user_language = UserLanguageSerializer(many=True, read_only=True)
     user_expertise = UserExpertiseSerializer(many=True, read_only=True)
     followers = SerializerMethodField()
+
     # followers = FollowerSerializer(read_only=True)
     class Meta:
         model = User
@@ -44,20 +58,28 @@ class UserSerializer(ModelSerializer):
             "debugger_bio",
             "user_score",
             "digital_wallet",
-            "followers"
+            "followers",
         ]
 
     def get_followers(self, obj):
         try:
             followers_obj = Followers.objects.get(user=obj)
             return {
-                "count":followers_obj.followers.count(),
-                "users":[{"id": user.id, "username": user.username,"image":str(user.image_profile),"uuid":user.uuid} for user in followers_obj.followers.all()]
+                "count": followers_obj.followers.count(),
+                "users": [
+                    {
+                        "id": user.id,
+                        "username": user.username,
+                        "image": str(user.image_profile),
+                        "uuid": user.uuid,
+                    }
+                    for user in followers_obj.followers.all()
+                ],
             }
         except Followers.DoesNotExist:
             return []  # اگر فالوئری نداشت، لیست خالی برمی‌گردانیم.
         # extra_kwargs = {'user_roles': {'read_only': True}
-    
+
     def create(self, validated_data):
         password = validated_data.pop("password", None)
         instance = self.Meta.model(**validated_data)
@@ -68,9 +90,9 @@ class UserSerializer(ModelSerializer):
 
 
 class CustomUserSerializer(ModelSerializer):
-    user_language = UserLanguageSerializer(many=True,read_only=True)
+    user_language = UserLanguageSerializer(many=True, read_only=True)
     user_expertise = StringRelatedField(many=True, read_only=True)
-    
+
     class Meta:
         model = User
         fields = [
@@ -87,19 +109,16 @@ class CustomUserSerializer(ModelSerializer):
             "user_bio",
             "debugger_bio",
             "user_score",
-   
+        ]
 
-        ]   
-        
+
 class CustomRoleSerializers(ModelSerializer):
     users = CustomUserSerializer(many=True)
+
     class Meta:
         model = Role
-        fields = [
-            "id",
-            "name",
-            "users"
-        ]
+        fields = ["id", "name", "users"]
+
 
 class RegisterSerializers(ModelSerializer):
     user_phone = CharField(max_length=11, min_length=11, required=True)
@@ -111,29 +130,47 @@ class RegisterSerializers(ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ['user_phone', 'email', 'first_name', 'last_name', 'username', 'password']
+        fields = [
+            "user_phone",
+            "email",
+            "first_name",
+            "last_name",
+            "username",
+            "password",
+        ]
 
     def validate_user_phone(self, value):
-        """ بررسی فرمت شماره موبایل ایرانی """
-        if not value.isdigit() or not value.startswith('09'):
+        """بررسی فرمت شماره موبایل ایرانی"""
+        if not value.isdigit() or not value.startswith("09"):
             raise ValidationError("شماره تلفن معتبر نیست، باید با 09 شروع شود.")
         if CustomUser.objects.filter(user_phone=value).exists():
             raise ValidationError("این شماره تلفن قبلاً ثبت شده است.")
         return value
 
     def validate_username(self, value):
-        """ بررسی یکتا بودن نام کاربری """
+        """بررسی یکتا بودن نام کاربری"""
         if CustomUser.objects.filter(username=value).exists():
             raise ValidationError("این نام کاربری قبلاً ثبت شده است.")
         return value
 
     def validate_email(self, value):
-        """ بررسی یکتا بودن ایمیل """
+        """بررسی یکتا بودن ایمیل"""
         if CustomUser.objects.filter(email=value).exists():
             raise ValidationError("این ایمیل قبلاً ثبت شده است.")
         return value
 
     def create(self, validated_data):
-        """ ایجاد کاربر جدید با هش کردن رمز عبور """
+        """ایجاد کاربر جدید با هش کردن رمز عبور"""
         user = CustomUser.objects.create_user(**validated_data)
         return user
+
+
+class UserBankCardsSerializers(ModelSerializer):
+    class Meta:
+        model = UserBankCards
+        fields = ["card_number", "user"]
+        extra_kwargs = {"user": {"read_only": True}}
+
+
+
+

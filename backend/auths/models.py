@@ -102,6 +102,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         if self.email:
             return self.email
         return self.user_phone
+
 class OTP(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     otp_code = models.CharField(max_length=6)
@@ -118,5 +119,10 @@ class Role(models.Model):
     def __str__(self):
         return self.name
 
+class UserBankCards(models.Model):
 
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    card_number = models.CharField(max_length=16,verbose_name="کارت بانکی",blank=True,null=True)
+    def __str__(self):
+        return f"{self.user.first_name} {self.user.last_name}"
 

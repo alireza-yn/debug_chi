@@ -1,5 +1,5 @@
 
-from .models import CustomUser,OTP
+from .models import CustomUser,OTP,UserBankCards
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -9,7 +9,9 @@ from rest_framework.request import Request
 import redis
 import json
 from django.db.models import Q
+from django.contrib.auth import get_user_model
 
+User = get_user_model()
 redis_client = redis.StrictRedis(host='localhost', port=6379, db=0, decode_responses=True)
 
 class UserService:
@@ -114,6 +116,7 @@ class UserService:
                     {"error": "credentials are not valid"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
+   
     def user_login(self, request: Request):
         username = request.data.get("username")
         password = request.data.get("password")
@@ -146,6 +149,7 @@ class UserService:
             {"error": "Credentials are not valid"},
             status=status.HTTP_400_BAD_REQUEST,
         )
+  
     def create_otp(self,user_phone):
         user = CustomUser.objects.filter(user_phone=user_phone).first()
         otp_exist = OTP.objects.filter(user=user).first()
@@ -161,4 +165,18 @@ class UserService:
             else:
                 print("otp_false")
                 return False
-        
+
+    def add_bank_card(self, card_number, user):
+
+        requested_user_for_add_card = User.objects.filter(id=user.id).first()
+        print(requested_user_for_add_card.first_name)
+
+        # exist = UserBankCards.objects.filter(card_number=card_number).first()
+        if UserBankCards.objects.filter(card_number=card_number).exists():
+            return False, "کارت بانکی وارد شده تکراری است"
+        else:
+            UserBankCards.objects.create(card_number=card_number, user=requested_user_for_add_card)
+            return True, "با موفقیت ذخیره شد"
+
+
+
