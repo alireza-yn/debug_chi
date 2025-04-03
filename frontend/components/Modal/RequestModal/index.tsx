@@ -116,7 +116,7 @@ const RequestModal = (props: Props) => {
     dir="rtl"
       className={`${
         showRequest
-          ? "h-min-[340px] w-full bg-[#232035] rounded-tr-lg rounded-tl-lg"
+          ? "min-h-[340px] w-full bg-[#232035] rounded-tr-lg rounded-tl-lg"
           : "w-full h-0 opacity-0"
       } absolute bottom-0 z-30 transition-all duration-500`}
     >

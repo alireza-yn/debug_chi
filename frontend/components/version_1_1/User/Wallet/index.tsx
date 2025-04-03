@@ -1,5 +1,10 @@
 "use client";
-import { formatCurrency, getCurrentPersianMonth, getMonthNames } from "@/utils/tools";
+import { ModalProvider, useModalContext } from "@/context/ModalContext";
+import {
+  formatCurrency,
+  getCurrentPersianMonth,
+  getMonthNames,
+} from "@/utils/tools";
 import {
   Badge,
   Button,
@@ -29,65 +34,68 @@ type Props = {};
 
 const Wallet = (props: Props) => {
   return (
-    <div className="w-full flex h-full flex-wrap gap-4   box-border pb-4 justify-center">
-      <Tabs
-        color="primary"
-        aria-label="Tabs variants"
-        variant="light"
-        placement="bottom"
-        className="w-96 px-4"
-        classNames={{
-          // base:"rounded-3xl",
-          tab: "p-0",
-          tabContent: "h-10 flex items-center justify-center",
-          panel: "p-0",
-        }}
-        fullWidth
-        size="lg"
-        radius="full"
-      >
-        <Tab key="home" className="w-full h-full" title={<Home />}>
-          <TabHome />
-        </Tab>
+    <ModalProvider>
+      <div className="w-full flex h-full flex-wrap gap-4   box-border pb-4 justify-center">
+        <Tabs
+          color="primary"
+          aria-label="Tabs variants"
+          variant="light"
+          placement="bottom"
+          className="w-96 px-4"
+          classNames={{
+            // base:"rounded-3xl",
+            tab: "p-0",
+            tabContent: "h-10 flex items-center justify-center",
+            panel: "p-0",
+          }}
+          fullWidth
+          size="lg"
+          radius="full"
+        >
+          <Tab key="home" className="w-full h-full" title={<Home />}>
+            <TabHome />
+          </Tab>
 
-        <Tab
-          key="history"
-          className="w-full h-full"
-          title={
-            <div className="flex gap-2 items-center">
-              <History />
-              <Chip variant="flat" color="primary" size="sm" radius="full">
-                5
-              </Chip>
-            </div>
-          }
-        >
-          <TabHistory />
-        </Tab>
-        <Tab
-          key="notfication"
-          className="w-full h-full"
-          title={
-            <div className="flex gap-2 items-center">
-              <Mail />
-              <Chip variant="flat" color="primary" size="sm" radius="full">
-                5
-              </Chip>
-            </div>
-          }
-        >
-          <TabNotification />
-        </Tab>
-      </Tabs>
-    </div>
+          <Tab
+            key="history"
+            className="w-full h-full"
+            title={
+              <div className="flex gap-2 items-center">
+                <History />
+                <Chip variant="flat" color="primary" size="sm" radius="full">
+                  5
+                </Chip>
+              </div>
+            }
+          >
+            <TabHistory />
+          </Tab>
+          <Tab
+            key="notfication"
+            className="w-full h-full"
+            title={
+              <div className="flex gap-2 items-center">
+                <Mail />
+                <Chip variant="flat" color="primary" size="sm" radius="full">
+                  5
+                </Chip>
+              </div>
+            }
+          >
+            <TabNotification />
+          </Tab>
+        </Tabs>
+      </div>
+    </ModalProvider>
   );
 };
 
 export default Wallet;
 
 const TabHome = () => {
+  const { show, setShow } = useModalContext();
   return (
-    <div className="h-full flex flex-col gap-2">
+    <div className="h-full flex flex-col gap-2 relative">
       <div className="w-full flex-1 bg-[radial-gradient(circle,_var(--tw-gradient-stops))]  from-violet-800 to-violet-400 rounded-3xl relative">
         <span className="absolute left-4 bottom-2 text-xl text-slate-200">
           {formatCurrency(500000, true)}
@@ -97,6 +105,7 @@ const TabHome = () => {
         <ActionButtons />
         <FinancialActivities />
       </div>
+      <ActionButtonModal type="bankCards" />
     </div>
   );
 };
@@ -118,80 +127,75 @@ const TabHistory = () => {
 };
 
 const TabNotification = () => {
-  return(
+  return (
     <div className="h-full flex flex-col gap-2 box-border p-2">
-        <FilterNotificationAction />
-        <div className="flex-1 h-4/5" dir="rtl">
-
-        <FilterNotificationContent />
-        </div>
+      <FilterNotificationAction />
+      <div className="flex-1 bg-black" dir="rtl">
+        {/* <FilterNotificationContent /> */}
+      </div>
     </div>
-  )
+  );
 };
 
+const FilterNotificationAction = () => {
+  const filterOptions = ["همه", "لایک", "کامنت", "فالو"].reverse();
 
+  const [selectedFilter, setSelectedFilter] = useState<string>("همه");
 
-const FilterNotificationAction = ()=>{
+  const filterRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-      const filterOptions = ["همه", "لایک", "کامنت", "فالو"].reverse();
-    
-      const [selectedFilter, setSelectedFilter] = useState<string>("همه");
-    
-      const filterRefs = useRef<(HTMLDivElement | null)[]>([]);
-    
-      useEffect(() => {
-        const currentIndex = filterOptions.indexOf(selectedFilter);
-        if (currentIndex !== -1 && filterRefs.current[currentIndex]) {
-          filterRefs.current[currentIndex].scrollIntoView({
-            behavior: "smooth",
-            inline: "center",
-          });
-        }
-      }, [selectedFilter]);
-    
-      return (
-        <div className="w-full h-auto flex items-center justify-between p-2 gap-2 bg-[#18181b] rounded-2xl">
-          <div className="max-w-full h-14 w-full overflow-x-scroll whitespace-nowrap flex items-center gap-4 px-2 scrollbar-hide justify-end">
-            {filterOptions.map((item, index) => (
-              <div
-                key={item}
-                ref={(el: any) => (filterRefs.current[index] = el!)}
-                className="cursor-pointer"
-                onClick={() => setSelectedFilter(item)} 
-              >
-                <Chip
-                  variant={item === selectedFilter ? "solid" : "flat"} 
-                  color="primary"
-                  className="shrink-0"
-                >
-                  {item}
-                </Chip>
-              </div>
-            ))}
+  useEffect(() => {
+    const currentIndex = filterOptions.indexOf(selectedFilter);
+    if (currentIndex !== -1 && filterRefs.current[currentIndex]) {
+      filterRefs.current[currentIndex].scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    }
+  }, [selectedFilter]);
+
+  return (
+    <div className="w-full h-auto flex items-center justify-between p-2 gap-2 bg-[#18181b] rounded-2xl">
+      <div className="max-w-full h-14 w-full overflow-x-scroll whitespace-nowrap flex items-center gap-4 px-2 scrollbar-hide justify-end">
+        {filterOptions.map((item, index) => (
+          <div
+            key={item}
+            ref={(el: any) => (filterRefs.current[index] = el!)}
+            className="cursor-pointer"
+            onClick={() => setSelectedFilter(item)}
+          >
+            <Chip
+              variant={item === selectedFilter ? "solid" : "flat"}
+              color="primary"
+              className="shrink-0"
+            >
+              {item}
+            </Chip>
           </div>
-    
-    
-        </div>
-      );
-}
-
+        ))}
+      </div>
+    </div>
+  );
+};
 
 // Define notification types
-type NotificationType = "text" | "image" | "action"
+type NotificationType = "text" | "image" | "action";
 
 interface NotificationItem {
-  id: string
-  type: NotificationType
-  username: string
-  message: string
-  time: string
-  avatar?: string
-  actionLabel?: string
+  id: string;
+  type: NotificationType;
+  username: string;
+  message: string;
+  time: string;
+  avatar?: string;
+  actionLabel?: string;
 }
 
-const FilterNotificationContent = ()=>{
-    // Sample data for notifications
-  const [todayNotifications, setTodayNotifications] = useState<NotificationItem[]>([
+const FilterNotificationContent = () => {
+  // Sample data for notifications
+  const [todayNotifications, setTodayNotifications] = useState<
+    NotificationItem[]
+  >([
     {
       id: "1",
       type: "text",
@@ -217,9 +221,11 @@ const FilterNotificationContent = ()=>{
       avatar: "https://i.pravatar.cc/150?u=c24258114e29026702b",
       actionLabel: "دنبال کردن متقابل",
     },
-  ])
+  ]);
 
-  const [lastWeekNotifications, setLastWeekNotifications] = useState<NotificationItem[]>([
+  const [lastWeekNotifications, setLastWeekNotifications] = useState<
+    NotificationItem[]
+  >([
     {
       id: "4",
       type: "text",
@@ -236,9 +242,11 @@ const FilterNotificationContent = ()=>{
       time: "۳ روز",
       avatar: "https://i.pravatar.cc/150?u=e44258114e29026702z",
     },
-  ])
+  ]);
 
-  const [lastMonthNotifications, setLastMonthNotifications] = useState<NotificationItem[]>([
+  const [lastMonthNotifications, setLastMonthNotifications] = useState<
+    NotificationItem[]
+  >([
     {
       id: "6",
       type: "text",
@@ -264,12 +272,15 @@ const FilterNotificationContent = ()=>{
       avatar: "https://i.pravatar.cc/150?u=h74258114e29026702w",
       actionLabel: "دنبال کردن متقابل",
     },
-  ])
+  ]);
 
   // Render notification based on its type
   const renderNotification = (notification: NotificationItem) => {
     return (
-      <div key={notification.id} className="flex items-start gap-3 py-3 border-b border-gray-800">
+      <div
+        key={notification.id}
+        className="flex items-start gap-3 py-3 border-b border-gray-800 "
+      >
         {notification.type === "image" && (
           <User
             avatarProps={{
@@ -291,7 +302,9 @@ const FilterNotificationContent = ()=>{
             </div>
             <div className="flex-1">
               <div className="flex items-center gap-1">
-                <span className="font-bold text-white">{notification.username}</span>
+                <span className="font-bold text-white">
+                  {notification.username}
+                </span>
               </div>
               <p className="text-gray-300 text-sm">{notification.message}</p>
               <span className="text-gray-500 text-xs">{notification.time}</span>
@@ -311,18 +324,24 @@ const FilterNotificationContent = ()=>{
               </div>
               <div>
                 <div className="flex items-center gap-1">
-                  <span className="font-bold text-white">{notification.username}</span>
+                  <span className="font-bold text-white">
+                    {notification.username}
+                  </span>
                 </div>
                 <p className="text-gray-300 text-sm">{notification.message}</p>
-                <span className="text-gray-500 text-xs">{notification.time}</span>
+                <span className="text-gray-500 text-xs">
+                  {notification.time}
+                </span>
               </div>
             </div>
-            <button className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm">{notification.actionLabel}</button>
+            <button className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm">
+              {notification.actionLabel}
+            </button>
           </div>
         )}
       </div>
-    )
-  }
+    );
+  };
 
   return (
     <div className="bg-gray-900 text-white min-h-screen p-4 max-w-md mx-auto">
@@ -331,40 +350,38 @@ const FilterNotificationContent = ()=>{
       {/* Today's notifications */}
       <div className="mb-6">
         <h2 className="text-gray-400 text-sm mb-2 text-right">امروز</h2>
-        <div className="space-y-1">{todayNotifications.map((notification) => renderNotification(notification))}</div>
+        <div className="space-y-1">
+          {todayNotifications.map((notification) =>
+            renderNotification(notification)
+          )}
+        </div>
       </div>
 
       {/* Last week's notifications */}
       <div className="mb-6">
         <h2 className="text-gray-400 text-sm mb-2 text-right">۷ روز اخیر</h2>
-        <div className="space-y-1">{lastWeekNotifications.map((notification) => renderNotification(notification))}</div>
+        <div className="space-y-1">
+          {lastWeekNotifications.map((notification) =>
+            renderNotification(notification)
+          )}
+        </div>
       </div>
 
       {/* Last month's notifications */}
       <div>
         <h2 className="text-gray-400 text-sm mb-2 text-right">۳۰ روز اخیر</h2>
         <div className="space-y-1">
-          {lastMonthNotifications.map((notification) => renderNotification(notification))}
+          {lastMonthNotifications.map((notification) =>
+            renderNotification(notification)
+          )}
         </div>
       </div>
     </div>
-  )
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
+  );
+};
 
 const ActionButtons = () => {
+  const { setShow } = useModalContext();
   const actions = [
     {
       name: "برداشت",
@@ -395,6 +412,7 @@ const ActionButtons = () => {
               radius="lg"
               isIconOnly
               size="lg"
+              onPress={() => setShow(true)}
             ></Button>
             <span className="text-xs">{item.name}</span>
           </div>
@@ -434,8 +452,8 @@ const FinancialActivities = () => {
               weekday: "long",
               day: "numeric",
               month: "long",
-              hour:"numeric",
-              minute:"numeric"
+              hour: "numeric",
+              minute: "numeric",
             })}
           </span>
         </CardFooter>
@@ -445,70 +463,107 @@ const FinancialActivities = () => {
 };
 
 const FilterAction = () => {
-    const FilterButton = [
-      { name: "فیلتر", icon: Filter },
-      { name: "پیام ها", icon: Mail },
-      { name: "جستجو", icon: Search },
-    ];
-  
-    const persianMonths = [
-      "فروردین", "اردیبهشت", "خرداد", "تیر", "مرداد", "شهریور",
-      "مهر", "آبان", "آذر", "دی", "بهمن", "اسفند"
-    ].reverse()
-  
-    const getCurrentPersianMonth = (): string => {
-      return new Intl.DateTimeFormat("fa-IR", { month: "long" }).format(new Date());
-    };
-    const currentMonth = getCurrentPersianMonth();
-  
-    const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth);
-  
-    const monthRefs = useRef<(HTMLDivElement | null)[]>([]);
-  
-    useEffect(() => {
-      const currentIndex = persianMonths.indexOf(selectedMonth);
-      if (currentIndex !== -1 && monthRefs.current[currentIndex]) {
-        monthRefs.current[currentIndex].scrollIntoView({
-          behavior: "smooth",
-          inline: "center",
-        });
-      }
-    }, [selectedMonth]);
-  
-    return (
-      <div className="w-full h-auto flex items-center justify-between p-2 gap-2 bg-[#18181b] rounded-2xl">
-        <div className="max-w-52  h-14 w-full overflow-x-scroll whitespace-nowrap flex items-center gap-4 px-2 scrollbar-hide">
-          {persianMonths.map((item, index) => (
-            <div
-              key={item}
-              ref={(el:any) => (monthRefs.current[index] = el!)}
-              className="cursor-pointer"
-              onClick={() => setSelectedMonth(item)} // ✅ هنگام کلیک ماه انتخاب‌شده را تنظیم می‌کنیم
-            >
-              <Chip
-                variant={item === selectedMonth ? "solid" : "flat"} // ✅ اگر ماه انتخاب‌شده باشد، حالت "solid" می‌گیرد
-                color="primary"
-                className="shrink-0"
-              >
-                {item}
-              </Chip>
-            </div>
-          ))}
-        </div>
-  
-        {/* دکمه‌های کنترلی */}
-        {FilterButton.map((item) => (
-          <Button
-            size="sm"
-            isIconOnly
-            variant="flat"
-            radius="full"
-            color="primary"
-            startContent={<item.icon size={16} />}
-            key={item.name}
-          />
-        ))}
-      </div>
+  const FilterButton = [
+    { name: "فیلتر", icon: Filter },
+    { name: "پیام ها", icon: Mail },
+    { name: "جستجو", icon: Search },
+  ];
+
+  const persianMonths = [
+    "فروردین",
+    "اردیبهشت",
+    "خرداد",
+    "تیر",
+    "مرداد",
+    "شهریور",
+    "مهر",
+    "آبان",
+    "آذر",
+    "دی",
+    "بهمن",
+    "اسفند",
+  ].reverse();
+
+  const getCurrentPersianMonth = (): string => {
+    return new Intl.DateTimeFormat("fa-IR", { month: "long" }).format(
+      new Date()
     );
   };
-  
+  const currentMonth = getCurrentPersianMonth();
+
+  const [selectedMonth, setSelectedMonth] = useState<string>(currentMonth);
+
+  const monthRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  useEffect(() => {
+    const currentIndex = persianMonths.indexOf(selectedMonth);
+    if (currentIndex !== -1 && monthRefs.current[currentIndex]) {
+      monthRefs.current[currentIndex].scrollIntoView({
+        behavior: "smooth",
+        inline: "center",
+      });
+    }
+  }, [selectedMonth]);
+
+  return (
+    <div className="w-full h-auto flex items-center justify-between p-2 gap-2 bg-[#18181b] rounded-2xl">
+      <div className="max-w-52  h-14 w-full overflow-x-scroll whitespace-nowrap flex items-center gap-4 px-2 scrollbar-hide">
+        {persianMonths.map((item, index) => (
+          <div
+            key={item}
+            ref={(el: any) => (monthRefs.current[index] = el!)}
+            className="cursor-pointer"
+            onClick={() => setSelectedMonth(item)} // ✅ هنگام کلیک ماه انتخاب‌شده را تنظیم می‌کنیم
+          >
+            <Chip
+              variant={item === selectedMonth ? "solid" : "flat"} // ✅ اگر ماه انتخاب‌شده باشد، حالت "solid" می‌گیرد
+              color="primary"
+              className="shrink-0"
+            >
+              {item}
+            </Chip>
+          </div>
+        ))}
+      </div>
+
+      {/* دکمه‌های کنترلی */}
+      {FilterButton.map((item) => (
+        <Button
+          size="sm"
+          isIconOnly
+          variant="flat"
+          radius="full"
+          color="primary"
+          startContent={<item.icon size={16} />}
+          key={item.name}
+        />
+      ))}
+    </div>
+  );
+};
+
+const ActionButtonModal = ({ type }: { type: string }) => {
+  const { show, setShow } = useModalContext();
+  return (
+    <div
+      className={`w-full ${
+        show ? "h-3/4" : "h-[0%] opacity-0"
+      } absolute -bottom-16 z-50 box-border p-4 transition-all duration-500 ease-out`}
+    >
+      <div
+        className={`w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border p-4`}
+      >
+        <div className="flex-1"></div>
+        
+        <Button
+          variant="flat"
+          className="bg-lime-300 text-black"
+          fullWidth
+          onPress={() => setShow(false)}
+        >
+          بازگشت
+        </Button>
+      </div>
+    </div>
+  );
+};

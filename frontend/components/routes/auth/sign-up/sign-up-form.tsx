@@ -6,7 +6,7 @@ import * as motion from "motion/react-client";
 import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
-import { setPath, showSignUp } from "@/redux/slices/globalSlice";
+import { setPath, showLogin, showSignUp } from "@/redux/slices/globalSlice";
 
 type Props = {
   switchToLogin: () => void;
@@ -27,6 +27,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
     e.preventDefault();
     let data = Object.fromEntries(new FormData(e.currentTarget));
     const response = await perform_post("auths/user_register/", data);
+    console.log(response)
     if (response.success) {
       setOtp(true);
       setPhone(data.user_phone);
@@ -121,7 +122,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
         />
         <Input
           isRequired
-          errorMessage="ایمیل صحیح وارد نمایید"
+          errorMessage="حداقل 8 کاراکتر وارد نمایید"
           label="کلمه عبور"
           name="password"
           placeholder="حداقل 8 کاراکتر"
@@ -153,7 +154,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
           className="h-14 w-full text-xl"
           onPress={() => {
             switchToLogin();
-            dispatch(showSignUp(true));
+            dispatch(showLogin({show:true,path:""}));
           }}
         >
           ورود
