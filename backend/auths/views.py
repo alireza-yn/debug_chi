@@ -94,11 +94,12 @@ class UserBankCardsListCreateView(ListCreateAPIView, UserService):
 class UserBankCardApiView(APIView,UserService):
     permission_classes= [IsAuthenticated]
     def post(self, request: Request):
+        title = request.data.get('title')
         card_number = request.data.get("card_number")
-        created, message = self.add_bank_card(card_number=card_number, user=request.user)
-
+        created, message,data = self.add_bank_card(card_number=card_number, title=title,user=request.user)
+        print(created,message)
         if created:
-            return Response({"success": created, "message": message}, status=status.HTTP_201_CREATED)
+            return Response({"success": created, "message": message,"data":data}, status=status.HTTP_201_CREATED)
         else:
             return Response({"success": created, "message": message}, status=status.HTTP_400_BAD_REQUEST)
 

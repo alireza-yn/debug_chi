@@ -1,15 +1,26 @@
 export interface Main {
     id:          number;
-    user:        User;
+    is_slider:   boolean;
+    title:       string;
+    description: string;
+    collection:  Collection[];
+    created_at:  Date;
+    updated_at:  Date;
+}
+
+export interface Collection {
+    id:          number;
     thumbnail:   string;
+    media_type:  "picture" | "video";
     post_type:   string;
     title:       string;
     caption:     string;
-    video:       string;
+    file:        string;
     comments:    Comment[];
     likes:       Like[];
     likes_count: number;
     created_at:  Date;
+    order:       number;
 }
 
 export interface Comment {

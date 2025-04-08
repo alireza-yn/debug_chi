@@ -5,34 +5,32 @@ export interface Main {
 
 export interface IncomingRequest {
     debug:   Debug[];
-    consult: any[];
+    consult: ConsultElement[];
 }
 
-export interface Debug {
+export interface ConsultElement {
     id:                 number;
-    title:              null;
     created_at:         Date;
     updated_at:         Date;
+    title:              string;
+    description:        string;
     session_id:         string;
-    status:             "open" | "close" | "pending"
-    start_at:           Date | null;
-    close_at:           null;
-    mode:               "chat" | "voice_call" | "video_call";
+    status:             string;
+    close_at:           Date;
+    mode:               string;
     price:              number;
     discount:           number;
-    file:               string;
-    description:        string;
-    time:               number;
-    debuger:            Debuger;
-    debuger_applicator: Debuger;
+    lnaguage:           string;
+    consult:            ConsultApplicatorClass;
+    consult_applicator: ConsultApplicatorClass;
 }
 
-export interface Debuger {
+export interface ConsultApplicatorClass {
     id:               number;
     password:         string;
     last_login:       Date | null;
     is_superuser:     boolean;
-    username:         string;
+    username:         null | string;
     email:            string;
     first_name:       string;
     last_name:        string;
@@ -42,14 +40,34 @@ export interface Debuger {
     unlimited:        boolean;
     created:          Date;
     updated:          Date;
+    job_title:        null | string;
     uuid:             string;
     intro_completed:  boolean;
     digital_wallet:   number;
     blocked_wallet:   number;
-    user_bio:         string;
-    debugger_bio:     string;
+    user_bio:         null | string;
+    debugger_bio:     null | string;
     user_score:       number;
-    image_profile:    string;
+    image_profile:    null | string;
     groups:           any[];
     user_permissions: any[];
+}
+
+export interface Debug {
+    id:                 number;
+    created_at:         Date;
+    updated_at:         Date;
+    title:              string;
+    session_id:         string;
+    status:             string;
+    start_at:           Date;
+    close_at:           Date | null;
+    mode:               string;
+    price:              number;
+    discount:           number;
+    file:               string;
+    description:        string;
+    time:               number;
+    debuger:            ConsultApplicatorClass;
+    debuger_applicator: ConsultApplicatorClass;
 }

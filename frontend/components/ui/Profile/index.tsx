@@ -45,7 +45,7 @@ const UserProfile = ({ user }: Props) => {
           <Avatar
             radius="full"
             className="w-40 h-40 text-2xl"
-            src={user.image_profile}
+            src={`${process.env.server}/${user.image_profile}` || '/user.jpg'}
           />
         </Badge>
         <div className="w-full flex flex-col items-center justify-center">

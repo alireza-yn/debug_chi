@@ -134,7 +134,7 @@ export const chatSocket = (io: Server): void => {
     });
   
     socket.on("get_messages", async (data) => {
-      const messages = await getMessages(data.sender, data.receiver);
+      const messages = await getMessages(data.session_id);
       console.log(messages);
       socket.emit("get_messages", messages);
     });

@@ -7,6 +7,7 @@ const nextConfig: NextConfig = {
     ws:"http://127.0.0.1:8001",
     dashboard:'/user/dashboard',
     nodejs_server:"http://localhost:3001",
+    MONGODB_URI:"mongodb://localhost:27017/"
   },
   images: {
     remotePatterns: [

@@ -12,5 +12,5 @@ class Payments(models.Model):
 
 class Factor(models.Model):
     payemnt = models.ForeignKey(Payments,on_delete=models.CASCADE)
-    factor_uuid = models.UUIDField(default=uuid.uuid4())
+    factor_uuid = models.UUIDField(default=uuid.uuid4)
     created_at = models.DateTimeField(auto_now=True)

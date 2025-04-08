@@ -17,30 +17,23 @@ import {
 } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useState } from "react";
-import ModalVideoPlayer from "../ModalVideoPlayer";
-import HistoryCard from "../HistoryCard";
+import { ModalPicturePlayer, ModalVideoPlayer } from "../ModalVideoPlayer";
+// import HistoryCard from "../HistoryCard";
 import { GetUserActivityHistoryTab } from "./TabsData";
+import AddPost from "../AddPost";
 
 type Props = {
   user: UserType;
   posts: PostType[];
 };
 const UserDashboard = ({ user, posts }: Props) => {
-
-  useEffect(()=>{
-    const getUserActivityHistory = async ()=>{
-
-    }
-    getUserActivityHistory()
-  })
-
+  console.log(posts);
+ 
 
   const title = user?.user_expertise?.[0]?.expertise?.[0]?.title;
 
-  const isLiked = () => {
-    return posts.some((post) =>
-      post.likes.some((like) => like.user.uuid === user.uuid)
-    );
+  const isLiked = (postLikes: any[]) => {
+    return postLikes.some((like) => like.user.uuid === user.uuid);
   };
   return (
     <>
@@ -93,21 +86,13 @@ const UserDashboard = ({ user, posts }: Props) => {
               )}
             </Button>
           </div>
-          <p className="text-foreground-500 text-justify">{user.user_bio || "برای بایو خود یک متن خوب بنویسید..."}</p>
+          <p className="text-foreground-500 text-justify">
+            {user.user_bio || "برای بایو خود یک متن خوب بنویسید..."}
+          </p>
         </div>
         <div className="flex-1 flex flex-col items-center justify-center gap-4 relative">
           <h1 className="text-5xl py-2  font-bold bg-gradient-to-tr from-orange-900 to-orange-500 bg-clip-text text-transparent">
-            {title ? title : "عنوان خود را وارد نمایید"}{" "}
-            {title ? (
-              title
-            ) : (
-              <Button
-                isIconOnly
-                startContent={<Edit2 />}
-                variant="light"
-                color="warning"
-              ></Button>
-            )}
+            {user.job_title || "عنوان شغلی شما"}
           </h1>
 
           <div className="flex items-center justify-between  flex-row-reverse gap-4  absolute bottom-0">
@@ -141,8 +126,6 @@ const UserDashboard = ({ user, posts }: Props) => {
               )}
           </div>
         </div>
-
-      
       </div>
 
       <div className=" w-full h-[1px] border-b-4 rounded-full border-black gap-4 grid grid-cols-2 my-5 "></div>
@@ -159,7 +142,7 @@ const UserDashboard = ({ user, posts }: Props) => {
             tab: "max-w-fit px-5",
             tabContent: "group-data-[selected=true]:text-[#000000]",
           }}
-          color="primary"
+        
           variant="light"
         >
           <Tab
@@ -171,124 +154,281 @@ const UserDashboard = ({ user, posts }: Props) => {
               </div>
             }
           >
-           <GetUserActivityHistoryTab />
+            <GetUserActivityHistoryTab />
           </Tab>
-           { user.user_roles.includes("debugger") ? 
-          <Tab
-            className="w-full"
-            key="learn"
-            title={
-              <div className="flex items-center space-x-2">
-                <span>آموزش</span>
-              </div>
-            }
-          >
-            <div className="grid grid-cols-5">
-              {posts.map((item) => {
-                return (
-                  <div
-                    key={item.id}
-                    className="flex  items-center justify-center relative  border-l-2 border-b-2 border-slate-900 h-[500px]"
-                  >
-                    <ModalVideoPlayer
-                      title={item.title}
-                      url={item.video}
-                      comments={item.comments}
-                      post_id={item.id}
-                      uuid={user.uuid}
-                      is_liked={isLiked()}
-                      count={item.likes_count}
-                    />
-                    <div className="z-0 w-full h-[500px] absolute">
-                      <Image
-                        alt="hello"
-                        src={item.thumbnail}
-                        layout="fill"
-                        objectFit="cover"
-                      />
-                    </div>
-                    <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
-                      <span
-                        style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}
+          {user.user_roles.includes("debugger") ? (
+            <Tab
+              className="w-full"
+              key="learn"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span>آموزش</span>
+                </div>
+              }
+            >
+              <div className="grid grid-cols-5">
+                {posts.map((post_item) => {
+                  if (post_item.is_slider) {
+                    const item = post_item.collection[0];
+                    return (
+                      <div
+                        key={post_item.id}
+                        className="flex items-center justify-center relative border-l-2 border-b-2 border-slate-900 h-[500px]"
                       >
-                        {item.likes_count}
-                      </span>
-                      <Eye
-                        size={14}
-                        style={{ textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)" }}
-                      />
+                        {item.media_type === "video" && (
+                          <>
+                            <ModalVideoPlayer
+                              collection={post_item.collection}
+                              title={item.title}
+                              url={item.file}
+                              comments={item.comments}
+                              post_id={item.id}
+                              uuid={user.uuid}
+                              is_liked={item.likes.some(
+                                (like) => like.user.uuid === user.uuid
+                              )}
+                              count={item.likes_count}
+                            />
+                            <div className="z-0 w-full h-[500px] absolute">
+                              <Image
+                                alt={item.title}
+                                src={item.thumbnail}
+                                layout="fill"
+                                objectFit="cover"
+                              />
+                            </div>
+                          </>
+                        )}
+                        {item.media_type === "picture" && (
+                          <>
+                            <ModalPicturePlayer
+                              collection={post_item.collection}
+                              title={item.title}
+                              url={item.file}
+                              comments={item.comments}
+                              post_id={item.id}
+                              uuid={user.uuid}
+                              is_liked={item.likes.some(
+                                (like) => like.user.uuid === user.uuid
+                              )}
+                              count={item.likes_count}
+                            />
+                            <div className="z-0 w-full h-[500px] absolute">
+                              <Image
+                                alt={item.title}
+                                src={item.thumbnail}
+                                layout="fill"
+                                objectFit="cover"
+                              />
+                            </div>
+                          </>
+                        )}
+                        <div className="z-0 w-full h-[500px] absolute">
+                          <Image
+                            alt={item.title}
+                            src={item.thumbnail}
+                            layout="fill"
+                            objectFit="cover"
+                          />
+                        </div>
+                        <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
+                          <span
+                            style={{
+                              textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
+                            }}
+                          >
+                            {item.likes_count}
+                          </span>
+                          <Eye
+                            size={14}
+                            style={{
+                              textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)",
+                            }}
+                          />
+                        </div>
+                      </div>
+                    );
+                  }
+                })}
+              <AddPost />
+                {/* {posts.map((post) =>
+                  post.collection.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-center relative border-l-2 border-b-2 border-slate-900 h-[500px]"
+                    >
+                      {item.media_type === "video" && (
+                        <>
+                          <ModalVideoPlayer
+                            title={item.title}
+                            url={item.file}
+                            comments={item.comments}
+                            post_id={item.id}
+                            uuid={user.uuid}
+                            is_liked={item.likes.some(
+                              (like) => like.user.uuid === user.uuid
+                            )}
+                            count={item.likes_count}
+                          />
+                          <div className="z-0 w-full h-[500px] absolute">
+                            <Image
+                              alt={item.title}
+                              src={item.thumbnail}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </>
+                      )}
+                      {item.media_type === "picture" && (
+                        <>
+                          <ModalPicturePlayer
+                            title={item.title}
+                            url={item.file}
+                            comments={item.comments}
+                            post_id={item.id}
+                            uuid={user.uuid}
+                            is_liked={item.likes.some(
+                              (like) => like.user.uuid === user.uuid
+                            )}
+                            count={item.likes_count}
+                          />
+                          <div className="z-0 w-full h-[500px] absolute">
+                            <Image
+                              alt={item.title}
+                              src={item.thumbnail}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </>
+                      )}
+                        <div className="z-0 w-full h-[500px] absolute">
+                            <Image
+                              alt={item.title}
+                              src={item.thumbnail}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                      <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
+                        <span
+                          style={{
+                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
+                          }}
+                        >
+                          {item.likes_count}
+                        </span>
+                        <Eye
+                          size={14}
+                          style={{
+                            textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)",
+                          }}
+                        />
+                      </div>
                     </div>
-                  </div>
-                );
-              })}
-            </div>
-          </Tab>
-           :
-           <Tab
-           className="w-full"
-           key="learn"
-           title={
-             <div className="flex items-center space-x-2">
-               <span>آموزش ذخیره شده</span>
-             </div>
-           }
-         >
-           <div className="grid grid-cols-5">
-             {posts.map((item) => {
-               return (
-                 <div
-                   key={item.id}
-                   className="flex  items-center justify-center relative  border-l-2 border-b-2 border-slate-900 h-[500px]"
-                 >
-                   <ModalVideoPlayer
-                     title={item.title}
-                     url={item.video}
-                     comments={item.comments}
-                     post_id={item.id}
-                     uuid={user.uuid}
-                     is_liked={isLiked()}
-                     count={item.likes_count}
-                   />
-                   <div className="z-0 w-full h-[500px] absolute">
-                     <Image
-                       alt="hello"
-                       src={item.thumbnail}
-                       layout="fill"
-                       objectFit="cover"
-                     />
-                   </div>
-                   <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
-                     <span
-                       style={{ textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)" }}
-                     >
-                       {item.likes_count}
-                     </span>
-                     <Eye
-                       size={14}
-                       style={{ textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)" }}
-                     />
-                   </div>
-                 </div>
-               );
-             })}
-           </div>
-         </Tab>
-
-           }
-     
-     { user.user_roles.includes("debugger") &&
-          <Tab
-            key="cv"
-            className="w-full"
-            title={
-              <div className="flex items-center space-x-2">
-                <span>رزومه</span>
+                  ))
+                )} */}
               </div>
-            }
-          >
-            <div className="w-full min-h-[400px] border"></div>
-          </Tab>
-          }
+            </Tab>
+          ) : (
+            <Tab
+              className="w-full"
+              key="learn"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span>آموزش ذخیره شده</span>
+                </div>
+              }
+            >
+              <div className="grid grid-cols-5">
+                {/* {posts.map((post) =>
+                  post.collection.map((item) => (
+                    <div
+                      key={item.id}
+                      className="flex items-center justify-center relative border-l-2 border-b-2 border-slate-900 h-[500px]"
+                    >
+                      {item.media_type === "video" && (
+                        <>
+                          <ModalVideoPlayer
+                            title={item.title}
+                            url={item.file}
+                            comments={item.comments}
+                            post_id={item.id}
+                            uuid={user.uuid}
+                            is_liked={item.likes.some(
+                              (like) => like.user.uuid === user.uuid
+                            )}
+                            count={item.likes_count}
+                          />
+                          <div className="z-0 w-full h-[500px] absolute">
+                            <Image
+                              alt={item.title}
+                              src={item.thumbnail}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </>
+                      )}
+                      {item.media_type === "picture" && (
+                        <>
+                          <ModalVideoPlayer
+                            title={item.title}
+                            url={item.file}
+                            comments={item.comments}
+                            post_id={item.id}
+                            uuid={user.uuid}
+                            is_liked={item.likes.some(
+                              (like) => like.user.uuid === user.uuid
+                            )}
+                            count={item.likes_count}
+                          />
+                          <div className="z-0 w-full h-[500px] absolute">
+                            <Image
+                              alt={item.title}
+                              src={item.thumbnail}
+                              layout="fill"
+                              objectFit="cover"
+                            />
+                          </div>
+                        </>
+                      )}
+                      <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
+                        <span
+                          style={{
+                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
+                          }}
+                        >
+                          {item.likes_count}
+                        </span>
+                        <Eye
+                          size={14}
+                          style={{
+                            textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)",
+                          }}
+                        />
+                      </div>
+                    </div>
+                  ))
+                )} */}
+              </div>
+            </Tab>
+          )}
+
+          {user.user_roles.includes("debugger") && (
+            <Tab
+              key="cv"
+              className="w-full"
+              title={
+                <div className="flex items-center space-x-2">
+                  <span>رزومه</span>
+                </div>
+              }
+            >
+              <div className="w-full min-h-[400px] border"></div>
+            </Tab>
+          )}
         </Tabs>
       </div>
     </>

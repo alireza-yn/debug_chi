@@ -4,7 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import *
 from rest_framework.views import APIView
 from rest_framework.request import Request
-from rest_framework.generics import ListAPIView
+from rest_framework.generics import ListAPIView,RetrieveAPIView
 from .service import *
 from django.db.models import Q
 
@@ -44,6 +44,13 @@ class AcceptDebugSession(APIView,DebugHubService):
     def get(self,request:Request):
        return self.AcceptSessionBySessionId(request)
 
+
+class PendingSession(APIView,DebugHubService):
+    permission_classes = [IsAuthenticated,IsDebugger]
+    def get(self,request:Request):
+        return self.PendingSessionBySessionId(request)
+
+
 class GetDebugerSession(ListAPIView,DebugHubService):
     permission_classes = [IsAuthenticated,IsDebugger]
     serializer_class = DebuggerSerializer
@@ -57,3 +64,8 @@ class UserOpendDebugList(ListAPIView,ConsultHubService):
     permission_classes = [IsAuthenticated]
     def get_queryset(self):
         return self.getOpenedSession(self.request.user)
+
+
+class GetSessionInfo(APIView,ConsultHubService):
+    def get(self,request:Request,session_id:str):
+        return self.getSessionInfoBySessionId(request,session_id)

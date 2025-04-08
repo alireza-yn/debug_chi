@@ -53,17 +53,20 @@ class PostActionApiView(APIView):
 
 class UserPostList(ListAPIView):
     # queryset = Posts.objects.all()
-    serializer_class = PostSerializer
+    serializer_class = PostGroupSerializers
     
     def get_queryset(self):
         user = self.request.user
-        return Posts.objects.filter(user=user)
+        return PostGroup.objects.filter(user=user)
     
 class CommentViewSet(ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentSerializer
 
-
 class LikedPostViewSet(ModelViewSet):
     queryset= Liked.objects.all()
     serializer_class = LikeSerializer
+
+class PostListModelViewSet(ModelViewSet):
+    queryset = PostGroup.objects.all()
+    serializer_class = PostGroupSerializers

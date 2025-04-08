@@ -74,6 +74,9 @@ router.register(r'section',SectionView,basename='سکشن')
 
 #region Posts Router
 router.register(r'posts',PostsViewSet,basename='پست آموزشی'),
+router.register(r'post_group',PostListModelViewSet,basename='پست های من'),
+
+
 router.register(r'comments',CommentViewSet,basename='کامنت ویدیوی آموزشی'),
 router.register(r'Like',LikedPostViewSet,basename='لایک ویدیوی آموزشی'),
 #endregion
@@ -98,7 +101,10 @@ urlpatterns = [
     
     #region  ConsultantAPI
     path('v1/debug/accept_debug_session/',view=AcceptDebugSession.as_view(),name='قبول کردن جلسه دیباگ'),
+    path('v1/debug/get_pending_session/',view=PendingSession.as_view(),name='لیست جلسات در حال بررسی'),
     path('v1/debug/list_debug/',view=GetDebugerSession.as_view(),name='قبول کردن جلسه دیباگ'),
+    path('v1/debug/get-session-info/<str:session_id>/',view=GetSessionInfo.as_view(),name='get-session-info'),
+
     #endregion 
     
     

@@ -57,6 +57,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     unlimited = models.BooleanField(default=False, verbose_name="بدون محدودیت")
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+    job_title = models.CharField(max_length=100,null=True,blank=True)
     uuid = models.UUIDField(default=uuid.uuid4, editable=False, verbose_name="شناسه یکتا")
     intro_completed = models.BooleanField(default=False)
     digital_wallet = models.IntegerField(default=0,verbose_name='کیف پول دیجیتال')
@@ -121,8 +122,11 @@ class Role(models.Model):
 
 class UserBankCards(models.Model):
 
-    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_bank_cards')
+    title = models.CharField(max_length=50,blank=True,null=True)
     card_number = models.CharField(max_length=16,verbose_name="کارت بانکی",blank=True,null=True)
+    default_card = models.BooleanField(default=False)
+    
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
 

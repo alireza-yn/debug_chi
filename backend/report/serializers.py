@@ -12,6 +12,6 @@ class DebugReportSerializer(serializers.ModelSerializer):
 
 class ConsultReportSerializer(serializers.ModelSerializer):
     class Meta:
-        model = DebugReport
+        model = ConsultReport
         fields = '__all__'
         depth = 1

@@ -45,7 +45,7 @@ export const page = () => {
       <ServiceFeatures />
       <ConsultationForm />
       <Testimonials />
-      <MapSection />
+      {/* <MapSection /> */}
       {/* <Footer /> */}
       <Footer />
     </main>

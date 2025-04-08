@@ -16,6 +16,13 @@ from followers.serializer import Followers
 User = get_user_model()
 
 
+class UserBankCardSerializer(ModelSerializer):
+    class Meta:
+        model = UserBankCards
+        fields = ['id','title','card_number','default_card']
+
+
+
 class RoleSerializer(ModelSerializer):
     class Meta:
         model = Role
@@ -30,7 +37,7 @@ class UserSerializer(ModelSerializer):
     user_language = UserLanguageSerializer(many=True, read_only=True)
     user_expertise = UserExpertiseSerializer(many=True, read_only=True)
     followers = SerializerMethodField()
-
+    user_bank_cards = UserBankCardSerializer(many=True,read_only=True)
     # followers = FollowerSerializer(read_only=True)
     class Meta:
         model = User
@@ -47,6 +54,7 @@ class UserSerializer(ModelSerializer):
             "is_staff",
             "intro_completed",
             "unlimited",
+            'job_title',
             "created",
             "updated",
             "uuid",
@@ -59,6 +67,7 @@ class UserSerializer(ModelSerializer):
             "user_score",
             "digital_wallet",
             "followers",
+            'user_bank_cards'
         ]
 
     def get_followers(self, obj):

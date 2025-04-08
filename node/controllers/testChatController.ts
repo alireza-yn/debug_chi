@@ -48,18 +48,15 @@ export const checkSentMessage = async (msg_id:string)=>{
   }
 }
 
-export const getMessages = async (sender: string, receiver: string): Promise<any> => {
+export const getMessages = async (session_id: string): Promise<any> => {
   try {
     if (mongoose.connection && mongoose.connection.db) {
       const collection = mongoose.connection.db.collection('test_messages');
 
       const messages = await collection.find({
-        $or: [
-          { sender: sender.trim(), receiver: receiver.trim() },
-          { sender: receiver.trim(), receiver: sender.trim() }
-        ]
+        session_id: session_id,
       }).toArray();
-      
+      console.log(messages)
 
       return messages;
     } else {

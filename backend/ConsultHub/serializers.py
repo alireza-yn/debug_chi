@@ -8,7 +8,7 @@ import uuid
 from django.core.files.base import ContentFile
 from django.contrib.auth import get_user_model
 from django.db import transaction
-from .service import DebugHubService
+# from .service import DebugHubService
 from rest_framework.exceptions import ValidationError
 User = get_user_model()
 
@@ -17,11 +17,12 @@ class ConsultSerializer(serializers.ModelSerializer):
     consult_applicator = serializers.PrimaryKeyRelatedField(
         queryset=CustomUser.objects.all()
     )
-
     class Meta:
         model = ConsultSession
         fields = [
             "id",
+            "title",
+            "description",
             "session_id",
             "consult",
             "consult_applicator",
@@ -30,6 +31,7 @@ class ConsultSerializer(serializers.ModelSerializer):
             "mode",
             "price",
             "discount",
+            "lnaguage"
         ]
 
     def to_representation(self, instance):
@@ -56,7 +58,7 @@ class Base64FileField(serializers.FileField):
             return ContentFile(decoded_file, name=file_name)
         return super().to_internal_value(data)
 
-class DebuggerSerializer(serializers.ModelSerializer,DebugHubService):
+class DebuggerSerializer(serializers.ModelSerializer):
     debuger = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     debuger_applicator = serializers.PrimaryKeyRelatedField(
         queryset=User.objects.all()
@@ -66,6 +68,7 @@ class DebuggerSerializer(serializers.ModelSerializer,DebugHubService):
         model = DebugSession
         fields = [
             "id",
+            "title",
             "session_id",
             "debuger",
             "debuger_applicator",

@@ -1,11 +1,15 @@
 "use client";
+import { Main } from "@/components/types/user.types";
 import { ModalProvider, useModalContext } from "@/context/ModalContext";
+import { useUserContext } from "@/context/userContext";
 import {
+  formatCardNumber,
   formatCurrency,
   getCurrentPersianMonth,
   getMonthNames,
 } from "@/utils/tools";
 import {
+  Avatar,
   Badge,
   Button,
   Card,
@@ -13,6 +17,12 @@ import {
   CardFooter,
   CardHeader,
   Chip,
+  cn,
+  Input,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectItem,
   Tab,
   Tabs,
   User,
@@ -25,35 +35,46 @@ import {
   Mail,
   MoveDownLeft,
   MoveUpRight,
+  Plus,
   Search,
 } from "lucide-react";
 import { div } from "motion/react-client";
 import React, { useEffect, useRef, useState } from "react";
+import AddNewCard from "./AddNewCard";
+import Image from "next/image";
 
-type Props = {};
+type Props = {
+  user: Main;
+};
 
 const Wallet = (props: Props) => {
+  const { setUserData } = useUserContext();
+  useEffect(() => {
+    setUserData(props.user);
+  }, []);
   return (
     <ModalProvider>
-      <div className="w-full flex h-full flex-wrap gap-4   box-border pb-4 justify-center">
+      <div className="w-full flex h-full flex-wrap gap-4  box-border pb-4 justify-center relative">
+        <div className="absolute bottom-0 bg-c_secondary w-full h-20 rounded-tr-3xl rounded-tl-3xl"></div>
+
         <Tabs
           color="primary"
           aria-label="Tabs variants"
           variant="light"
           placement="bottom"
-          className="w-96 px-4"
+          className="w-96"
           classNames={{
             // base:"rounded-3xl",
             tab: "p-0",
             tabContent: "h-10 flex items-center justify-center",
-            panel: "p-0",
+            panel: "p-0 bg",
           }}
           fullWidth
           size="lg"
           radius="full"
         >
           <Tab key="home" className="w-full h-full" title={<Home />}>
-            <TabHome />
+            <TabHome user={props.user}/>
           </Tab>
 
           <Tab
@@ -92,20 +113,30 @@ const Wallet = (props: Props) => {
 
 export default Wallet;
 
-const TabHome = () => {
+const TabHome = ({user}:{user:Main}) => {
   const { show, setShow } = useModalContext();
+  const card = user.user_bank_cards.find((item)=>item.default_card == true)
   return (
     <div className="h-full flex flex-col gap-2 relative">
-      <div className="w-full flex-1 bg-[radial-gradient(circle,_var(--tw-gradient-stops))]  from-violet-800 to-violet-400 rounded-3xl relative">
-        <span className="absolute left-4 bottom-2 text-xl text-slate-200">
-          {formatCurrency(500000, true)}
+      <div className="w-full flex-1 bg-[radial-gradient(circle,_var(--tw-gradient-stops))]  from-violet-800 to-violet-400 rounded-3xl relative box-border px-2">
+        <div className="w-full flex-1 mt-5 flex flex-col text-background gap-5" dir="rtl">
+          <div className="flex justify-between box-border px-4">
+        <span className="text-2xl font-blackSans">{card?.title}</span>
+        <span className="text-2xl font-blackSans">{user.first_name + " " + user.last_name}</span>
+          </div>
+          <span className="text-3xl font-blackSans">{formatCardNumber(String(card?.card_number))}</span>
+        </div>
+        <span className="absolute left-4 bottom-2 text-xl text-background">
+          {formatCurrency(user.digital_wallet, true)}
         </span>
       </div>
       <div className="h-4/6 flex flex-col px-2 gap-2">
         <ActionButtons />
         <FinancialActivities />
       </div>
-      <ActionButtonModal type="bankCards" />
+      <ActionButtonModal>
+        <AddNewCardContent />
+      </ActionButtonModal>
     </div>
   );
 };
@@ -130,8 +161,8 @@ const TabNotification = () => {
   return (
     <div className="h-full flex flex-col gap-2 box-border p-2">
       <FilterNotificationAction />
-      <div className="flex-1 bg-black" dir="rtl">
-        {/* <FilterNotificationContent /> */}
+      <div className="max-h-[700px]" dir="rtl">
+        <FilterNotificationContent />
       </div>
     </div>
   );
@@ -219,7 +250,7 @@ const FilterNotificationContent = () => {
       message: "شما را دنبال کرد.",
       time: "۱ روز",
       avatar: "https://i.pravatar.cc/150?u=c24258114e29026702b",
-      actionLabel: "دنبال کردن متقابل",
+      actionLabel: "دیدن",
     },
   ]);
 
@@ -270,7 +301,7 @@ const FilterNotificationContent = () => {
       message: "شما را دنبال کرد.",
       time: "۱ هفته",
       avatar: "https://i.pravatar.cc/150?u=h74258114e29026702w",
-      actionLabel: "دنبال کردن متقابل",
+      actionLabel: "دیدن",
     },
   ]);
 
@@ -344,7 +375,7 @@ const FilterNotificationContent = () => {
   };
 
   return (
-    <div className="bg-gray-900 text-white min-h-screen p-4 max-w-md mx-auto">
+    <div className="bg-c_secondary text-white h-full p-4 max-w-md mx-auto overflow-y-auto scrollbar-hide rounded-2xl">
       <h1 className="text-xl font-bold mb-4 text-right">جدید</h1>
 
       {/* Today's notifications */}
@@ -381,7 +412,7 @@ const FilterNotificationContent = () => {
 };
 
 const ActionButtons = () => {
-  const { setShow } = useModalContext();
+  const { setShow, setContent } = useModalContext();
   const actions = [
     {
       name: "برداشت",
@@ -412,7 +443,10 @@ const ActionButtons = () => {
               radius="lg"
               isIconOnly
               size="lg"
-              onPress={() => setShow(true)}
+              onPress={() => {
+                setShow(true);
+                setContent(item.name);
+              }}
             ></Button>
             <span className="text-xs">{item.name}</span>
           </div>
@@ -542,28 +576,208 @@ const FilterAction = () => {
   );
 };
 
-const ActionButtonModal = ({ type }: { type: string }) => {
+export const CustomRadio = (props: any) => {
+  const { children, ...otherProps } = props;
+
+  return (
+    <Radio
+      {...otherProps}
+      classNames={{
+        base: cn(
+          "inline-flex m-0 bg-content1 hover:bg-content2 items-center justify-between w-full",
+          "flex-row-reverse max-w-[300px] cursor-pointer rounded-lg gap-4 p-4 border-2 border-transparent",
+          "data-[selected=true]:border-primary"
+        ),
+      }}
+    >
+      {children}
+    </Radio>
+  );
+};
+
+const FinancialDeposite = () => {
+  const { user } = useUserContext();
+  return (
+    <Select
+      className="max-w-xs"
+      items={user?.user_bank_cards}
+      label="حساب بانکی"
+      size="lg"
+      labelPlacement="outside"
+      placeholder="کارت بانکی مورد نظر را انتخاب کنید"
+      required
+    >
+      {(card) => (
+        <SelectItem key={card.id} textValue={card.title}>
+          <div className="flex gap-2 items-center">
+            <Avatar
+              alt={card.title}
+              className="flex-shrink-0"
+              size="sm"
+              src={"/bank/tejarat.png"}
+            />
+            <div className="flex flex-col">
+              <span className="text-small">{card.title}</span>
+              <span className="text-tiny text-default-400">
+                {card.card_number}
+              </span>
+            </div>
+          </div>
+        </SelectItem>
+      )}
+    </Select>
+  );
+};
+
+const AddNewCardContent = () => {
+  const { show, setShow, content } = useModalContext();
+  const { user } = useUserContext();
+
+  return (
+    <div
+      className={`w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border p-4`}
+    >
+      {content == "کارت ها" && (
+        <>
+          <div className="w-full h-14 box-border px-5 flex items-center justify-between">
+            <AddNewCard />
+          </div>
+          <div
+            className={`${
+              show ? "flex-1 flex items-start justify-center w-full overflow-y-auto scrollbar-hide max-h-[420px]" : "hidden"
+            }`}
+            dir="rtl"
+          >
+            <RadioGroup
+              className="w-full"
+              label="کارت ها"
+              defaultValue={"5859831058918326"}
+            >
+              {user?.user_bank_cards.map((item) => {
+                return (
+                  <div
+                    key={item.id}
+                    className="w-full mx-auto flex items-center justify-center"
+                  >
+                    <CustomRadio
+                      description={item.title}
+                      value={item.card_number}
+                    >
+                      <Image
+                        src={"/bank/tejarat.png"}
+                        alt={item.title}
+                        width={25}
+                        height={25}
+                        className="rounded-3xl"
+                      />
+                      {formatCardNumber(item.card_number)}
+                    </CustomRadio>
+                  </div>
+                );
+              })}
+            </RadioGroup>
+          </div>
+        </>
+      )}
+      {content == "برداشت" && (
+        <>
+          <div className="w-full h-full  box-border flex flex-col items-center gap-20">
+            <FinancialDeposite />
+
+            <Input
+              size="lg"
+              labelPlacement="outside"
+              description="توضیحات مورد نظر برای برداشت"
+              label="مبلغ واریزی"
+              placeholder="حداقل مبلغ واریزی 50,0000"
+              fullWidth
+            />
+            <div className="flex-1"></div>
+            <Button fullWidth color="success">
+              برداشت مستقیم
+            </Button>
+          </div>
+        </>
+      )}
+      {content == "افزایش" && (
+        <>
+          <div className="w-full h-14 box-border  flex items-center justify-between"></div>
+          <div
+            className={`${
+              show
+                ? "flex-1 flex flex-col items-start justify-center w-full "
+                : "hidden"
+            }`}
+            dir="rtl"
+          >
+            {/* <FinancialDeposite /> */}
+
+            <Input
+              size="lg"
+              labelPlacement="outside"
+              description="توضیحات مورد نظر برای برداشت"
+              label="مبلغ واریزی"
+              placeholder="حداقل مبلغ افزایش 50,0000"
+              fullWidth
+            />
+            <div className="flex-1"></div>
+            <Button fullWidth color="success">
+              افزایش اعتبار
+            </Button>
+          </div>
+        </>
+      )}
+
+      <Button
+        variant="flat"
+        className="text-lime-300"
+        fullWidth
+        onPress={() => setShow(false)}
+      >
+        بازگشت
+      </Button>
+    </div>
+  );
+};
+
+const ActionButtonModal = ({ children }: { children: React.ReactNode }) => {
   const { show, setShow } = useModalContext();
+
   return (
     <div
       className={`w-full ${
         show ? "h-3/4" : "h-[0%] opacity-0"
       } absolute -bottom-16 z-50 box-border p-4 transition-all duration-500 ease-out`}
     >
-      <div
-        className={`w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border p-4`}
-      >
-        <div className="flex-1"></div>
-        
-        <Button
-          variant="flat"
-          className="bg-lime-300 text-black"
-          fullWidth
-          onPress={() => setShow(false)}
+      <div className="w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border">
+        {/* اینجا از children استفاده شده تا محتوا دینامیک باشد */}
+        <div
+          className={`${
+            show ? "flex-1 flex items-start justify-center w-full" : "hidden"
+          }`}
+          dir="rtl"
         >
+          {children}
+        </div>
+
+        {/* <Button variant="flat" className="bg-lime-300 text-black" fullWidth onPress={() => setShow(false)}>
           بازگشت
-        </Button>
+        </Button> */}
       </div>
     </div>
   );
 };
+
+// const ActionButtonModal = ({ type }: { type: string }) => {
+//   const { show, setShow } = useModalContext();
+//   const { user } = useUserContext();
+//   return (
+//     <div
+//       className={`w-full ${
+//         show ? "h-3/4" : "h-[0%] opacity-0"
+//       } absolute -bottom-16 z-50 box-border p-4 transition-all duration-500 ease-out`}
+//     >
+
+//     </div>
+//   );
+// };

@@ -11,7 +11,7 @@ export const GetUserActivityHistoryTab = () => {
 
     const getData = async () => {
       const response = await perform_get("api/v1/report/user_report/", token);
-      console.log(response);
+      console.log("response",response);
       setactivity(response);
     };
     getData();
@@ -19,22 +19,22 @@ export const GetUserActivityHistoryTab = () => {
 
   return (
     <div className="w-full grid grid-cols-3 gap-4 box-border p-5">
-      {activity?.incoming_request.debug.map(
+      {activity && activity?.incoming_request.debug.map(
         (item) => {
           return <HistoryCard key={item.id} data={item} />;
         }
       )}
-      {activity?.incoming_request.consult.map(
+      {activity && activity?.incoming_request.consult.map(
         (item) => {
           return <HistoryCard key={item.id} data={item} />;
         }
       )}
-      {activity?.my_requests.consult.map(
+      {activity && activity?.my_requests.consult.map(
         (item) => {
           return <HistoryCard key={item.id} data={item} />;
         }
       )}
-      {activity?.my_requests.debug.map(
+      {activity && activity?.my_requests.debug.map(
         (item) => {
           return <HistoryCard key={item.id} data={item} />;
         }

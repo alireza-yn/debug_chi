@@ -57,7 +57,7 @@ export default function Testimonials() {
   }
 
   return (
-    <section className="py-16 bg-gradient-to-t from-gray-100 to-white dark:from-gray-900 dark:to-black text-gray-900 dark:text-gray-100" ref={ref}>
+    <section className="py-16 bg-gradient-to-t from-gray-100 to-white dark:from-gray-900 dark:to-black text-gray-900 dark:text-gray-100" ref={ref} dir="ltr">
       <div className="container mx-auto px-4">
         <motion.div
           className="text-center mb-12"

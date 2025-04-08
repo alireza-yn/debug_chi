@@ -80,3 +80,9 @@ export const getMonthNames = (locale = "en-US") => {
 export const getCurrentPersianMonth = () => {
   return new Intl.DateTimeFormat("fa-IR", { month: "long" }).format(new Date());
 };
+
+
+
+export const formatCardNumber = (cardNumber: string) => {
+  return cardNumber.replace(/(.{4})/g, "$1-").slice(0, -1);
+};

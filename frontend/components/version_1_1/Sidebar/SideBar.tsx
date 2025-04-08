@@ -4,7 +4,7 @@
 "use client";
 
 import { Button, ButtonGroup, Tooltip } from "@heroui/react";
-import { Book, Bug, HandCoins, Home, PackageSearch, User } from "lucide-react";
+import { Book, Bug, Gavel, Hammer, HandCoins, Home, PackageSearch, Search, User } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -120,8 +120,8 @@ const linkData = [
   // { name: "کلاس خصوصی", path: "/private_class", icon: User },
   // { name: "دوره‌های آموزشی", path: "/courses", icon: Book },
   { name: "خانه", path: "/", icon: Home },
-  { name: "اکسپلور", path: "/landing", icon: PackageSearch },
-  { name: "مزایده و مناقصه", path: "/bid", icon: HandCoins },
+  { name: "اکسپلور", path: "/landing", icon: Search },
+  { name: "مزایده و مناقصه", path: "/bid", icon: Gavel },
 ];
 
 import React from "react";
@@ -131,13 +131,13 @@ type Props = {};
 const SidebarBody = (props: Props) => {
   const pathname = usePathname();
   return (
-    <div className="w-full flex-1  flex items-center flex-col justify-center py-4 box-border gap-4">
+    <div className="w-full flex-1 flex items-center flex-col justify-center py-4 box-border gap-4">
       {linkData.map((item, index) => {
         return (
           <Tooltip content={item.name} placement="right" key={index}>
             <Link href={item.path}>
-              <Button className={`${item.path === pathname ? "scale-125" : '' } hover:scale-125 transition-all duration-500 ease-in-out`}
-                variant={item.path === pathname ? "solid" : "light"}
+              <Button className={`${item.path === pathname ? "scale-110" : '' } hover:scale-125 transition-all duration-500 ease-in-out`}
+                variant={item.path === pathname ? "solid" : "flat"}
                 name={item.name}
                 isIconOnly
                 radius="full"

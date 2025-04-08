@@ -8,8 +8,8 @@ from uuid import uuid4
 User = get_user_model()
 
 class TimeStamp(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True,blank=True,null=True)
+    updated_at = models.DateTimeField(auto_now=True,blank=True,null=True)
     
     class Meta:
         abstract = True
@@ -42,7 +42,7 @@ class DebugSession(TimeStamp):
     def __str__(self):
         return self.session_id
 
-class ConsultSession(models.Model):
+class ConsultSession(TimeStamp):
     class Status(models.TextChoices):
         OPEN = 'open', 'Open'
         CLOSE = 'close', 'Close'
@@ -53,6 +53,7 @@ class ConsultSession(models.Model):
         VOICE_CALL = 'voice_call', 'Voice Call'
         VIDEO_CALL = 'video_call', 'Video Call'
     title = models.CharField(max_length=100,blank=True,null=True)
+    description = models.TextField(null=True,blank=True)
     session_id = models.UUIDField(default=uuid4)
     consult = models.ForeignKey(User, on_delete=models.CASCADE,related_name="consult")
     consult_applicator = models.ForeignKey(User, on_delete=models.CASCADE,related_name="consult_applicator")
@@ -61,5 +62,6 @@ class ConsultSession(models.Model):
     mode = models.CharField(max_length=100,choices=ConsultMode.choices,default='chat')
     price = models.FloatField()
     discount = models.IntegerField()
+    lnaguage = models.TextField(null=True,blank=True)
     def __str__(self):
         return self.session_id

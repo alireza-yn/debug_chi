@@ -42,7 +42,7 @@ const InputMessage = ({reciever}: Props) => {
     }else{
 
       const data = {
-        id:v4(),
+        session_id:v4(),
         sender: user.uuid,
         receiver: reciever,
         data: {

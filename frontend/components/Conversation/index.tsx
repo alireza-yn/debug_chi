@@ -17,9 +17,10 @@ import Action from "../chat/header/action";
 
 type Props = {
   user: Main;
+  session_id: string;
 };
 
-const Conversation = ({ user }: Props) => {
+const Conversation = ({ user,session_id }: Props) => {
   let sender: MainUser;
   const query = useSearchParams();
   const chat = useAppSelector((state: RootState) => state.chatSocket);
@@ -37,8 +38,7 @@ const Conversation = ({ user }: Props) => {
   }
 useEffect(()=>{
   const data = {
-    sender: sender.uuid,
-    receiver: uuidFromPath,
+    session_id: session_id,
   };
   console.log(data);
   socket.emit("get_messages", data);
@@ -76,9 +76,9 @@ useEffect(()=>{
 
   return (
     <div className="w-full flex flex-col gap-2 pt-20 flex-1 overflow-y-auto">
-      {chat.map((item: MainChat) => {
+      {chat.map((item: MainChat,index) => {
         return (
-          <div key={item.id} dir={item.sender == sender.uuid ? "rtl" : ""}>
+          <div key={index} dir={item.sender == sender.uuid ? "rtl" : ""}>
             <Message
               data={item.data}
               sender={item.sender}

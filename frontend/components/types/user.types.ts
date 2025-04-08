@@ -14,6 +14,7 @@ export interface Main {
     created:         Date;
     updated:         Date;
     uuid:            string;
+    job_title:       string;
     user_roles:      string[];
     user_resume:     UserResume[];
     user_language:   UserLanguage[];
@@ -23,6 +24,7 @@ export interface Main {
     user_score:      number;
     digital_wallet:  number;
     followers:       Followers;
+    user_bank_cards: UserBankCard[];
 }
 
 export interface Followers {
@@ -35,6 +37,13 @@ export interface User {
     username: string;
     image:    string;
     uuid:     string;
+}
+
+export interface UserBankCard {
+    id:           number;
+    title:        string;
+    card_number:  string;
+    default_card: boolean;
 }
 
 export interface Expertise {

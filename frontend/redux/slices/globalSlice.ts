@@ -12,7 +12,8 @@ interface CounterState {
   path?: string;
   welcome?:boolean;
   answerMessage?:string;
-  payed:boolean
+  payed:boolean,
+  showNewRequest?:boolean
 }
 
 const initialState: CounterState = {
@@ -26,7 +27,8 @@ const initialState: CounterState = {
   path: "",
   welcome:true,
   answerMessage:"",
-  payed:false
+  payed:false,
+  showNewRequest:false
 };
 
 const globalSlice = createSlice({
@@ -75,6 +77,9 @@ const globalSlice = createSlice({
     },
     setPayed:(state,action:PayloadAction<boolean>)=>{
       state.payed = action.payload
+    },
+    setShowNewRequest:(state,action:PayloadAction<boolean>)=>{
+      state.showNewRequest = action.payload
     }
 
   },
@@ -91,6 +96,7 @@ export const {
   setShowRequest,
   setFindUser,
   setPath,
-  setClearPath
+  setClearPath,
+  setShowNewRequest
 } = globalSlice.actions;
 export default globalSlice.reducer;

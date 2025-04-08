@@ -26,16 +26,6 @@ const SidebarFooter = ({ user }: Props) => {
   return (
     <div className="h-auto py-2 w-full flex flex-col gap-4 items-center justify-center">
       <ThemeSwitcher />
-      <Tooltip placement="right" content={"تنظیمات"}>
-        <Button
-          radius="full"
-          variant="light"
-          size="lg"
-          isIconOnly
-          startContent={<Settings color="red" size={24} />}
-          onPress={() => console.log("first")}
-        ></Button>
-      </Tooltip>
 
       {userData ? (
         <Tooltip
@@ -44,17 +34,20 @@ const SidebarFooter = ({ user }: Props) => {
         >
           <Button
             size="lg"
+            className="flex flex-col h-auto w-auto"
             variant="light"
             radius="full"
-            isIconOnly
             as={Link}
             href="/user/dashboard"
           >
             <Avatar
+            size="lg"
               src={`${process.env.server}/${userData.image_profile}`}
               name={userData.first_name}
               fallback={userData.first_name}
             />
+            <span className="text-sm">{user?.username}</span>
+
           </Button>
         </Tooltip>
       ) : (

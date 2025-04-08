@@ -24,12 +24,62 @@ import AiWelcome from "@/components/chat/content_ai/Welcom";
 import Answers from "@/components/chat/content_ai/Answers";
 import SendDescription from "@/components/chat/content_ai/SendDescription";
 import FindUser from "@/components/version_1_1/FindUser";
+import { cookies } from "next/headers";
+import { perform_get } from "@/lib/api";
+import Image from "next/image";
+import { Button } from "@heroui/react";
+import { Power, Settings, Star } from "lucide-react";
+import {
+  DebugerHome,
+  DebugerRequest,
+} from "@/components/version_1_1/User/home";
+import clientPromise from "@/lib/mongodb";
+import NewRequestIncoming from "@/components/version_1_1/User/NewRequestIncoming";
+import OnlineAction from "@/components/version_1_1/User/OnlineAction";
 // import { service } from "@/components/routes/home/Services/data";
 // import { LogoIcon } from "@/components/ui/icons";
 // import { Chip } from "@heroui/react";
 // import { data } from "@/components/routes/home/ClassInfo/data";
 
-export default function Home() {
+export default async function Home() {
+  const token = (await cookies()).get("token")?.value;
+  const client = await clientPromise;
+  const db = client.db("debugchi_front");
+  const faq = await db.collection("faq").find().toArray();
+
+  const serializedFaq = faq.map((item) => ({
+    ...item,
+    _id: item._id.toString(), // ✅ Convert ObjectId to string
+  }));
+
+  if (token) {
+    const response = await perform_get("auths/user_info/", token);
+    if (response.user_roles.includes("debugger")) {
+      return (
+        <main className="w-full h-screen flex">
+          <Sidebar>
+            <SidebarBody />
+            <SidebarFooter />
+          </Sidebar>
+          <div className="flex flex-1 box-border gap-4 p-4" dir="rtl">
+            <div className="flex flex-col w-96 h-full rounded-2xl bg-c_background/50">
+              <DebugerRequest />
+            </div>
+            <div className="flex-1 flex flex-col h-full bg-c_background/50 rounded-2xl">
+              <section className="flex-1">
+                <DebugerHome user={response} faq={serializedFaq} />
+              </section>
+              <section className="h-32 flex items-center justify-center relative">
+                <OnlineAction />
+                <NewRequestIncoming />
+              </section>
+            </div>
+          </div>
+        </main>
+      );
+    }
+  }
+
   return (
     <main className="w-full h-screen flex">
       <Sidebar>

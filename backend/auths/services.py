@@ -166,17 +166,23 @@ class UserService:
                 print("otp_false")
                 return False
 
-    def add_bank_card(self, card_number, user):
+    def add_bank_card(self, card_number,title, user):
 
         requested_user_for_add_card = User.objects.filter(id=user.id).first()
         print(requested_user_for_add_card.first_name)
 
         # exist = UserBankCards.objects.filter(card_number=card_number).first()
         if UserBankCards.objects.filter(card_number=card_number).exists():
-            return False, "کارت بانکی وارد شده تکراری است"
+            return False, "کارت بانکی وارد شده تکراری است",None
         else:
-            UserBankCards.objects.create(card_number=card_number, user=requested_user_for_add_card)
-            return True, "با موفقیت ذخیره شد"
+            new_card =  UserBankCards.objects.create(card_number=card_number,title=title, user=requested_user_for_add_card)
+            return True, "با موفقیت ذخیره شد",{
+                "id":new_card.id,
+                "title":new_card.title,
+                "card_number":new_card.card_number,
+                "default_card":new_card.default_card
+
+            }
 
 
 

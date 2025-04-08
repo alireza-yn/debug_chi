@@ -4,7 +4,7 @@ import requests
 from rest_framework.request import Request
 from rest_framework.response import Response
 from django.db import transaction
-
+from .serializers import DebuggerSerializer,ConsultSerializer
 User = get_user_model()
 
 class ConsultHubService:
@@ -14,7 +14,30 @@ class ConsultHubService:
             return debugger
         else:
             return DebugSession.objects.filter(debuger_applicator=user_id,status='open').all()
-    
+        
+
+    def getSessionInfoBySessionId(self, request: Request, session_id: str):
+        try:
+            print(f"session_id: {session_id}")
+            session = (
+                DebugSession.objects.filter(session_id=session_id).first()
+                or ConsultSession.objects.filter(session_id=session_id).first()
+            )
+
+            if not session:
+                return Response({"error": "Session not found"}, status=404)
+
+            print(f"session type: {type(session)}")
+            if isinstance(session, DebugSession):
+                serializer = DebuggerSerializer(session)
+            else:
+                serializer = ConsultSerializer(session)
+
+            return Response(serializer.data)
+
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            return Response({"error": "Internal server error"}, status=500)
 
 
 
@@ -71,6 +94,20 @@ class DebugHubService:
         session = DebugSession.objects.filter(debuger=request.user)
         return session
     
+    def PendingSessionBySessionId(self,request:Request):
+        pending_debug = DebugSession.objects.filter(debuger=request.user,status='pending').all()
+        pending_consult = ConsultSession.objects.filter(consult=request.user,status='pending').all()
+        if pending_debug or pending_consult:
+            return Response({
+                "pending_debug": DebuggerSerializer(pending_debug,many=True).data,
+                "pending_consult": ConsultSerializer(pending_consult,many=True).data
+            })
+        else:
+            return Response({
+                "message":"there is no pending session"
+            })
+        
+
     def RejectSession(self,session_id):
         pass
     
