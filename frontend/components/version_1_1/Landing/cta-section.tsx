@@ -47,7 +47,7 @@ export function ServiceFeatures() {
   ];
 
   return (
-    <div className="w-full bg-pink-50 py-16 px-4 md:px-8 lg:px-16 relative overflow-hidden rounded-t-[100px] mt-20">
+    <div className="w-full bg-pink-50 dark:bg-slate-900 py-16 px-4 md:px-8 lg:px-16 relative overflow-hidden rounded-t-[100px] mt-20">
       {/* نوارهای رنگی کناری */}
       {/* <div className="absolute left-0 top-0 w-[5%] h-full bg-purple-400"></div>
       <div className="absolute right-0 top-0 w-[5%] h-full bg-pink-300"></div> */}
@@ -55,7 +55,7 @@ export function ServiceFeatures() {
       <div className="max-w-6xl mx-auto">
         {/* عنوان */}
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-gray-800">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             ما سرویسی ایجاد کرده‌ایم که تمام نیازها را پوشش می‌دهد
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -73,10 +73,10 @@ export function ServiceFeatures() {
           {features.map((feature, index) => (
             <motion.div
               key={index}
-              className="bg-white rounded-2xl p-6 flex flex-col items-center text-center shadow-md  shadow-pink-100"
+              className="bg-white dark:bg-slate-950 rounded-2xl p-6 flex flex-col items-center text-center shadow-md  shadow-pink-100 dark:shadow-slate-800 transition-transform duration-300 ease-in-out hover:shadow-lg hover:shadow-pink-200 dark:hover:shadow-slate-700"
               whileHover={{ scale: 1.05 }}
             >
-              <div className="w-16 h-16 rounded-full bg-purple-400 flex items-center justify-center mb-4">
+              <div className="w-16 h-16 rounded-full bg-purple-400 dark:bg-purple-950 flex items-center justify-center mb-4">
                 <feature.icon className="w-8 h-8 text-white" />
               </div>
               <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>

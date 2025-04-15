@@ -1,5 +1,5 @@
 "use client"
-import socket from '@/config/socket-config'
+import {socket} from '@/config/socket-config'
 import React, { useEffect, useState } from 'react'
 
 type Props = {}
@@ -11,7 +11,7 @@ const ChatSpcket = (props: Props) => {
     const [chat,setChat] = useState<ChatMessage[]>([])
 
     useEffect(()=>{
-        socket.on("response",(payload)=>{
+        socket.on("response",(payload:any)=>{
             console.log(payload)
             setChat((prev)=>[
                 ...prev,payload

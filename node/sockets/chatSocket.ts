@@ -109,13 +109,13 @@ export const chatSocket = (io: Server): void => {
     socket.on("send_audio", async (msg) => {
       console.log("Received audio message:", msg);
       // استخراج اطلاعات از msg.data طبق ساختار جدید
-      const { audio, sender, receiver, id } = msg.data;
+      const { audio, sender, receiver, session_id } = msg.data;
   
       // تبدیل داده base64 به Buffer
       const audioBuffer = Buffer.from(audio, "base64");
   
       // ذخیره فایل صوتی
-      const filePath = `./audioFiles/${id}.wav`;
+      const filePath = `./audioFiles/${session_id}.wav`;
       fs.writeFile(filePath, audioBuffer, (err) => {
         if (err) {
           console.error("Error saving audio file:", err);
@@ -125,7 +125,7 @@ export const chatSocket = (io: Server): void => {
       });
   
       // ارسال تایید به کلاینت‌ها
-      io.emit(`${sender}_sent`, id);
+      io.emit(`${sender}_sent`, session_id);
       io.emit(receiver, msg);
     });
   

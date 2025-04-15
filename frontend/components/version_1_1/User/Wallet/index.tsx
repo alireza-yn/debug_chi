@@ -9,6 +9,7 @@ import {
   getMonthNames,
 } from "@/utils/tools";
 import {
+  addToast,
   Avatar,
   Badge,
   Button,
@@ -42,6 +43,8 @@ import { div } from "motion/react-client";
 import React, { useEffect, useRef, useState } from "react";
 import AddNewCard from "./AddNewCard";
 import Image from "next/image";
+import { perform_post } from "@/lib/api";
+import { setDescription } from "@/redux/slices/aiSlice";
 
 type Props = {
   user: Main;
@@ -158,21 +161,29 @@ const TabHistory = () => {
 };
 
 const TabNotification = () => {
+  const [selectedFilter, setSelectedFilter] = useState<string>("همه");
+
   return (
     <div className="h-full flex flex-col gap-2 box-border p-2">
-      <FilterNotificationAction />
+      <FilterNotificationAction
+        selectedFilter={selectedFilter}
+        setSelectedFilter={setSelectedFilter}
+      />
       <div className="max-h-[700px]" dir="rtl">
-        <FilterNotificationContent />
+        <FilterNotificationContent selectedFilter={selectedFilter} />
       </div>
     </div>
   );
 };
 
-const FilterNotificationAction = () => {
+const FilterNotificationAction = ({
+  selectedFilter,
+  setSelectedFilter,
+}: {
+  selectedFilter: string;
+  setSelectedFilter: (filter: string) => void;
+}) => {
   const filterOptions = ["همه", "لایک", "کامنت", "فالو"].reverse();
-
-  const [selectedFilter, setSelectedFilter] = useState<string>("همه");
-
   const filterRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
@@ -191,7 +202,7 @@ const FilterNotificationAction = () => {
         {filterOptions.map((item, index) => (
           <div
             key={item}
-            ref={(el: any) => (filterRefs.current[index] = el!)}
+            ref={(el:any) => (filterRefs.current[index] = el)}
             className="cursor-pointer"
             onClick={() => setSelectedFilter(item)}
           >
@@ -222,7 +233,11 @@ interface NotificationItem {
   actionLabel?: string;
 }
 
-const FilterNotificationContent = () => {
+const FilterNotificationContent = ({
+  selectedFilter,
+}: {
+  selectedFilter: string;
+}) => {
   // Sample data for notifications
   const [todayNotifications, setTodayNotifications] = useState<
     NotificationItem[]
@@ -305,6 +320,16 @@ const FilterNotificationContent = () => {
     },
   ]);
 
+  const filterByType = (data: NotificationItem[]) => {
+    if (selectedFilter === "همه") return data;
+    if (selectedFilter === "لایک") return data.filter((n) => n.message.includes("پسندید"));
+    if (selectedFilter === "کامنت") return data.filter((n) => n.message.includes("نظر"));
+    if (selectedFilter === "فالو") return data.filter((n) => n.message.includes("دنبال"));
+    return [];
+  };
+
+
+
   // Render notification based on its type
   const renderNotification = (notification: NotificationItem) => {
     return (
@@ -365,9 +390,6 @@ const FilterNotificationContent = () => {
                 </span>
               </div>
             </div>
-            <button className="bg-blue-600 text-white px-3 py-1 rounded-md text-sm">
-              {notification.actionLabel}
-            </button>
           </div>
         )}
       </div>
@@ -378,31 +400,28 @@ const FilterNotificationContent = () => {
     <div className="bg-c_secondary text-white h-full p-4 max-w-md mx-auto overflow-y-auto scrollbar-hide rounded-2xl">
       <h1 className="text-xl font-bold mb-4 text-right">جدید</h1>
 
-      {/* Today's notifications */}
       <div className="mb-6">
         <h2 className="text-gray-400 text-sm mb-2 text-right">امروز</h2>
         <div className="space-y-1">
-          {todayNotifications.map((notification) =>
+          {filterByType(todayNotifications).map((notification) =>
             renderNotification(notification)
           )}
         </div>
       </div>
 
-      {/* Last week's notifications */}
       <div className="mb-6">
         <h2 className="text-gray-400 text-sm mb-2 text-right">۷ روز اخیر</h2>
         <div className="space-y-1">
-          {lastWeekNotifications.map((notification) =>
+          {filterByType(lastWeekNotifications).map((notification) =>
             renderNotification(notification)
           )}
         </div>
       </div>
 
-      {/* Last month's notifications */}
       <div>
         <h2 className="text-gray-400 text-sm mb-2 text-right">۳۰ روز اخیر</h2>
         <div className="space-y-1">
-          {lastMonthNotifications.map((notification) =>
+          {filterByType(lastMonthNotifications).map((notification) =>
             renderNotification(notification)
           )}
         </div>
@@ -413,6 +432,7 @@ const FilterNotificationContent = () => {
 
 const ActionButtons = () => {
   const { setShow, setContent } = useModalContext();
+  const {setDeposit,deposit} = useUserContext()
   const actions = [
     {
       name: "برداشت",
@@ -446,6 +466,7 @@ const ActionButtons = () => {
               onPress={() => {
                 setShow(true);
                 setContent(item.name);
+                setDeposit({...deposit,amount:0})
               }}
             ></Button>
             <span className="text-xs">{item.name}</span>
@@ -457,6 +478,11 @@ const ActionButtons = () => {
 };
 
 const FinancialActivities = () => {
+
+  useEffect(()=>{
+    
+  },[])
+
   return (
     <div className=" max-h-[400px] w-full rounded-xl box-border overflow-y-auto ">
       <Card className="mb-2" radius="sm">
@@ -596,7 +622,7 @@ export const CustomRadio = (props: any) => {
 };
 
 const FinancialDeposite = () => {
-  const { user } = useUserContext();
+  const { user,setDeposit,deposit } = useUserContext();
   return (
     <Select
       className="max-w-xs"
@@ -608,7 +634,10 @@ const FinancialDeposite = () => {
       required
     >
       {(card) => (
-        <SelectItem key={card.id} textValue={card.title}>
+        <SelectItem key={card.id} textValue={card.title} onPress={()=>{
+          setDeposit({...deposit,card_bank:card.card_number})
+          console.log(card.card_number)
+}}>
           <div className="flex gap-2 items-center">
             <Avatar
               alt={card.title}
@@ -631,8 +660,31 @@ const FinancialDeposite = () => {
 
 const AddNewCardContent = () => {
   const { show, setShow, content } = useModalContext();
-  const { user } = useUserContext();
+  const { user,setDeposit,deposit } = useUserContext();
 
+
+
+  const withDrawHandler  = async ()=>{
+    
+    const response = await perform_post('api/v1/payment_withdraw_view/',deposit)
+    console.log(response)
+    if(response.status == 400){
+      addToast({
+        title:"برداشت",
+        description:response.data.message,
+        color:"danger"
+      })
+    }else if (response){
+      addToast({
+        title:"برداشت",
+        description:"درخواست شما با موفقیت ثبت شد تا 72 ساعت واریز خواهد شد",
+        color:"success"
+      })
+      setDeposit({...deposit,amount:0})
+      setShow(false)
+    }
+  }
+  
   return (
     <div
       className={`w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border p-4`}
@@ -689,11 +741,17 @@ const AddNewCardContent = () => {
               labelPlacement="outside"
               description="توضیحات مورد نظر برای برداشت"
               label="مبلغ واریزی"
+              defaultValue={`${deposit.amount}`}
               placeholder="حداقل مبلغ واریزی 50,0000"
               fullWidth
+              onValueChange={(value)=>{
+                setDeposit({...deposit,amount:Number(value)})
+                
+              }}
             />
             <div className="flex-1"></div>
-            <Button fullWidth color="success">
+            
+            <Button fullWidth color="success" onPress={withDrawHandler}>
               برداشت مستقیم
             </Button>
           </div>

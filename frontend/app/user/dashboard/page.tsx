@@ -121,7 +121,7 @@ const page = async ({ params }: any) => {
       <main className="w-full h-screen flex">
         <Sidebar>
           <SidebarBody />
-          <SidebarFooter user={response} />
+          <SidebarFooter user={response} token={token}/>
         </Sidebar>
         <div className="flex-1 flex flex-row-reverse h-full box-border p-5 gap-4">
           <div className="bg-foreground-100 rounded-3xl h-full w-96">
@@ -137,9 +137,7 @@ const page = async ({ params }: any) => {
               <span className="text-xl">{response.username}</span>
               <div className="flex-1"></div>
             <ProfileEdit user={response}/>
-                {/* <Chip color="success" variant="dot">
-                  {formatCurrency(response.digital_wallet)}
-                </Chip> */}
+  
     
             </div>
 

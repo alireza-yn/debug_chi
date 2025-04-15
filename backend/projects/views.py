@@ -7,7 +7,7 @@ from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.parsers import MultiPartParser, JSONParser
-from .models import EducationPeoject, TenderProject
+from .models import EducationProject, TenderProject
 from programming_language.models import ProgrammingLanguage, ProgrammerExpertise
 import json
 from rest_framework.request import Request
@@ -26,22 +26,38 @@ redis_client = redis.StrictRedis(
 class TenderProjectViewSet(ModelViewSet):
     queryset = TenderProject.objects.all()
     serializer_class = TenderSerializers
-
-    def perform_create(self, serializer):
-        trend: TenderProject = serializer.save()
-
+    
+    # def perform_create(self, serializer):
+    #     if self.request.user:
+    #         print(serializer.data,self.request.user)
+    #         serializer.save(created_by=self.request.user)
+    #     raise ("not valid user")
         # ارسال اطلاعات مزایده به Redis برای اطلاع‌رسانی به Node.js
-        trend_data = {
-            "title": trend.title,
-            "description": trend.description,
-            "start_time": str(trend.start_time),
-            "end_time": str(trend.end_time),
-            "created_by": trend.created_by.user_phone,
-            "start_bid": str(trend.start_bid),
-        }
-        message = json.dumps(trend_data)
-        redis_client.publish("new_trend", message)
+        # trend_data = {
+        #     "title": trend.title,
+        #     "description": trend.description,
+        #     "start_time": str(trend.start_time),
+        #     "end_time": str(trend.end_time),
+        #     "created_by": trend.created_by.user_phone,
+        #     "start_bid": str(trend.start_bid),
+        # }
+        # message = json.dumps(trend_data)
+        # redis_client.publish("new_trend", message)
 
+
+
+
+
+
+class BidProjectListView(APIView, TenderService):
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request: Request):
+        # دریافت بیدهای مرتبط با کاربر
+        bids = Bid.objects.filter(user=request.user)
+        serializer = BidSerializers(bids, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+    
 
 class BidProjectAPIView(APIView, TenderService):
 
@@ -53,7 +69,7 @@ class BidProjectAPIView(APIView, TenderService):
         serializer = BidSerializers(data=request.data)
         serializer.is_valid(raise_exception=True)
         success, message = self.submit_bid(serializer, request)
-
+    
         if not success:
             raise ValidationError({"success": success, "message": message})
 
@@ -85,8 +101,14 @@ class TenderProjectListView(APIView, TenderService):
 
 
 class ProjectViewSet(ModelViewSet):
-    queryset = EducationPeoject.objects.all().order_by("-created_at")
+    queryset = EducationProject.objects.all().order_by("-created_at")
     serializer_class = ProjectSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
+
+
+
 
 
 class CreateProjectAPIView(ViewSet):
@@ -125,7 +147,7 @@ class CreateProjectAPIView(ViewSet):
                 )
 
             # ایجاد نمونه پروژه
-            project = EducationPeoject.objects.create(
+            project = EducationProject.objects.create(
                 type_class=type_class,
                 class_session=class_session,
                 educational_heading=educational_heading,
@@ -176,6 +198,8 @@ class ShowTenderProject(ListAPIView):
     queryset = TenderProject.objects.all()
     serializer_class = CustomTenderSerializers
 
+    def perform_create(self, serializer):
+        serializer.save(created_by=self.request.user)
     # def get_object(self):
     #     return super().get_object()
 
@@ -195,3 +219,8 @@ class GetBidTender(APIView):
             )
 
         return Response({"results": data}, status=status.HTTP_200_OK)
+
+
+class ProjectImageViewSet(ModelViewSet):
+    queryset = ProjectImage.objects.all()
+    serializer_class = ProjectImageSerializer

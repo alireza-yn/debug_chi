@@ -61,35 +61,47 @@ class TenderService:
             }
         )
 
+    def submit_auction(self, serializer: BidSerializers, request: Request):
+        tender: TenderProject = serializer.validated_data.get("tender")
+        amount = serializer.validated_data.get("amount")
+        _user = User.objects.get(id=request.user.id)
+        start_price  = Bid.objects.filter(tender=tender).order_by("-amount").first()
+        check_user_bid = Bid.objects.filter(tender=tender, user=_user)
+        if (check_user_bid.exists()):
+            check_user_bid.update(amount=amount)
+            return True, "با موفقیت بروزرسانی شد"
+        else:
+            if _user.digital_wallet < tender.start_bid:
+                return False, "موجودی کیف پول شما کافی نیست."
+            if amount > tender.start_bid:
+                return False, "مقدار پیشنهادی شما نباید بیشتر از مقدار شروع باشد"
+
+
+
+
     def submit_bid(self, serializer: BidSerializers, request: Request):
         tender: TenderProject = serializer.validated_data.get("tender")
         amount = serializer.validated_data.get("amount")
         _user = User.objects.get(id=request.user.id)
-
         highest_price = Bid.objects.filter(tender=tender).order_by("-amount").first()
         check_user_bid = Bid.objects.filter(tender=tender, user=_user).exists()
         print(_user.digital_wallet)
-        # بررسی اینکه کاربر قبلاً شرکت کرده یا نه
+
         if check_user_bid:
             return False, "شما قبلا شرکت کرده‌اید"
 
-        # بررسی موجودی کیف پول کاربر
         if _user.digital_wallet < tender.start_bid:
             return False, "موجودی کافی نیست"
 
-        # بررسی مقدار پیشنهاد در مقایسه با حداقل پیشنهاد موردنیاز
         if amount < tender.start_bid:
             return False, "مقدار پیشنهاد شما کمتر از حداقل مقدار لازم است"
 
-        # اگر قبلاً هیچ مزایده‌ای ثبت نشده باشد، مستقیماً ثبت شود
         if highest_price is None:
             return self._save_bid(serializer, _user)
 
-        # بررسی اینکه مقدار پیشنهاد با آخرین پیشنهاد برابر نباشد
         if amount == highest_price.amount:
             return False, "مزایده شما با آخرین مزایده‌ی ثبت‌شده برابر است"
 
-        # بررسی اینکه پیشنهاد باید از بالاترین پیشنهاد موجود بیشتر باشد
         if amount > highest_price.amount:
             return self._save_bid(serializer, _user)
 

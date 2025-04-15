@@ -11,7 +11,7 @@ from ConsultHub.views import *
 from questions.views import *
 from followers.views import *
 from post.views import *
-
+from payments.views import *
 router = DefaultRouter()
 router.register('project',viewset=ProjectViewSet)
 router.register('team_project',viewset=ProjectTeamViewSet)
@@ -42,10 +42,10 @@ router.register(r'programmer-exprertise', ProgrammerExpertiseViewSet)
 router.register(r'create_project', ProjectViewSet,basename="project_created")
 router.register(r'new_project', CreateProjectAPIView,basename="new_project")
 router.register(r'tender_project',TenderProjectViewSet,basename='tender_project')
+router.register(r'project_image',ProjectImageViewSet,basename='project_image')
 # router.register(r'bid_project',BidProjectViewSet,basename='bid_project')
 
 #endregion
-
 
 #region ConsultHub Router
 router.register(r'consult-hub', ConsultHubView,basename="consult-hub")
@@ -75,12 +75,15 @@ router.register(r'section',SectionView,basename='سکشن')
 #region Posts Router
 router.register(r'posts',PostsViewSet,basename='پست آموزشی'),
 router.register(r'post_group',PostListModelViewSet,basename='پست های من'),
-
-
 router.register(r'comments',CommentViewSet,basename='کامنت ویدیوی آموزشی'),
 router.register(r'Like',LikedPostViewSet,basename='لایک ویدیوی آموزشی'),
 #endregion
 
+
+#paymen Region
+router.register(r'payment_withdraw',WithDrawViewSet,basename='برداشت اعتبار')
+
+#endregion
 
 
 urlpatterns = [
@@ -101,10 +104,10 @@ urlpatterns = [
     
     #region  ConsultantAPI
     path('v1/debug/accept_debug_session/',view=AcceptDebugSession.as_view(),name='قبول کردن جلسه دیباگ'),
+    path('v1/debug/open_debug_session/',view=OpenedDebugSession.as_view(),name='open_debug_session'),
     path('v1/debug/get_pending_session/',view=PendingSession.as_view(),name='لیست جلسات در حال بررسی'),
     path('v1/debug/list_debug/',view=GetDebugerSession.as_view(),name='قبول کردن جلسه دیباگ'),
     path('v1/debug/get-session-info/<str:session_id>/',view=GetSessionInfo.as_view(),name='get-session-info'),
-
     #endregion 
     
     
@@ -129,7 +132,12 @@ urlpatterns = [
     #endregion
 
     #region report
-        path('v1/report/',include('report.urls'))
+        path('v1/report/',include('report.urls')),
     #endregion
+
+    #region payment
+        path('v1/payment_withdraw_view/',view=WithDrawApiView.as_view(),name="برداشت")
+
+    #endregion 
     
 ]

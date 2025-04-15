@@ -12,6 +12,21 @@ from django.db import transaction
 from rest_framework.exceptions import ValidationError
 User = get_user_model()
 
+
+
+class UserSerializer(serializers.ModelSerializer):
+    user_roles = serializers.SerializerMethodField()
+    def get_user_roles(self, obj):
+        return [role.name for role in obj.user_roles.all()]
+    class Meta:
+        model = User
+        fields = [
+           "user_roles"
+        ]
+
+
+
+
 class ConsultSerializer(serializers.ModelSerializer):
     consult = serializers.PrimaryKeyRelatedField(queryset=CustomUser.objects.all())
     consult_applicator = serializers.PrimaryKeyRelatedField(

@@ -5,7 +5,7 @@ import Image from "next/image";
 
 export default function Hero() {
   return (
-    <section className="py-16 md:py-24 overflow-hidden bg-pink-50">
+    <section className="py-16 md:py-24 overflow-hidden bg-pink-50 dark:bg-gray-900/80">
       <div className="container mx-auto px-4">
         <div className="flex flex-col md:flex-row items-center justify-between gap-12">
           <motion.div

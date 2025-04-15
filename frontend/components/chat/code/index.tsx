@@ -16,6 +16,7 @@ import { useAppDispatch } from "@/redux/store/store";
 import { v4 } from "uuid";
 import { setMessage } from "@/redux/slices/chatSocketSlice";
 import { socket } from "@/config/socket-config";
+import { usePathname } from "next/navigation";
 
 // Full list of Monaco-supported languages
 const languages = [
@@ -110,9 +111,12 @@ const SendCode = ({sender,reciever}:Props) => {
   const [language, setLanguage] = useState("javascript");
   const [fontSize, setFontSize] = useState(18);
   const dispatch = useAppDispatch();
+    const path = usePathname()
+    const session_id = path.split('/')[2]
+  
   const sendMessage = () => {
     const data = {
-      id:v4(),
+      session_id:session_id,
       sender: sender,
       receiver: reciever,
       data: {

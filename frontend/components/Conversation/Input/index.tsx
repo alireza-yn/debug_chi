@@ -35,14 +35,18 @@ const InputMessage = ({reciever}: Props) => {
   if (user_data) {
     user = JSON.parse(user_data);
   }
+  const session_id = path.split("/")[2]
+
+
+
   
   const sendMessage = () => {
-    if(!payed){
+    if(payed){
       dispatch(setShowRequest(true))
     }else{
 
       const data = {
-        session_id:v4(),
+        session_id:session_id,
         sender: user.uuid,
         receiver: reciever,
         data: {

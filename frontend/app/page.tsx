@@ -59,7 +59,7 @@ export default async function Home() {
         <main className="w-full h-screen flex">
           <Sidebar>
             <SidebarBody />
-            <SidebarFooter />
+            <SidebarFooter token={token} />
           </Sidebar>
           <div className="flex flex-1 box-border gap-4 p-4" dir="rtl">
             <div className="flex flex-col w-96 h-full rounded-2xl bg-c_background/50">

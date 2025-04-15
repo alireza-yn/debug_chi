@@ -21,6 +21,7 @@ import { ModalPicturePlayer, ModalVideoPlayer } from "../ModalVideoPlayer";
 // import HistoryCard from "../HistoryCard";
 import { GetUserActivityHistoryTab } from "./TabsData";
 import AddPost from "../AddPost";
+import UserResume from "./Resume";
 
 type Props = {
   user: UserType;
@@ -28,7 +29,6 @@ type Props = {
 };
 const UserDashboard = ({ user, posts }: Props) => {
   console.log(posts);
- 
 
   const title = user?.user_expertise?.[0]?.expertise?.[0]?.title;
 
@@ -138,11 +138,10 @@ const UserDashboard = ({ user, posts }: Props) => {
           classNames={{
             base: "rounded-full bg-slate-800 border p-2 border-slate-800",
             tabList: "gap-6 w-full relative  rounded-none p-0 border-divider",
-            cursor: "w-full bg-white",
+            cursor: "w-full !bg-white",
             tab: "max-w-fit px-5",
             tabContent: "group-data-[selected=true]:text-[#000000]",
           }}
-        
           variant="light"
         >
           <Tab
@@ -250,7 +249,7 @@ const UserDashboard = ({ user, posts }: Props) => {
                     );
                   }
                 })}
-              <AddPost />
+                <AddPost />
                 {/* {posts.map((post) =>
                   post.collection.map((item) => (
                     <div
@@ -426,7 +425,7 @@ const UserDashboard = ({ user, posts }: Props) => {
                 </div>
               }
             >
-              <div className="w-full min-h-[400px] border"></div>
+              <UserResume data={user} />
             </Tab>
           )}
         </Tabs>

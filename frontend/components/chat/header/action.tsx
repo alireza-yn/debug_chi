@@ -10,6 +10,7 @@ import {socket} from '@/config/socket-config';
 import { Main } from '@/components/types/user.types';
 import { text } from 'stream/consumers';
 import { setShowRequest } from '@/redux/slices/globalSlice';
+import { usePathname } from 'next/navigation';
 
 type Props = {
   reciever:string
@@ -21,10 +22,11 @@ const Action = ({reciever}: Props) => {
   const dispatch = useAppDispatch()
   const {payed} = useAppSelector((state:RootState)=>state.gloabal)
   
-
+  const path = usePathname()
+  const session_id = path.split('/')[2]
 
   const sendMessage = () => {
-    if(!payed){
+    if(payed){
       dispatch(setShowRequest(true))
     }
     else{
@@ -35,7 +37,7 @@ const Action = ({reciever}: Props) => {
         user = JSON.parse(user_data);
       }
       const data = {
-        id:v4(),
+        session_id:session_id,
         sender: user.uuid,
         receiver: reciever,
         data: {

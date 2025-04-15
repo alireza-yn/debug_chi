@@ -81,6 +81,7 @@ export const getUserChatList = async (token: string) => {
 };
 
 export const perform_post = async (url: string, data: any) => {
+  console.log(headers())
   try {
     const post_data = await axios.post(`${process.env.server}/${url}`, data, {
       headers:  headers(),

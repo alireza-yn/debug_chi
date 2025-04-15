@@ -23,30 +23,13 @@ export const page = () => {
     >
       <Header />
       <Hero />
-      {/* <Features /> */}
       <WhyWorkingWithUs />
       <Roadmap />
-      {/* <div className="overflow-hidden dark:bg-[#0B0B0F] bg-white w-full">
-        <MacbookScroll
-          title={<span>مراحل درخواست برنامه نویس</span>}
-          badge={
-            <Link href="https://peerlist.io/manuarora">
-              <Badge className="h-10 w-10 transform -rotate-12" />
-            </Link>
-          }
-          src={"/landing/card_light.svg"}
-          dark_src={"/landing/card_light.svg"}
-          showGradient={false}
-        />
-      </div> */}
+   
       <Video />
-      {/* <MainFeature /> */}
-      {/* <KeyFeatures /> */}
       <ServiceFeatures />
       <ConsultationForm />
       <Testimonials />
-      {/* <MapSection /> */}
-      {/* <Footer /> */}
       <Footer />
     </main>
   );

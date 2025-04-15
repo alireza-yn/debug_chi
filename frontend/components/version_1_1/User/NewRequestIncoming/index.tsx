@@ -9,18 +9,27 @@ import Cookies from "js-cookie";
 import { formatCurrency } from "@/utils/tools";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { RootState, useAppSelector } from "@/redux/store/store";
+import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
+import { setShowNewRequest } from "@/redux/slices/globalSlice";
 type Props = {};
 
 const NewRequestIncoming = (props: Props) => {
+
+
+  const router = useRouter();
     const {showNewRequest} = useAppSelector((state: RootState) => state.gloabal);
-  
+  const dispatch = useAppDispatch()
   const [pendingList, setPendingList] = useState<Main>({
     pending_consult: [],
     pending_debug: [],
   });
 
   useEffect(() => {
+    const is_online = Cookies.get("is_online");
+    if (is_online === "true") {
+      dispatch(setShowNewRequest(true))
+    }
+    
     const fetchData = async () => {
       const token = Cookies.get("token");
 
@@ -45,7 +54,7 @@ const NewRequestIncoming = (props: Props) => {
     };
 
     fetchData();
-  }, []);
+  }, [showNewRequest]);
 
   return (
     <>

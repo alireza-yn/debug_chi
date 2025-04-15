@@ -10,6 +10,7 @@ import trendSocket from "./sockets/trendSocket";
 import { redisHandler } from "./redis/redis";
 import path from "path";
 import { UserSocket } from "./sockets/userSocket";
+import commentSocket from "./sockets/comment";
 const app: Application = express();
 const PORT: number = 3001;
 
@@ -125,6 +126,7 @@ io.on("connection", (socket) => {
 chatSocket(io);
 trendSocket(io);
 UserSocket(io)
+commentSocket(io)
 redisHandler();
 
 server.listen(PORT, () => {

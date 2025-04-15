@@ -3,14 +3,15 @@ import { Ripple } from "@/components/ui/magicUI/Ripple"
 import { useAppDispatch, useAppSelector } from "@/redux/store/store"
 import { Avatar, Button, Spinner } from "@heroui/react"
 import { useState, useRef, useEffect } from "react"
-import Lottie from "lottie-react"
 import coffee_1 from "@/public/lottie/coffee_1.json"
 import coffee_2 from "@/public/lottie/coffee_2.json"
 import { motion, AnimatePresence } from "framer-motion"
 import { setFindUser } from "@/redux/slices/globalSlice"
 import { setClearAi } from "@/redux/slices/aiSlice"
 import { perform_get } from "@/lib/api"
+import dynamic from "next/dynamic"
 
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false })
 type Props = {}
 type LottieAnimation = Record<string, any>
 

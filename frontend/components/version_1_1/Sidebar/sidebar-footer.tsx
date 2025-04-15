@@ -11,16 +11,20 @@ import { usePathname } from "next/navigation";
 
 type Props = {
   user?: Main;
+  token?:string;
 };
 
-const SidebarFooter = ({ user }: Props) => {
+const SidebarFooter = ({ user,token }: Props) => {
   const dispatch = useAppDispatch();
   const [userData, setUserData] = useState<any>(null);
   const pathname = usePathname();
   useEffect(() => {
-    const user_data = localStorage.getItem("user_data");
-    if (user_data) {
-      setUserData(JSON.parse(user_data));
+    if(token){
+      const user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        setUserData(JSON.parse(user_data));
+        console.log(user_data)
+      }
     }
   }, []);
   return (

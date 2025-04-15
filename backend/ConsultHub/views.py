@@ -45,6 +45,11 @@ class AcceptDebugSession(APIView,DebugHubService):
        return self.AcceptSessionBySessionId(request)
 
 
+class OpenedDebugSession(APIView,DebugHubService):
+    permission_classes = [IsAuthenticated,IsDebugger]
+    def get(self,request:Request):
+        return self.OpenedSessionBySessionId(request)
+
 class PendingSession(APIView,DebugHubService):
     permission_classes = [IsAuthenticated,IsDebugger]
     def get(self,request:Request):

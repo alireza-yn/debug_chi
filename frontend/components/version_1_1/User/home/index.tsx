@@ -87,7 +87,7 @@ export const DebugerHome = ({ user, faq }: Props) => {
           }
         >
           <div className="w-full h-full ">
-            <div className="h-[600px] box-border p-5">
+            <div className="h-[600px] box-border overflow-y-auto p-5">
             <GetUserActivityHistoryTab />
             </div>
           </div>

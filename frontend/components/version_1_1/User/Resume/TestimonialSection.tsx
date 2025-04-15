@@ -1,0 +1,336 @@
+"use client"
+
+import { useState, useEffect } from "react"
+import Image from "next/image"
+import { ChevronLeft, ChevronRight, Star } from "lucide-react"
+import { motion, AnimatePresence } from "framer-motion"
+
+export default function Testimonials() {
+  const [currentPage, setCurrentPage] = useState(0)
+  const [direction, setDirection] = useState(0)
+  const [isVisible, setIsVisible] = useState(false)
+
+  useEffect(() => {
+    setIsVisible(true)
+  }, [])
+
+  const testimonials = [
+    {
+      id: 1,
+      name: "Faisal Sayed",
+      role: "Web flow Developer",
+      rating: 5,
+      text: 'Working with "Designer Zahoor" was an amazing experience. They transformed our vision into a sleek, user-friendly design. The interface is intuitive, and the user experience has improved drastically. Highly recommended for anyone looking to elevate their digital product!',
+    },
+    {
+      id: 2,
+      name: "Jeha Mith",
+      role: "Backend Developer",
+      rating: 5,
+      text: "Working with Zahoor was an exceptional experience. They took the time to understand our goals and crafted a design that is both visually stunning and user-centric. The interface is intuitive, making navigation effortless, and the overall user experience has improved significantly.",
+    },
+    {
+      id: 3,
+      name: "Alex Johnson",
+      role: "Product Manager",
+      rating: 5,
+      text: "The attention to detail and creative solutions provided by the team exceeded our expectations. Our product now has a modern, clean interface that our users love. The collaborative process made the entire experience enjoyable and productive.",
+    },
+  ]
+
+  const totalPages = Math.ceil(testimonials.length / 2)
+
+  const nextPage = () => {
+    setDirection(1)
+    setCurrentPage((prev) => (prev + 1) % totalPages)
+  }
+
+  const prevPage = () => {
+    setDirection(-1)
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages)
+  }
+
+  const visibleTestimonials = testimonials.slice(currentPage * 2, currentPage * 2 + 2)
+
+  // Variants for animations
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.2,
+        delayChildren: 0.3,
+      },
+    },
+  }
+
+  const itemVariants = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: {
+        type: "spring",
+        stiffness: 100,
+        damping: 12,
+      },
+    },
+  }
+
+  const pageVariants = {
+    enter: (direction:any) => ({
+      x: direction > 0 ? 1000 : -1000,
+      opacity: 0,
+    }),
+    center: {
+      x: 0,
+      opacity: 1,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.3 },
+      },
+    },
+    exit: (direction:any) => ({
+      x: direction > 0 ? -1000 : 1000,
+      opacity: 0,
+      transition: {
+        x: { type: "spring", stiffness: 300, damping: 30 },
+        opacity: { duration: 0.3 },
+      },
+    }),
+  }
+
+  return (
+    <motion.div
+      className="w-full bg-gray-950 text-white py-16 px-4 md:px-8 rounded-3xl"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      dir="ltr"
+    >
+      <motion.div
+        className="max-w-7xl mx-auto"
+        variants={containerVariants}
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+      >
+        <motion.div className="text-center mb-12" variants={itemVariants}>
+          <motion.h2
+            className="text-4xl md:text-5xl font-bold mb-4"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 100,
+              delay: 0.1,
+            }}
+          >
+            نظرات
+          </motion.h2>
+          <motion.p
+            className="text-gray-400 max-w-3xl mx-auto"
+            initial={{ y: 30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{
+              type: "spring",
+              stiffness: 50,
+              delay: 0.3,
+            }}
+          >
+            Customer Testimonials Showcase Genuine Experiences And Satisfaction With A Product Or Service.
+          </motion.p>
+        </motion.div>
+
+        <AnimatePresence mode="wait" custom={direction}>
+          <motion.div
+            key={currentPage}
+            custom={direction}
+            variants={pageVariants}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            className="grid md:grid-cols-2 gap-6 mb-8"
+          >
+            {visibleTestimonials.map((testimonial, index) => (
+              <motion.div
+                key={testimonial.id}
+                className="bg-zinc-900 rounded-xl p-6 relative overflow-hidden"
+                variants={itemVariants}
+                whileHover={{
+                  scale: 1.02,
+                  boxShadow: "0 10px 30px rgba(139, 92, 246, 0.2)",
+                  transition: { duration: 0.2 },
+                }}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{
+                  opacity: 1,
+                  y: 0,
+                  transition: { delay: index * 0.2 + 0.5 },
+                }}
+              >
+                <motion.div
+                  className="flex items-center mb-4"
+                  initial={{ x: -20, opacity: 0 }}
+                  animate={{ x: 0, opacity: 1 }}
+                  transition={{ delay: index * 0.2 + 0.7 }}
+                >
+                  <motion.div
+                    className="w-12 h-12 rounded-full overflow-hidden mr-4 bg-violet-200 flex items-center justify-center"
+                    whileHover={{ scale: 1.1 }}
+                  >
+                    <Image
+                      src={`/placeholder.svg?height=48&width=48`}
+                      alt={testimonial.name}
+                      width={48}
+                      height={48}
+                      className="object-cover"
+                    />
+                  </motion.div>
+                  <div>
+                    <h3 className="font-bold text-lg">{testimonial.name}</h3>
+                    <p className="text-gray-400 text-sm">{testimonial.role}</p>
+                  </div>
+                </motion.div>
+
+                <div className="flex mb-4">
+                  {[...Array(testimonial.rating)].map((_, i) => (
+                    <motion.div
+                      key={i}
+                      initial={{ opacity: 0, scale: 0 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{
+                        delay: 0.8 + i * 0.1,
+                        type: "spring",
+                        stiffness: 200,
+                      }}
+                    >
+                      <Star className="w-5 h-5 fill-violet-500 text-violet-500" />
+                    </motion.div>
+                  ))}
+                </div>
+
+                <motion.p
+                  className="text-gray-300"
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  transition={{ delay: index * 0.2 + 1.3 }}
+                >
+                  {testimonial.text}
+                </motion.p>
+
+                <motion.div
+                  className="absolute top-6 right-6 text-gray-600 opacity-20"
+                  initial={{ rotate: -10, opacity: 0 }}
+                  animate={{ rotate: 0, opacity: 0.2 }}
+                  transition={{
+                    delay: index * 0.2 + 1.5,
+                    type: "spring",
+                    stiffness: 100,
+                  }}
+                >
+                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path
+                      d="M9.5 8.5L4.5 8.5L4.5 13.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M4.5 8.5C7.5 8.5 9.5 10.5 9.5 13.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M19.5 8.5L14.5 8.5L14.5 13.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                    <path
+                      d="M14.5 8.5C17.5 8.5 19.5 10.5 19.5 13.5"
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                    />
+                  </svg>
+                </motion.div>
+
+                <motion.div
+                  className="absolute -bottom-10 -right-10 w-40 h-40 rounded-full bg-violet-500/5"
+                  animate={{
+                    scale: [1, 1.2, 1],
+                    opacity: [0.1, 0.2, 0.1],
+                  }}
+                  transition={{
+                    repeat: Number.POSITIVE_INFINITY,
+                    duration: 5,
+                    ease: "easeInOut",
+                  }}
+                />
+              </motion.div>
+            ))}
+          </motion.div>
+        </AnimatePresence>
+
+        <motion.div className="flex justify-center items-center gap-4" variants={itemVariants}>
+          <div className="flex gap-2">
+            {[...Array(totalPages)].map((_, i) => (
+              <motion.button
+                key={i}
+                onClick={() => {
+                  setDirection(i > currentPage ? 1 : -1)
+                  setCurrentPage(i)
+                }}
+                className={`w-2 h-2 rounded-full ${currentPage === i ? "bg-violet-500" : "bg-gray-600"}`}
+                aria-label={`Go to page ${i + 1}`}
+                whileHover={{ scale: 1.5 }}
+                whileTap={{ scale: 0.9 }}
+                animate={
+                  currentPage === i
+                    ? {
+                        scale: [1, 1.3, 1],
+                        transition: {
+                          repeat: Number.POSITIVE_INFINITY,
+                          repeatType: "reverse",
+                          duration: 1.5,
+                        },
+                      }
+                    : { scale: 1 }
+                }
+              />
+            ))}
+          </div>
+
+          <div className="flex gap-2 ml-4">
+            <motion.button
+              onClick={prevPage}
+              className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-violet-900 transition-colors"
+              aria-label="Previous page"
+              whileHover={{ scale: 1.1, borderColor: "#8b5cf6" }}
+              whileTap={{ scale: 0.9 }}
+            >
+              <ChevronLeft className="w-5 h-5" />
+            </motion.button>
+            <motion.button
+              onClick={nextPage}
+              className="w-10 h-10 rounded-full bg-violet-600 flex items-center justify-center hover:bg-violet-700 transition-colors"
+              aria-label="Next page"
+              whileHover={{ scale: 1.1, backgroundColor: "#7c3aed" }}
+              whileTap={{ scale: 0.9 }}
+              initial={{ x: 20, opacity: 0 }}
+              animate={{ x: 0, opacity: 1 }}
+              transition={{ delay: 1.5 }}
+            >
+              <ChevronRight className="w-5 h-5" />
+            </motion.button>
+          </div>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  )
+}
