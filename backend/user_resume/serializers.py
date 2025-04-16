@@ -40,3 +40,18 @@ class UserExpertiseSerializer(ModelSerializer):
     class Meta:
         model = UserExpertise
         fields = ['id','expertise','created_at','updated_at']
+
+
+
+class UserPortfolioImageSerializer(ModelSerializer):
+    class Meta:
+        model = UserPortfolioImage
+        fields = '__all__'
+
+
+class UserPortfolioSerializer(ModelSerializer):
+    images = UserPortfolioImageSerializer(many=True, read_only=True)
+
+    class Meta:
+        model = UserPortfolio
+        fields = ['id', 'name', 'description', 'created_at','updated_at','images']

@@ -12,7 +12,7 @@ from user_resume.serializers import *
 from django.contrib.auth import get_user_model
 from programming_language.serializers import *
 from followers.serializer import Followers
-
+from user_resume.serializers import UserPortfolioSerializer
 User = get_user_model()
 
 
@@ -38,6 +38,7 @@ class UserSerializer(ModelSerializer):
     user_expertise = UserExpertiseSerializer(many=True, read_only=True)
     followers = SerializerMethodField()
     user_bank_cards = UserBankCardSerializer(many=True,read_only=True)
+    user_portfolios = UserPortfolioSerializer(many=True,read_only=True)
     # followers = FollowerSerializer(read_only=True)
     class Meta:
         model = User
@@ -67,7 +68,8 @@ class UserSerializer(ModelSerializer):
             "user_score",
             "digital_wallet",
             "followers",
-            'user_bank_cards'
+            'user_bank_cards',
+            'user_portfolios'
         ]
 
     def get_followers(self, obj):

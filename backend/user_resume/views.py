@@ -100,4 +100,17 @@ class AddUserResume(ViewSet):
                 "success": False,
                 "error": str(e)
             })
-            
+
+
+
+
+class UserPortfolioViewSet(ModelViewSet):
+    queryset =UserPortfolio.objects.all()
+    serializer_class = UserPortfolioSerializer
+
+
+
+
+class UserPortfolioImageViewSet(ModelViewSet):
+    queryset =UserPortfolioImage.objects.all()
+    serializer_class = UserPortfolioImageSerializer

@@ -20,10 +20,9 @@ class WithDrawViewSet(ModelViewSet):
     queryset = WithDrawFunds.objects.all()
     serializer_class = WithDrawSerializer
     permission_classes = [IsAuthenticated]
-    print("asdads")
-
+    
     def perform_create(self, serializer):
-        print("adnasd")
+
         user = self.request.user
         print(user)
         amount = serializer.validated_data["amount"]

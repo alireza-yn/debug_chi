@@ -26,6 +26,9 @@ router.register(r'user-degrees', UserDegreeViewSet)
 router.register(r'user-social-media-links', UserSocialMediaLinksViewSet)
 router.register(r'user-expertise', UserExpertiseViewSet)
 router.register(r'add_resume', AddUserResume, basename='add_resume')
+router.register(r'UserPortfolio', UserPortfolioViewSet, basename='UserPortfolio')
+router.register(r'UserPortfolioImage', UserPortfolioImageViewSet, basename='UserPortfolioImage')
+
 
 #endregion
 

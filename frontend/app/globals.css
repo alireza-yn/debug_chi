@@ -55,6 +55,33 @@ body {
   /* font-size: 20px; */
 }
 
-span{
-  /* font-size: 14px; */
+/* custom-scrollbar for Tailwind */
+.scrollbar-left {
+  direction: rtl; /* برای چپ قرار گرفتن اسکرول */
+}
+
+.scrollbar-left::-webkit-scrollbar {
+  width: 8px;
+}
+
+.scrollbar-left::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-left::-webkit-scrollbar-thumb {
+  background-color: #e60000;
+  border-radius: 8px;
+  position: absolute;
+  left: 10px;
+}
+
+.scrollbar-left::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* optional: hide scrollbar on small screens */
+@media (max-width: 640px) {
+  .scrollbar-left::-webkit-scrollbar {
+    display: none;
+  }
 }

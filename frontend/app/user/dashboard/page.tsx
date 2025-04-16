@@ -91,6 +91,7 @@
 // };
 
 // export default dashboard;
+import Logout from "@/components/routes/auth/logout";
 import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
@@ -121,7 +122,7 @@ const page = async ({ params }: any) => {
       <main className="w-full h-screen flex">
         <Sidebar>
           <SidebarBody />
-          <SidebarFooter user={response} token={token}/>
+          <SidebarFooter user={response} token={token} />
         </Sidebar>
         <div className="flex-1 flex flex-row-reverse h-full box-border p-5 gap-4">
           <div className="bg-foreground-100 rounded-3xl h-full w-96">
@@ -136,9 +137,8 @@ const page = async ({ params }: any) => {
             <div className="flex  items-center px-12 box-border justify-start gap-4 h-16 rounded-t-2xl w-full bg-foreground-50 sticky top-0">
               <span className="text-xl">{response.username}</span>
               <div className="flex-1"></div>
-            <ProfileEdit user={response}/>
-  
-    
+              <ProfileEdit user={response} />
+              <Logout />
             </div>
 
             <div className="w-full box-border flex-1 overflow-y-auto px-4">

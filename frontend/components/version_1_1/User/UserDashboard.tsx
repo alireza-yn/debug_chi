@@ -130,7 +130,7 @@ const UserDashboard = ({ user, posts }: Props) => {
 
       <div className=" w-full h-[1px] border-b-4 rounded-full border-black gap-4 grid grid-cols-2 my-5 "></div>
 
-      <div className="min-h-96 max-w-7xl flex flex-col items-center ">
+      <div className="min-h-96 max-w-7xl mx-auto flex flex-col items-center ">
         <Tabs
           radius="full"
           size="lg"

@@ -11,10 +11,10 @@ export interface Main {
     is_staff:        boolean;
     intro_completed: boolean;
     unlimited:       boolean;
+    job_title:       string;
     created:         Date;
     updated:         Date;
     uuid:            string;
-    job_title:       string;
     user_roles:      string[];
     user_resume:     UserResume[];
     user_language:   UserLanguage[];
@@ -25,6 +25,7 @@ export interface Main {
     digital_wallet:  number;
     followers:       Followers;
     user_bank_cards: UserBankCard[];
+    user_portfolios: UserPortfolio[];
 }
 
 export interface Followers {
@@ -66,6 +67,23 @@ export interface LanguageName {
     image:      string;
     video:      null;
     level:      string;
+}
+
+export interface UserPortfolio {
+    id:          number;
+    name:        string;
+    description: string;
+    created_at:  Date;
+    updated_at:  Date;
+    images:      Image[];
+}
+
+export interface Image {
+    id:             number;
+    created_at:     Date;
+    updated_at:     Date;
+    image:          string;
+    user_portfolio: number;
 }
 
 export interface UserResume {

@@ -2,7 +2,7 @@ from django.db import models
 from django.conf import settings
 # Create your models here.
 from programming_language.models import *
-
+from core.models import Timestamp
 
 
 class TimeStampModel(models.Model):
@@ -10,6 +10,10 @@ class TimeStampModel(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     class Meta:
         abstract = True
+
+
+
+
 class UserResume(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name="user_resume")
     title = models.CharField(max_length=100)
@@ -83,8 +87,34 @@ class UserExpertise(TimeStampModel):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name="user_expertise",blank=True,null=True)
     expertise = models.ManyToManyField(ProgrammerExpertise,related_name="user_expertise",blank=True)
     
-    
-    
+
+
+
+
+class UserPortfolio(Timestamp):
+    name = models.CharField(max_length=100, null=True, blank=True)
+    description = models.TextField(null=True, blank=True)
+    owner = models.ForeignKey(
+        settings.AUTH_USER_MODEL,
+        on_delete=models.CASCADE,
+        related_name="user_portfolios"
+    )
+
+    def __str__(self):
+        return f"Portfolio: {self.name or 'No Title'}"
+
+
+class UserPortfolioImage(Timestamp):
+    image = models.ImageField(upload_to='static/user/portfolio/')
+    user_portfolio = models.ForeignKey(
+        UserPortfolio,
+        on_delete=models.CASCADE,
+        related_name="images"
+    )
+
+    def __str__(self):
+        return f"Image for {self.user_portfolio.name or 'No Title'}"
+
     # def __str__(self):
     #     if self.expertise.values_list('title',flat=True):
     #         return self.expertise.values('title')
