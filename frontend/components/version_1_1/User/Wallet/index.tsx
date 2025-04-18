@@ -19,6 +19,7 @@ import {
   CardHeader,
   Chip,
   cn,
+  DatePicker,
   Input,
   Radio,
   RadioGroup,
@@ -39,13 +40,13 @@ import {
   Plus,
   Search,
 } from "lucide-react";
-import { div } from "motion/react-client";
+import { div, span } from "motion/react-client";
 import React, { useEffect, useRef, useState } from "react";
 import AddNewCard from "./AddNewCard";
 import Image from "next/image";
 import { perform_post } from "@/lib/api";
 import { setDescription } from "@/redux/slices/aiSlice";
-
+import {I18nProvider} from "@react-aria/i18n";
 type Props = {
   user: Main;
 };
@@ -77,7 +78,7 @@ const Wallet = (props: Props) => {
           radius="full"
         >
           <Tab key="home" className="w-full h-full" title={<Home />}>
-            <TabHome user={props.user}/>
+            <TabHome user={props.user} />
           </Tab>
 
           <Tab
@@ -116,22 +117,36 @@ const Wallet = (props: Props) => {
 
 export default Wallet;
 
-const TabHome = ({user}:{user:Main}) => {
+const TabHome = ({ user }: { user: Main }) => {
   const { show, setShow } = useModalContext();
-  const card = user.user_bank_cards.find((item)=>item.default_card == true)
+  const card = user.user_bank_cards.find((item) => item.default_card == true);
   return (
     <div className="h-full flex flex-col gap-2 relative">
-      <div className="w-full flex-1 bg-[radial-gradient(circle,_var(--tw-gradient-stops))]  from-violet-800 to-violet-400 rounded-3xl relative box-border px-2">
-        <div className="w-full flex-1 mt-5 flex flex-col text-background gap-5" dir="rtl">
-          <div className="flex justify-between box-border px-4">
-        <span className="text-2xl font-blackSans">{card?.title}</span>
-        <span className="text-2xl font-blackSans">{user.first_name + " " + user.last_name}</span>
-          </div>
-          <span className="text-3xl font-blackSans">{formatCardNumber(String(card?.card_number))}</span>
+      <div className="w-full flex flex-row-reverse flex-1 bg-[radial-gradient(circle,_var(--tw-gradient-stops))]  from-violet-800 to-violet-400 rounded-3xl relative box-border p-5">
+        {/* <div
+          className="w-full flex-1 mt-5 flex flex-col text-background gap-5"
+          dir="rtl"
+        > */}
+        {/* <div className="flex justify-between box-border px-4"> */}
+        {/* <span className="text-2xl font-blackSans">{card?.title}</span> */}
+        {/* <span className="text-2xl font-blackSans">{user.first_name + " " + user.last_name}</span> */}
+        {/* </div> */}
+        {/* <span className="text-3xl font-blackSans">{formatCardNumber(String(card?.card_number))}</span> */}
+        {/* </div> */}
+        <div className="text-xl text-background flex flex-col gap-2 w-full mt-5 items-end">
+          <span className="text-foreground-900 font-blackSans">
+            : موجودی من
+          </span>
+          <span className="flex gap-2 mt-5">
+            <span>تومان</span>
+            <span>{formatCurrency(user.digital_wallet, true)}</span>
+          </span>
+          {user.blocked_wallet == 0 ? (
+            <span>بلاک شده : {user.blocked_wallet}</span>
+          ) : (
+            <span>{formatCurrency(user.blocked_wallet, true)}</span>
+          )}
         </div>
-        <span className="absolute left-4 bottom-2 text-xl text-background">
-          {formatCurrency(user.digital_wallet, true)}
-        </span>
       </div>
       <div className="h-4/6 flex flex-col px-2 gap-2">
         <ActionButtons />
@@ -154,6 +169,13 @@ const TabHistory = () => {
       </div>
       <div className="h-4/6 flex flex-col px-1 gap-2">
         <FilterAction />
+        <div className="flex gap-2" dir="rtl">
+          <I18nProvider locale="fa-IR">
+
+          <DatePicker  className="max-w-[284px]" label="از تاریخ" variant="bordered"/>
+          <DatePicker  className="max-w-[284px]" label="تا تاریخ" variant="bordered"/>
+          </I18nProvider>
+        </div>
         <FinancialActivities />
       </div>
     </div>
@@ -202,7 +224,7 @@ const FilterNotificationAction = ({
         {filterOptions.map((item, index) => (
           <div
             key={item}
-            ref={(el:any) => (filterRefs.current[index] = el)}
+            ref={(el: any) => (filterRefs.current[index] = el)}
             className="cursor-pointer"
             onClick={() => setSelectedFilter(item)}
           >
@@ -322,13 +344,14 @@ const FilterNotificationContent = ({
 
   const filterByType = (data: NotificationItem[]) => {
     if (selectedFilter === "همه") return data;
-    if (selectedFilter === "لایک") return data.filter((n) => n.message.includes("پسندید"));
-    if (selectedFilter === "کامنت") return data.filter((n) => n.message.includes("نظر"));
-    if (selectedFilter === "فالو") return data.filter((n) => n.message.includes("دنبال"));
+    if (selectedFilter === "لایک")
+      return data.filter((n) => n.message.includes("پسندید"));
+    if (selectedFilter === "کامنت")
+      return data.filter((n) => n.message.includes("نظر"));
+    if (selectedFilter === "فالو")
+      return data.filter((n) => n.message.includes("دنبال"));
     return [];
   };
-
-
 
   // Render notification based on its type
   const renderNotification = (notification: NotificationItem) => {
@@ -432,7 +455,7 @@ const FilterNotificationContent = ({
 
 const ActionButtons = () => {
   const { setShow, setContent } = useModalContext();
-  const {setDeposit,deposit} = useUserContext()
+  const { setDeposit, deposit } = useUserContext();
   const actions = [
     {
       name: "برداشت",
@@ -466,7 +489,7 @@ const ActionButtons = () => {
               onPress={() => {
                 setShow(true);
                 setContent(item.name);
-                setDeposit({...deposit,amount:0})
+                setDeposit({ ...deposit, amount: 0 });
               }}
             ></Button>
             <span className="text-xs">{item.name}</span>
@@ -478,10 +501,7 @@ const ActionButtons = () => {
 };
 
 const FinancialActivities = () => {
-
-  useEffect(()=>{
-    
-  },[])
+  useEffect(() => {}, []);
 
   return (
     <div className=" max-h-[400px] w-full rounded-xl box-border overflow-y-auto ">
@@ -622,7 +642,7 @@ export const CustomRadio = (props: any) => {
 };
 
 const FinancialDeposite = () => {
-  const { user,setDeposit,deposit } = useUserContext();
+  const { user, setDeposit, deposit } = useUserContext();
   return (
     <Select
       className="max-w-xs"
@@ -634,10 +654,14 @@ const FinancialDeposite = () => {
       required
     >
       {(card) => (
-        <SelectItem key={card.id} textValue={card.title} onPress={()=>{
-          setDeposit({...deposit,card_bank:card.card_number})
-          console.log(card.card_number)
-}}>
+        <SelectItem
+          key={card.id}
+          textValue={card.title}
+          onPress={() => {
+            setDeposit({ ...deposit, card_bank: card.card_number });
+            console.log(card.card_number);
+          }}
+        >
           <div className="flex gap-2 items-center">
             <Avatar
               alt={card.title}
@@ -660,31 +684,31 @@ const FinancialDeposite = () => {
 
 const AddNewCardContent = () => {
   const { show, setShow, content } = useModalContext();
-  const { user,setDeposit,deposit } = useUserContext();
+  const { user, setDeposit, deposit } = useUserContext();
 
-
-
-  const withDrawHandler  = async ()=>{
-    
-    const response = await perform_post('api/v1/payment_withdraw_view/',deposit)
-    console.log(response)
-    if(response.status == 400){
+  const withDrawHandler = async () => {
+    const response = await perform_post(
+      "api/v1/payment_withdraw_view/",
+      deposit
+    );
+    console.log(response);
+    if (response.status == 400) {
       addToast({
-        title:"برداشت",
-        description:response.data.message,
-        color:"danger"
-      })
-    }else if (response){
+        title: "برداشت",
+        description: response.data.message,
+        color: "danger",
+      });
+    } else if (response) {
       addToast({
-        title:"برداشت",
-        description:"درخواست شما با موفقیت ثبت شد تا 72 ساعت واریز خواهد شد",
-        color:"success"
-      })
-      setDeposit({...deposit,amount:0})
-      setShow(false)
+        title: "برداشت",
+        description: "درخواست شما با موفقیت ثبت شد تا 72 ساعت واریز خواهد شد",
+        color: "success",
+      });
+      setDeposit({ ...deposit, amount: 0 });
+      setShow(false);
     }
-  }
-  
+  };
+
   return (
     <div
       className={`w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border p-4`}
@@ -696,7 +720,9 @@ const AddNewCardContent = () => {
           </div>
           <div
             className={`${
-              show ? "flex-1 flex items-start justify-center w-full overflow-y-auto scrollbar-hide max-h-[420px]" : "hidden"
+              show
+                ? "flex-1 flex items-start justify-center w-full overflow-y-auto scrollbar-hide max-h-[420px]"
+                : "hidden"
             }`}
             dir="rtl"
           >
@@ -744,13 +770,12 @@ const AddNewCardContent = () => {
               defaultValue={`${deposit.amount}`}
               placeholder="حداقل مبلغ واریزی 50,0000"
               fullWidth
-              onValueChange={(value)=>{
-                setDeposit({...deposit,amount:Number(value)})
-                
+              onValueChange={(value) => {
+                setDeposit({ ...deposit, amount: Number(value) });
               }}
             />
             <div className="flex-1"></div>
-            
+
             <Button fullWidth color="success" onPress={withDrawHandler}>
               برداشت مستقیم
             </Button>

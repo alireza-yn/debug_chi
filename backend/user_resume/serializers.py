@@ -54,4 +54,10 @@ class UserPortfolioSerializer(ModelSerializer):
 
     class Meta:
         model = UserPortfolio
-        fields = ['id', 'name', 'description', 'created_at','updated_at','images']
+        fields = ['id', 'name', 'owner','description', 'created_at','updated_at','images']
+
+
+class UserJobHistorySerializer(ModelSerializer):
+    class Meta:
+        model = UserJobHistory
+        fields = '__all__'

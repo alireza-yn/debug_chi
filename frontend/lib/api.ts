@@ -129,3 +129,26 @@ export const perform_get = async (url: string,token?:string) => {
     };
   }
 };
+
+export const perform_delete = async (url:string, data?:any)=>{
+  try{
+    const request = await axios.delete(`${process.env.server}/${url}`,{
+      headers:headers()
+    })
+
+    if (request.status == 204 ){
+      return {
+        success:true,
+        message:"با موفقیت حذف شد"
+      }
+    }
+    
+  }
+  catch(e:any){
+    return {
+      data: e.response.data,
+      status: e.status,
+    };
+
+  }
+}

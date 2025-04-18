@@ -15,14 +15,14 @@ import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { setConversation } from "@/redux/slices/chatWithUser";
 import { AnyDeskIcon, MicIcon } from "@/components/ui/icons";
 import {socket} from "@/config/socket-config";
-import { Main } from "@/components/types/user.types";
+import { Main, User } from "@/components/types/user.types";
 import Cookies from "js-cookie";
 import { setMessage  } from "@/redux/slices/chatSocketSlice";
 import { v4 as uuidv4, v4} from "uuid"
 import SendCode from "@/components/chat/code";
 import { setShowRequest } from "@/redux/slices/globalSlice";
 type Props = {
-  reciever:string
+  reciever:User
 };
 
 const InputMessage = ({reciever}: Props) => {
@@ -48,7 +48,7 @@ const InputMessage = ({reciever}: Props) => {
       const data = {
         session_id:session_id,
         sender: user.uuid,
-        receiver: reciever,
+        receiver: reciever.uuid,
         data: {
           type:"text",
           text: description,
@@ -105,7 +105,7 @@ const InputMessage = ({reciever}: Props) => {
         <div className="flex-1 flex items-center justify-end gap-4">
           <Tooltip color="primary" content="کد">
       
-            <SendCode  sender={user.uuid } reciever={reciever}/>
+            <SendCode  sender={user.uuid } reciever={reciever.uuid}/>
           </Tooltip>
 
           <Tooltip color="primary" content="ارسال فایل">

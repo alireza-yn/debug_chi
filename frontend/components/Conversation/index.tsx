@@ -20,7 +20,7 @@ type Props = {
   session_id: string;
 };
 
-const Conversation = ({ user,session_id }: Props) => {
+const Conversation = ({ user, session_id }: Props) => {
   let sender: MainUser;
   const query = useSearchParams();
   const chat = useAppSelector((state: RootState) => state.chatSocket);
@@ -31,35 +31,32 @@ const Conversation = ({ user,session_id }: Props) => {
   const session = query.get("session");
   const user_data = localStorage.getItem("user_data");
 
-  const messagesEndRef = useRef<HTMLDivElement | null>(null);  // ref برای انتهای پیام‌ها
+  const messagesEndRef = useRef<HTMLDivElement | null>(null); // ref برای انتهای پیام‌ها
 
   if (user_data) {
     sender = JSON.parse(user_data);
   }
-useEffect(()=>{
-  const data = {
-    session_id: session_id,
-  };
-  console.log(data);
-  socket.emit("get_messages", data);
-  socket.on("get_messages", (data) => {
-    console.log(data);
-    dispatch(setData(data));
-  });
-
-},[1])
   useEffect(() => {
-  
-
+    const data = {
+      session_id: session_id,
+    };
+    console.log(data);
+    socket.emit("get_messages", data);
+    socket.on("get_messages", (data) => {
+     
+      dispatch(setData(data));
+    });
+  }, [1]);
+  useEffect(() => {
     socket.on(String(sender.uuid), (msg) => {
       dispatch(setMessage(msg));
     });
 
-    socket.on(`${sender.uuid}_sent`, (id) => {
+    socket.on(`${session_id}_sent`, (id) => {
       dispatch(setSatus({ id: id, status: "sent" }));
     });
 
-    socket.on(`${uuidFromPath}_${sender.uuid}_read`, (data) => {
+    socket.on(`${session_id}_${sender.uuid}_read`, (data) => {
       console.log(data);
       if (data.read) {
         dispatch(setRead());
@@ -72,11 +69,11 @@ useEffect(()=>{
     return () => {
       socket.off(String(sender.uuid));
     };
-  }, [socket, chat]); // وابسته به chat است تا هنگام تغییر پیام‌ها اسکرول به پایین انجام شود
+  }, [socket, chat]); 
 
   return (
     <div className="w-full flex flex-col gap-2 pt-20 flex-1 overflow-y-auto">
-      {chat.map((item: MainChat,index) => {
+      {chat.map((item: MainChat, index) => {
         return (
           <div key={index} dir={item.sender == sender.uuid ? "rtl" : ""}>
             <Message
@@ -87,7 +84,8 @@ useEffect(()=>{
           </div>
         );
       })}
-      <div ref={messagesEndRef} /> {/* اینجا رفرنس را به انتهای لیست پیام‌ها اضافه می‌کنیم */}
+      <div ref={messagesEndRef} />{" "}
+      {/* اینجا رفرنس را به انتهای لیست پیام‌ها اضافه می‌کنیم */}
     </div>
   );
 };

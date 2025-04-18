@@ -11,8 +11,13 @@ const ForeignLanguageSection = (props: Props) => {
   ]
 
   return (
-    <div className="w-full min-h-48 bg-gray-950 rounded-3xl p-8">
-      <h2 className="text-2xl font-bold text-white mb-8 text-center">زبان هایی که بلدم</h2>
+    <div className="w-full  flex flex-col  rounded-3xl p-8">
+        <div className="flex items-center gap-3 mb-4">
+        <div className="w-5 h-5 rounded-full bg-white"></div>
+        <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
+        زبان هایی که بلدم
+        </h3>
+      </div>
 
       <div className="flex flex-wrap justify-center gap-8">
         {languages.map((language, index) => (

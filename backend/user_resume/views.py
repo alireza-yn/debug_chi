@@ -114,3 +114,8 @@ class UserPortfolioViewSet(ModelViewSet):
 class UserPortfolioImageViewSet(ModelViewSet):
     queryset =UserPortfolioImage.objects.all()
     serializer_class = UserPortfolioImageSerializer
+
+
+class UserJobHistoryViewSet(ModelViewSet):
+    queryset = UserJobHistory.objects.all()
+    serializer_class = UserJobHistorySerializer

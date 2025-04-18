@@ -50,6 +50,8 @@ class DebugSession(TimeStamp):
     time = models.IntegerField(
         default=20, validators=[MaxValueValidator(60), MinValueValidator(20)]
     )
+    is_realtime = models.BooleanField(default=True)
+    is_locked = models.BooleanField(default=False)
 
     def __str__(self):
         return self.session_id
@@ -74,11 +76,14 @@ class ConsultSession(TimeStamp):
         User, on_delete=models.CASCADE, related_name="consult_applicator"
     )
     status = models.CharField(max_length=100, choices=Status.choices, default="pending")
-    close_at = models.DateTimeField(auto_now_add=True)
+    start_at = models.DateTimeField(blank=True, null=True)
+    close_at = models.DateTimeField(blank=True,null=True)
     mode = models.CharField(max_length=100, choices=ConsultMode.choices, default="chat")
     price = models.FloatField()
     discount = models.IntegerField()
     lnaguage = models.TextField(null=True, blank=True)
+    is_realtime = models.BooleanField(default=True)
+    is_locked = models.BooleanField(default=False)
 
     def __str__(self):
         return self.session_id

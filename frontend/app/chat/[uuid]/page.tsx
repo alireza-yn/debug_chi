@@ -23,7 +23,7 @@ const page = async ({ params }: any) => {
     `api/v1/debug/get-session-info/${uuid}`,
     token
   );
-
+console.log(response.is_debuger)
   return (
     <main className="w-full h-screen flex">
       <Sidebar>
@@ -31,7 +31,7 @@ const page = async ({ params }: any) => {
         <SidebarFooter />
       </Sidebar>
       <div className="flex-1 flex  h-full box-border p-5 gap-4">
-        <div className="bg-foreground-100 rounded-3xl h-full w-96">
+        <div className="bg-foreground-100 rounded-3xl h-full overflow-y-auto w-96">
           {response.is_debuger ? (
             <ChatList />
           ) : (
@@ -63,7 +63,10 @@ const page = async ({ params }: any) => {
           >
             {response.is_debuger ? (
               <InputMessage
-                reciever={response.data.debuger || response.data.consult}
+                reciever={
+                  response.data.debuger_applicator ||
+                  response.data.consult_applicator
+                }
               />
             ) : response.data.status === "pending" ? (
               <div className="w-full flex justify-center items-center bg-foreground-100 rounded-3xl h-16">

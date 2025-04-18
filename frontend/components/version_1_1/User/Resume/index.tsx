@@ -18,18 +18,16 @@ const UserResume = ({ data }: { data: Main }) => {
         debugger_bio={data.debugger_bio}
         languages={data.user_language}
       />
-      <Divider className="w-3/4"/>
-      <JobHistory />
-      <Divider className="w-3/4"/>
-      {/* <InteractiveDiagram /> */}
-      <ProjectPortofolio data={data.user_portfolios}/>
-      <Divider className="w-3/4"/>
-
-      <EducationSection />
-      <Divider className="w-3/4"/>
+      <Divider className="w-3/4" />
+      <JobHistory data={data.user_job_history} user_id={data.id} />
+      <Divider className="w-3/4" />
+      <ProjectPortofolio data={data.user_portfolios} user_id={data.id} />
+      <Divider className="w-3/4" />
+      <EducationSection degree={data.user_degree} user_id={data.id} />
+      <Divider className="w-3/4" />
       <ForigenLanguageSection />
-      <Divider className="w-3/4"/>
- 
+      <Divider className="w-3/4" />
+
       <Testimonials />
     </div>
   );

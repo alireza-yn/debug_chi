@@ -39,6 +39,8 @@ class UserSerializer(ModelSerializer):
     followers = SerializerMethodField()
     user_bank_cards = UserBankCardSerializer(many=True,read_only=True)
     user_portfolios = UserPortfolioSerializer(many=True,read_only=True)
+    user_job_history = UserJobHistorySerializer(many=True,read_only=True)
+    user_degree = UserDegreeSerializer(many=True,read_only=True)
     # followers = FollowerSerializer(read_only=True)
     class Meta:
         model = User
@@ -67,9 +69,12 @@ class UserSerializer(ModelSerializer):
             "debugger_bio",
             "user_score",
             "digital_wallet",
+            'blocked_wallet',
             "followers",
             'user_bank_cards',
-            'user_portfolios'
+            'user_portfolios',
+            'user_job_history',
+            'user_degree'
         ]
 
     def get_followers(self, obj):

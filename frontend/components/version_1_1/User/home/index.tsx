@@ -33,6 +33,7 @@ import {
 } from "lucide-react";
 import React, { useState } from "react";
 import { GetUserActivityHistoryTab } from "../TabsData";
+import RequetsList from "./RequetsList";
 
 type Props = {
   user: Main;
@@ -211,7 +212,10 @@ export const DebugerRequest = () => {
             </div>
           </Tab>
           <Tab key="requests" title="درخواست ها">
-            تاریخچه
+            <div className="w-full flex flex-col">
+
+            <RequetsList />
+            </div>
           </Tab>
         </Tabs>
       </div>

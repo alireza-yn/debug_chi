@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { perform_get } from "@/lib/api";
+import { I18nProvider, useDateFormatter } from "@react-aria/i18n";
 import {
   Accordion,
   AccordionItem,
@@ -10,8 +11,16 @@ import {
   CardBody,
   CardFooter,
   CardHeader,
+  Checkbox,
+  Chip,
+  DatePicker,
+  Dropdown,
+  DropdownItem,
+  DropdownMenu,
+  DropdownTrigger,
   Spinner,
   Textarea,
+  TimeInput,
 } from "@heroui/react";
 import { Main as User } from "@/components/types/user.types";
 import {
@@ -26,13 +35,28 @@ import { setUser } from "@/redux/slices/userSlice";
 import { useRouter } from "next/navigation";
 import {
   CheckCircle,
+  ChevronDown,
+  ChevronUp,
+  Clock,
   Cross,
   GaugeCircle,
   MessageCircleCode,
   Mic,
   Phone,
+  PhoneCall,
   ShieldAlert,
+  Video,
 } from "lucide-react";
+import {
+  CalendarDate,
+  getLocalTimeZone,
+  now,
+  Time,
+  today,
+} from "@internationalized/date";
+import { formatCurrency } from "@/utils/tools";
+import { boolean } from "zod";
+import { UserCard } from "./user-card";
 type Props = {};
 
 const ChatList = (props: Props) => {
@@ -103,7 +127,7 @@ const ChatList = (props: Props) => {
     );
   }
   return (
-    <div className="flex flex-col gap-4 box-border p-4 h-full overflow-y-auto">
+    <div className="flex flex-col gap-4 box-border p-4 flex-1  overflow-y-auto">
       {/* {session_id} */}
       {selectedUser && <UserCard user={selectedUser} data={data} />}
       {chats.length > 0 &&
@@ -125,94 +149,7 @@ const ChatList = (props: Props) => {
 
 export default ChatList;
 
-const UserCard = ({ user, data }: { user: User; data: any }) => {
-  const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isEdited, setIsEdited] = useState<boolean>(false);
-  useEffect(() => {
-    setIsLoading(true);
-    setTimeout(() => {
-      setIsLoading(false);
-    }, 1000);
-  }, []);
-  if (isLoading) {
-    return (
-      <div className="flex flex-col items-center box-border p-4 min-h-[400px] bg-default/80 rounded-3xl">
-        <Spinner
-          classNames={{ label: "text-foreground mt-4" }}
-          label="منتظر بمانید"
-          variant="spinner"
-        />
-      </div>
-    );
-  }
-  return (
-    <div className="flex flex-col gap-4 items-center box-border p-4 min-h-[400px] bg-default/80 rounded-3xl">
-      <img
-        src={
-          user.image_profile != null
-            ? `${process.env.server}/${user.image_profile}`
-            : "/user.jpg"
-        }
-        className="w-10 h-10 rounded-full"
-      />
-      <div className="w-full flex flex-col items-center">
-        <span>{user.first_name + " " + user.last_name}</span>
-      </div>
-      <div className="flex-1 w-full">
-        <Card className="w-full" dir="rtl">
-          <CardHeader className="w-full text-medium">{data.title}</CardHeader>
-          <CardBody className="flex flex-col font-lightSans gap-3" dir="ltr">
-            <p className="text-sm">{data.description}</p>
-            <Accordion variant="splitted">
-              <AccordionItem
-                key={"key 1"}
-                title={"تصحیح خدمات"}
-                className="bg-default-100"
-              >
-                <div className="w-full flex gap-3">
-                  <Button isIconOnly startContent={<Phone />} value={"phone"}></Button>
-                  <Button
-                  value={"code"}
-                    isIconOnly
-                    startContent={<MessageCircleCode />}
-                  ></Button>
-                  <Button isIconOnly startContent={<Mic />}></Button>
-                </div>
-                <Textarea
-                  variant="faded"
-                  onValueChange={(value)=>{
-                    value.length > 0 ? setIsEdited(true) : setIsEdited(false)
-                  }}
-                  maxRows={3}
-                  placeholder="توضیحات خود را بنویسید..."
-                  className="mt-2"
-                />
-              </AccordionItem>
-            </Accordion>
-          </CardBody>
-          <CardFooter className="w-full flex items-center gap-2">
-            <Button
-              fullWidth
-              variant="faded"
-              color="danger"
-              endContent={<ShieldAlert size={14} />}
-            >
-              لغو
-            </Button>
 
-            <Button
-              fullWidth
-              color="success"
-              endContent={<CheckCircle size={14} />}
-            >
-              {isEdited ? "اعمال تغییر" : "تایید"}
-            </Button>
-          </CardFooter>
-        </Card>
-      </div>
-    </div>
-  );
-};
 
 const ChatCard = ({
   chat,

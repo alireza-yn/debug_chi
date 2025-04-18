@@ -105,7 +105,7 @@ const DraggableImage = ({
 };
 
 export default function ImageUploader() {
-
+  
   const [image, setImage] = useState<ImageItem[]>([]);
   const fileInputRef = useRef<HTMLInputElement>(null);
 const {setProjectData ,project,setImages} = tenderContext()

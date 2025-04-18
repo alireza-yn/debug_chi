@@ -26,8 +26,10 @@ router.register(r'user-degrees', UserDegreeViewSet)
 router.register(r'user-social-media-links', UserSocialMediaLinksViewSet)
 router.register(r'user-expertise', UserExpertiseViewSet)
 router.register(r'add_resume', AddUserResume, basename='add_resume')
-router.register(r'UserPortfolio', UserPortfolioViewSet, basename='UserPortfolio')
-router.register(r'UserPortfolioImage', UserPortfolioImageViewSet, basename='UserPortfolioImage')
+router.register(r'user_portfolio', UserPortfolioViewSet, basename='UserPortfolio')
+router.register(r'user_portfolio_image', UserPortfolioImageViewSet, basename='UserPortfolioImage')
+router.register(r'job_history', UserJobHistoryViewSet, basename='UserJobHistory')
+
 
 
 #endregion
@@ -111,6 +113,8 @@ urlpatterns = [
     path('v1/debug/get_pending_session/',view=PendingSession.as_view(),name='لیست جلسات در حال بررسی'),
     path('v1/debug/list_debug/',view=GetDebugerSession.as_view(),name='قبول کردن جلسه دیباگ'),
     path('v1/debug/get-session-info/<str:session_id>/',view=GetSessionInfo.as_view(),name='get-session-info'),
+    path('v1/get-request/',view=GetDebugerRequest.as_view(),name='get-request'),
+
     #endregion 
     
     

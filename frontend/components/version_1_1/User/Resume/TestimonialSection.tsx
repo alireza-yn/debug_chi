@@ -102,7 +102,7 @@ export default function Testimonials() {
 
   return (
     <motion.div
-      className="w-full bg-gray-950 text-white py-16 px-4 md:px-8 rounded-3xl"
+      className="w-full  text-white py-16 px-4 md:px-8 rounded-3xl"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.8 }}
@@ -115,19 +115,13 @@ export default function Testimonials() {
         animate={isVisible ? "visible" : "hidden"}
       >
         <motion.div className="text-center mb-12" variants={itemVariants}>
-          <motion.h2
-            className="text-4xl md:text-5xl font-bold mb-4"
-            initial={{ y: -50, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 100,
-              delay: 0.1,
-            }}
-          >
-            نظرات
-          </motion.h2>
-          <motion.p
+        <div className="flex items-center gap-3 mb-4" dir="rtl">
+        <div className="w-5 h-5 rounded-full bg-white"></div>
+        <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
+        نظراتی که راجب خدمات من ثبت شده
+        </h3>
+      </div>
+          {/* <motion.p
             className="text-gray-400 max-w-3xl mx-auto"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
@@ -138,7 +132,7 @@ export default function Testimonials() {
             }}
           >
             Customer Testimonials Showcase Genuine Experiences And Satisfaction With A Product Or Service.
-          </motion.p>
+          </motion.p> */}
         </motion.div>
 
         <AnimatePresence mode="wait" custom={direction}>

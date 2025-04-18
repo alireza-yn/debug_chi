@@ -37,6 +37,7 @@ class VideoResume(models.Model):
     
 class UserDegree(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE,related_name="user_degree")
+    title = models.CharField(max_length=100,default="")
     degree_file = models.FileField(upload_to='static/resume/degree_resume',null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -124,3 +125,14 @@ class UserPortfolioImage(Timestamp):
     #     # اگر expertise داده‌ای داشته باشد، نام هر یک از آن‌ها را نمایش می‌دهیم
     #     expertise_names = self.expertise.values_list('title', flat=True)  # فرض می‌کنیم فیلدی به نام 'name' در مدل ProgrammerExpertise وجود دارد
     #     return ", ".join(expertise_names) if expertise_names else "No expertise"
+
+
+
+class UserJobHistory(Timestamp):
+    companyName = models.CharField(max_length=200)
+    jobTitle = models.CharField(max_length=200)
+    description = models.TextField()
+    startDate = models.DateTimeField()
+    endDate = models.DateTimeField()
+    responsibilities = models.TextField()
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_job_history')

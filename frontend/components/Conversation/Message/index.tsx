@@ -13,8 +13,8 @@ type Props = {
 }
 
 const Message = (props: Props) => {
-  console.log(props.reciever)
-  console.log(props.data.audioUrl)
+  // console.log(props.reciever)
+  // console.log(props.data.audioUrl)
   const user_data = localStorage.getItem("user_data")
   let user: any
   if (user_data) {
@@ -319,7 +319,24 @@ const Message = (props: Props) => {
       
     )  
   }
-  
+  else if(props.data.type == "payment"){
+    return (
+      <div className="flex items-start gap-2  h-auto">
+      <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+        <img
+          src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
+          alt={user?.first_name || "User"}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div
+        className={`flex flex-col gap-2 relative sm:w-full md:w-2/4 lg:w-3/4 font-sans rounded-2xl`}
+      >
+            payment
+      </div>
+    </div>
+    )
+  }
 
   return null
 }

@@ -22,6 +22,17 @@ class ConsultHubService:
             return DebugSession.objects.filter(
                 debuger_applicator=user_id, status="open"
             ).all()
+        
+
+    def getAllRequest(self,user):
+        debug = DebugSession.objects.filter(debuger=user).all()
+        consult = ConsultSession.objects.filter(consult=user).all()
+
+        return Response({
+        "consult": ConsultSerializer(consult, many=True).data,
+        "debug": DebuggerSerializer(debug, many=True).data
+        })
+    
 
     def getSessionInfoBySessionId(self, request: Request, session_id: str):
 

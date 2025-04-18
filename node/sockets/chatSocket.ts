@@ -100,8 +100,8 @@ export const chatSocket = (io: Server): void => {
       console.log(check);
     
       if (check) {
-        io.emit(`${msg.sender}_sent`, msg.id);
-        checkSentMessage(msg.id)
+        io.emit(`${msg.session_id}_sent`, msg.id);
+        checkSentMessage(msg.session_id)
         io.emit(msg.receiver, msg);
       }
     });

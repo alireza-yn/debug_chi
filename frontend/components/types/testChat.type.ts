@@ -10,8 +10,9 @@ export interface Main {
 
 
 export interface chatData {
-  type: "file" | "text" | "audio" | "picture" | "anydesk" | "code";
+  type: "file" | "text" | "audio" | "picture" | "anydesk" | "code" | "payment";
   text?: string;
+  data?:any;
   language?:string;
   url?: string;
   time?: string;

@@ -42,11 +42,13 @@ class ConsultSerializer(serializers.ModelSerializer):
             "consult",
             "consult_applicator",
             "status",
+            "start_at",
             "close_at",
             "mode",
             "price",
             "discount",
-            "lnaguage"
+            "lnaguage",
+            "is_realtime"
         ]
 
     def to_representation(self, instance):
@@ -96,6 +98,7 @@ class DebuggerSerializer(serializers.ModelSerializer):
             "discount",
             "mode",
             "time",
+            "is_realtime"
         ]
 
     def to_representation(self, instance):

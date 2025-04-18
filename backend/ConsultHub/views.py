@@ -74,3 +74,15 @@ class UserOpendDebugList(ListAPIView,ConsultHubService):
 class GetSessionInfo(APIView,ConsultHubService):
     def get(self,request:Request,session_id:str):
         return self.getSessionInfoBySessionId(request,session_id)
+    
+
+class GetDebugerRequest(APIView,ConsultHubService):
+    def get(self,request:Request):
+        user = self.request.user.is_authenticated
+        if user:
+            return self.getAllRequest(user)
+        else:
+           return Response({
+            "success":False,
+            "message":"عدم دسترسی"
+        },status=status.HTTP_401_UNAUTHORIZED)

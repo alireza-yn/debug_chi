@@ -23,9 +23,12 @@ export interface Main {
     debugger_bio:    string;
     user_score:      number;
     digital_wallet:  number;
+    blocked_wallet:  number;
     followers:       Followers;
     user_bank_cards: UserBankCard[];
     user_portfolios: UserPortfolio[];
+    user_job_history: UserJobHistory[];
+    user_degree:      UserDegree[];
 }
 
 export interface Followers {
@@ -47,6 +50,14 @@ export interface UserBankCard {
     default_card: boolean;
 }
 
+export interface UserDegree {
+    id?:          number;
+    title:       string;
+    degree_file?: string;
+    created_at?:  string;
+    updated_at?:  string;
+    user?:        number;
+}
 export interface Expertise {
     id:         number;
     expertise?: Expertise[];
@@ -58,6 +69,21 @@ export interface Expertise {
 export interface UserLanguage {
     language_name: LanguageName;
 }
+
+
+export interface UserJobHistory {
+    id:               number;
+    created_at?:      string;
+    updated_at?:      string;
+    companyName:      string;
+    jobTitle:         string;
+    description:      string;
+    startDate:        string;
+    endDate:          string;
+    responsibilities: string;
+    user:             number;
+}
+
 
 export interface LanguageName {
     id:         number;

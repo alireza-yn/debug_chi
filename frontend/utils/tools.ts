@@ -30,7 +30,7 @@ export const getCookies = (token:string)=>{
 
 export const formatCurrency = (number: number,icon?:boolean) => {
   if (icon){
-    return number.toLocaleString('fa-IR') + ' T';
+    return  `${number.toLocaleString('fa-IR')}`;
     
   }
   return number.toLocaleString('fa-IR') + ' تومان';

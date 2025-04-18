@@ -1,8 +1,11 @@
 "use client"
 
 import type React from "react"
-import { useState } from "react"
-import { Plus } from "lucide-react"
+import { useEffect, useState } from "react"
+import { Cross, Plus, Trash2, X } from "lucide-react"
+import { UserJobHistory } from "@/components/types/user.types"
+import { perform_delete, perform_post } from "@/lib/api"
+import { addToast, Button, Input, Textarea } from "@heroui/react"
 
 interface JobEntry {
   id: string
@@ -176,27 +179,8 @@ const HeroInput = ({
 }
 
 // Main Component
-const JobHistory = () => {
-  const [jobs, setJobs] = useState<JobEntry[]>([
-    {
-      id: "1",
-      companyName: "Acme Corporation",
-      jobTitle: "Senior Developer",
-      description: "Led development team for web applications",
-      startDate: "2020-01",
-      endDate: "2023-01",
-      responsibilities: "Frontend development, team management, code reviews",
-    },
-    {
-      id: "2",
-      companyName: "Tech Innovators",
-      jobTitle: "Web Developer",
-      description: "Worked on various client projects",
-      startDate: "2018-03",
-      endDate: "2019-12",
-      responsibilities: "JavaScript development, responsive design, API integration",
-    },
-  ])
+const JobHistory = ({data,user_id}:{data:UserJobHistory[],user_id:number}) => {
+  const [jobs, setJobs] = useState<UserJobHistory[]>([])
 
   const [newJob, setNewJob] = useState<Omit<JobEntry, "id">>({
     companyName: "",
@@ -206,7 +190,9 @@ const JobHistory = () => {
     endDate: "",
     responsibilities: "",
   })
-
+useEffect(()=>{
+  setJobs(data)
+},[])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -217,13 +203,26 @@ const JobHistory = () => {
     }))
   }
 
-  const addNewJob = () => {
-    const jobWithId: JobEntry = {
-      ...newJob,
-      id: Date.now().toString(),
-    }
+  const addNewJob = async () => {
 
-    setJobs((prev) => [...prev, jobWithId])
+    const response = await perform_post('api/v1/job_history/',{...newJob,user:user_id})
+
+    if (response.status == 400){
+      console.log(response)
+      addToast({
+        title:"error",
+        description:"با خطا مواجه شد",
+        color:"danger"
+      })
+    }
+    else{
+      setJobs((prev) => [...prev, response ])
+      addToast({
+        title:"ارسال اطلاعات",
+        description:"با موفقیت ثبت شد",
+        color:"success"
+      })
+    }
 
     setNewJob({
       companyName: "",
@@ -237,21 +236,46 @@ const JobHistory = () => {
     setIsDialogOpen(false)
   }
 
+
+  const deleteObject = async (id:number)=>{
+     const response = await perform_delete(`api/v1/job_history/${id}/`)
+     if (response?.success){
+      setJobs((prevJobs) => prevJobs.filter((job) => job.id !== id))
+      addToast({
+        title:"حذف اطلاعات",
+        description:"با موفقیت حذف شد",
+        color:"success"
+      })
+     }else{
+      addToast({
+        title:"حذف اطلاعات",
+        description:"با خطا مواجه شد دوباره اقدام کنید",
+        color:"danger"
+      })
+     }
+  }
   return (
     <div className="p-6 max-w-7xl mx-auto text-gray-800 dark:text-gray-100">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-3xl font-bold bg-gradient-to-r from-purple-600 to-indigo-600 bg-clip-text text-transparent">
-          Job History
+      <div className="flex justify-between items-center mb-36 relative">
+      <div className="flex items-center gap-3 ">
+        <div className="w-5 h-5 rounded-full bg-white"></div>
+        <h1 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
+          سوابق شغلی من
         </h1>
+      </div>
 
-        <HeroButton onClick={() => setIsDialogOpen(true)}>
-          <Plus className="mr-2 h-4 w-4" /> Add New Job
-        </HeroButton>
+      {
+        jobs.length != 4 &&
+        <Button variant="flat" color="secondary" onPress={() => setIsDialogOpen(true)} className="absolute left-2 top-2">
+          <Plus className="mr-2 h-4 w-4" /> سابقه شغلی
+        </Button>
+      }
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {jobs.map((job) => (
-          <div key={job.id} className="flex flex-col items-center">
+          <div key={job.id} className="flex flex-col items-center relative">
+            <Button onPress={()=>deleteObject(job.id)} size="sm" isIconOnly startContent={<Trash2 size={14} />}  variant="shadow" className="bg-c_secondary absolute -left-2 -top-2"></Button>
             <HeroCard className="w-full mb-2 bg-gradient-to-b from-purple-50 to-white dark:from-purple-900 dark:to-gray-800">
               <HeroCardContent className="text-center">
                 <h3 className="font-bold text-lg text-purple-800 dark:text-purple-300">
@@ -273,7 +297,15 @@ const JobHistory = () => {
             <HeroCard className="w-full mb-2">
               <HeroCardContent className="text-center">
                 <div className="text-sm text-gray-600 dark:text-gray-400">
-                  {job.startDate} - {job.endDate}
+                  {new Date(job.startDate).toLocaleDateString('fa-IR',{
+                    year:"numeric",
+                    month:"numeric",
+                    day:"numeric"
+                  })} - {new Date(job.endDate).toLocaleDateString('fa-IR',{
+                    year:"numeric",
+                    month:"numeric",
+                    day:"numeric"
+                  })}
                 </div>
               </HeroCardContent>
             </HeroCard>
@@ -290,9 +322,6 @@ const JobHistory = () => {
 
             <HeroCard className="w-full">
               <HeroCardContent>
-                <h4 className="text-sm font-medium mb-1 text-gray-800 dark:text-gray-200">
-                  Responsibilities:
-                </h4>
                 <p className="text-sm text-gray-600 dark:text-gray-400">{job.responsibilities}</p>
               </HeroCardContent>
             </HeroCard>
@@ -302,13 +331,13 @@ const JobHistory = () => {
 
       <HeroDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
         <HeroDialogHeader>Add New Job Experience</HeroDialogHeader>
-        <div className="p-4">
-          <HeroInput label="Company" id="companyName" name="companyName" value={newJob.companyName} onChange={handleInputChange} />
-          <HeroInput label="Job Title" id="jobTitle" name="jobTitle" value={newJob.jobTitle} onChange={handleInputChange} />
-          <HeroInput label="Description" id="description" name="description" value={newJob.description} onChange={handleInputChange} as="textarea" />
-          <HeroInput label="Start Date" id="startDate" name="startDate" type="month" value={newJob.startDate} onChange={handleInputChange} />
-          <HeroInput label="End Date" id="endDate" name="endDate" type="month" value={newJob.endDate} onChange={handleInputChange} />
-          <HeroInput label="Responsibilities" id="responsibilities" name="responsibilities" value={newJob.responsibilities} onChange={handleInputChange} as="textarea" />
+        <div className="p-4 flex flex-col gap-5">
+          <Input label="Company" id="companyName" name="companyName" defaultValue={newJob.companyName} onChange={handleInputChange} />
+          <Input label="Job Title" id="jobTitle" name="jobTitle" defaultValue={newJob.jobTitle} onChange={handleInputChange} />
+          <Textarea label="Description" id="description" name="description" defaultValue={newJob.description} onChange={handleInputChange} />
+          <HeroInput label="startDate" id="startDate" name="startDate" type="date" value={newJob.startDate} onChange={handleInputChange} />
+          <HeroInput label="endDate" id="endDate" name="endDate" type="date" value={newJob.endDate} onChange={handleInputChange} />
+          <Textarea label="Responsibilities" id="responsibilities" name="responsibilities" defaultValue={newJob.responsibilities} onChange={handleInputChange} />
         </div>
         <HeroDialogFooter>
           <HeroButton variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</HeroButton>

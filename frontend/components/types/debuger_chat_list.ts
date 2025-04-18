@@ -16,6 +16,8 @@ export interface OpenedConsult {
     price:              number;
     discount:           number;
     lnaguage:           string;
+    is_realtime:        boolean;
+
 }
 
 export interface Consult {
@@ -32,6 +34,7 @@ export interface Consult {
     user_bio:       string;
     debugger_bio:   string;
     user_score:     number;
+
 }
 
 export interface UserLanguage {
@@ -63,4 +66,5 @@ export interface OpenedDebug {
     discount:           number;
     mode:               string;
     time:               number;
+    is_realtime:        boolean;
 }
