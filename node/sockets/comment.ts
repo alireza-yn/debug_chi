@@ -11,29 +11,27 @@ const commentSocket = (io: Server) => {
       msg: "coonected_successfully",
     });
     socket.on("ping", () => {
-        console.log("got ping");
-        socket.emit("pong", "hey back!");
-      });
-      socket.on("new_comment", async (data) => {
-        const response = await saveComment(data);
-        console.log(response)
-        if (response) {
-            commentNamespace.emit(data.id, { success: true }); // ارسال پاسخ فقط به این کلاینت
-        } else {
-            commentNamespace.emit(data.id, { success: false });
-        }
-      });
+      console.log("got ping");
+      socket.emit("pong", "hey back!");
+    });
+    socket.on("new_comment", async (data) => {
+      const response = await saveComment(data);
+      if (response) {
+        commentNamespace.emit(data.id, { success: true });
+        commentNamespace.emit("new_comment_incomming", data);
+      } else {
+        commentNamespace.emit(data.id, { success: false });
+      }
+    });
 
-      socket.on("get_comments", async(comment_id)=>{
-        const result = await getComments(comment_id)
-        console.log(result)
-        socket.emit(comment_id,result)
-        
-      })
-      socket.on("reply_comment",async(data)=>{
-        const result = await saveReply(data.comment_id,data.reply)
-        socket.emit(data.comment_id,{success:true,result:result})
-      })
+    socket.on("get_comments", async (comment_id) => {
+      const result = await getComments(comment_id);
+      socket.emit(comment_id, result);
+    });
+    socket.on("reply_comment", async (data) => {
+      const result = await saveReply(data.comment_id, data.reply);
+      socket.emit(data.comment_id, { success: true, result: result });
+    });
 
     socket.on("disconnect", () => {
       console.log(`User disconnected from /comment: ${socket.id}`);

@@ -7,9 +7,11 @@ import MoreRequest from "@/components/Modal/RequestModal/MoreRequest";
 import { Main } from "@/components/types/user.types";
 import UserProfile from "@/components/ui/Profile";
 import ChatList from "@/components/version_1_1/chatList";
+import UserNormalChatList from "@/components/version_1_1/chatList/noramal-user-chatlist";
 import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
+import { RequestFilterProvider } from "@/context/RequetsFilterProvider";
 import { perform_get } from "@/lib/api";
 import { Button } from "@heroui/react";
 import { cookies } from "next/headers";
@@ -17,28 +19,31 @@ import { redirect } from "next/navigation";
 import React from "react";
 
 const page = async ({ params }: any) => {
+
   const token = (await cookies()).get("token")?.value;
   const { uuid } = await params;
   const response = await perform_get(
     `api/v1/debug/get-session-info/${uuid}`,
     token
   );
-console.log(response.is_debuger)
+
+  console.log(response);
+
+  if (!token) {
+    return <div>not found</div>;
+  }
+
   return (
     <main className="w-full h-screen flex">
       <Sidebar>
         <SidebarBody />
-        <SidebarFooter />
+        <SidebarFooter token={token} />
       </Sidebar>
       <div className="flex-1 flex  h-full box-border p-5 gap-4">
         <div className="bg-foreground-100 rounded-3xl h-full overflow-y-auto w-96">
-          {response.is_debuger ? (
-            <ChatList />
-          ) : (
-            <UserProfile
-              user={response.data.debuger || response.data.consult}
-            />
-          )}
+          <RequestFilterProvider>
+            {response.is_debuger ? <ChatList /> : <UserNormalChatList />}
+          </RequestFilterProvider>
         </div>
         <div className="bg-foreground-100 flex flex-col rounded-3xl flex-1 w-full relative">
           <RequestModal />
@@ -53,14 +58,35 @@ console.log(response.is_debuger)
           </div>
           <div className=" w-full box-border p-5  flex-1 relative overflow-y-auto py-28">
             <Conversation
+              is_commented={response.is_commneted}
+              is_closed={response.data.status}
               user={response.data.debuger || response.data.consult}
+              user_applicator={
+                response.data.debuger_applicator ||
+                response.data.consult_applicator
+              }
               session_id={response.data.session_id}
             />
           </div>
           <div
-            className="w-full h-auto box-border pb-1 absolute bottom-0 z-20"
+            className="w-full h-auto box-border pb-1 absolute bottom-0 z-20 bg-foreground-100"
             dir="rtl"
           >
+            {response.is_debuger ? (
+              <InputMessage
+                data={response}
+                reciever={
+                  response.data.debuger_applicator ||
+                  response.data.consult_applicator
+                }
+              />
+            ) : (
+              <InputMessage
+                data={response}
+                reciever={response.data.debuger || response.data.consult}
+              />
+            )}
+            {/*             
             {response.is_debuger ? (
               <InputMessage
                 reciever={
@@ -68,7 +94,7 @@ console.log(response.is_debuger)
                   response.data.consult_applicator
                 }
               />
-            ) : response.data.status === "pending" ? (
+            ) : response.data.is_locked  ? (
               <div className="w-full flex justify-center items-center bg-foreground-100 rounded-3xl h-16">
                 <p className="text-sm text-foreground-200">
                   در حال بررسی درخواست شما هستیم
@@ -76,14 +102,13 @@ console.log(response.is_debuger)
               </div>
             ) : (
               <>
-                <Button>درخواست مجدد</Button>
-                {response.data.status === "open" && (
+                {response.data.is_locked == false && (
                   <InputMessage
                     reciever={response.data.debuger || response.data.consult}
                   />
                 )}
               </>
-            )}
+            )} */}
           </div>
         </div>
       </div>

@@ -8,6 +8,7 @@ import { getUserByUUID } from "../services/usersService";
 import { checkSentMessage, getMessages, saveTestMessage } from "../controllers/testChatController";
 import saveAudioFile from "../utils";
 import saveBase64Audio from "../test";
+import { executionAsyncId } from "async_hooks";
 
 export const chatSocket = (io: Server): void => {
   io.on("connection", (socket: Socket) => {
@@ -100,47 +101,183 @@ export const chatSocket = (io: Server): void => {
       console.log(check);
     
       if (check) {
-        io.emit(`${msg.session_id}_sent`, msg.id);
-        checkSentMessage(msg.session_id)
-        io.emit(msg.receiver, msg);
+        io.emit(`${msg.session_id}_sent`, msg.session_id);
+        checkSentMessage(msg.data.id);
+        io.emit(msg.session_id, msg);
       }
     });
 
-    socket.on("send_audio", async (msg) => {
-      console.log("Received audio message:", msg);
-      // استخراج اطلاعات از msg.data طبق ساختار جدید
-      const { audio, sender, receiver, session_id } = msg.data;
-  
-      // تبدیل داده base64 به Buffer
-      const audioBuffer = Buffer.from(audio, "base64");
-  
-      // ذخیره فایل صوتی
-      const filePath = `./audioFiles/${session_id}.wav`;
-      fs.writeFile(filePath, audioBuffer, (err) => {
-        if (err) {
-          console.error("Error saving audio file:", err);
+    // socket.on("send_audio", async (msg) => {
+    //   const base64Data = msg.audio.split(";base64,").pop();
+    //   const fileExtension = msg.audio.match(/data:(.*?);base64/)?.[1]?.split("/")[1] || "txt";
+    //   const fileName = `${msg.fileName}.${fileExtension}`;
+    //   const uploadPath = path.join(__dirname, `../uploads/${msg.sender}_${msg.session_id}`);
+
+    //   if (!fs.existsSync(uploadPath)) {
+    //     fs.mkdirSync(uploadPath);
+    //   }
+
+    //   const filePath = path.join(uploadPath, fileName);
+    //   fs.writeFileSync(filePath, base64Data, { encoding: "base64" });
+    // });
+    socket.on("send_audio", async (payload) => {
+      try {
+        const { session_id, sender, receiver, data } = payload;
+        const { audioUrl: base64Audio } = data;
+        console.log(payload)
+        // استخراج داده از base64
+        const matches = base64Audio.match(/^data:audio\/webm;base64,(.*)$/);
+        if (!matches || matches.length !== 2) {
+          console.error("Invalid base64 audio data");
+          socket.emit("audio_status", "Invalid audio data");
           return;
         }
-        console.log("Audio file saved:", filePath);
-      });
-  
-      // ارسال تایید به کلاینت‌ها
-      io.emit(`${sender}_sent`, session_id);
-      io.emit(receiver, msg);
+    
+        const base64Data = matches[1];
+        const buffer = Buffer.from(base64Data, "base64");
+    
+        // ساخت مسیر
+        const sessionDir = path.join(__dirname, "../uploads", session_id);
+        const fileName = `audio_${Date.now()}.webm`;
+        const filePath = path.join(sessionDir, fileName);
+        const publicAudioUrl = `http://localhost:3001/uploads/${session_id}/${fileName}`;
+    
+        // ساخت پوشه در صورت عدم وجود
+        if (!fs.existsSync(sessionDir)) {
+          fs.mkdirSync(sessionDir, { recursive: true });
+        }
+    
+        // ذخیره فایل
+        fs.writeFile(filePath, buffer, async (err) => {
+          if (err) {
+            console.error("Error saving audio file:", err);
+            socket.emit("audio_status", "Error saving audio");
+          } else {
+            console.log("Audio saved at:", filePath);
+            socket.emit("audio_status", {
+              message: "Audio saved",
+              filePath,
+              fileName,
+            });
+    
+            // ذخیره پیام در دیتابیس
+            const check = await saveTestMessage({
+              session_id:session_id,
+              sender:sender,
+              receiver:receiver,
+              data: {
+                type: data.type,
+                audioUrl: publicAudioUrl, // آدرس قابل استفاده در مرورگر
+                created_at: data.created_at,
+                status: data.status,
+              },
+            });
+    
+            console.log(check);
+    
+            if (check) {
+              io.emit(`${session_id}_sent`, payload.session_id);
+              checkSentMessage(session_id);
+              io.emit(session_id, payload);
+            }
+          }
+        });
+      } catch (error) {
+        console.error("Exception while processing audio:", error);
+        socket.emit("audio_status", "Server error");
+      }
     });
+
+
+    socket.on("upload-chunk", async (message) => {
+      const { chunk, fileName, offset, total,session_id,reciever,sender,data } = message
+      const publicImageUrl = `http://localhost:3001/uploads/${session_id}/${fileName}`;
+      // Convert base64 chunk to buffer
+      const buffer = Buffer.from(chunk, "base64")
   
+      // Create uploads directory if it doesn't exist
+      const uploadDir = path.join(__dirname, `../uploads/${session_id}`)
+      if (!fs.existsSync(uploadDir)) {
+        fs.mkdirSync(uploadDir, { recursive: true })
+      }
+  
+      // Append chunk to file
+      const filePath = path.join(uploadDir, fileName)
+      fs.appendFileSync(filePath, buffer)
+  
+      // Calculate progress
+      const currentSize = fs.statSync(filePath).size
+      const progress = Math.round((currentSize / total) * 100)
+  
+      // Emit progress update
+      socket.emit("upload-progress", { fileName, progress })
+  
+      // If upload is complete
+      if (progress >= 100) {
+        socket.emit("upload-complete", { fileName, path: filePath })
+        const check = await saveTestMessage({
+          session_id:session_id,
+          sender:sender,
+          receiver:reciever,
+          data:{
+            ...data,url:publicImageUrl,filename:fileName
+          }
+        });
+
+        console.log(check);
+
+        if (check) {
+          io.emit(`${session_id}_sent`, data.id);
+          checkSentMessage(session_id);
+          io.emit(session_id, {
+            session_id:session_id,
+            sender:sender,
+            reciever:reciever,
+            data:{
+              ...data,url:publicImageUrl,filename:fileName
+            }
+          });
+        }
+      }
+    })
+  
+
+
     socket.on("read_message", (data) => {
-      io.emit(`${data.sender}_${data.reciever}_read`, data);
+      io.emit(`${data.session_id}_read`, data.data.id);
     });
+    
   
     socket.on("get_messages", async (data) => {
       const messages = await getMessages(data.session_id);
       console.log(messages);
       socket.emit("get_messages", messages);
     });
-  
+    
+
+    socket.on("lock_session", (session_id)=>{
+      console.log(session_id)
+
+    
+      io.emit(`lock_session_${session_id}`,{
+        lock:true
+      })
+    })
+
+    socket.on("close_session",(session_id)=>{
+      console.log(session_id)
+      
+      io.emit(`close_session_${session_id}`,{
+        closed:true
+      })
+    })
+
     socket.on("disconnect", () => {
       console.log("A user disconnected:", socket.id);
     });
+
+
+    
+
   });
 };

@@ -18,6 +18,7 @@ export interface ConsultElement {
     discount:           number;
     lnaguage:           string;
     is_realtime:        boolean;
+    is_locked:          boolean;
 }
 
 export interface ConsultApplicatorClass {
@@ -71,4 +72,5 @@ export interface Debug {
     mode:               string;
     time:               number;
     is_realtime:        boolean;
+    is_locked:          boolean;
 }

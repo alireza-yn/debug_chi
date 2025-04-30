@@ -1,103 +1,51 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import Cookies from "js-cookie";
 import { perform_get } from "@/lib/api";
-import { I18nProvider, useDateFormatter } from "@react-aria/i18n";
-import {
-  Accordion,
-  AccordionItem,
-  Button,
-  Card,
-  CardBody,
-  CardFooter,
-  CardHeader,
-  Checkbox,
-  Chip,
-  DatePicker,
-  Dropdown,
-  DropdownItem,
-  DropdownMenu,
-  DropdownTrigger,
-  Spinner,
-  Textarea,
-  TimeInput,
-} from "@heroui/react";
-import { Main as User } from "@/components/types/user.types";
+import { Spinner } from "@heroui/react";
 import {
   Main,
   OpenedDebug,
   OpenedConsult,
 } from "@/components/types/debuger_chat_list";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
-import { set } from "date-fns";
-import { setUser } from "@/redux/slices/userSlice";
-import { useRouter } from "next/navigation";
-import {
-  CheckCircle,
-  ChevronDown,
-  ChevronUp,
-  Clock,
-  Cross,
-  GaugeCircle,
-  MessageCircleCode,
-  Mic,
-  Phone,
-  PhoneCall,
-  ShieldAlert,
-  Video,
-} from "lucide-react";
-import {
-  CalendarDate,
-  getLocalTimeZone,
-  now,
-  Time,
-  today,
-} from "@internationalized/date";
-import { formatCurrency } from "@/utils/tools";
-import { boolean } from "zod";
+import { usePathname, useRouter } from "next/navigation";
 import { UserCard } from "./user-card";
+import { useRequestFilter } from "@/context/RequetsFilterProvider";
+import { deepSearch } from "@/utils/tools";
+
 type Props = {};
 
 const ChatList = (props: Props) => {
-  const [chatList, setChatList] = React.useState<Main>();
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [data, setData] = React.useState<any>();
-  const [selectedUser, setSelectedUser] = React.useState<any>();
+  const [chatList, setChatList] = useState<Main>();
+  const [loading, setLoading] = useState<boolean>(true);
+  const [data, setData] = useState<any>();
+  const [selectedUser, setSelectedUser] = useState<any>();
   const path = usePathname();
   const session_id = path.split("/")[2];
+  const { filter } = useRequestFilter();
 
   const userHandler = (user: any) => {
     setSelectedUser(user);
   };
 
-  const chats = [
-    ...(chatList?.opened_consult || []),
-    ...(chatList?.opened_debug || []),
-  ];
-
   useEffect(() => {
-    setLoading(true);
-
-    const token = Cookies.get("token");
-    const getChatList = async () => {
+    const fetchChats = async () => {
+      setLoading(true);
+      const token = Cookies.get("token");
       const response = await perform_get(
         `api/v1/debug/open_debug_session/`,
         token
       );
-      if (response) {
-        setChatList(response);
-        setLoading(false);
-      } else {
-        setLoading(false);
-      }
+      if (response) setChatList(response);
+      setLoading(false);
     };
-    getChatList();
+    fetchChats();
   }, []);
 
   useEffect(() => {
-    if (!session_id || !chatList) return;
 
+    if (!session_id || !chatList) return;
     const findAndSetUser = () => {
       const consult = chatList.opened_consult.find(
         (c) => c.session_id === session_id
@@ -115,6 +63,38 @@ const ChatList = (props: Props) => {
 
     findAndSetUser();
   }, [chatList, session_id]);
+
+  // ✅ Deep search function
+  // const deepSearch = (obj: any, keyword: string): boolean => {
+  //   const lowerKeyword = keyword.toLowerCase();
+
+  //   if (typeof obj === "string") {
+  //     return obj.toLowerCase().includes(lowerKeyword);
+  //   }
+
+  //   if (Array.isArray(obj)) {
+  //     return obj.some((item) => deepSearch(item, keyword));
+  //   }
+
+  //   if (typeof obj === "object" && obj !== null) {
+  //     return Object.values(obj).some((value) => deepSearch(value, keyword));
+  //   }
+
+  //   return false;
+  // };
+
+  // ✅ Combine chats
+  const allChats = useMemo(() => {
+    if (!chatList) return [];
+    return [...chatList.opened_consult, ...chatList.opened_debug];
+  }, [chatList]);
+
+  // ✅ Apply filter
+  const filteredChats = useMemo(() => {
+    if (!filter) return allChats;
+    return allChats.filter((chat) => deepSearch(chat, filter));
+  }, [allChats, filter]);
+
   if (loading) {
     return (
       <div className="flex flex-col items-center justify-center h-full w-full gap-4">
@@ -126,12 +106,21 @@ const ChatList = (props: Props) => {
       </div>
     );
   }
+
+  const defaultSession = filteredChats[0]?.session_id || null;
+
   return (
     <div className="flex flex-col gap-4 box-border p-4 flex-1  overflow-y-auto">
-      {/* {session_id} */}
-      {selectedUser && <UserCard user={selectedUser} data={data} />}
-      {chats.length > 0 &&
-        chats.map((chat) => {
+      {selectedUser && (
+        <UserCard
+          user={selectedUser}
+          data={data}
+          defaultSession={defaultSession || ""}
+        />
+      )}
+      
+      {filteredChats.length > 0 &&  
+        filteredChats.map((chat) => {
           const isSelected = chat.session_id === session_id;
           return (
             <ChatCard
@@ -143,14 +132,17 @@ const ChatList = (props: Props) => {
             />
           );
         })}
+        
+      {filteredChats.length === 0 && (
+        <p className="text-center text-foreground-500">موردی یافت نشد</p>
+      )}
     </div>
   );
 };
 
 export default ChatList;
 
-
-
+// ✅ ChatCard component (تغییری نکرده)
 const ChatCard = ({
   chat,
   isSelected,
@@ -162,12 +154,13 @@ const ChatCard = ({
   setUser: (user: any) => void;
   setData: (chat: any) => void;
 }) => {
-  const isDebug = "debuger" in chat; // چون فقط OpenedDebug این پراپرتی رو داره
+  const isDebug = "debuger" in chat;
   const user = isDebug ? chat.debuger_applicator : chat.consult_applicator;
   const startAt = isDebug ? chat.start_at : chat.close_at;
-  const description = isDebug ? chat.description : chat.description;
+  const description = chat.description;
   const image = user.image_profile;
   const router = useRouter();
+
   return (
     <div
       onClick={() => {

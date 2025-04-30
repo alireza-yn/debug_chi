@@ -52,6 +52,9 @@ class DebugSession(TimeStamp):
     )
     is_realtime = models.BooleanField(default=True)
     is_locked = models.BooleanField(default=False)
+    is_payed = models.BooleanField(default=False)
+    is_rejected = models.BooleanField(default=False)
+    rejected_by = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
         return self.session_id
@@ -81,9 +84,13 @@ class ConsultSession(TimeStamp):
     mode = models.CharField(max_length=100, choices=ConsultMode.choices, default="chat")
     price = models.FloatField()
     discount = models.IntegerField()
-    lnaguage = models.TextField(null=True, blank=True)
+    language = models.TextField(null=True, blank=True)
     is_realtime = models.BooleanField(default=True)
     is_locked = models.BooleanField(default=False)
+    is_payed = models.BooleanField(default=False)
+    is_rejected = models.BooleanField(default=False)
+    rejected_by = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
+
 
     def __str__(self):
         return self.session_id

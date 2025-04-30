@@ -1,0 +1,4305 @@
+[
+{
+  "model": "admin.logentry",
+  "pk": 1,
+  "fields": {
+    "action_time": "2025-01-21T10:57:33.879Z",
+    "user": 30,
+    "content_type": 6,
+    "object_id": "29",
+    "object_repr": "alireza@gmail.com",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 2,
+  "fields": {
+    "action_time": "2025-01-21T10:57:55.033Z",
+    "user": 30,
+    "content_type": 6,
+    "object_id": "29",
+    "object_repr": "aaa",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Username\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 3,
+  "fields": {
+    "action_time": "2025-01-21T11:01:06.944Z",
+    "user": 30,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "alireza_0631",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 4,
+  "fields": {
+    "action_time": "2025-02-26T13:23:31.670Z",
+    "user": 35,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "alireza_0631",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 5,
+  "fields": {
+    "action_time": "2025-03-11T22:48:44.288Z",
+    "user": 30,
+    "content_type": 30,
+    "object_id": "3",
+    "object_repr": "Game",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 6,
+  "fields": {
+    "action_time": "2025-03-12T14:16:50.075Z",
+    "user": 30,
+    "content_type": 6,
+    "object_id": "1",
+    "object_repr": "alireza_0631",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 7,
+  "fields": {
+    "action_time": "2025-03-13T14:14:19.637Z",
+    "user": 30,
+    "content_type": 6,
+    "object_id": "45",
+    "object_repr": "rezaahmadi",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Password\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 8,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.070Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "19",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 9,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "27",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 10,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "26",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 11,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "25",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 12,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "24",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 13,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "23",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 14,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "22",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 15,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "18",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 16,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "29",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 17,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "28",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 18,
+  "fields": {
+    "action_time": "2025-03-15T09:43:25.071Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "17",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 19,
+  "fields": {
+    "action_time": "2025-03-15T11:16:54.653Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "33",
+    "object_repr": "Mehdi",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 20,
+  "fields": {
+    "action_time": "2025-03-15T11:16:54.653Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "31",
+    "object_repr": "سبثشسقبسیب",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 21,
+  "fields": {
+    "action_time": "2025-03-15T11:16:54.653Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "32",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 22,
+  "fields": {
+    "action_time": "2025-03-15T11:19:30.034Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "35",
+    "object_repr": "Mehdi",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 23,
+  "fields": {
+    "action_time": "2025-03-15T11:19:30.035Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "34",
+    "object_repr": "سبثشسقبسیب",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 24,
+  "fields": {
+    "action_time": "2025-03-15T11:19:30.035Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "36",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 25,
+  "fields": {
+    "action_time": "2025-03-15T11:23:16.536Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "39",
+    "object_repr": "Mehdi",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 26,
+  "fields": {
+    "action_time": "2025-03-15T11:23:16.536Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "37",
+    "object_repr": "سبثشسقبسیب",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 27,
+  "fields": {
+    "action_time": "2025-03-15T11:23:16.536Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "38",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 28,
+  "fields": {
+    "action_time": "2025-03-15T11:27:36.125Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "42",
+    "object_repr": "Mehdi",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 29,
+  "fields": {
+    "action_time": "2025-03-15T11:27:36.125Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "41",
+    "object_repr": "سبثشسقبسیب",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 30,
+  "fields": {
+    "action_time": "2025-03-15T11:27:36.125Z",
+    "user": 30,
+    "content_type": 26,
+    "object_id": "40",
+    "object_repr": "آموزش وب سوکت تحت میکروسرویس",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$KH4izG2MRCPHnpohNHSl6v$hU3fN12vNxOmuxedg7zCvkL2950hXKR6vLcsprWeqT0=",
+    "last_login": "2025-04-19T13:04:12.603Z",
+    "is_superuser": true,
+    "username": "alireza_0631",
+    "email": "alireza.yn@outlook.com",
+    "first_name": "john",
+    "last_name": "doe",
+    "user_phone": "09165949550",
+    "is_active": true,
+    "is_staff": true,
+    "unlimited": false,
+    "created": "2024-12-22T09:44:37.734Z",
+    "updated": "2025-04-15T07:18:31.925Z",
+    "job_title": "Full-Stack Engineer",
+    "uuid": "6e6b2721-0bdd-42d3-803b-2db033cac0ac",
+    "intro_completed": true,
+    "digital_wallet": 350000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 55000,
+    "user_bio": "برنامه‌نویس پرشور با تخصص در توسعه وب و اپلیکیشن‌های مدرن. مهارت در Next.js، Node.js، Django و ایجاد سیستم‌های چت، پلتفرم‌های آموزشی و ابزارهای نوآورانه. علاقه‌مند به یادگیری مداوم و توسعه محصولاتی که تجربه کاربران را بهبود می‌بخشند.",
+    "debugger_bio": "متخصص در دیباگینگ و رفع اشکال سیستم‌های پیچیده با تمرکز بر بهینه‌سازی و حل مشکلات عملکردی. مهارت در شناسایی باگ‌ها در Node.js، Django، و Next.js و ارائه راه‌حل‌های دقیق و کارآمد. علاقه‌مند به ساده‌سازی فرآیندهای توسعه و افزایش پایداری پروژه‌ها.",
+    "user_score": 5,
+    "image_profile": "static/users/alireza.yn@outlook.com/profile_alireza.ynoutlook.com_20250406185501.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$6E4tqsstMUqLtxCYB8JPPW$Xx7dIRKNNeeAu6VvYyj0rdxZDFWCx8EdqaxW+atSk/4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "alireza_yn",
+    "email": "alireza.yn@gmail.com",
+    "first_name": "علیرضا",
+    "last_name": "یوسف نژاد",
+    "user_phone": "09398231219",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2024-12-22T11:11:12.120Z",
+    "updated": "2025-02-19T08:00:39.882Z",
+    "job_title": null,
+    "uuid": "d5986a30-53d6-4f42-b769-434d172125c6",
+    "intro_completed": true,
+    "digital_wallet": 500000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "برنامه‌نویس با تجربه در رفع اشکال سیستم‌های مبتنی بر Java و Spring Boot. مهارت در دیباگینگ کدهای enterprise، بهینه‌سازی پایگاه داده‌ها و حل مشکلات مرتبط با امنیت و مقیاس‌پذیری. تمرکز بر ارائه راه‌حل‌های سریع و دقیق.",
+    "debugger_bio": "متخصص دیباگینگ در پروژه‌های JavaScript و Node.js. مهارت در شناسایی باگ‌ها در سمت کلاینت و سرور، بهینه‌سازی APIها و حل مشکلات مرتبط با async/await و مدیریت منابع. هدف: بهبود کارایی و تجربه کاربر.",
+    "user_score": 4,
+    "image_profile": "static/users/alireza.yn@gmail.com/profile_alireza.yngmail.com_20241225160410.png",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 3,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": null,
+    "email": "",
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "09991234567",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2024-12-23T22:05:27.439Z",
+    "updated": "2025-01-18T17:37:32.318Z",
+    "job_title": null,
+    "uuid": "1804c553-85fc-4c25-82bf-6099ac7180be",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 4,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": null,
+    "email": null,
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "09991234568",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2024-12-23T22:15:32.312Z",
+    "updated": "2024-12-23T22:15:54.561Z",
+    "job_title": null,
+    "uuid": "c1ad0b4c-c4f5-471e-8bae-853f7fc13481",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 5,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$cd6890INCIqDa7B8239HIH$oRXohucnDVLRs/a12mgKIPo5jP+Ejc4eK1P6dX0c7RY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "mohammadBagheri",
+    "email": "mohammad_b@gmail.com",
+    "first_name": "محمد",
+    "last_name": "باقری",
+    "user_phone": "09391234567",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2024-12-24T09:09:24.647Z",
+    "updated": "2025-02-03T13:43:05.171Z",
+    "job_title": null,
+    "uuid": "4748d602-8a72-4cb5-8efd-6927bb831960",
+    "intro_completed": false,
+    "digital_wallet": 880000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "من محمد باقری هستم",
+    "debugger_bio": "",
+    "user_score": 0,
+    "image_profile": "static/users/mohammad_b@gmail.com/profile_mohammad_bgmail.com_20250116164238.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$m3vHWKMz9lBrxIPHKjeTr6$9lSThSauGFlrWztn/pUcKjEjQLaEhTTnCNOprtp7+X4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "hesam",
+    "email": "sheykhabadan0631@gmail.com",
+    "first_name": "hesam",
+    "last_name": "hamodi",
+    "user_phone": "09163336764",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2024-12-26T20:29:52.618Z",
+    "updated": "2025-04-08T11:50:20.456Z",
+    "job_title": "بیکار",
+    "uuid": "b1fbcd7a-eba4-49c4-99f2-341553faa900",
+    "intro_completed": false,
+    "digital_wallet": 100000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "",
+    "debugger_bio": "",
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 24,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$RL7PCHyIe8hZno1jS9WKQb$iXZQUbshWbl9osoo23chfYxy3yqfbE9bcI5Nro8nIU4=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": null,
+    "email": "B2kx9@example.com",
+    "first_name": "John",
+    "last_name": "Doe",
+    "user_phone": "09354245784",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-01-15T11:04:20.336Z",
+    "updated": "2025-01-15T11:04:20.336Z",
+    "job_title": null,
+    "uuid": "ccdc075e-8e64-4668-8906-2e397f6dcfce",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 25,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$UbB2z51uHQNN91RkbA8Xsb$q9pguoaWbnvnA+0KncwfG54DH198I8CPDlbwEXNpQnk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": null,
+    "email": null,
+    "first_name": "John",
+    "last_name": "Doe",
+    "user_phone": "8888888888",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-01-15T11:25:25.607Z",
+    "updated": "2025-01-15T11:25:25.607Z",
+    "job_title": null,
+    "uuid": "62b78265-d67a-4b20-9329-abb69cb2978c",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 28,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Uv6SBMOI21be6qEPyu1kN5$wfMRy2sJn40VAN7tsWXwzRGRIU2SzW42Prd976g9PlI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "aref moradi",
+    "email": "amp0hp@gmail.com",
+    "first_name": "عارف",
+    "last_name": "مرادی",
+    "user_phone": "09334245784",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-01-15T11:36:43.689Z",
+    "updated": "2025-01-18T18:29:20.399Z",
+    "job_title": null,
+    "uuid": "16019514-9eab-4d9b-be9f-a055ff27ca75",
+    "intro_completed": true,
+    "digital_wallet": 260000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "من عارف مرادی پاشا هستم",
+    "debugger_bio": "من دیباگر حرفه ای هستم",
+    "user_score": 5,
+    "image_profile": "static/users/amp0hp@gmail.com/profile_amp0hpgmail.com_20250115150643.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 29,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$rX2f8A93KL1g1vma1gf14n$e3gaClJ51utimBonVyeKLNgwn5pcIKNsiuRKS8fjVRs=",
+    "last_login": "2025-01-21T11:00:04.169Z",
+    "is_superuser": true,
+    "username": "aaa",
+    "email": "alireza@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "09163331234",
+    "is_active": true,
+    "is_staff": true,
+    "unlimited": false,
+    "created": "2025-01-21T08:39:52.105Z",
+    "updated": "2025-01-21T10:57:55.027Z",
+    "job_title": null,
+    "uuid": "1595ef30-988f-48be-9b3e-38a48884feb0",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 30,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$AI5zG6EGuhBXfwL1hBW5bE$mzwe73RIf4XsLoSraoZ+7NpXfDIhOQdYC56/WwuBbLQ=",
+    "last_login": "2025-03-12T14:16:24.438Z",
+    "is_superuser": true,
+    "username": null,
+    "email": "a@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "",
+    "is_active": true,
+    "is_staff": true,
+    "unlimited": false,
+    "created": "2025-01-21T10:56:24.645Z",
+    "updated": "2025-02-03T12:32:14.733Z",
+    "job_title": null,
+    "uuid": "1bab1948-6f01-4db5-a16b-66ce4cdea545",
+    "intro_completed": false,
+    "digital_wallet": 40000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 31,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": null,
+    "email": null,
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "09351239876",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-01-29T14:55:48.045Z",
+    "updated": "2025-01-30T05:02:08.512Z",
+    "job_title": null,
+    "uuid": "5915bf1d-0639-474e-b806-af129a16cb38",
+    "intro_completed": true,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 32,
+  "fields": {
+    "password": "",
+    "last_login": null,
+    "is_superuser": false,
+    "username": null,
+    "email": null,
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "05555",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-01-29T14:59:12.049Z",
+    "updated": "2025-01-29T14:59:12.049Z",
+    "job_title": null,
+    "uuid": "1d984030-7b2a-42c3-983f-1850c131a1ac",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 33,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$MgiztfGG7Y31LYKbjxqQMm$BJ3zFLzbhhnjoZRaXvVjURq2yhddQLVtJep1QJNiYR8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "bbb",
+    "email": "b@gmail.com",
+    "first_name": "",
+    "last_name": "",
+    "user_phone": "09399991122",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-01-30T05:09:34.213Z",
+    "updated": "2025-02-16T12:12:13.422Z",
+    "job_title": null,
+    "uuid": "f942edde-24b9-4539-a15c-935002aa8afc",
+    "intro_completed": true,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "",
+    "debugger_bio": "",
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 34,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$xqsxz3Y8Az5B5uGKtaxcG1$hgrT3UR9exMYrSjKMNtu/uywP+0oKDEJeVOP9mkc4SA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sdfsdf",
+    "email": "al@gmail.com",
+    "first_name": "sdfsdf",
+    "last_name": "sdfsdf",
+    "user_phone": "09153336465",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-26T08:49:36.652Z",
+    "updated": "2025-02-26T08:49:36.652Z",
+    "job_title": null,
+    "uuid": "ad294d49-646b-4b05-be5b-de1c3c31c7b6",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 35,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$r5DAXfxRxch6xznwqMFa7l$xdWVYXG9gFOqNQ+WpVO+cLOF2HxLvE3UBZznTCjSJww=",
+    "last_login": "2025-02-26T13:22:59.522Z",
+    "is_superuser": true,
+    "username": null,
+    "email": "a@yahoo.com",
+    "first_name": "",
+    "last_name": "",
+    "user_phone": null,
+    "is_active": true,
+    "is_staff": true,
+    "unlimited": false,
+    "created": "2025-02-26T13:22:23.494Z",
+    "updated": "2025-02-26T13:22:23.494Z",
+    "job_title": null,
+    "uuid": "ecf019b5-d411-4f20-a35a-b1d623587867",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 36,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$C7VhNI882xtTbIgMkz5mMw$TobJQyzINNOHFZtif8nMNfUyoUsPwoOdnwcdww0RwMk=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sadasd",
+    "email": "sd@gmail.com",
+    "first_name": "سیب",
+    "last_name": "سیبسیب",
+    "user_phone": "09308231219",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T06:27:01.922Z",
+    "updated": "2025-02-27T06:27:01.922Z",
+    "job_title": null,
+    "uuid": "b32c6307-856f-4fbc-b05c-f79b29e2dd53",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 37,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$RRzxgLxSxKcXluK2mggyzU$kdYiN5p2+7zNWDojTzemH5CDxUtwt6HBY6qFUD5VaMA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "adad",
+    "email": "ss@gmail.com",
+    "first_name": "یسسیب",
+    "last_name": "یسسیب",
+    "user_phone": "09631234567",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T06:42:54.710Z",
+    "updated": "2025-02-27T06:42:54.710Z",
+    "job_title": null,
+    "uuid": "135755a2-3f30-4e1d-ab63-6599c8280e63",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 38,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$YMVy851ojRN6lg1e7Z2Eaq$jjSCio4REgpcUq10sr9vFxxTUjv2PaohvJ9p7QkooOI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "sddfkhdsf",
+    "email": "kdj@gmail.com",
+    "first_name": "sdsad",
+    "last_name": "dasfds",
+    "user_phone": "09365478231",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T06:50:57.770Z",
+    "updated": "2025-02-27T06:50:57.770Z",
+    "job_title": null,
+    "uuid": "fa1831da-ef76-46f3-9d2d-ea7ba29c419e",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 39,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$6u7muAnjben7QojduI41Yc$HxYBplATWLNgKDaICVnxc9EHsPcZJdWUlwS2z3WCMzc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "adasd",
+    "email": "hello@gmail.com",
+    "first_name": "sadsd",
+    "last_name": "asdsad",
+    "user_phone": "09321234567",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T06:57:22.333Z",
+    "updated": "2025-02-27T06:57:22.334Z",
+    "job_title": null,
+    "uuid": "a78ac1db-cac3-434a-8f71-c1fc9bc76188",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 40,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$gA8t9Fs9W5ibtz0YvtwDml$QWhoSVIhJZwkxomWzJzDXakdyPF90Rk+tLwPiIFmBac=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "adaddfsdfsdf",
+    "email": "sW@gmail.com",
+    "first_name": "sdfds",
+    "last_name": "dafsdf",
+    "user_phone": "09228231219",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T07:03:13.022Z",
+    "updated": "2025-02-27T07:03:13.022Z",
+    "job_title": null,
+    "uuid": "d7bf21ce-8b2f-4bab-9e9b-4f0a7488faa7",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 41,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$Yw4YyWZosBzn2kbRkOCas8$LTJqGxHGr/m/CZNpBOdDgrTlbnFynkzawy5rvpF+JEc=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dshfhdg",
+    "email": "adad@gmail.com",
+    "first_name": "aasd",
+    "last_name": "assdsa",
+    "user_phone": "09911234567",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T07:11:51.236Z",
+    "updated": "2025-02-27T07:11:51.236Z",
+    "job_title": null,
+    "uuid": "bead5006-c35f-402c-814c-3d69dc8dc3ab",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 42,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$7eO2Cm4KNy36EqmKUfmGaA$C0I6w/WEvugPRrqACE9jT1jMnqUFpHzldOB/ygdF+gY=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "saddsd",
+    "email": "sss@gmail.com",
+    "first_name": "sdfdf",
+    "last_name": "dsdf",
+    "user_phone": "09398231215",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T07:14:13.054Z",
+    "updated": "2025-02-27T07:16:55.748Z",
+    "job_title": null,
+    "uuid": "45d5bb53-bf9b-47f0-b46e-ac68b84c70cc",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 43,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$iIqygk2HK6QbtjVmGji1FG$SLUWxBZ6n7jvfbGoTY68fygAXJnbuaKcqYLsnPzZVtA=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dsfdsf",
+    "email": "asdasdasd@gmail.com",
+    "first_name": "ssdf",
+    "last_name": "sddfsd",
+    "user_phone": "09387654321",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T07:24:40.092Z",
+    "updated": "2025-02-27T07:24:40.093Z",
+    "job_title": null,
+    "uuid": "d4cb1c78-2c4c-49c3-b050-e9a0e7ea3018",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 44,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$5wZmNgWf2h70D9GUrg7npz$eSeiB4WCDrJeDw3Pi6gMmgQavBknvtJ/U9op+QVJ7IM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "dssdfdf",
+    "email": "sjdh@gmial.com",
+    "first_name": "sdad",
+    "last_name": "dfdf",
+    "user_phone": "09387894562",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-02-27T07:25:30.454Z",
+    "updated": "2025-02-27T07:28:17.827Z",
+    "job_title": null,
+    "uuid": "a0bbbc4f-47d8-47a0-822b-7b6090d9c0ff",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 45,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$mgqjHsfXgnw2XMpdoXQogA$RB5vs45yQnFc55t9ENfX9WnoWNSxvppBzhT4fBily+o=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "rezaahmadi",
+    "email": "rezaahmadi@gmail.com",
+    "first_name": "رضا",
+    "last_name": "احمدی",
+    "user_phone": "09358151234",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-03-06T21:53:51.057Z",
+    "updated": "2025-04-08T14:12:18.229Z",
+    "job_title": "",
+    "uuid": "9e64aa7e-235d-4671-9ce2-0400e997ddd1",
+    "intro_completed": false,
+    "digital_wallet": 500000,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "",
+    "debugger_bio": "",
+    "user_score": 0,
+    "image_profile": "static/users/rezaahmadi@gmail.com/profile_rezaahmadigmail.com_20250408174218.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.otp",
+  "pk": 1865,
+  "fields": {
+    "user": 43,
+    "otp_code": "529600",
+    "created_at": "2025-02-27T07:24:40.104Z"
+  }
+},
+{
+  "model": "auths.role",
+  "pk": 1,
+  "fields": {
+    "name": "programmer",
+    "users": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "auths.role",
+  "pk": 2,
+  "fields": {
+    "name": "students",
+    "users": [
+      1
+    ]
+  }
+},
+{
+  "model": "auths.role",
+  "pk": 3,
+  "fields": {
+    "name": "debugger",
+    "users": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "auths.role",
+  "pk": 4,
+  "fields": {
+    "name": "consultant",
+    "users": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "auths.userbankcards",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "title": "تجارت",
+    "card_number": "5859831058918326",
+    "default_card": true
+  }
+},
+{
+  "model": "auths.userbankcards",
+  "pk": 11,
+  "fields": {
+    "user": 1,
+    "title": "تجارت",
+    "card_number": "5555555555555555",
+    "default_card": false
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 1,
+  "fields": {
+    "name": "Python",
+    "created_at": "2024-12-23T11:49:34.761Z",
+    "updated_at": "2024-12-23T11:49:34.761Z",
+    "image": "static/programming_language/icons8-python-50.png",
+    "video": "",
+    "level": "beginner"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 2,
+  "fields": {
+    "name": "Python",
+    "created_at": "2024-12-23T11:49:48.524Z",
+    "updated_at": "2024-12-23T11:50:10.033Z",
+    "image": "static/programming_language/icons8-python-50_YVvuj76.png",
+    "video": "",
+    "level": "intermediate"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 3,
+  "fields": {
+    "name": "Python",
+    "created_at": "2024-12-23T11:49:58.434Z",
+    "updated_at": "2024-12-23T11:49:58.434Z",
+    "image": "static/programming_language/icons8-python-50_sj3pfMR.png",
+    "video": "",
+    "level": "advanced"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 4,
+  "fields": {
+    "name": "Java",
+    "created_at": "2024-12-24T15:21:47.574Z",
+    "updated_at": "2024-12-24T15:21:47.575Z",
+    "image": "static/programming_language/icons8-classroom-48.png",
+    "video": "",
+    "level": "beginner"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 5,
+  "fields": {
+    "name": "Java",
+    "created_at": "2024-12-24T15:23:15.968Z",
+    "updated_at": "2024-12-24T15:23:15.968Z",
+    "image": "static/programming_language/icons8-classroom-48_cyapfkt.png",
+    "video": "",
+    "level": "intermediate"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 6,
+  "fields": {
+    "name": "Java",
+    "created_at": "2024-12-24T15:23:49.141Z",
+    "updated_at": "2024-12-24T15:23:49.141Z",
+    "image": "static/programming_language/icons8-classroom-48_gRTOjtl.png",
+    "video": "",
+    "level": "advanced"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 7,
+  "fields": {
+    "name": "php",
+    "created_at": "2024-12-24T15:24:09.015Z",
+    "updated_at": "2024-12-24T15:24:09.015Z",
+    "image": "static/programming_language/icons8-python-50_aI9U4UT.png",
+    "video": "",
+    "level": "beginner"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 8,
+  "fields": {
+    "name": "php",
+    "created_at": "2024-12-24T15:24:13.977Z",
+    "updated_at": "2024-12-24T15:24:13.978Z",
+    "image": "static/programming_language/icons8-python-50_y0LOxHf.png",
+    "video": "",
+    "level": "intermediate"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 9,
+  "fields": {
+    "name": "php",
+    "created_at": "2024-12-24T15:24:18.784Z",
+    "updated_at": "2024-12-24T15:24:18.784Z",
+    "image": "static/programming_language/icons8-python-50_JGvRpB9.png",
+    "video": "",
+    "level": "advanced"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 10,
+  "fields": {
+    "name": "javascript",
+    "created_at": "2024-12-24T15:24:35.755Z",
+    "updated_at": "2024-12-24T15:24:35.755Z",
+    "image": "static/programming_language/icons8-python-50_VF6ESvI.png",
+    "video": "",
+    "level": "beginner"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 11,
+  "fields": {
+    "name": "javascript",
+    "created_at": "2024-12-24T15:24:41.584Z",
+    "updated_at": "2024-12-24T15:24:41.585Z",
+    "image": "static/programming_language/icons8-python-50_GnAF2s4.png",
+    "video": "",
+    "level": "intermediate"
+  }
+},
+{
+  "model": "programming_language.programminglanguage",
+  "pk": 12,
+  "fields": {
+    "name": "javascript",
+    "created_at": "2024-12-24T15:24:47.392Z",
+    "updated_at": "2024-12-24T15:24:47.392Z",
+    "image": "static/programming_language/icons8-python-50_EQZW7W8.png",
+    "video": "",
+    "level": "advanced"
+  }
+},
+{
+  "model": "programming_language.programmerskill",
+  "pk": 1,
+  "fields": {
+    "name": "API Documentaion",
+    "skill_level": "advanced",
+    "image": "static/programmer_skill/2165004.png",
+    "created_at": "2024-12-23T11:50:56.994Z",
+    "updated_at": "2025-01-30T04:10:58.752Z"
+  }
+},
+{
+  "model": "programming_language.programmerskill",
+  "pk": 2,
+  "fields": {
+    "name": "HTML",
+    "skill_level": "advanced",
+    "image": "static/programmer_skill/images.png",
+    "created_at": "2024-12-24T15:49:57.213Z",
+    "updated_at": "2025-01-30T04:16:01.525Z"
+  }
+},
+{
+  "model": "programming_language.programmerskill",
+  "pk": 3,
+  "fields": {
+    "name": "CSS",
+    "skill_level": "advanced",
+    "image": "static/programmer_skill/919826.png",
+    "created_at": "2024-12-24T15:50:02.309Z",
+    "updated_at": "2025-01-30T04:15:33.284Z"
+  }
+},
+{
+  "model": "programming_language.programmerexpertise",
+  "pk": 1,
+  "fields": {
+    "created_at": "2024-12-24T11:56:24.403Z",
+    "updated_at": "2024-12-24T11:56:24.403Z",
+    "title": "Front-End Developer"
+  }
+},
+{
+  "model": "programming_language.programmerexpertise",
+  "pk": 2,
+  "fields": {
+    "created_at": "2024-12-24T11:59:53.635Z",
+    "updated_at": "2024-12-24T11:59:53.635Z",
+    "title": "Back-End Developer"
+  }
+},
+{
+  "model": "user_resume.userresume",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "title": "asd",
+    "description": "zdasd",
+    "image": "",
+    "cv_file": "static/resume/cv_resume/assassins-creed-mirage-2023-games-playstation-4-playstation-3840_fOJCs9w.jpg",
+    "created_at": "2024-12-23T11:38:16.228Z",
+    "updated_at": "2024-12-23T11:38:16.228Z"
+  }
+},
+{
+  "model": "user_resume.userresume",
+  "pk": 2,
+  "fields": {
+    "user": 2,
+    "title": "dsfsd",
+    "description": "sdfsdf",
+    "image": "static/resume/image_resume/coding-black-7680x4320-13653.png",
+    "cv_file": "",
+    "created_at": "2024-12-24T18:33:06.367Z",
+    "updated_at": "2024-12-26T04:43:58.694Z"
+  }
+},
+{
+  "model": "user_resume.userresume",
+  "pk": 3,
+  "fields": {
+    "user": 31,
+    "title": "فصل بندی آموزش.docx",
+    "description": "ad",
+    "image": "",
+    "cv_file": "adad",
+    "created_at": "2025-01-30T04:49:44.986Z",
+    "updated_at": "2025-01-30T04:51:53.307Z"
+  }
+},
+{
+  "model": "user_resume.userresume",
+  "pk": 4,
+  "fields": {
+    "user": 33,
+    "title": "dasdasda",
+    "description": "asdsa",
+    "image": "",
+    "cv_file": "static/resume/cv_resume/فصل_بندی_آموزش_3DPcDGE.docx",
+    "created_at": "2025-01-30T05:10:21.251Z",
+    "updated_at": "2025-01-30T05:17:12.200Z"
+  }
+},
+{
+  "model": "user_resume.videoresume",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "video_file": "static/resume/video_resume/Rec_0007.mp4",
+    "title": "فلانی",
+    "thumbnail": "static/resume/video_resume/sub-zero-scorpion-3840x2160-17601.jpg",
+    "created_at": "2024-12-23T11:41:30.578Z",
+    "updated_at": "2024-12-23T11:41:30.578Z"
+  }
+},
+{
+  "model": "user_resume.userdegree",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "title": "NEXT.JS",
+    "degree_file": "static/resume/degree_resume/Artboard_1-3.jpg",
+    "created_at": "2025-04-16T10:42:53.005Z",
+    "updated_at": "2025-04-16T10:42:53.005Z"
+  }
+},
+{
+  "model": "user_resume.userdegree",
+  "pk": 16,
+  "fields": {
+    "user": 1,
+    "title": "کارشناسی نرم افزار",
+    "degree_file": "static/resume/degree_resume/کلاس_خصوصی_WebSocket_fHsvL6E_KOFeXPw.docx",
+    "created_at": "2025-04-16T12:14:14.733Z",
+    "updated_at": "2025-04-16T12:14:14.733Z"
+  }
+},
+{
+  "model": "user_resume.userdegree",
+  "pk": 17,
+  "fields": {
+    "user": 1,
+    "title": "دیپلم",
+    "degree_file": "static/resume/degree_resume/کلاس_خصوصی_WebSocket_fHsvL6E_kifJHEj.docx",
+    "created_at": "2025-04-16T12:14:24.718Z",
+    "updated_at": "2025-04-16T12:14:24.718Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "language_name": 2,
+    "created_at": "2024-12-24T18:39:07.913Z",
+    "updated_at": "2024-12-25T08:25:29.924Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "language_name": 3,
+    "created_at": "2024-12-24T18:39:07.921Z",
+    "updated_at": "2024-12-25T08:25:29.927Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 6,
+  "fields": {
+    "user": 2,
+    "language_name": 8,
+    "created_at": "2024-12-24T18:39:07.936Z",
+    "updated_at": "2024-12-24T18:39:07.936Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 8,
+  "fields": {
+    "user": 2,
+    "language_name": 1,
+    "created_at": "2024-12-24T18:39:07.951Z",
+    "updated_at": "2024-12-24T18:39:07.951Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 9,
+  "fields": {
+    "user": 2,
+    "language_name": 5,
+    "created_at": "2024-12-24T18:39:07.958Z",
+    "updated_at": "2024-12-24T18:39:07.958Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 10,
+  "fields": {
+    "user": 2,
+    "language_name": 7,
+    "created_at": "2024-12-24T18:39:07.965Z",
+    "updated_at": "2024-12-25T08:25:29.930Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 11,
+  "fields": {
+    "user": 2,
+    "language_name": 10,
+    "created_at": "2024-12-24T18:39:07.972Z",
+    "updated_at": "2024-12-25T08:25:29.933Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 12,
+  "fields": {
+    "user": 2,
+    "language_name": 9,
+    "created_at": "2024-12-24T18:39:07.980Z",
+    "updated_at": "2024-12-25T08:25:29.934Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 13,
+  "fields": {
+    "user": 2,
+    "language_name": 11,
+    "created_at": "2024-12-24T18:39:07.987Z",
+    "updated_at": "2024-12-25T08:25:29.932Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 14,
+  "fields": {
+    "user": 2,
+    "language_name": 12,
+    "created_at": "2024-12-24T18:39:07.998Z",
+    "updated_at": "2024-12-24T18:39:07.998Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 15,
+  "fields": {
+    "user": 31,
+    "language_name": 3,
+    "created_at": "2025-01-30T04:49:44.971Z",
+    "updated_at": "2025-01-30T04:51:53.298Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 16,
+  "fields": {
+    "user": 31,
+    "language_name": 2,
+    "created_at": "2025-01-30T04:49:44.974Z",
+    "updated_at": "2025-01-30T04:51:53.301Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 17,
+  "fields": {
+    "user": 31,
+    "language_name": 6,
+    "created_at": "2025-01-30T04:49:44.975Z",
+    "updated_at": "2025-01-30T04:51:53.302Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 18,
+  "fields": {
+    "user": 33,
+    "language_name": 3,
+    "created_at": "2025-01-30T05:10:21.229Z",
+    "updated_at": "2025-01-30T05:17:12.180Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 19,
+  "fields": {
+    "user": 33,
+    "language_name": 2,
+    "created_at": "2025-01-30T05:10:21.240Z",
+    "updated_at": "2025-01-30T05:13:30.068Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 21,
+  "fields": {
+    "user": 33,
+    "language_name": 8,
+    "created_at": "2025-01-30T05:17:12.192Z",
+    "updated_at": "2025-01-30T05:17:12.192Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 28,
+  "fields": {
+    "user": 1,
+    "language_name": 1,
+    "created_at": "2025-04-19T14:38:15.032Z",
+    "updated_at": "2025-04-19T14:40:12.474Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 29,
+  "fields": {
+    "user": 1,
+    "language_name": 2,
+    "created_at": "2025-04-19T14:38:15.057Z",
+    "updated_at": "2025-04-19T14:38:15.057Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 30,
+  "fields": {
+    "user": 1,
+    "language_name": 3,
+    "created_at": "2025-04-19T14:38:15.077Z",
+    "updated_at": "2025-04-19T14:40:12.491Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 31,
+  "fields": {
+    "user": 1,
+    "language_name": 9,
+    "created_at": "2025-04-19T14:38:15.097Z",
+    "updated_at": "2025-04-19T14:40:12.530Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 32,
+  "fields": {
+    "user": 1,
+    "language_name": 7,
+    "created_at": "2025-04-19T14:40:12.512Z",
+    "updated_at": "2025-04-19T14:40:12.512Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 33,
+  "fields": {
+    "user": 1,
+    "language_name": 11,
+    "created_at": "2025-04-19T14:40:12.546Z",
+    "updated_at": "2025-04-19T14:40:12.547Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 34,
+  "fields": {
+    "user": 1,
+    "language_name": 12,
+    "created_at": "2025-04-19T14:40:12.565Z",
+    "updated_at": "2025-04-19T14:40:12.565Z"
+  }
+},
+{
+  "model": "user_resume.userlanguage",
+  "pk": 35,
+  "fields": {
+    "user": 1,
+    "language_name": 10,
+    "created_at": "2025-04-19T14:40:12.583Z",
+    "updated_at": "2025-04-19T14:40:12.583Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "skill_name": 1,
+    "created_at": "2024-12-23T11:51:25.234Z",
+    "updated_at": "2024-12-23T11:51:25.234Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 2,
+  "fields": {
+    "user": 1,
+    "skill_name": 2,
+    "created_at": "2024-12-24T18:30:43.182Z",
+    "updated_at": "2024-12-24T18:30:43.182Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 3,
+  "fields": {
+    "user": 2,
+    "skill_name": 3,
+    "created_at": "2024-12-24T18:39:07.890Z",
+    "updated_at": "2024-12-25T08:25:29.937Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 4,
+  "fields": {
+    "user": 2,
+    "skill_name": 2,
+    "created_at": "2024-12-24T18:39:07.897Z",
+    "updated_at": "2024-12-25T08:25:29.935Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 5,
+  "fields": {
+    "user": 2,
+    "skill_name": 1,
+    "created_at": "2024-12-24T18:39:07.905Z",
+    "updated_at": "2024-12-25T08:25:29.939Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 6,
+  "fields": {
+    "user": 31,
+    "skill_name": 2,
+    "created_at": "2025-01-30T04:49:44.976Z",
+    "updated_at": "2025-01-30T04:51:53.303Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 7,
+  "fields": {
+    "user": 31,
+    "skill_name": 3,
+    "created_at": "2025-01-30T04:49:44.978Z",
+    "updated_at": "2025-01-30T04:51:53.304Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 8,
+  "fields": {
+    "user": 33,
+    "skill_name": 3,
+    "created_at": "2025-01-30T05:10:21.243Z",
+    "updated_at": "2025-01-30T05:17:12.194Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 9,
+  "fields": {
+    "user": 33,
+    "skill_name": 2,
+    "created_at": "2025-01-30T05:10:21.245Z",
+    "updated_at": "2025-01-30T05:13:30.070Z"
+  }
+},
+{
+  "model": "user_resume.userskill",
+  "pk": 10,
+  "fields": {
+    "user": 33,
+    "skill_name": 1,
+    "created_at": "2025-01-30T05:17:12.195Z",
+    "updated_at": "2025-01-30T05:17:12.195Z"
+  }
+},
+{
+  "model": "user_resume.usersocialmedialinks",
+  "pk": 1,
+  "fields": {
+    "user": 1,
+    "social_media_name": "instagram",
+    "link": "https://instagram.com/_alireza.yn",
+    "created_at": "2024-12-23T12:07:04.331Z",
+    "updated_at": "2024-12-23T12:07:04.331Z"
+  }
+},
+{
+  "model": "user_resume.userexpertise",
+  "pk": 2,
+  "fields": {
+    "created_at": "2024-12-24T11:59:33.021Z",
+    "updated_at": "2025-01-22T10:18:46.368Z",
+    "user": 1,
+    "expertise": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "user_resume.userexpertise",
+  "pk": 3,
+  "fields": {
+    "created_at": "2024-12-25T08:25:29.940Z",
+    "updated_at": "2024-12-25T08:25:29.940Z",
+    "user": 2,
+    "expertise": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "user_resume.userexpertise",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-01-30T04:49:44.979Z",
+    "updated_at": "2025-01-30T04:51:53.305Z",
+    "user": 31,
+    "expertise": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "user_resume.userexpertise",
+  "pk": 5,
+  "fields": {
+    "created_at": "2025-01-30T05:10:21.247Z",
+    "updated_at": "2025-01-30T05:13:30.071Z",
+    "user": 33,
+    "expertise": [
+      1,
+      2
+    ]
+  }
+},
+{
+  "model": "user_resume.userportfolio",
+  "pk": 125,
+  "fields": {
+    "name": "پروژه وب",
+    "description": "پروژه وبسایت کانادایی که تونستم باهاشون همکاری فوق العاده ای داشته باشم",
+    "owner": 1
+  }
+},
+{
+  "model": "user_resume.userportfolio",
+  "pk": 130,
+  "fields": {
+    "name": "پروژه بازی مارس کوین Mars Coin",
+    "description": "پروژه که بنده طراحیش کردم برای ساخت یک بازی باحال برای جمع آوری سکه\n\nخیلی باحاله.... :))",
+    "owner": 1
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 126,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170322.png",
+    "user_portfolio": 125
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 127,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170426.png",
+    "user_portfolio": 125
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 128,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170255.png",
+    "user_portfolio": 125
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 129,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170352.png",
+    "user_portfolio": 125
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 131,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170756.png",
+    "user_portfolio": 130
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 132,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170825.png",
+    "user_portfolio": 130
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 133,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170733.png",
+    "user_portfolio": 130
+  }
+},
+{
+  "model": "user_resume.userportfolioimage",
+  "pk": 134,
+  "fields": {
+    "image": "static/user/portfolio/Screenshot_2025-04-17_170707.png",
+    "user_portfolio": 130
+  }
+},
+{
+  "model": "user_resume.userjobhistory",
+  "pk": 121,
+  "fields": {
+    "companyName": "توسعه گر",
+    "jobTitle": "Full-stack Developer",
+    "description": "من در شرکت توسعه گر مشغول به کار بود",
+    "startDate": "2023-04-17T00:00:00Z",
+    "endDate": "2025-04-16T00:00:00Z",
+    "responsibilities": "مسئول پروژه دیباگچی",
+    "user": 1
+  }
+},
+{
+  "model": "user_resume.userjobhistory",
+  "pk": 122,
+  "fields": {
+    "companyName": "گوگل",
+    "jobTitle": "Front-End",
+    "description": "طراحی سایت و UI/UX",
+    "startDate": "2020-01-17T00:00:00Z",
+    "endDate": "2021-01-01T00:00:00Z",
+    "responsibilities": "سنیور Front-end",
+    "user": 1
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 1,
+  "fields": {
+    "class_session": "a1835a76-00ce-4274-9993-2a0c5ed91307",
+    "language": null,
+    "expertise": null,
+    "description": "در این کلاس خصوصی، به‌صورت پروژه‌محور و کاربردی، یاد می‌گیری چگونه با استفاده از WebSocket ارتباط real-time بین کلاینت و سرور برقرار کنی. مناسب برای ساخت چت‌اپ، نوتیفیکیشن زنده، مانیتورینگ لحظه‌ای، بازی‌های تحت وب و...",
+    "type_class": "public",
+    "class_title": "آموزش وب سوکت",
+    "educational_heading": "🎯 هدف کلاس\r\nدر این کلاس خصوصی، به‌صورت پروژه‌محور و کاربردی، یاد می‌گیری چگونه با استفاده از WebSocket ارتباط real-time بین کلاینت و سرور برقرار کنی. مناسب برای ساخت چت‌اپ، نوتیفیکیشن زنده، مانیتورینگ لحظه‌ای، بازی‌های تحت وب و...\r\n\r\n🧠 پیش‌نیازها\r\nآشنایی با HTML، CSS، و JavaScript\r\n\r\n\r\nتجربه کار با یکی از فریم‌ورک‌های بک‌اند (مثل Node.js، Django، Flask و...)\r\n\r\n\r\nآشنایی پایه با HTTP و REST API\r\n\r\n\r\n\r\n🧩 سرفصل‌ها\r\n1. مفاهیم پایه‌ای WebSocket\r\nتفاوت WebSocket با HTTP و AJAX\r\n\r\n\r\nمزایای WebSocket و سناریوهای کاربردی\r\n\r\n\r\nنحوه کارکرد پروتکل WebSocket\r\n\r\n\r\n2. شروع به‌کار\r\nایجاد اتصال WebSocket بین کلاینت و سرور\r\n\r\n\r\nارسال و دریافت پیام‌ها\r\n\r\n\r\nمدیریت اتصال، قطعی و اتصال مجدد\r\n\r\n\r\n3. پروژه کاربردی: ساخت چت‌اپ ساده\r\nراه‌اندازی سرور WebSocket\r\n\r\n\r\nپشتیبانی از چند کاربر\r\n\r\n\r\nارسال پیام به کاربر خاص یا broadcast\r\n\r\n\r\n4. مباحث پیشرفته‌تر\r\nاحراز هویت و امنیت در WebSocket\r\n\r\n\r\nمدیریت reconnect خودکار\r\n\r\n\r\nساخت کانال‌ها و گروه‌ها (Room/Channel Management)\r\n\r\n\r\nاتصال WebSocket به پایگاه‌داده\r\n\r\n\r\n5. پروژه‌های کاربردی‌تر\r\nساخت سیستم نوتیفیکیشن زنده\r\n\r\n\r\nمانیتورینگ لحظه‌ای داده‌ها (مثلاً دیتاهای بازار، سرورها، یا لاگ‌ها)\r\n\r\n\r\nاتصال همزمان REST API و WebSocket در یک اپلیکیشن\r\n\r\n\r\n\r\n🧰 تکنولوژی‌هایی که می‌تونیم استفاده کنیم\r\nبسته به زبان و استک مورد علاقه‌ی شما، کلاس می‌تونه با یکی از گزینه‌های زیر برگزار بشه:\r\nNode.js + Socket.IO\r\n\r\n\r\nDjango + Django Channels\r\n\r\n\r\nFastAPI + WebSockets\r\n\r\n\r\nNest.js + Gateway\r\n\r\n\r\nفرانت‌اند: React، Next.js، Vue.js یا هر فریم‌ورک دلخواه شما\r\n\r\n\r\n\r\n⏱ مدت زمان کلاس\r\nبسته به سطح شما و اهداف، بین ۵ تا ۱۰ جلسه‌ی یک‌ساعته (قابل تنظیم)\r\n\r\n✅ خروجی کلاس\r\nتوانایی ساخت اپلیکیشن‌های Real-Time\r\n\r\n\r\nتسلط بر اصول ارتباط دوطرفه در وب\r\n\r\n\r\nآشنایی با معماری‌های نوین در اپ‌های لحظه‌ای",
+    "educational_heading_file": "static/project/files/کلاس_خصوصی_WebSocket_JMb1o45.docx",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-09T10:59:38.891Z",
+    "updated_at": "2025-04-09T11:25:23.457Z",
+    "start_date": null,
+    "end_date": null,
+    "buffer_date": 20,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 2,
+  "fields": {
+    "class_session": "875a2b5e-d317-4c7e-aa28-aae3538f8dbe",
+    "language": null,
+    "expertise": null,
+    "description": "aesesfw",
+    "type_class": "public",
+    "class_title": "esedasd",
+    "educational_heading": "asdd",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T09:51:27.069Z",
+    "updated_at": "2025-04-13T09:51:27.069Z",
+    "start_date": "2025-04-19T00:00:00Z",
+    "end_date": null,
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 3,
+  "fields": {
+    "class_session": "ca959bdf-861f-44b9-9b21-de775a7573d6",
+    "language": null,
+    "expertise": null,
+    "description": "assdadasd",
+    "type_class": "public",
+    "class_title": "asdasd",
+    "educational_heading": "asdasdasd",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6_ONr3V3V.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:12:19.969Z",
+    "updated_at": "2025-04-13T10:12:19.969Z",
+    "start_date": "2025-04-08T00:00:00Z",
+    "end_date": null,
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 4,
+  "fields": {
+    "class_session": "47126a2e-f17a-4186-9eb6-5141b549c908",
+    "language": null,
+    "expertise": null,
+    "description": "asdasd",
+    "type_class": "public",
+    "class_title": "asdasd",
+    "educational_heading": "asdasdasd\r\nAsd",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_dHP1YKt.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T10:28:19.258Z",
+    "updated_at": "2025-04-13T10:28:19.258Z",
+    "start_date": "2025-03-30T00:00:00Z",
+    "end_date": null,
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 5,
+  "fields": {
+    "class_session": "cb465771-202a-4d4a-871d-f21726b38fa9",
+    "language": null,
+    "expertise": null,
+    "description": "hjdzhjgshdgbf",
+    "type_class": "public",
+    "class_title": "sdsdbhsbfdh",
+    "educational_heading": "jhdsbfhjbshdfb",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:43:23.121Z",
+    "updated_at": "2025-04-13T10:43:23.121Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 6,
+  "fields": {
+    "class_session": "ecea50b2-6bff-427a-be66-3ca27d161bef",
+    "language": null,
+    "expertise": null,
+    "description": "jsbjhbfhjsbef",
+    "type_class": "public",
+    "class_title": "sdkfkjdbs",
+    "educational_heading": "kjsdkksbdf",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_fdIL2ei.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:47:00.953Z",
+    "updated_at": "2025-04-13T10:47:00.953Z",
+    "start_date": "2025-04-20T00:00:00Z",
+    "end_date": "2025-06-21T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 7,
+  "fields": {
+    "class_session": "880886ee-36c6-4765-8366-2dc2fe8abf29",
+    "language": null,
+    "expertise": null,
+    "description": "jhbdhjbhjsfbdh",
+    "type_class": "public",
+    "class_title": "sdhbsdhh",
+    "educational_heading": "bsfhjbshjdhjfsbd",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:48:26.606Z",
+    "updated_at": "2025-04-13T10:48:26.606Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-19T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 8,
+  "fields": {
+    "class_session": "9c4712c2-8aa8-4b75-87ac-a5a075ccfe69",
+    "language": null,
+    "expertise": null,
+    "description": "jhbaehbd",
+    "type_class": "public",
+    "class_title": "aemdhjes",
+    "educational_heading": "hbaejhdb",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4_HRvT6pS.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:49:50.170Z",
+    "updated_at": "2025-04-13T10:49:50.170Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 9,
+  "fields": {
+    "class_session": "719ba34d-6a6f-442e-b838-82c47e558d5c",
+    "language": null,
+    "expertise": null,
+    "description": "سشیسش",
+    "type_class": "public",
+    "class_title": "یشس",
+    "educational_heading": "شسیشسی",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_ppuiAtC.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:54:46.166Z",
+    "updated_at": "2025-04-13T10:54:46.166Z",
+    "start_date": "2025-04-07T00:00:00Z",
+    "end_date": "2025-04-14T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 10,
+  "fields": {
+    "class_session": "f99dc545-0402-41a4-ae18-79693b9f95ba",
+    "language": null,
+    "expertise": null,
+    "description": "kjndkjsdbjf",
+    "type_class": "public",
+    "class_title": "skdkjdsfbbdfs",
+    "educational_heading": "jnkdkjfjkds",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_3.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T10:57:03.407Z",
+    "updated_at": "2025-04-13T10:57:03.407Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": false,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 11,
+  "fields": {
+    "class_session": "566789bf-2e99-40eb-99be-0551f8d0721d",
+    "language": null,
+    "expertise": null,
+    "description": "adsddsdf",
+    "type_class": "public",
+    "class_title": "zddz",
+    "educational_heading": "dfsdfsdf",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T11:28:23.383Z",
+    "updated_at": "2025-04-13T11:28:23.383Z",
+    "start_date": "2025-03-25T00:00:00Z",
+    "end_date": "2025-05-21T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 12,
+  "fields": {
+    "class_session": "2a8538b0-b931-47d4-8743-2513ba439c7a",
+    "language": null,
+    "expertise": null,
+    "description": "mnassdmn",
+    "type_class": "public",
+    "class_title": "asdmsand",
+    "educational_heading": "adndnm sd",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6_lKSReFd.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T11:30:45.918Z",
+    "updated_at": "2025-04-13T11:30:45.918Z",
+    "start_date": "2025-04-21T00:00:00Z",
+    "end_date": "2025-05-21T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 13,
+  "fields": {
+    "class_session": "a56306a2-1104-481e-bb85-78e1dd04e765",
+    "language": null,
+    "expertise": null,
+    "description": "hjdbhbsd",
+    "type_class": "public",
+    "class_title": "adssad",
+    "educational_heading": "dshsbhdfhbsdf",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4_WsXgDqJ.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T11:35:25.709Z",
+    "updated_at": "2025-04-13T11:35:25.709Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 14,
+  "fields": {
+    "class_session": "5c5b1610-a604-4b2c-b2a5-78db5d02f49b",
+    "language": null,
+    "expertise": null,
+    "description": "asdasd",
+    "type_class": "public",
+    "class_title": "asdasd",
+    "educational_heading": "asdasd",
+    "educational_heading_file": "static/project/files/DEBUGCHI.docx",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T11:41:27.614Z",
+    "updated_at": "2025-04-13T11:41:27.614Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 15,
+  "fields": {
+    "class_session": "bdc38e45-8f02-4937-b181-373499593329",
+    "language": null,
+    "expertise": null,
+    "description": "DNCKJSNDJFNS",
+    "type_class": "public",
+    "class_title": "amndns",
+    "educational_heading": "SDNKJNSDFNSDF",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6_VT5G1eT.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T11:49:20.237Z",
+    "updated_at": "2025-04-13T11:49:20.237Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 16,
+  "fields": {
+    "class_session": "b7ba97a6-e03a-4d47-89a9-57a7b46fd81c",
+    "language": null,
+    "expertise": null,
+    "description": "ASDAD",
+    "type_class": "public",
+    "class_title": "DADAS",
+    "educational_heading": "ASDAD",
+    "educational_heading_file": "static/project/files/کلاس_خصوصی_WebSocket_QpFJONq.docx",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T12:00:56.102Z",
+    "updated_at": "2025-04-13T12:00:56.102Z",
+    "start_date": "2025-04-07T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 17,
+  "fields": {
+    "class_session": "0fe4bdc1-42e6-4d70-b51e-6e99320be526",
+    "language": null,
+    "expertise": null,
+    "description": "kjadsdkkehsd",
+    "type_class": "public",
+    "class_title": "SMJXhjas",
+    "educational_heading": "ajbdhjbsdfhbj",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_Zu65maD.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T12:06:30.446Z",
+    "updated_at": "2025-04-13T12:06:30.446Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 18,
+  "fields": {
+    "class_session": "c66eab08-9184-4c3c-87ae-e1ae1b261848",
+    "language": null,
+    "expertise": null,
+    "description": "ksnjdkjsdnf",
+    "type_class": "public",
+    "class_title": "askdasjnd",
+    "educational_heading": "kjnadjknksdnksdf",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_Wq9mXLR.jpg",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T12:09:32.333Z",
+    "updated_at": "2025-04-13T12:09:32.333Z",
+    "start_date": "2025-04-15T00:00:00Z",
+    "end_date": "2025-05-21T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 19,
+  "fields": {
+    "class_session": "298510f7-ce65-4e95-aedd-c34dc5f4a368",
+    "language": null,
+    "expertise": null,
+    "description": "asdasd",
+    "type_class": "public",
+    "class_title": "asdasd",
+    "educational_heading": "asdadsqd",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6_sRqGEWH.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T12:16:32.228Z",
+    "updated_at": "2025-04-13T12:16:32.228Z",
+    "start_date": "2025-03-31T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 20,
+  "fields": {
+    "class_session": "e4d2c57c-da48-408e-8847-0dd2261eb2d2",
+    "language": null,
+    "expertise": null,
+    "description": "asdadsasd",
+    "type_class": "public",
+    "class_title": "asd",
+    "educational_heading": "asdadads",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_cHx37xM.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T12:18:20.156Z",
+    "updated_at": "2025-04-13T12:18:20.156Z",
+    "start_date": "2025-04-13T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 21,
+  "fields": {
+    "class_session": "03f1e94a-5f8b-4280-a593-2d3c81d44c86",
+    "language": null,
+    "expertise": null,
+    "description": "asd",
+    "type_class": "public",
+    "class_title": "qwdq",
+    "educational_heading": "asdasd",
+    "educational_heading_file": "static/project/files/کلاس_خصوصی_WebSocket_gdl91Fi.docx",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T12:26:41.379Z",
+    "updated_at": "2025-04-13T12:26:41.379Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 22,
+  "fields": {
+    "class_session": "45cffb7f-a63b-4ac9-931e-055602c1723b",
+    "language": null,
+    "expertise": null,
+    "description": "asdad",
+    "type_class": "public",
+    "class_title": "asdasd",
+    "educational_heading": "asdad",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_U9ikfGk.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T12:29:21.833Z",
+    "updated_at": "2025-04-13T12:29:21.833Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 23,
+  "fields": {
+    "class_session": "7cf7e1ee-b02a-4b54-8c23-f55572e7fc69",
+    "language": null,
+    "expertise": null,
+    "description": "hbasshjdbhjabd",
+    "type_class": "public",
+    "class_title": "sajhdhasd",
+    "educational_heading": "basjhdbhjabsd",
+    "educational_heading_file": "static/project/files/کلاس_خصوصی_WebSocket_4y7Ifge.docx",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T12:47:36.216Z",
+    "updated_at": "2025-04-13T12:47:36.216Z",
+    "start_date": "2025-03-21T00:00:00Z",
+    "end_date": "2025-04-20T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 24,
+  "fields": {
+    "class_session": "2abefd8b-263c-41f7-b400-e6c57501d9cd",
+    "language": null,
+    "expertise": null,
+    "description": "jqjnjsebhjbrfhj",
+    "type_class": "public",
+    "class_title": "nsdfsndf",
+    "educational_heading": "jbedhjbhsbrfhjebr",
+    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6_eyvRLwq.jpg",
+    "price": 0,
+    "created_by": 45,
+    "discount": 0,
+    "created_at": "2025-04-13T12:49:56.028Z",
+    "updated_at": "2025-04-13T12:49:56.028Z",
+    "start_date": "2025-04-20T00:00:00Z",
+    "end_date": "2025-04-19T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.educationproject",
+  "pk": 25,
+  "fields": {
+    "class_session": "b1d46239-b976-44a6-95cd-195f80b9618e",
+    "language": "python,django",
+    "expertise": "کوئری نویسی , کد نویسی بهینه",
+    "description": "دوره جامع آموزش پایتون طراحی شده تا از صفر تا سطح پیشرفته، شما رو با یکی از محبوب‌ترین زبان‌های برنامه‌نویسی دنیا آشنا کنه. این دوره به‌صورت پروژه‌محور و با مثال‌های کاربردی شما رو برای ورود به دنیای واقعی برنامه‌نویسی آماده می‌کنه. چه هدف‌تون توسعه وب، علم داده، هوش مصنوعی، اتوماسیون یا فقط یادگیری برنامه‌نویسی باشه، این دوره نقطه شروع عالیه.",
+    "type_class": "public",
+    "class_title": "آموزش پیاتون",
+    "educational_heading": "بخش ۱: آشنایی با پایتون و مفاهیم پایه\r\nنصب و راه‌اندازی Python و محیط‌های توسعه (IDLE, VSCode, Jupyter)\r\n\r\nمعرفی زبان پایتون و کاربردها\r\n\r\nمتغیرها، انواع داده (اعداد، رشته، لیست، دیکشنری، ...)\r\n\r\nعملگرها (ریاضی، منطقی، مقایسه‌ای)\r\n\r\nبخش ۲: ساختارهای کنترلی\r\nشرط‌ها (if, elif, else)\r\n\r\nحلقه‌ها (for, while)\r\n\r\nتوابع (تعریف، آرگومان‌ها، مقدار بازگشتی)\r\n\r\nScope متغیرها (local, global)\r\n\r\nبخش ۳: کار با داده‌ها\r\nلیست‌ها و توابع مرتبط\r\n\r\nدیکشنری، تاپل و ست\r\n\r\nString Handling و متدهای رشته‌ای\r\n\r\nفایل‌خوانی و فایل‌نویسی (متن، JSON)\r\n\r\nبخش ۴: برنامه‌نویسی شی‌گرا (OOP)\r\nکلاس و شی (Class & Object)\r\n\r\nسازنده‌ها (__init__)\r\n\r\nارث‌بری، چندریختی\r\n\r\nمتدهای کلاس و استاتیک\r\n\r\nبخش ۵: مدیریت خطا و استثناها\r\nTry, Except, Finally\r\n\r\nتعریف Exception اختصاصی\r\n\r\nبخش ۶: کتابخانه‌ها و ابزارهای استاندارد\r\nmath, datetime, random\r\n\r\nنصب پکیج با pip\r\n\r\nکار با محیط مجازی (venv)\r\n\r\nبخش ۷: پروژه‌های کاربردی و تمرینات\r\nساخت یک ماشین حساب ساده\r\n\r\nمدیریت لیست کارها (To-Do)\r\n\r\nخواندن و تحلیل فایل CSV\r\n\r\nپروژه کوچک: دفترچه تلفن یا نوت‌برد ساده\r\n\r\nبخش ۸: مسیرهای بعدی یادگیری با پایتون (برای معرفی در پایان دوره)\r\nعلم داده و pandas, numpy, matplotlib\r\n\r\nاتوماسیون و Scraping\r\n\r\nتوسعه وب با Django یا Flask\r\n\r\nیادگیری ماشین با Scikit-learn",
+    "educational_heading_file": "static/project/files/کلاس_خصوصی_WebSocket_fHsvL6E.docx",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-13T12:52:06.652Z",
+    "updated_at": "2025-04-14T07:11:35.320Z",
+    "start_date": "2025-06-01T00:00:00Z",
+    "end_date": "2025-09-30T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 1,
+  "fields": {
+    "project": 1,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6.jpg",
+    "uploaded_at": "2025-04-13T07:20:30.724Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 2,
+  "fields": {
+    "project": 1,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4.jpg",
+    "uploaded_at": "2025-04-13T07:20:36.916Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 3,
+  "fields": {
+    "project": 1,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e.jpg",
+    "uploaded_at": "2025-04-13T07:20:41.707Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 4,
+  "fields": {
+    "project": 10,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_3.jpg",
+    "uploaded_at": "2025-04-13T10:57:03.469Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 5,
+  "fields": {
+    "project": 10,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_A0gJT8o.jpg",
+    "uploaded_at": "2025-04-13T10:57:03.488Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 6,
+  "fields": {
+    "project": 10,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_nstYjfw.jpg",
+    "uploaded_at": "2025-04-13T10:57:03.501Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 7,
+  "fields": {
+    "project": 10,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5.jpg",
+    "uploaded_at": "2025-04-13T10:57:03.470Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 8,
+  "fields": {
+    "project": 10,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_RubDMQx.jpg",
+    "uploaded_at": "2025-04-13T10:57:03.506Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 9,
+  "fields": {
+    "project": 11,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_3FAHMVi.jpg",
+    "uploaded_at": "2025-04-13T11:28:23.634Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 10,
+  "fields": {
+    "project": 11,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Pnrv7Qk.jpg",
+    "uploaded_at": "2025-04-13T11:28:23.639Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 11,
+  "fields": {
+    "project": 11,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Th4iLOn.jpg",
+    "uploaded_at": "2025-04-13T11:28:23.636Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 12,
+  "fields": {
+    "project": 11,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_w54E6X6.jpg",
+    "uploaded_at": "2025-04-13T11:28:23.637Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 13,
+  "fields": {
+    "project": 11,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_M15kD1t.jpg",
+    "uploaded_at": "2025-04-13T11:28:23.637Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 14,
+  "fields": {
+    "project": 11,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2.jpg",
+    "uploaded_at": "2025-04-13T11:28:23.634Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 15,
+  "fields": {
+    "project": 12,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_kZjWkcB.jpg",
+    "uploaded_at": "2025-04-13T11:30:45.992Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 16,
+  "fields": {
+    "project": 12,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Fi75lkt.jpg",
+    "uploaded_at": "2025-04-13T11:30:45.994Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 17,
+  "fields": {
+    "project": 12,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_o9b0wid.jpg",
+    "uploaded_at": "2025-04-13T11:30:46.023Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 18,
+  "fields": {
+    "project": 12,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_MeVeJxi.jpg",
+    "uploaded_at": "2025-04-13T11:30:46.052Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 19,
+  "fields": {
+    "project": 12,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_TSULOyl.jpg",
+    "uploaded_at": "2025-04-13T11:30:46.082Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 20,
+  "fields": {
+    "project": 13,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_ZvR9tCh.jpg",
+    "uploaded_at": "2025-04-13T11:35:25.945Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 21,
+  "fields": {
+    "project": 13,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_4NnYblm.jpg",
+    "uploaded_at": "2025-04-13T11:35:25.946Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 22,
+  "fields": {
+    "project": 13,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_uk7byvi.jpg",
+    "uploaded_at": "2025-04-13T11:35:25.947Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 23,
+  "fields": {
+    "project": 13,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_vCKbqqF.jpg",
+    "uploaded_at": "2025-04-13T11:35:25.948Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 24,
+  "fields": {
+    "project": 13,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_WMsbAWz.jpg",
+    "uploaded_at": "2025-04-13T11:35:25.949Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 25,
+  "fields": {
+    "project": 14,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_NmzBSoQ.jpg",
+    "uploaded_at": "2025-04-13T11:41:27.829Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 26,
+  "fields": {
+    "project": 14,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Ige4J6H.jpg",
+    "uploaded_at": "2025-04-13T11:41:27.833Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 27,
+  "fields": {
+    "project": 14,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_EFiAgBN.jpg",
+    "uploaded_at": "2025-04-13T11:41:27.835Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 28,
+  "fields": {
+    "project": 14,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_31bQnQF.jpg",
+    "uploaded_at": "2025-04-13T11:41:27.835Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 29,
+  "fields": {
+    "project": 14,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_d8puoPy.jpg",
+    "uploaded_at": "2025-04-13T11:41:27.833Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 30,
+  "fields": {
+    "project": 15,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_CheSUbx.jpg",
+    "uploaded_at": "2025-04-13T11:49:20.296Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 31,
+  "fields": {
+    "project": 15,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Rj0gRey.jpg",
+    "uploaded_at": "2025-04-13T11:49:20.295Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 32,
+  "fields": {
+    "project": 15,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_W3H2MXz.jpg",
+    "uploaded_at": "2025-04-13T11:49:20.351Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 33,
+  "fields": {
+    "project": 15,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_CPley2k.jpg",
+    "uploaded_at": "2025-04-13T11:49:20.365Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 34,
+  "fields": {
+    "project": 16,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_vMzTJBv.jpg",
+    "uploaded_at": "2025-04-13T12:00:56.249Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 35,
+  "fields": {
+    "project": 16,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_pHZPvHK.jpg",
+    "uploaded_at": "2025-04-13T12:00:56.250Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 36,
+  "fields": {
+    "project": 16,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_MIa5Hxh.jpg",
+    "uploaded_at": "2025-04-13T12:00:56.251Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 37,
+  "fields": {
+    "project": 17,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_JpZz7Gc.jpg",
+    "uploaded_at": "2025-04-13T12:06:30.627Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 38,
+  "fields": {
+    "project": 17,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_l6bDcPc.jpg",
+    "uploaded_at": "2025-04-13T12:06:30.635Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 39,
+  "fields": {
+    "project": 17,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_TtKip31.jpg",
+    "uploaded_at": "2025-04-13T12:06:30.632Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 40,
+  "fields": {
+    "project": 17,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_nBXYPM5.jpg",
+    "uploaded_at": "2025-04-13T12:06:30.634Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 41,
+  "fields": {
+    "project": 17,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_e4jgwx9.jpg",
+    "uploaded_at": "2025-04-13T12:06:30.635Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 42,
+  "fields": {
+    "project": 18,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_zG3C57X.jpg",
+    "uploaded_at": "2025-04-13T12:09:32.537Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 43,
+  "fields": {
+    "project": 18,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_D7DajNJ.jpg",
+    "uploaded_at": "2025-04-13T12:09:32.540Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 44,
+  "fields": {
+    "project": 18,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_VrxTksf.jpg",
+    "uploaded_at": "2025-04-13T12:09:32.538Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 45,
+  "fields": {
+    "project": 18,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Vy2jDem.jpg",
+    "uploaded_at": "2025-04-13T12:09:32.538Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 46,
+  "fields": {
+    "project": 18,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_9f7eSJM.jpg",
+    "uploaded_at": "2025-04-13T12:09:32.540Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 47,
+  "fields": {
+    "project": 19,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Q3huJKT.jpg",
+    "uploaded_at": "2025-04-13T12:16:32.357Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 48,
+  "fields": {
+    "project": 20,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_rbUMBNe.jpg",
+    "uploaded_at": "2025-04-13T12:18:20.196Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 49,
+  "fields": {
+    "project": 21,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_6OaA2Kh.jpg",
+    "uploaded_at": "2025-04-13T12:26:41.441Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 50,
+  "fields": {
+    "project": 21,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_zyzn21S.jpg",
+    "uploaded_at": "2025-04-13T12:26:41.447Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 51,
+  "fields": {
+    "project": 21,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_gaSIPiD.jpg",
+    "uploaded_at": "2025-04-13T12:26:41.460Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 52,
+  "fields": {
+    "project": 22,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_zfM8MIS.jpg",
+    "uploaded_at": "2025-04-13T12:29:21.995Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 53,
+  "fields": {
+    "project": 22,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_RQG7pDP.jpg",
+    "uploaded_at": "2025-04-13T12:29:22.000Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 54,
+  "fields": {
+    "project": 22,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_qp4Y6tV.jpg",
+    "uploaded_at": "2025-04-13T12:29:22.003Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 55,
+  "fields": {
+    "project": 22,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_EG9fOzi.jpg",
+    "uploaded_at": "2025-04-13T12:29:22.002Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 56,
+  "fields": {
+    "project": 23,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_xfSxnIA.jpg",
+    "uploaded_at": "2025-04-13T12:47:36.519Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 57,
+  "fields": {
+    "project": 23,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_fXB7m3Y.jpg",
+    "uploaded_at": "2025-04-13T12:47:36.524Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 58,
+  "fields": {
+    "project": 23,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_re889uA.jpg",
+    "uploaded_at": "2025-04-13T12:47:36.525Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 59,
+  "fields": {
+    "project": 23,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_ZC5LbBy.jpg",
+    "uploaded_at": "2025-04-13T12:47:36.522Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 60,
+  "fields": {
+    "project": 23,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_GzojYlh.jpg",
+    "uploaded_at": "2025-04-13T12:47:36.562Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 61,
+  "fields": {
+    "project": 24,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_QQp1Eh7.jpg",
+    "uploaded_at": "2025-04-13T12:49:56.148Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 62,
+  "fields": {
+    "project": 24,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_WGdoTbm.jpg",
+    "uploaded_at": "2025-04-13T12:49:56.163Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 63,
+  "fields": {
+    "project": 24,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_E3k2Bda.jpg",
+    "uploaded_at": "2025-04-13T12:49:56.152Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 64,
+  "fields": {
+    "project": 24,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_6JMzhxs.jpg",
+    "uploaded_at": "2025-04-13T12:49:56.178Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 65,
+  "fields": {
+    "project": 24,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_ZvhO9w4.jpg",
+    "uploaded_at": "2025-04-13T12:49:56.191Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 66,
+  "fields": {
+    "project": 24,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_Tt9tuoQ.jpg",
+    "uploaded_at": "2025-04-13T12:49:56.167Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 67,
+  "fields": {
+    "project": 25,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_UDfmy0N.jpg",
+    "uploaded_at": "2025-04-13T12:52:06.746Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 68,
+  "fields": {
+    "project": 25,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_tPvwGZa.jpg",
+    "uploaded_at": "2025-04-13T12:52:06.747Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 69,
+  "fields": {
+    "project": 25,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_xHZnRK5.jpg",
+    "uploaded_at": "2025-04-13T12:52:06.753Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 70,
+  "fields": {
+    "project": 25,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_o9rrKIs.jpg",
+    "uploaded_at": "2025-04-13T12:52:06.805Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 71,
+  "fields": {
+    "project": 25,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_e8EqPRy.jpg",
+    "uploaded_at": "2025-04-13T12:52:06.790Z"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 15,
+  "fields": {
+    "uuid": "518e06fb-4e70-48d1-a9f2-2acb0c066a35",
+    "active": true,
+    "title": "آموزش وب سوکت تحت میکروسرویس",
+    "description": "در این دوره آموزشی، به بررسی وب‌سوکت به عنوان یک راهکار ارتباط بلادرنگ (Real-Time) در سیستم‌های مبتنی بر میکروسرویس می‌پردازیم. ابتدا مفاهیم پایه‌ای وب‌سوکت و تفاوت آن با روش‌های سنتی مانند HTTP polling و Long polling را بررسی کرده و سپس پیاده‌سازی آن را در یک معماری میکروسرویس بررسی می‌کنیم.",
+    "image": "",
+    "project": 1,
+    "start_time": "2025-03-13T16:59:00Z",
+    "end_time": "2025-03-15T16:59:00Z",
+    "created_by": 1,
+    "start_bid": 50000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "auction"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 20,
+  "fields": {
+    "uuid": "af9cec32-1435-40ff-bc72-2ca220427c9b",
+    "active": true,
+    "title": "Mehdi",
+    "description": "مهدی رو با کمترین قیمت میفروشم",
+    "image": "",
+    "project": null,
+    "start_time": "2025-03-13T15:31:00Z",
+    "end_time": "2025-03-15T15:31:00Z",
+    "created_by": 1,
+    "start_bid": 500000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "tender"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 21,
+  "fields": {
+    "uuid": "26bb5165-485f-49e6-a6ec-9b997dfacb35",
+    "active": true,
+    "title": "عارف",
+    "description": "سشینمتسشتیتیدشت\r\nَُینمشسینئممشسیمتشسی\r\nشسینئسیتدشنتیدنتسی",
+    "image": "",
+    "project": null,
+    "start_time": "2025-03-13T17:23:00Z",
+    "end_time": "2025-03-15T17:23:00Z",
+    "created_by": 5,
+    "start_bid": 5000000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "tender"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 30,
+  "fields": {
+    "uuid": "c2e67ef2-894f-4906-a05c-43f48ae7fdf0",
+    "active": true,
+    "title": "سبثشسقبسیب",
+    "description": "شسیبشسیبسشیب",
+    "image": "",
+    "project": null,
+    "start_time": "2025-03-15T14:01:00Z",
+    "end_time": "2025-03-18T14:01:00Z",
+    "created_by": 1,
+    "start_bid": 80000,
+    "highest_bid": 80000,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "tender"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 65,
+  "fields": {
+    "uuid": "28b5ed33-b1c6-4ef6-ae0c-36b7edfa467e",
+    "active": true,
+    "title": "ASDA",
+    "description": "ASDASD",
+    "image": "static/tender/image/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4_gEhJLSF.jpg",
+    "project": 1,
+    "start_time": "2025-04-13T16:03:00Z",
+    "end_time": "2025-04-19T16:03:00Z",
+    "created_by": 5,
+    "start_bid": 50000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": "",
+    "expertise": "",
+    "skills": "",
+    "mode": "tender"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 66,
+  "fields": {
+    "uuid": "af214ac4-a52d-40d4-8bfa-f87a453ab874",
+    "active": false,
+    "title": "asdasd",
+    "description": "asjhdbhasdhasdbbasd",
+    "image": "static/tender/image/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4_ACX5coE.jpg",
+    "project": null,
+    "start_time": "2025-03-13T16:59:00Z",
+    "end_time": "2025-03-13T16:59:00Z",
+    "created_by": 1,
+    "start_bid": 50000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "tender"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 67,
+  "fields": {
+    "uuid": "c14a1c14-9071-4692-857b-df91ecb1a348",
+    "active": false,
+    "title": "asnhas",
+    "description": "nashdbjhasdhjbajhbsd",
+    "image": "static/tender/image/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_IwBEhUs.jpg",
+    "project": 23,
+    "start_time": "2025-04-20T00:00:00Z",
+    "end_time": "2025-05-21T00:00:00Z",
+    "created_by": 45,
+    "start_bid": 500000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "auction"
+  }
+},
+{
+  "model": "projects.tenderproject",
+  "pk": 68,
+  "fields": {
+    "uuid": "7a9e8a5f-f7ab-4c01-955c-23a1fedd42b3",
+    "active": false,
+    "title": "پیاده‌سازی سیستم ارتباط بلادرنگ با استفاده از WebSocket",
+    "description": "یک پلتفرم آموزشی و خدمات آنلاین در حال توسعه است و نیاز به پیاده‌سازی بخشی از سامانه دارد که شامل ارتباط بلادرنگ (Real-time Communication) بین کاربران و سرور می‌باشد. این ارتباط باید با استفاده از تکنولوژی WebSocket یا کتابخانه‌های مشابه مانند Socket.IO انجام شود.",
+    "image": "static/tender/image/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4_wcZj9EF.jpg",
+    "project": 25,
+    "start_time": "2025-04-21T00:00:00Z",
+    "end_time": "2025-05-21T00:00:00Z",
+    "created_by": 45,
+    "start_bid": 4000000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": "",
+    "expertise": "",
+    "skills": "",
+    "mode": "auction"
+  }
+},
+{
+  "model": "projects.bid",
+  "pk": 43,
+  "fields": {
+    "user": 45,
+    "tender": 30,
+    "amount": "373248.00"
+  }
+},
+{
+  "model": "projects.bid",
+  "pk": 44,
+  "fields": {
+    "user": 45,
+    "tender": 20,
+    "amount": "600000.00"
+  }
+},
+{
+  "model": "projects.bid",
+  "pk": 64,
+  "fields": {
+    "user": 45,
+    "tender": 15,
+    "amount": "75000.00"
+  }
+},
+{
+  "model": "ConsultHub.debugsession",
+  "pk": 57,
+  "fields": {
+    "created_at": "2025-04-07T10:10:46.904Z",
+    "updated_at": "2025-04-23T11:12:29.679Z",
+    "title": "وب سوکت",
+    "session_id": "794f3548-90fc-493b-bacf-360fbc3f13b1",
+    "debuger": 1,
+    "debuger_applicator": 45,
+    "status": "open",
+    "start_at": "2025-04-07T13:37:00Z",
+    "close_at": null,
+    "mode": "chat",
+    "price": 150000,
+    "discount": 0,
+    "file": "static/debug/file/Artboard_1-3.jpg",
+    "description": "در بخس سایت برای برقراری وب سوکت مشکل خورده اتصال برقرار میشه ولی اطلاعات ارسال نمیشن روی لوکال کار میکنه اما روی سرور نه",
+    "time": 40,
+    "is_realtime": true,
+    "is_locked": true,
+    "is_payed": false,
+    "is_rejected": false,
+    "rejected_by": null
+  }
+},
+{
+  "model": "ConsultHub.debugsession",
+  "pk": 58,
+  "fields": {
+    "created_at": "2025-04-07T10:15:42.757Z",
+    "updated_at": "2025-04-21T12:37:58.066Z",
+    "title": "اپلیکیشن موبایل",
+    "session_id": "e460d561-8dba-4ee7-939e-5770bd5e8a5d",
+    "debuger": 1,
+    "debuger_applicator": 5,
+    "status": "pending",
+    "start_at": "2025-04-07T13:43:00Z",
+    "close_at": null,
+    "mode": "chat",
+    "price": 650000,
+    "discount": 0,
+    "file": "static/debug/file/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4.jpg",
+    "description": "میخوام یک امکسپلور مشابه اینستاگرام طراحی کنم که داخلش همزمان دوتا ویدیو پلی بشه ولی بدون صدا\r\nهر کاری که میکنم فقط یدونه پلی میشه",
+    "time": 60,
+    "is_realtime": true,
+    "is_locked": true,
+    "is_payed": false,
+    "is_rejected": false,
+    "rejected_by": null
+  }
+},
+{
+  "model": "ConsultHub.debugsession",
+  "pk": 59,
+  "fields": {
+    "created_at": "2025-04-07T10:19:07.017Z",
+    "updated_at": "2025-04-07T10:19:07.017Z",
+    "title": "هوش مصنوعی",
+    "session_id": "6c1d06bd-2d43-455c-a84f-d15f531c0c0c",
+    "debuger": 1,
+    "debuger_applicator": 28,
+    "status": "close",
+    "start_at": "2025-04-05T13:46:00Z",
+    "close_at": "2025-04-05T14:47:00Z",
+    "mode": "chat",
+    "price": 800000,
+    "discount": 0,
+    "file": "static/debug/file/Screenshot_2025-03-18_204215_xfXS2gw.png",
+    "description": "یک هوش مصنوعی صدا و موزیک دارمکه قصد دارم اون روی اپلیکیشن خودم ران کنم\r\nبک با لاراول نوشته شده و بک هوش مصنوعی با پایتون به یک نفر نیاز دارم که این دوتارو بهم دیگه کانکت کنه",
+    "time": 60,
+    "is_realtime": true,
+    "is_locked": true,
+    "is_payed": false,
+    "is_rejected": false,
+    "rejected_by": null
+  }
+},
+{
+  "model": "ConsultHub.debugsession",
+  "pk": 60,
+  "fields": {
+    "created_at": "2025-04-08T09:09:08.292Z",
+    "updated_at": "2025-04-21T12:38:59.668Z",
+    "title": "AI",
+    "session_id": "d0e58249-08c3-4680-93ea-9bcf2d283fb6",
+    "debuger": 1,
+    "debuger_applicator": 5,
+    "status": "open",
+    "start_at": "2025-04-08T12:37:00Z",
+    "close_at": null,
+    "mode": "chat",
+    "price": 500000,
+    "discount": 0,
+    "file": "static/debug/file/DEBUGCHI.docx",
+    "description": "رفع مشکل هوش مصنوعی برای مقیاس پذیری",
+    "time": 60,
+    "is_realtime": true,
+    "is_locked": true,
+    "is_payed": false,
+    "is_rejected": true,
+    "rejected_by": 1
+  }
+},
+{
+  "model": "ConsultHub.consultsession",
+  "pk": 2,
+  "fields": {
+    "created_at": "2025-04-07T13:40:01.567Z",
+    "updated_at": "2025-04-22T06:41:49.929Z",
+    "title": "اپلیکیشن موبایل",
+    "description": "میخوام یک چالش پازل بسازم و اون رو به اپلیکیشن خودم که مشابه اینستاگرام هست اضافه کنمدر واقع ما عکس و ویدیو داریم که اونهارو به پازل تبدیل کنیم در این حوزه نیاز به راهنمایی دارم",
+    "session_id": "d2a9fec9-e3b4-4119-919e-afda093cdca6",
+    "consult": 1,
+    "consult_applicator": 5,
+    "status": "pending",
+    "start_at": "2025-04-24T04:50:00Z",
+    "close_at": null,
+    "mode": "chat",
+    "price": 500000.0,
+    "discount": 0,
+    "language": "flutter,php,laravel",
+    "is_realtime": false,
+    "is_locked": false,
+    "is_payed": false,
+    "is_rejected": false,
+    "rejected_by": null
+  }
+},
+{
+  "model": "ConsultHub.consultsession",
+  "pk": 3,
+  "fields": {
+    "created_at": "2025-04-07T13:40:01.567Z",
+    "updated_at": "2025-04-21T12:14:13.739Z",
+    "title": "اپلیکیشن موبایل",
+    "description": "در بخس سایت برای برقراری وب سوکت مشکل خورده اتصال برقرار میشه ولی اطلاعات ارسال نمیشن روی لوکال کار میکنه اما روی سرور نه",
+    "session_id": "9bd8b499-3d7b-4dfe-b888-e4c95417f5a9",
+    "consult": 1,
+    "consult_applicator": 3,
+    "status": "pending",
+    "start_at": null,
+    "close_at": "2025-04-07T11:31:51.997Z",
+    "mode": "chat",
+    "price": 500000.0,
+    "discount": 0,
+    "language": "python,react native,django,socket.io",
+    "is_realtime": true,
+    "is_locked": false,
+    "is_payed": false,
+    "is_rejected": true,
+    "rejected_by": 1
+  }
+},
+{
+  "model": "ConsultHub.consultsession",
+  "pk": 4,
+  "fields": {
+    "created_at": "2025-04-08T09:05:23.613Z",
+    "updated_at": "2025-04-21T12:33:09.322Z",
+    "title": "اپلود سرور",
+    "description": "یک مشکلی در این بخش پیش اومده نمیتونم حل کنم",
+    "session_id": "5fbb1ed7-dfb9-42c4-b803-875b82f46971",
+    "consult": 1,
+    "consult_applicator": 6,
+    "status": "open",
+    "start_at": null,
+    "close_at": "2025-04-08T09:05:23.613Z",
+    "mode": "chat",
+    "price": 200000.0,
+    "discount": 0,
+    "language": "python,ubuntu,nginx,docker",
+    "is_realtime": false,
+    "is_locked": false,
+    "is_payed": false,
+    "is_rejected": true,
+    "rejected_by": 1
+  }
+},
+{
+  "model": "payments.factor",
+  "pk": 8,
+  "fields": {
+    "user": 45,
+    "title": "کلاس خصوصی",
+    "description": "توضیحات کلاس خصوصی",
+    "session_id": "794f3548-90fc-493b-bacf-360fbc3f13b1",
+    "factor_uuid": "7e77aff1-0084-4db6-b286-c19ffff219b8",
+    "amount": 1000,
+    "payemnt_status": "success",
+    "created_at": "2025-04-19T10:27:02.107Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 15,
+  "fields": {
+    "created_at": "2025-02-20T13:29:54.553Z",
+    "updated_at": "2025-04-12T08:06:07.516Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 20,
+  "fields": {
+    "created_at": "2025-03-13T12:02:39.838Z",
+    "updated_at": "2025-04-12T08:00:46.583Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 21,
+  "fields": {
+    "created_at": "2025-03-13T13:53:48.288Z",
+    "updated_at": "2025-03-13T13:53:48.288Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 30,
+  "fields": {
+    "created_at": "2025-03-15T10:31:43.252Z",
+    "updated_at": "2025-04-12T08:05:45.521Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 43,
+  "fields": {
+    "created_at": "2025-03-15T11:28:06.945Z",
+    "updated_at": "2025-04-09T12:34:58.607Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 44,
+  "fields": {
+    "created_at": "2025-03-15T11:28:46.382Z",
+    "updated_at": "2025-03-15T11:28:46.382Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 45,
+  "fields": {
+    "created_at": "2025-03-15T20:43:33.989Z",
+    "updated_at": "2025-03-15T20:43:33.989Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 46,
+  "fields": {
+    "created_at": "2025-03-17T23:29:24.180Z",
+    "updated_at": "2025-03-17T23:29:24.180Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 47,
+  "fields": {
+    "created_at": "2025-03-17T23:29:44.718Z",
+    "updated_at": "2025-03-17T23:29:44.718Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 55,
+  "fields": {
+    "created_at": "2025-04-05T06:54:34.210Z",
+    "updated_at": "2025-04-05T10:56:14.159Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 57,
+  "fields": {
+    "created_at": "2025-04-05T08:17:45.537Z",
+    "updated_at": "2025-04-05T08:17:45.537Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 58,
+  "fields": {
+    "created_at": "2025-04-05T09:28:54.740Z",
+    "updated_at": "2025-04-05T09:28:54.740Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 59,
+  "fields": {
+    "created_at": "2025-04-05T09:29:00.788Z",
+    "updated_at": "2025-04-05T09:29:00.788Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 60,
+  "fields": {
+    "created_at": "2025-04-05T09:29:13.105Z",
+    "updated_at": "2025-04-05T09:29:13.105Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 61,
+  "fields": {
+    "created_at": "2025-04-05T09:29:58.640Z",
+    "updated_at": "2025-04-05T09:29:58.640Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 62,
+  "fields": {
+    "created_at": "2025-04-05T09:30:09.017Z",
+    "updated_at": "2025-04-05T09:30:09.017Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 63,
+  "fields": {
+    "created_at": "2025-04-05T10:46:28.603Z",
+    "updated_at": "2025-04-05T10:46:28.603Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 64,
+  "fields": {
+    "created_at": "2025-04-09T12:40:00.033Z",
+    "updated_at": "2025-04-09T12:48:46.953Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 65,
+  "fields": {
+    "created_at": "2025-04-13T12:34:12.689Z",
+    "updated_at": "2025-04-13T12:34:12.689Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 66,
+  "fields": {
+    "created_at": "2025-04-13T12:44:47.313Z",
+    "updated_at": "2025-04-13T12:44:47.313Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 67,
+  "fields": {
+    "created_at": "2025-04-13T12:48:03.458Z",
+    "updated_at": "2025-04-13T12:48:03.458Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 68,
+  "fields": {
+    "created_at": "2025-04-13T12:52:46.858Z",
+    "updated_at": "2025-04-22T10:31:09.056Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 69,
+  "fields": {
+    "created_at": "2025-04-14T12:12:11.162Z",
+    "updated_at": "2025-04-14T12:12:11.162Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 74,
+  "fields": {
+    "created_at": "2025-04-15T07:16:25.503Z",
+    "updated_at": "2025-04-15T07:16:25.503Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 75,
+  "fields": {
+    "created_at": "2025-04-15T07:18:09.241Z",
+    "updated_at": "2025-04-15T07:18:09.241Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 76,
+  "fields": {
+    "created_at": "2025-04-15T07:18:31.907Z",
+    "updated_at": "2025-04-15T07:18:31.907Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 121,
+  "fields": {
+    "created_at": "2025-04-17T13:22:22.282Z",
+    "updated_at": "2025-04-17T13:22:22.282Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 122,
+  "fields": {
+    "created_at": "2025-04-17T13:24:08.731Z",
+    "updated_at": "2025-04-17T13:24:08.731Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 125,
+  "fields": {
+    "created_at": "2025-04-17T13:36:00.548Z",
+    "updated_at": "2025-04-17T13:36:00.548Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 126,
+  "fields": {
+    "created_at": "2025-04-17T13:36:00.597Z",
+    "updated_at": "2025-04-17T13:36:00.597Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 127,
+  "fields": {
+    "created_at": "2025-04-17T13:36:00.598Z",
+    "updated_at": "2025-04-17T13:36:00.598Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 128,
+  "fields": {
+    "created_at": "2025-04-17T13:36:00.613Z",
+    "updated_at": "2025-04-17T13:36:00.613Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 129,
+  "fields": {
+    "created_at": "2025-04-17T13:36:00.598Z",
+    "updated_at": "2025-04-17T13:36:00.598Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 130,
+  "fields": {
+    "created_at": "2025-04-17T13:40:33.105Z",
+    "updated_at": "2025-04-17T13:40:33.105Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 131,
+  "fields": {
+    "created_at": "2025-04-17T13:40:33.168Z",
+    "updated_at": "2025-04-17T13:40:33.168Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 132,
+  "fields": {
+    "created_at": "2025-04-17T13:40:33.170Z",
+    "updated_at": "2025-04-17T13:40:33.170Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 133,
+  "fields": {
+    "created_at": "2025-04-17T13:40:33.170Z",
+    "updated_at": "2025-04-17T13:40:33.170Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 134,
+  "fields": {
+    "created_at": "2025-04-17T13:40:33.169Z",
+    "updated_at": "2025-04-17T13:40:33.169Z"
+  }
+},
+{
+  "model": "questions.category",
+  "pk": 1,
+  "fields": {
+    "name": "programmer introduction"
+  }
+},
+{
+  "model": "questions.category",
+  "pk": 2,
+  "fields": {
+    "name": "Web Development"
+  }
+},
+{
+  "model": "questions.section",
+  "pk": 1,
+  "fields": {
+    "category": 1,
+    "number": 1
+  }
+},
+{
+  "model": "questions.section",
+  "pk": 2,
+  "fields": {
+    "category": 2,
+    "number": 1
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 1,
+  "fields": {
+    "section": 1,
+    "description": "توضیحات سوال یک",
+    "text": "سوال 1",
+    "sound": "",
+    "active": true,
+    "question_type": "button",
+    "agreement": ""
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 2,
+  "fields": {
+    "section": 1,
+    "description": "سوال 2 توضیحات",
+    "text": "سوال 2",
+    "sound": "",
+    "active": true,
+    "question_type": "text",
+    "agreement": ""
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 3,
+  "fields": {
+    "section": 2,
+    "description": "توضحیات سوال 1",
+    "text": "سوال 1",
+    "sound": "",
+    "active": true,
+    "question_type": "checkbox",
+    "agreement": ""
+  }
+},
+{
+  "model": "questions.question",
+  "pk": 4,
+  "fields": {
+    "section": 1,
+    "description": "",
+    "text": "این نمونه سوال برای طراحی ایم.جی هست",
+    "sound": "",
+    "active": true,
+    "question_type": "emoji",
+    "agreement": "شرایط موافقت نامه"
+  }
+},
+{
+  "model": "questions.answer",
+  "pk": 1,
+  "fields": {
+    "question": 1,
+    "text": "جواب 1",
+    "description": "توضیحات جواب 1",
+    "active": true
+  }
+},
+{
+  "model": "questions.answer",
+  "pk": 2,
+  "fields": {
+    "question": 1,
+    "text": "جواب 2",
+    "description": "توضیحات جواب 2",
+    "active": true
+  }
+},
+{
+  "model": "questions.answer",
+  "pk": 3,
+  "fields": {
+    "question": 4,
+    "text": "❤️",
+    "description": "توضیحات",
+    "active": true
+  }
+},
+{
+  "model": "questions.answer",
+  "pk": 4,
+  "fields": {
+    "question": 4,
+    "text": "😁",
+    "description": "توضیحات",
+    "active": true
+  }
+},
+{
+  "model": "questions.answer",
+  "pk": 5,
+  "fields": {
+    "question": 4,
+    "text": "😂",
+    "description": "توضیحات",
+    "active": true
+  }
+},
+{
+  "model": "followers.followers",
+  "pk": 46,
+  "fields": {
+    "user": 1,
+    "followers": [
+      1,
+      2,
+      5
+    ]
+  }
+},
+{
+  "model": "followers.followers",
+  "pk": 47,
+  "fields": {
+    "user": 2,
+    "followers": [
+      29,
+      35,
+      40,
+      41,
+      42
+    ]
+  }
+},
+{
+  "model": "post.postgroup",
+  "pk": 55,
+  "fields": {
+    "user": 1,
+    "is_slider": true,
+    "title": "عنوان یک",
+    "description": "توضیحات مربوطه",
+    "collection": [
+      57,
+      63
+    ]
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 57,
+  "fields": {
+    "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2_pmjO7IB.jpg",
+    "media_type": "picture",
+    "post_type": "آموزشی",
+    "title": "عنوان",
+    "caption": "کپشن",
+    "file": "static/posts/file/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2_lk7xRt4.jpg",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 63,
+  "fields": {
+    "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_3_ChzlSrg.jpg",
+    "media_type": "picture",
+    "post_type": "آموزشی",
+    "title": "عنوان دو",
+    "caption": "کپشن دو",
+    "file": "static/posts/file/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_3.jpg",
+    "order": 1
+  }
+},
+{
+  "model": "post.comments",
+  "pk": 61,
+  "fields": {
+    "user": 2,
+    "post": 57,
+    "text": "کامنت یک"
+  }
+},
+{
+  "model": "post.comments",
+  "pk": 62,
+  "fields": {
+    "user": 5,
+    "post": 57,
+    "text": "کامنت یک شسیشس"
+  }
+},
+{
+  "model": "post.liked",
+  "pk": 58,
+  "fields": {
+    "user": 2,
+    "post": 57,
+    "is_liked": true
+  }
+},
+{
+  "model": "post.liked",
+  "pk": 59,
+  "fields": {
+    "user": 5,
+    "post": 57,
+    "is_liked": true
+  }
+},
+{
+  "model": "post.liked",
+  "pk": 60,
+  "fields": {
+    "user": 35,
+    "post": 57,
+    "is_liked": true
+  }
+}
+]

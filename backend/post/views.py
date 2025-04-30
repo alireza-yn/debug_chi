@@ -4,10 +4,15 @@ from rest_framework.generics import ListAPIView
 from .serializers import *
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.status import *
 # Create your views here.
 from rest_framework.request import Request
+from rest_framework import status
+from auths.serializers import NormalUserSerializer
+
+
 
 class PostsViewSet(ModelViewSet):
     queryset = Posts.objects.all()
@@ -58,7 +63,22 @@ class UserPostList(ListAPIView):
     def get_queryset(self):
         user = self.request.user
         return PostGroup.objects.filter(user=user)
-    
+
+class GetUserInfoAndPost(APIView):
+    def get(self, request: Request, uuid: str):
+        print(uuid)
+        user = User.objects.filter(uuid=uuid).first()
+        if not user:
+            return Response({"detail": "User not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        posts = PostGroup.objects.filter(user=user)
+        return Response({
+            "user": NormalUserSerializer(user).data,
+            "posts": PostGroupSerializers(posts, many=True).data
+        })
+
+
+
 class CommentViewSet(ModelViewSet):
     queryset = Comments.objects.all()
     serializer_class = CommentSerializer
@@ -70,3 +90,11 @@ class LikedPostViewSet(ModelViewSet):
 class PostListModelViewSet(ModelViewSet):
     queryset = PostGroup.objects.all()
     serializer_class = PostGroupSerializers
+
+
+
+class VideoPostListAPIView(ListAPIView):
+    serializer_class = PostSerializer
+    def get_queryset(self):
+        return Posts.objects.filter(media_type="video").order_by('-created_at')
+

@@ -22,6 +22,7 @@ import { ModalPicturePlayer, ModalVideoPlayer } from "../ModalVideoPlayer";
 import { GetUserActivityHistoryTab } from "./TabsData";
 import AddPost from "../AddPost";
 import UserResume from "./Resume";
+import UploadResume from "./AddBadge";
 
 type Props = {
   user: UserType;
@@ -100,7 +101,7 @@ const UserDashboard = ({ user, posts }: Props) => {
               user.user_resume.map((item) => {
                 return (
                   <div
-                    className="rounded-full w-auto h-auto aspect-square box-border p-2  border-2 border-orange-500"
+                    className="rounded-full flex flex-col items-center gap-2 w-auto h-auto aspect-square box-border p-2"
                     key={item.id}
                   >
                     <Image
@@ -110,19 +111,14 @@ const UserDashboard = ({ user, posts }: Props) => {
                       height={60}
                       alt={item.title}
                     />
+                    <span>{item.title}</span>
                   </div>
                 );
               })}
 
             {user.user_roles.includes("debugger") &&
               user.user_resume.length != 5 && (
-                <Button
-                  className="w-[80px] h-[80px]"
-                  radius="full"
-                  variant="bordered"
-                  color="warning"
-                  startContent={<Plus color="orange" />}
-                ></Button>
+              <UploadResume />
               )}
           </div>
         </div>

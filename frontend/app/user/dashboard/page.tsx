@@ -116,7 +116,7 @@ const page = async ({ params }: any) => {
   // console.log(posts);
 
   if (response.status == 401) {
-    return <div>کاربر پیدا نشد</div>;
+    return <div className="flex items-center justify-center w-full h-screen">کاربر پیدا نشد</div>;
   } else {
     return (
       <main className="w-full h-screen flex">

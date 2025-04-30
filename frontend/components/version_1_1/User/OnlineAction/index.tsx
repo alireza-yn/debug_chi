@@ -24,7 +24,7 @@ import {
   Tabs,
   useDisclosure,
 } from "@heroui/react";
-import { Power, Settings, Star } from "lucide-react";
+import { Headset, PhoneCall, Power, Settings, Star, X } from "lucide-react";
 import Image from "next/image";
 import React, { useState } from "react";
 import Cookies from "js-cookie";
@@ -44,11 +44,16 @@ const OnlineAction = (props: Props) => {
     Cookies.set("private_class", "true");
     Cookies.set("public_class", "true");
   };
+  const [show, setShow] = useState<boolean>(true);
 
   return (
-    <div className=" h-32 flex items-center justify-center relative z-[99] rounded-3xl">
-      <ModalSettings />
-      <ModalTask />
+    <div
+      className={`h-32 flex items-center justify-center relative z-[${
+        show ? "9999" : "50"
+      }] rounded-3xl`}
+    >
+      <ModalSettings setShow={setShow} show={show} />
+      <ModalTask setShow={setShow} show={show}/>
       <Button
         onPress={showNewRequestHandler}
         startContent={
@@ -67,14 +72,23 @@ const OnlineAction = (props: Props) => {
 
 export default OnlineAction;
 
-const ModalSettings = () => {
+const ModalSettings = ({
+  setShow,
+  show,
+}: {
+  setShow: (show: boolean) => void;
+  show: boolean;
+}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
       <Button
         endContent={<Settings />}
-        onPress={onOpen}
+        onPress={() => {
+          onOpen();
+          setShow(!show);
+        }}
         variant="light"
         className="absolute right-12 bottom-16"
       >
@@ -85,26 +99,32 @@ const ModalSettings = () => {
         onOpenChange={onOpenChange}
         size="5xl"
         hideCloseButton
+        backdrop="blur"
+
         dir="rtl"
       >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex items-center gap-4">
-                <Settings size={20} />
-                <span className="font-lightSans !font-normal">تنظیمات</span>
+              <ModalHeader className="flex items-center justify-between">
+                <div className="flex items-center gap-4">
+                  <Settings size={20} />
+                  <span className="font-lightSans !font-normal">تنظیمات</span>
+                </div>
+                <Button
+                  isIconOnly
+                  startContent={<X size={14} />}
+                  color="danger"
+                  variant="light"
+                  onPress={() => {
+                    setShow(!show);
+                    onClose();
+                  }}
+                ></Button>
               </ModalHeader>
               <ModalBody className="min-h-[500px] flex flex-col gap-4">
                 <SettingTabContent />
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
             </>
           )}
         </ModalContent>
@@ -115,10 +135,10 @@ const ModalSettings = () => {
 
 const SettingTabContent = () => {
   return (
-    <div className="flex w-full flex-col gap-6">
-      <Tabs aria-label="Options">
+    <div className="flex w-full flex-col ">
+      <Tabs aria-label="Options" variant="underlined">
         {/* Notifications Tab */}
-        <Tab key="notifications" title="نوتیفیکیشن">
+        {/* <Tab key="notifications" title="نوتیفیکیشن">
           <Card>
             <CardBody className="flex flex-col gap-4">
               <Switch defaultSelected>فعال‌سازی اعلان‌ها</Switch>
@@ -127,10 +147,10 @@ const SettingTabContent = () => {
               <Switch>نوتیفیکیشن پیام جدید</Switch>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
 
         {/* Profile Tab */}
-        <Tab key="profile" title="پروفایل کاربر">
+        {/* <Tab key="profile" title="پروفایل کاربر">
           <Card>
             <CardBody className="flex flex-col gap-6">
               <Dropdown>
@@ -160,10 +180,10 @@ const SettingTabContent = () => {
               </Dropdown>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
 
         {/* Security Tab */}
-        <Tab key="security" title="امنیت و ورود">
+        {/* <Tab key="security" title="امنیت و ورود">
           <Card>
             <CardBody className="flex flex-col gap-4">
               <Switch defaultSelected>فعال‌سازی احراز هویت دو مرحله‌ای</Switch>
@@ -175,10 +195,10 @@ const SettingTabContent = () => {
               <Switch>ورود خودکار در دستگاه‌های قابل‌اعتماد</Switch>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
 
         {/* Appearance Tab */}
-        <Tab key="appearance" title="ظاهر">
+        {/* <Tab key="appearance" title="ظاهر">
           <Card>
             <CardBody className="flex flex-col gap-4">
               <Switch defaultSelected>تم تاریک</Switch>
@@ -204,10 +224,10 @@ const SettingTabContent = () => {
               </Dropdown>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
 
         {/* AI Settings Tab */}
-        <Tab key="ai" title="هوش مصنوعی">
+        {/* <Tab key="ai" title="هوش مصنوعی">
           <Card>
             <CardBody className="flex flex-col gap-4">
               <Dropdown>
@@ -233,10 +253,10 @@ const SettingTabContent = () => {
               </Dropdown>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
 
         {/* History Tab */}
-        <Tab key="history" title="تاریخچه و داده‌ها">
+        {/* <Tab key="history" title="تاریخچه و داده‌ها">
           <Card>
             <CardBody className="flex flex-col gap-4">
               <Switch defaultSelected>ذخیره تاریخچه تعاملات</Switch>
@@ -252,32 +272,40 @@ const SettingTabContent = () => {
               </Dropdown>
             </CardBody>
           </Card>
-        </Tab>
+        </Tab> */}
 
         {/* General Tab */}
-        <Tab key="general" title="عمومی">
-          <Card>
-            <CardBody className="flex flex-col gap-6">
-              <CheckboxGroup label="شهرهای مورد علاقه">
-                <Checkbox value="tehran">تهران</Checkbox>
-                <Checkbox value="shiraz">شیراز</Checkbox>
-                <Checkbox value="tabriz">تبریز</Checkbox>
-              </CheckboxGroup>
-              <div>
-                <label className="text-sm font-medium mb-2 block">
-                  بازه تاریخی فعالیت‌ها
-                </label>
-                <RangeCalendar
-                  showMonthAndYearPickers
-                  aria-label="Date Range Picker"
-                />
-              </div>
-            </CardBody>
-          </Card>
+        <Tab key="contact_us" title={"ارتباط با ما"}>
+          <div className="w-full min-h-[400px] flex items-center justify-center flex-col gap-4">
+            {/* <Image
+          className="rounded-full"
+          src={"/user.jpg"}
+          alt="support_call"
+          width={300}
+          height={300}
+          /> */}
+            <div className="w-auto h-auto p-5 bg-secondary-200 rounded-full">
+              <Headset size={90} className="stroke-secondary-900" />
+            </div>
+            <span className="mb-6">جهت ارتباط با کارشناسان تماس بگیرید</span>
+            <Input
+              className="max-w-96"
+              type="tel"
+              value={"+989029457261"}
+              variant="faded"
+              startContent={
+                <Button
+                  startContent={<PhoneCall size={14} />}
+                  isIconOnly
+                  variant="light"
+                ></Button>
+              }
+            />
+          </div>
         </Tab>
 
         {/* About Tab */}
-        <Tab key="about" title="درباره ما">
+        <Tab key="about" title={"درباره ما"}>
           <Card>
             <CardBody className="flex flex-col gap-4">
               <Dropdown>
@@ -291,20 +319,17 @@ const SettingTabContent = () => {
                 </DropdownMenu>
               </Dropdown>
               <p className="text-medium max-w-2xl mx-auto text-gray-500 font-mediumSans text-wrap text-right">
-                
                 درباره ما ما یک تیم نرم‌افزاری هستیم که با هدف ساده‌سازی یادگیری
                 و رفع مشکلات برنامه‌نویسی، پلتفرم «دیباگچی» را توسعه داده‌ایم.
-                <br/>
-                <br/>
+                <br />
+                <br />
                 دیباگچی با بهره‌گیری از هوش مصنوعی، کاربران را در سریع‌ترین زمان
                 ممکن به متخصصان واقعی در زمینه‌های مختلف از جمله دیباگ، مشاوره،
-                و کلاس‌های خصوصی یا عمومی متصل می‌کند. 
-                <br/>
-                <br/>
-                
-                هدف ما اینه که مسیر
-                یادگیری و حل مسئله برای علاقه‌مندان و برنامه‌نویسان، ساده، سریع
-                و موثر باشه.
+                و کلاس‌های خصوصی یا عمومی متصل می‌کند.
+                <br />
+                <br />
+                هدف ما اینه که مسیر یادگیری و حل مسئله برای علاقه‌مندان و
+                برنامه‌نویسان، ساده، سریع و موثر باشه.
               </p>
             </CardBody>
           </Card>
@@ -314,14 +339,23 @@ const SettingTabContent = () => {
   );
 };
 
-const ModalTask = () => {
+const ModalTask = ({
+  setShow,
+  show,
+}: {
+  setShow: (show: boolean) => void;
+  show: boolean;
+}) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
 
   return (
     <>
       <Button
         endContent={<Star />}
-        onPress={onOpen}
+        onPress={() => {
+          onOpen();
+          setShow(!show);
+        }}
         variant="light"
         className="absolute left-12 bottom-16"
       >
@@ -331,26 +365,32 @@ const ModalTask = () => {
         isOpen={isOpen}
         onOpenChange={onOpenChange}
         hideCloseButton
+        backdrop="blur"
         dir="rtl"
       >
         <ModalContent>
           {(onClose) => (
             <>
-              <ModalHeader className="flex items-center gap-4">
-                <Settings size={20} />
-                <span className="font-lightSans !font-normal">تسک منتخب</span>
+              <ModalHeader className="flex items-center justify-between gap-4">
+              <div className="flex items-center gap-4">
+                  <Settings size={20} />
+                  <span className="font-lightSans !font-normal">تنظیمات</span>
+                </div>
+                <Button
+                  isIconOnly
+                  startContent={<X size={14} />}
+                  color="danger"
+                  variant="light"
+                  onPress={() => {
+                    setShow(!show);
+                    onClose();
+                  }}
+                ></Button>
               </ModalHeader>
               <ModalBody className="min-h-[500px] flex flex-col gap-4">
                 <TaskSettingsContent />
               </ModalBody>
-              <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button>
-              </ModalFooter>
+            
             </>
           )}
         </ModalContent>

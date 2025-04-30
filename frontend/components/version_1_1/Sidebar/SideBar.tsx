@@ -4,7 +4,19 @@
 "use client";
 
 import { Button, ButtonGroup, Tooltip } from "@heroui/react";
-import { Book, Bug, Gavel, Hammer, HandCoins, Home, PackageSearch, Search, User } from "lucide-react";
+import {
+  Book,
+  Bug,
+  Gavel,
+  Hammer,
+  HandCoins,
+  Home,
+  MessageCircleCode,
+  PackageSearch,
+  Search,
+  Globe,
+  User,
+} from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -122,6 +134,8 @@ const linkData = [
   { name: "خانه", path: "/", icon: Home },
   { name: "اکسپلور", path: "/landing", icon: Search },
   { name: "مزایده و مناقصه", path: "/bid", icon: Gavel },
+  { name: "جامعه", path: "/community", icon: Globe },
+  // {name:"چت",path:'/chat',icon:MessageCircleCode}
 ];
 
 import React from "react";
@@ -136,7 +150,10 @@ const SidebarBody = (props: Props) => {
         return (
           <Tooltip content={item.name} placement="right" key={index}>
             <Link href={item.path}>
-              <Button className={`${item.path === pathname ? "scale-110" : '' } hover:scale-125 transition-all duration-500 ease-in-out`}
+              <Button
+                className={`${
+                  item.path === pathname ? "scale-110" : ""
+                } hover:scale-125 transition-all duration-500 ease-in-out`}
                 variant={item.path === pathname ? "solid" : "flat"}
                 name={item.name}
                 isIconOnly

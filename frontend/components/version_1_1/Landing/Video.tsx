@@ -7,11 +7,11 @@ type Props = {};
 
 const Video = (props: Props) => {
   return (
-    <div className="w-full mx-auto flex flex-col items-center justify-center min-h-[500px] bg-white   dark:bg-slate-900 box-border p-5 mt-20">
+    <div className="w-full mx-auto flex flex-col items-center justify-center min-h-[500px] bg-white   dark:bg-slate-900 box-border p-5 ">
       
       <div className="w-full flex justify-between px-10 box-border my-16">
         <span className="text-3xl leading-loose font-blackSans">
-          ببینید اتصال و کار با <br /> آن دیباگچی چگونه است
+          ببینید اتصال و کار با <br />  دیباگچی چگونه است
         </span>
         <span className="text-3xl leading-loose font-mediumSans">
           شما میتوانید مشکلات نرم افزاری خود <br /> را به دیباگچی بسپارید

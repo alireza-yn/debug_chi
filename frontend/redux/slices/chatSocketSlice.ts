@@ -19,9 +19,11 @@ const aiSlice = createSlice({
     },
 
     setSatus:(state,action:PayloadAction<{id:string,status: "sent" | "pending" | "recieved"}>)=>{
-        const msgIndex = state.findIndex((item) => item.id === action.payload.id); // پیدا کردن ایتم بر اساس id
-        if (msgIndex !== -1) { // اگر پیام پیدا شد
-          state[msgIndex].data.status = action.payload.status; // آپدیت وضعیت پیام
+      console.log(action.payload.id)
+        const msg = state.findIndex((item) => item.session_id === action.payload.id); 
+        console.log(state[msg])// پیدا کردن ایتم بر اساس id
+        if (msg) { // اگر پیام پیدا شد
+          // state[msg].data.status = action.payload.status
         }
     },
     setRead :(state)=>{

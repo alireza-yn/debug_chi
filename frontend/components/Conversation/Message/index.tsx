@@ -1,135 +1,167 @@
-"use client"
+"use client";
 
-import { useEffect, useRef, useState } from "react"
-import { Check, CheckCheck, Clock, DownloadCloud, ExternalLink, Pause, Play, Share2 } from "lucide-react"
-import type { chatData } from "@/components/types/testChat.type"
-import { Avatar } from "@heroui/react"
-import { CodeBlock } from "@/components/ui/ace/code-block"
+import { useEffect, useRef, useState } from "react";
+import {
+  Check,
+  CheckCheck,
+  Clock,
+  DownloadCloud,
+  ExternalLink,
+  Pause,
+  Play,
+  Share2,
+} from "lucide-react";
+import type { chatData } from "@/components/types/testChat.type";
+import { Avatar, Button, Chip, Textarea } from "@heroui/react";
+import { CodeBlock } from "@/components/ui/ace/code-block";
+import { formatCurrency } from "@/utils/tools";
+import { perform_post } from "@/lib/api";
 
 type Props = {
-  data: chatData
-  sender: string,
-  reciever:string;
-}
+  data: chatData;
+  sender: string;
+  reciever: string;
+  session: string;
+};
 
 const Message = (props: Props) => {
   // console.log(props.reciever)
   // console.log(props.data.audioUrl)
-  const user_data = localStorage.getItem("user_data")
-  let user: any
+  const user_data = localStorage.getItem("user_data");
+  let user: any;
   if (user_data) {
-    user = JSON.parse(user_data)
-    console.log(user.first_name)
+    user = JSON.parse(user_data);
+    console.log(user.first_name);
   }
 
   // #region audio
-  const [time, setTime] = useState(0)
-  const [isPlaying, setIsPlaying] = useState(false)
-  const audioRef = useRef<HTMLAudioElement | null>(null)
+  const [time, setTime] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     if (audioRef.current) {
       audioRef.current.ontimeupdate = () => {
-        setTime(audioRef.current?.currentTime || 0)
-      }
+        setTime(audioRef.current?.currentTime || 0);
+      };
     }
-  }, [])
+  }, []);
 
   const togglePlayPause = () => {
     if (audioRef.current) {
       if (isPlaying) {
-        audioRef.current.pause()
+        audioRef.current.pause();
       } else {
-        audioRef.current.play()
+        audioRef.current.play();
       }
-      setIsPlaying(!isPlaying)
+      setIsPlaying(!isPlaying);
     }
-  }
+  };
 
   const handleSliderChange = (value: number) => {
-    setTime(value)
+    setTime(value);
     if (audioRef.current) {
-      audioRef.current.currentTime = value
+      audioRef.current.currentTime = value;
     }
-  }
+  };
 
   const formatTime = (seconds: number) => {
-    const minutes = Math.floor(seconds / 60)
-    const secs = Math.floor(seconds % 60)
-    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`
-  }
+    const minutes = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${minutes}:${secs < 10 ? "0" : ""}${secs}`;
+  };
   // #endregion
 
   const readReceipt = () => {
     if (user?.uuid === props.sender) {
       if (props.data.status === "pending") {
-        return <Clock className="text-gray-400" size={14} />
+        return <Clock className="text-gray-400" size={14} />;
       } else if (props.data.status === "sent") {
-        return <Check className="text-gray-400" size={14} />
+        return <Check className="text-gray-400" size={14} />;
       }
-      return <CheckCheck className="text-blue-500" size={14} />
+      return <CheckCheck className="text-blue-500" size={14} />;
     }
-    return null
-  }
+    return null;
+  };
 
   const formatDate = () => {
     return new Date(props.data.created_at || "").toLocaleTimeString("fa-IR", {
       hour: "2-digit",
       minute: "2-digit",
-    })
-  }
+    });
+  };
 
   const copyToClipboard = (text: string) => {
-    navigator.clipboard.writeText(text)
+    navigator.clipboard.writeText(text);
     // You could add a toast notification here
-  }
-
+  };
+  console.log(props.reciever);
   if (props.data.type === "text") {
     return (
       <div className="flex gap-2 items-start h-auto">
-        <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+        <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden flex-shrink-0">
           <img
-            src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
+            src={
+              user.uuid == props.sender
+                ? `${process.env.server}/${user?.image_profile}`
+                : `${process.env.server}/${props.reciever}`
+            }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"
           />
         </div>
         <div
           className={`flex flex-col gap-2 relative max-w-96 font-sans rounded-2xl ${
-            user?.uuid === props.sender ? "bg-blue-600 text-white" : "bg-gray-100 text-gray-800"
+            user?.uuid === props.sender
+              ? "bg-blue-600 text-white"
+              : "bg-gray-100 dark:bg-gray-900 text-foreground-900"
           } px-4 py-2`}
         >
-          <span className="break-words whitespace-pre-wrap">{props.data.text}</span>
+          <span className="break-words whitespace-pre-wrap font-lightSans">
+            {props.data.text}
+          </span>
           <div className="flex items-center justify-end gap-1 self-end text-xs">
             <span>{formatDate()}</span>
             {readReceipt()}
           </div>
         </div>
       </div>
-    )
+    );
   } else if (props.data.type === "audio") {
     return (
       <div className="flex items-start gap-4">
         <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-slate-900 overflow-hidden flex-shrink-0">
           <img
-            src={user?.image_profile }
+            src={
+              user.uuid == props.sender
+                ? `${process.env.server}/${user?.image_profile}`
+                : `${process.env.server}/${props.reciever}`
+            }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"
-           
           />
         </div>
 
-        <div className="grid grid-cols-1 w-96 bg-gray-100 rounded-2xl py-2 px-4 gap-2">
+        <div className="grid grid-cols-1 w-96 bg-gray-100 dark:bg-gray-900 rounded-2xl py-2 px-4 gap-2">
           <audio ref={audioRef}>
-            <source src={process.env.nodejs_server+"/"+props.data.audioUrl} type="audio/wav" />
+            <source src={props.data.audioUrl} type="audio/webm" />
           </audio>
           <div className="flex gap-4 items-center">
-            <button
-              className="rounded-full p-2 bg-gray-200 hover:bg-gray-300 transition-colors"
-              onClick={togglePlayPause}
+            <Button
+              // className=""
+              onPress={togglePlayPause}
+              color="secondary"
+              isIconOnly
+              radius="full"
+              variant="flat"
+              startContent={isPlaying ? (
+                <Pause size={14} />
+              ) : (
+                <Play size={14} className="fill-current ml-0.5" />
+              )}
             >
-              {isPlaying ? <Pause size={14} /> : <Play size={14} className="fill-current ml-0.5" />}
-            </button>
+              
+            </Button>
 
             <div className="flex-1">
               <input
@@ -152,27 +184,35 @@ const Message = (props: Props) => {
           </div>
         </div>
       </div>
-    )
+    );
   } else if (props.data.type === "file") {
     return (
       <div className="flex gap-4 items-start">
-        <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+        <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-slate-900 overflow-hidden flex-shrink-0">
           <img
-            src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
+            src={
+              user.uuid == props.sender
+                ? `${process.env.server}/${user?.image_profile}`
+                : `${process.env.server}/${props.reciever}`
+            }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"
-          
           />
         </div>
-        <div className="max-w-96 bg-gray-100 flex flex-col h-auto p-2 rounded-2xl">
-          <div className="bg-gray-200 h-14 rounded-xl flex items-center justify-between px-3">
-            <span className="font-medium truncate">filename</span>
-            <button className="p-2 text-gray-700 hover:text-gray-900 transition-colors">
+        <div className="max-w-96 bg-gray-100 dark:bg-gray-900 flex flex-col h-auto p-2 rounded-2xl">
+          <div className="bg-gray-200 dark:bg-gray-800 h-14 rounded-xl flex items-center justify-between px-3">
+            <span className="font-medium truncate">{props.data.filename}</span>
+            <a
+              className="p-2 text-gray-700 hover:text-gray-900 transition-colors"
+              href={props.data.url}
+            >
               <DownloadCloud size={20} />
-            </button>
+            </a>
           </div>
           <div className="w-full h-auto p-2">
-            <span className="break-words whitespace-pre-wrap">{props.data.text}</span>
+            <span className="break-words whitespace-pre-wrap">
+              {props.data.text}
+            </span>
           </div>
           <div className="flex items-center justify-end gap-1 self-end p-2 text-xs text-gray-600">
             <span>{formatDate()}</span>
@@ -180,30 +220,38 @@ const Message = (props: Props) => {
           </div>
         </div>
       </div>
-    )
+    );
   } else if (props.data.type === "picture") {
     return (
       <div className="flex gap-4 items-start">
-        <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+        <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden flex-shrink-0">
           <img
-            src={user?.image_profile || "/placeholder.svg"}
-            alt={user?.first_name || "User"}
+               src={
+                user.uuid == props.sender
+                  ? `${process.env.server}/${user?.image_profile}`
+                  : `${process.env.server}/${props.reciever}`
+              }
+            alt={user?.first_name || "sender"}
             className="h-full w-full object-cover"
             onError={(e) => {
-              ;(e.target as HTMLImageElement).src = `/placeholder.svg?height=40&width=40`
+              (
+                e.target as HTMLImageElement
+              ).src = `/placeholder.svg?height=40&width=40`;
             }}
           />
         </div>
-        <div className="max-w-96 bg-gray-100 flex flex-col h-auto p-2 rounded-2xl">
+        <div className="max-w-96 bg-gray-100 dark:bg-gray-900 flex flex-col h-auto p-2 rounded-2xl">
           <div className="rounded-lg overflow-hidden cursor-pointer">
             <img
-             src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
-              alt="HeroUI hero Image"
+              src={props.data.url}
+              alt={props.data.filename}
               className="w-full h-auto object-cover"
             />
           </div>
           <div className="w-full h-auto p-2 mt-2 text-right">
-            <span className="break-words whitespace-pre-wrap">{props.data.text}</span>
+            <span className="break-words whitespace-pre-wrap">
+              {props.data.text}
+            </span>
           </div>
           <div className="flex items-center justify-end gap-1 self-end p-2 text-xs text-gray-600">
             <span>{formatDate()}</span>
@@ -211,13 +259,17 @@ const Message = (props: Props) => {
           </div>
         </div>
       </div>
-    )
+    );
   } else if (props.data.type === "anydesk") {
     return (
       <div className="flex gap-4 items-start rtl">
         <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-700 overflow-hidden flex-shrink-0">
           <Avatar
-            src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
+            src={
+              user.uuid == props.sender
+                ? `${process.env.server}/${user?.image_profile}`
+                : props.reciever
+            }
             alt={user?.first_name || "کاربر"}
             name={user?.first_name}
           />
@@ -226,17 +278,25 @@ const Message = (props: Props) => {
           {/* سربرگ AnyDesk */}
           <div className="flex items-center gap-2 mb-3">
             <div className="bg-red-600 p-1.5 rounded-md">
-              <svg className="w-5 h-5 text-white" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                className="w-5 h-5 text-white"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M19.7,10.5L19.7,10.5l-6-6c-0.4-0.4-1-0.4-1.4,0l0,0l-6,6c-0.4,0.4-0.4,1,0,1.4l6,6c0.4,0.4,1,0.4,1.4,0l6-6C20.1,11.5,20.1,10.9,19.7,10.5z M12,16.2L7.8,12L12,7.8l4.2,4.2L12,16.2z" />
               </svg>
             </div>
-            <span className="font-bold text-gray-800 dark:text-gray-200">دسترسی از راه دور AnyDesk</span>
+            <span className="font-bold text-gray-800 dark:text-gray-200">
+              دسترسی از راه دور AnyDesk
+            </span>
           </div>
 
           {/* شناسه AnyDesk */}
           <div className="bg-white dark:bg-gray-800 rounded-lg p-3 mb-3 border border-gray-200 dark:border-gray-600 shadow-sm">
             <div className="flex justify-between items-center mb-1">
-              <span className="text-sm text-gray-600 dark:text-gray-300">شناسه AnyDesk</span>
+              <span className="text-sm text-gray-600 dark:text-gray-300">
+                شناسه AnyDesk
+              </span>
               <button
                 onClick={() => copyToClipboard(props.data.text || "")}
                 className="text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-500 flex items-center gap-1 text-xs font-medium"
@@ -246,7 +306,9 @@ const Message = (props: Props) => {
               </button>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-lg font-mono font-bold text-red-600 dark:text-red-400 tracking-wider">{props.data.text}</span>
+              <span className="text-lg font-mono font-bold text-red-600 dark:text-red-400 tracking-wider">
+                {props.data.text}
+              </span>
             </div>
           </div>
 
@@ -290,56 +352,223 @@ const Message = (props: Props) => {
           </div>
         </div>
       </div>
-    )
-    
-    
-  }
-  else if (props.data.type == "code"){
-    return(
+    );
+  } else if (props.data.type == "code") {
+    return (
       <div className="flex items-start gap-2  h-auto">
-      <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
+        <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden flex-shrink-0">
+          <img
+            src={
+              user.uuid == props.sender
+                ? `${process.env.server}/${user?.image_profile}`
+                : `${process.env.server}/${props.reciever}`
+            }
+            alt={user?.first_name || "User"}
+            className="h-full w-full object-cover"
+          />
+        </div>
+        <div
+          className={`flex flex-col gap-2 relative sm:w-full md:w-2/4 lg:w-3/4 font-sans rounded-2xl`}
+        >
+          <CodeBlock
+            filename="code"
+            language={props.data.language || ""}
+            code={props.data.text || ""}
+          />
+
+          <div className="flex items-center justify-end gap-1 self-end text-xs">
+            <span>{formatDate()}</span>
+            {readReceipt()}
+          </div>
+        </div>
+      </div>
+    );
+  } else if (props.data.type == "payment") {
+    return (
+      <PaymentMessage
+        session_id={props.session}
+        user={user}
+        sender={props.sender}
+        reciever={props.reciever}
+        data={props.data.data}
+        status={props.data.status}
+      />
+    );
+  }
+
+  return null;
+};
+
+export default Message;
+
+const PaymentMessage = ({
+  data,
+  sender,
+  reciever,
+  user,
+  status,
+  session_id,
+}: {
+  data: any;
+  sender: any;
+  user: any;
+  reciever: any;
+  status: any;
+  session_id: string;
+}) => {
+  const _date = new Date(data.date).toLocaleDateString("fa-IR", {
+    day: "numeric",
+    hour: "numeric",
+    year: "numeric",
+    minute: "numeric",
+    month: "long",
+  });
+  const [isLoading, setIsLoading] = useState(false);
+  const createPayment = async () => {
+    setIsLoading(true);
+    const response = await perform_post("payment/create_payment/", {
+      session_id: session_id,
+      title: "کلاس خصوصی",
+      description: "توضیحات کلاس خصوصی",
+      amount: 1000,
+    });
+    if (response.success) {
+      window.location.href = response.url;
+      setIsLoading(false);
+    }
+  };
+  return (
+    <div className="flex flex-row-reverse items-start gap-2 h-auto">
+      <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden flex-shrink-0">
         <img
-          src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
+          src={
+            user.uuid == sender
+              ? `${process.env.server}/${user?.image_profile}`
+              : `${process.env.server}/${reciever}`
+          }
           alt={user?.first_name || "User"}
           className="h-full w-full object-cover"
         />
       </div>
       <div
-        className={`flex flex-col gap-2 relative sm:w-full md:w-2/4 lg:w-3/4 font-sans rounded-2xl`}
+        className={`flex flex-col gap-2 relative sm:w-full md:w-2/4 lg:w-1/4 min-h-20 bg-white dark:bg-black  rounded-2xl p-4`}
       >
-              <CodeBlock filename="code"  language={props.data.language || ""} code={props.data.text || ""} />
+        {/* Payment Data Display */}
+        <div className="flex flex-col">
+          {/* Header with status badge */}
+          <div className="flex justify-between items-center mb-3">
+            <h3 className="font-semibold text-gray-800">اطلاعات پرداخت</h3>
+            <span className="px-2 py-1 text-xs  rounded-full bg-amber-100 text-amber-800 capitalize">
+              {status == "pending"
+                ? "درحال بررسی"
+                : status == "close"
+                ? "لغو درخواست"
+                : "پرداخت شده"}
+            </span>
+          </div>
 
-        <div className="flex items-center justify-end gap-1 self-end text-xs">
-          <span>{formatDate()}</span>
-          {readReceipt()}
+          {/* Date and time */}
+          <div className="mb-3">
+            <div className="flex items-center gap-2 text-gray-600 mb-1">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+                />
+              </svg>
+              <span className="text-sm">{_date}</span>
+            </div>
+            <div className="flex items-center gap-2 text-gray-600">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
+              </svg>
+              <span className="text-sm">{data.time}</span>
+            </div>
+          </div>
+
+          {/* Session details */}
+          <div className="bg-gray-50 rounded-lg p-3 mb-3">
+            <h4 className=" text-gray-700 mb-2">اطلاعات جلسه</h4>
+            <div className="grid grid-cols-2 gap-2 text-sm">
+              <div className="text-gray-500">زمان:</div>
+              <div className="text-gray-800 ">
+                {data.class.session_hours}ساعت{" "}
+                {data.class.session_minutes > 0
+                  ? `${data.class.session_minutes}m`
+                  : ""}
+              </div>
+
+              <div className="text-gray-500">تعداد جلسات:</div>
+              <div className="text-gray-800 ">{data.class.session_number}</div>
+            </div>
+          </div>
+
+          {/* Session type */}
+          <div className="flex justify-between flex-wrap gap-2 mb-3 items-center">
+            <div className="flex justify-between flex-wrap gap-2">
+              {Object.entries(data.moshaver).map(([key, value]) => {
+                if (key.startsWith("is_") && value === true) {
+                  const type = key.replace("is_", "");
+                  return (
+                    <span
+                      key={key}
+                      className="px-2 py-1 text-xs bg-blue-100 text-blue-800 rounded-full capitalize"
+                    >
+                      {type}
+                    </span>
+                  );
+                }
+                return null;
+              })}
+            </div>
+            <Chip className="text-foreground">{formatCurrency(1000)}</Chip>
+          </div>
+          {/* Action buttons */}
+          {sender != user.uuid ? (
+            <div className="flex gap-2 mt-2">
+              <Button
+                color="success"
+                fullWidth
+                className="text-background"
+                onPress={createPayment}
+                isLoading={isLoading}
+              >
+                پرداخت
+              </Button>
+              <Button fullWidth variant="bordered" color="danger">
+                لغو
+              </Button>
+            </div>
+          ) : (
+            <div className="w-full h-10 rounded-2xl bg-default-800 flex items-center justify-center text-background">
+              {status == "pending"
+                ? "درحال بررسی"
+                : status == "close"
+                ? "لغو درخواست"
+                : "پرداخت شده"}
+            </div>
+          )}
         </div>
       </div>
     </div>
-      
-      
-    )  
-  }
-  else if(props.data.type == "payment"){
-    return (
-      <div className="flex items-start gap-2  h-auto">
-      <div className="h-10 w-10 rounded-full bg-gray-200 overflow-hidden flex-shrink-0">
-        <img
-          src={user.uuid == props.sender  ? `${process.env.server}/${user?.image_profile}` : props.reciever}
-          alt={user?.first_name || "User"}
-          className="h-full w-full object-cover"
-        />
-      </div>
-      <div
-        className={`flex flex-col gap-2 relative sm:w-full md:w-2/4 lg:w-3/4 font-sans rounded-2xl`}
-      >
-            payment
-      </div>
-    </div>
-    )
-  }
-
-  return null
-}
-
-export default Message
-
+  );
+};

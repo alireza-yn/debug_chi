@@ -28,7 +28,7 @@ const UserResume = ({ data }: { data: Main }) => {
       <ForigenLanguageSection />
       <Divider className="w-3/4" />
 
-      <Testimonials />
+      <Testimonials comments={data.user_main_comment}/>
     </div>
   );
 };

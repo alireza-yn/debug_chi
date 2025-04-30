@@ -120,6 +120,7 @@ const SendCode = ({sender,reciever}:Props) => {
       sender: sender,
       receiver: reciever,
       data: {
+        id:v4(),
         type:"code",
         text: code,
         language:language,
@@ -134,11 +135,12 @@ const SendCode = ({sender,reciever}:Props) => {
   return (
     <>
       <Button
+      className="bg-lime-300 text-black"
         onPress={onOpen}
         isIconOnly
-        startContent={<Code />}
-        variant="flat"
-        size="sm"
+        startContent={<Code size={16} />}
+        variant="light"
+        size="md"
         radius="full"
       ></Button>
 
@@ -153,7 +155,7 @@ const SendCode = ({sender,reciever}:Props) => {
           {(onClose) => (
             <>
               <DrawerHeader className="flex  gap-3">
-                {/* Language Selector */}
+
                 <Select
                   label="انتخاب زبان"
                   selectedKeys={[language]}
@@ -166,7 +168,7 @@ const SendCode = ({sender,reciever}:Props) => {
                   ))}
                 </Select>
 
-                {/* Font Size Selector */}
+
                 <Select
                   label="اندازه فونت"
                   selectedKeys={[String(fontSize)]}

@@ -1,56 +1,41 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import Image from "next/image"
-import { ChevronLeft, ChevronRight, Star } from "lucide-react"
-import { motion, AnimatePresence } from "framer-motion"
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import { ChevronLeft, ChevronRight, Star } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { UserMainComment } from "@/components/types/user.types";
+import { User } from "@heroui/react";
 
-export default function Testimonials() {
-  const [currentPage, setCurrentPage] = useState(0)
-  const [direction, setDirection] = useState(0)
-  const [isVisible, setIsVisible] = useState(false)
+export default function Testimonials({
+  comments,
+}: {
+  comments: UserMainComment[];
+}) {
+  const [currentPage, setCurrentPage] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    setIsVisible(true)
-  }, [])
+    setIsVisible(true);
+  }, []);
 
-  const testimonials = [
-    {
-      id: 1,
-      name: "Faisal Sayed",
-      role: "Web flow Developer",
-      rating: 5,
-      text: 'Working with "Designer Zahoor" was an amazing experience. They transformed our vision into a sleek, user-friendly design. The interface is intuitive, and the user experience has improved drastically. Highly recommended for anyone looking to elevate their digital product!',
-    },
-    {
-      id: 2,
-      name: "Jeha Mith",
-      role: "Backend Developer",
-      rating: 5,
-      text: "Working with Zahoor was an exceptional experience. They took the time to understand our goals and crafted a design that is both visually stunning and user-centric. The interface is intuitive, making navigation effortless, and the overall user experience has improved significantly.",
-    },
-    {
-      id: 3,
-      name: "Alex Johnson",
-      role: "Product Manager",
-      rating: 5,
-      text: "The attention to detail and creative solutions provided by the team exceeded our expectations. Our product now has a modern, clean interface that our users love. The collaborative process made the entire experience enjoyable and productive.",
-    },
-  ]
-
-  const totalPages = Math.ceil(testimonials.length / 2)
+  const totalPages = Math.ceil(comments.length / 2);
 
   const nextPage = () => {
-    setDirection(1)
-    setCurrentPage((prev) => (prev + 1) % totalPages)
-  }
+    setDirection(1);
+    setCurrentPage((prev) => (prev + 1) % totalPages);
+  };
 
   const prevPage = () => {
-    setDirection(-1)
-    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages)
-  }
+    setDirection(-1);
+    setCurrentPage((prev) => (prev - 1 + totalPages) % totalPages);
+  };
 
-  const visibleTestimonials = testimonials.slice(currentPage * 2, currentPage * 2 + 2)
+  const visibleTestimonials = comments.slice(
+    currentPage * 2,
+    currentPage * 2 + 2
+  );
 
   // Variants for animations
   const containerVariants = {
@@ -62,7 +47,7 @@ export default function Testimonials() {
         delayChildren: 0.3,
       },
     },
-  }
+  };
 
   const itemVariants = {
     hidden: { y: 20, opacity: 0 },
@@ -75,10 +60,10 @@ export default function Testimonials() {
         damping: 12,
       },
     },
-  }
+  };
 
   const pageVariants = {
-    enter: (direction:any) => ({
+    enter: (direction: any) => ({
       x: direction > 0 ? 1000 : -1000,
       opacity: 0,
     }),
@@ -90,7 +75,7 @@ export default function Testimonials() {
         opacity: { duration: 0.3 },
       },
     },
-    exit: (direction:any) => ({
+    exit: (direction: any) => ({
       x: direction > 0 ? -1000 : 1000,
       opacity: 0,
       transition: {
@@ -98,7 +83,7 @@ export default function Testimonials() {
         opacity: { duration: 0.3 },
       },
     }),
-  }
+  };
 
   return (
     <motion.div
@@ -115,24 +100,12 @@ export default function Testimonials() {
         animate={isVisible ? "visible" : "hidden"}
       >
         <motion.div className="text-center mb-12" variants={itemVariants}>
-        <div className="flex items-center gap-3 mb-4" dir="rtl">
-        <div className="w-5 h-5 rounded-full bg-white"></div>
-        <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
-        نظراتی که راجب خدمات من ثبت شده
-        </h3>
-      </div>
-          {/* <motion.p
-            className="text-gray-400 max-w-3xl mx-auto"
-            initial={{ y: 30, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{
-              type: "spring",
-              stiffness: 50,
-              delay: 0.3,
-            }}
-          >
-            Customer Testimonials Showcase Genuine Experiences And Satisfaction With A Product Or Service.
-          </motion.p> */}
+          <div className="flex items-center gap-3 mb-4" dir="rtl">
+            <div className="w-5 h-5 rounded-full bg-white"></div>
+            <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
+              نظراتی که راجب خدمات من ثبت شده
+            </h3>
+          </div>
         </motion.div>
 
         <AnimatePresence mode="wait" custom={direction}>
@@ -147,6 +120,7 @@ export default function Testimonials() {
           >
             {visibleTestimonials.map((testimonial, index) => (
               <motion.div
+                dir="rtl"
                 key={testimonial.id}
                 className="bg-zinc-900 rounded-xl p-6 relative overflow-hidden"
                 variants={itemVariants}
@@ -168,26 +142,27 @@ export default function Testimonials() {
                   animate={{ x: 0, opacity: 1 }}
                   transition={{ delay: index * 0.2 + 0.7 }}
                 >
-                  <motion.div
-                    className="w-12 h-12 rounded-full overflow-hidden mr-4 bg-violet-200 flex items-center justify-center"
-                    whileHover={{ scale: 1.1 }}
-                  >
-                    <Image
-                      src={`/placeholder.svg?height=48&width=48`}
-                      alt={testimonial.name}
-                      width={48}
-                      height={48}
-                      className="object-cover"
+            
+                    <User
+                      avatarProps={{
+                        src: testimonial.commented_user.image_profile,
+                        name:
+                          testimonial.commented_user.first_name +
+                          " " +
+                          testimonial.commented_user.last_name,
+                      }}
+                      description={testimonial.commented_user.username}
+                      name={
+                        testimonial.commented_user.first_name +
+                        " " +
+                        testimonial.commented_user.last_name
+                      }
                     />
-                  </motion.div>
-                  <div>
-                    <h3 className="font-bold text-lg">{testimonial.name}</h3>
-                    <p className="text-gray-400 text-sm">{testimonial.role}</p>
-                  </div>
+             
                 </motion.div>
 
                 <div className="flex mb-4">
-                  {[...Array(testimonial.rating)].map((_, i) => (
+                  {[...Array(testimonial.rate)].map((_, i) => (
                     <motion.div
                       key={i}
                       initial={{ opacity: 0, scale: 0 }}
@@ -209,7 +184,7 @@ export default function Testimonials() {
                   animate={{ opacity: 1 }}
                   transition={{ delay: index * 0.2 + 1.3 }}
                 >
-                  {testimonial.text}
+                  {testimonial.description}
                 </motion.p>
 
                 <motion.div
@@ -222,7 +197,13 @@ export default function Testimonials() {
                     stiffness: 100,
                   }}
                 >
-                  <svg width="48" height="48" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <svg
+                    width="48"
+                    height="48"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
                     <path
                       d="M9.5 8.5L4.5 8.5L4.5 13.5"
                       stroke="currentColor"
@@ -271,16 +252,21 @@ export default function Testimonials() {
           </motion.div>
         </AnimatePresence>
 
-        <motion.div className="flex justify-center items-center gap-4" variants={itemVariants}>
+        <motion.div
+          className="flex justify-center items-center gap-4"
+          variants={itemVariants}
+        >
           <div className="flex gap-2">
             {[...Array(totalPages)].map((_, i) => (
               <motion.button
                 key={i}
                 onClick={() => {
-                  setDirection(i > currentPage ? 1 : -1)
-                  setCurrentPage(i)
+                  setDirection(i > currentPage ? 1 : -1);
+                  setCurrentPage(i);
                 }}
-                className={`w-2 h-2 rounded-full ${currentPage === i ? "bg-violet-500" : "bg-gray-600"}`}
+                className={`w-2 h-2 rounded-full ${
+                  currentPage === i ? "bg-violet-500" : "bg-gray-600"
+                }`}
                 aria-label={`Go to page ${i + 1}`}
                 whileHover={{ scale: 1.5 }}
                 whileTap={{ scale: 0.9 }}
@@ -326,5 +312,5 @@ export default function Testimonials() {
         </motion.div>
       </motion.div>
     </motion.div>
-  )
+  );
 }

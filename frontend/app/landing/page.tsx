@@ -25,12 +25,58 @@ export const page = () => {
       <Hero />
       <WhyWorkingWithUs />
       <Roadmap />
-   
       <Video />
       <ServiceFeatures />
-      <ConsultationForm />
-      <Testimonials />
+      <Testimonials comments={[
+        {
+          id:1,
+          commented_user:{
+            first_name:"علیرضا",
+            last_name:"یوسف نژادیان",
+            id:1,
+            image_profile:'/user.jpg',
+            username:"alireza_0631",
+            uuid:"uuuid"
+          },
+          description:"خیلی عالی خدماتوشن من لذت بردم",
+          rate:5,
+          tags:"عالی,خیلی خوب",
+          user:{
+            first_name:"debugchi",
+            last_name:"",
+            image_profile:"/user.jpg",
+            id:0,
+            username:"debug_chi",
+            uuid:"debug_chi"
+
+          }
+        },
+        {
+          id:2,
+          commented_user:{
+            first_name:"علیرضا",
+            last_name:"یوسف نژادیان",
+            id:1,
+            image_profile:'/user.jpg',
+            username:"alireza_0631",
+            uuid:"uuuid"
+          },
+          description:"خیلی عالی خدماتوشن من لذت بردم",
+          rate:5,
+          tags:"عالی,خیلی خوب",
+          user:{
+            first_name:"debugchi",
+            last_name:"",
+            image_profile:"/user.jpg",
+            id:0,
+            username:"debug_chi",
+            uuid:"debug_chi"
+
+          }
+        },
+      ]}/>
       <Footer />
+    
     </main>
   );
 };

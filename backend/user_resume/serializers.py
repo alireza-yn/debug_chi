@@ -17,6 +17,7 @@ class UserLanguageSerializer(ModelSerializer):
     class Meta:
         model = UserLanguage
         fields = ['language_name']
+        # fields = '__all__'
     
 
 class UserSkillSerializer(ModelSerializer):

@@ -108,8 +108,21 @@ class UserBankCardApiView(APIView,UserService):
 
 
 
+class UsersByRoleView(APIView):
+    def get(self, request, *args, **kwargs):
+        try:
+            # استخراج نقش‌های 'debugger' و 'consultants'
+            debugger_role = Role.objects.get(name='debugger')
+            consultants_role = Role.objects.get(name='consultant')
 
-class UserReportApiView(APIView,UserService):
-    permission_classes=[IsAuthenticated]
-    def get(self,request):
-        pass
+            # فیلتر کاربران با استفاده از query set برای بهبود کارایی
+            users = CustomUser.objects.filter(
+                user_roles__in=[debugger_role, consultants_role]
+            ).distinct()
+
+            # استفاده از serializer برای تبدیل کاربران به فرمت JSON
+            serializer = CustomUserSerializer(users, many=True)
+            return Response(serializer.data, status=status.HTTP_200_OK)
+
+        except Role.DoesNotExist:
+            return Response({"error": "Role not found."}, status=status.HTTP_400_BAD_REQUEST)

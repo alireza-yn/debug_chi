@@ -65,6 +65,7 @@ router.register(r'debug-hub', DebuggerHubView,basename="debug-hub")
 
 #region Follower Router
 router.register(r'followers',FollowerViewSet,basename='دنبال کنندگان')
+router.register(r'comments',UserCommentsViewSet,basename='کامنت ها')
 #endregion
 
 
@@ -104,6 +105,7 @@ urlpatterns = [
     path('v1/text_to_speech/',TextToSpeech.as_view(),name="text_to_speech"),
     #region  ConsultantAPI
     path('v1/programming-list/',ProgrammingLanguageList.as_view(),name='programming-list'),
+    path('v1/programming-language/',ProgrammingList.as_view(),name='list'),
     #endregion 
     
     
@@ -114,15 +116,21 @@ urlpatterns = [
     path('v1/debug/list_debug/',view=GetDebugerSession.as_view(),name='قبول کردن جلسه دیباگ'),
     path('v1/debug/get-session-info/<str:session_id>/',view=GetSessionInfo.as_view(),name='get-session-info'),
     path('v1/get-request/',view=GetDebugerRequest.as_view(),name='get-request'),
+    path('v1/lock-session/',view=LockSession.as_view(),name='lock-session'),
+    path('v1/close-session/',view=CloseSession.as_view(),name='close-session'),
+    path('v1/reject-session/',view=RejectSession.as_view(),name='reject-session'),
 
     #endregion 
     
     
-    #region TenderProject
+    #region Project
     path('v1/tender/',TenderProjectListView.as_view(),name='tender_info'),
     path('v1/tender_list/',ShowTenderProject.as_view(),name='tender_list'),
     path('v1/bids_tender_list/',GetBidTender.as_view(),name='bid_tender_list'),
     path('v1/submit_bid/',BidProjectAPIView.as_view(),name='submit_bid'),
+    path('v1/like_tender/<str:tender_uuid>/',TenderLikeHandlerAPIView.as_view(), name='like_tender'),
+    path('v1/get_all_class/',GetAllClassDetails.as_view(), name='all_class'),
+
     
     #endregion
     
@@ -134,8 +142,7 @@ urlpatterns = [
     #region Posts
         path('v1/get_post/', UserPostList.as_view(), name='user-post'),
         path('v1/like_post/', PostActionApiView.as_view(), name='user-post-action'),
-
-    
+        path('v1/user/<str:uuid>/', GetUserInfoAndPost.as_view(), name='user-profile'),
     #endregion
 
     #region report
@@ -143,8 +150,15 @@ urlpatterns = [
     #endregion
 
     #region payment
-        path('v1/payment_withdraw_view/',view=WithDrawApiView.as_view(),name="برداشت")
+        path('v1/payment_withdraw_view/',view=WithDrawApiView.as_view(),name="برداشت"),
 
     #endregion 
     
+
+
+
+    #region language
+    path('v1/add_language/',view=AddLanguageForUser.as_view(),name="add-language")
+    #endregion
+
 ]

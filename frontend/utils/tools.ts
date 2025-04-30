@@ -86,3 +86,23 @@ export const getCurrentPersianMonth = () => {
 export const formatCardNumber = (cardNumber: string) => {
   return cardNumber.replace(/(.{4})/g, "$1-").slice(0, -1);
 };
+
+
+
+export function deepSearch(obj: any, keyword: string): boolean {
+  const lowerKeyword = keyword.toLowerCase();
+
+  if (typeof obj === 'string') {
+    return obj.toLowerCase().includes(lowerKeyword);
+  }
+
+  if (Array.isArray(obj)) {
+    return obj.some((item) => deepSearch(item, keyword));
+  }
+
+  if (typeof obj === 'object' && obj !== null) {
+    return Object.values(obj).some((value) => deepSearch(value, keyword));
+  }
+
+  return false;
+}

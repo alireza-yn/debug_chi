@@ -1,5 +1,5 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
-from .models import EducationProject, TenderProject, Bid, ProjectImage
+from .models import EducationProject, TenderProject, Bid, ProjectImage,TenderLikes
 from programming_language.serializers import (
     ProgrammingLanguageSerializer,
     ProgrammerExpertiseSerializer,
@@ -18,6 +18,16 @@ class ProjectImageSerializer(ModelSerializer):
         model = ProjectImage
         fields = ["id", "image", "project"]
 
+
+
+
+
+
+
+class TenderLikeSerializer(ModelSerializer):
+    class Meta:
+        model = TenderLikes
+        fields = ['user','tender']
 
 class ProjectSerializer(ModelSerializer):
     images = ProjectImageSerializer(many=True, read_only=True)
@@ -54,10 +64,12 @@ class ProjectSerializer(ModelSerializer):
 
 
 class TenderSerializers(ModelSerializer):
-
+    # tender_like = TenderLikeSerializer(many=True,read_only=True)
+    tender_like = SerializerMethodField()
     class Meta:
         model = TenderProject
         fields = [
+            "id",
             "uuid",
             "active",
             "title",
@@ -73,10 +85,16 @@ class TenderSerializers(ModelSerializer):
             "language",
             "expertise",
             "skills",
-            "mode"
+            "mode",
+            "tender_like"
+            
         ]
         # depth = 1
-
+    def get_tender_like(self, obj):
+        user = self.context.get('request').user
+        if user.is_authenticated:
+            return TenderLikes.objects.filter(user=user, tender=obj).exists()
+        return False
 
 class BidSerializers(ModelSerializer):
     user = CustomUserSerializer(read_only=True)
@@ -89,6 +107,8 @@ class BidSerializers(ModelSerializer):
 class CustomTenderSerializers(ModelSerializer):
     created_by = CustomUserSerializer()
     project = ProjectSerializer(read_only=True)
+    tender_like = SerializerMethodField()
+    tender_like_count = SerializerMethodField()
 
     class Meta:
         model = TenderProject
@@ -109,8 +129,21 @@ class CustomTenderSerializers(ModelSerializer):
             "language",
             "skills",
             "mode",
+            "tender_like",
+            "tender_like_count"
         ]
         depth = 2
+
+    def get_tender_like(self, obj):
+        user = self.context.get('request').user
+        if user.is_authenticated:
+            return TenderLikes.objects.filter(user=user, tender=obj).exists()
+        return False
+    
+
+    def get_tender_like_count(self, obj):
+        return TenderLikes.objects.filter(tender=obj).count()
+    
 
 
 class CustomBidSerializers(ModelSerializer):

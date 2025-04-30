@@ -4,12 +4,11 @@ import requests
 from rest_framework.request import Request
 from rest_framework.response import Response
 from django.db import transaction
-from .serializers import DebuggerSerializer, ConsultSerializer,UserSerializer
+from .serializers import DebuggerSerializer, ConsultSerializer, UserSerializer
 from django.db.models import Q
+from followers.models import UserComments
 User = get_user_model()
 from rest_framework import status
-
-
 
 
 class ConsultHubService:
@@ -22,26 +21,25 @@ class ConsultHubService:
             return DebugSession.objects.filter(
                 debuger_applicator=user_id, status="open"
             ).all()
-        
 
-    def getAllRequest(self,user):
+    def getAllRequest(self, user):
         debug = DebugSession.objects.filter(debuger=user).all()
         consult = ConsultSession.objects.filter(consult=user).all()
 
-        return Response({
-        "consult": ConsultSerializer(consult, many=True).data,
-        "debug": DebuggerSerializer(debug, many=True).data
-        })
-    
+        return Response(
+            {
+                "consult": ConsultSerializer(consult, many=True).data,
+                "debug": DebuggerSerializer(debug, many=True).data,
+            }
+        )
 
     def getSessionInfoBySessionId(self, request: Request, session_id: str):
 
         user = User.objects.get(id=request.user.id)
         print(user)
 
-        is_debuger = False
-        if hasattr(user, "debuger"):
-            is_debuger = True
+        roles = user.user_roles.all()
+        is_debuger = roles.filter(name="debugger").exists()
 
         try:
             print(f"session_id: {session_id}")
@@ -53,22 +51,67 @@ class ConsultHubService:
             if not session:
                 return Response({"error": "Session not found"}, status=404)
 
-            print(f"session type: {type(session)}")
             if isinstance(session, DebugSession):
                 serializer = DebuggerSerializer(session)
             else:
                 serializer = ConsultSerializer(session)
 
-            return Response(
-                {
-                    "is_debuger": is_debuger,
-                    "data": serializer.data
-                }
-            )
+            
+            commented = UserComments.objects.filter(session_id=session.session_id,commented_user=user)
+            commented.first()
+            is_commented_exist = commented.exists()
+            print(commented,is_commented_exist)
+
+            return Response({"is_debuger": is_debuger, "data": serializer.data,"is_commented":is_commented_exist})
 
         except Exception as e:
             print(f"Unexpected error: {e}")
             return Response({"error": "Internal server error"}, status=500)
+
+    def LockSession(self, session_id):
+        if session_id is None:
+            return Response({"error": "session_id is required"})
+        session = (
+            DebugSession.objects.filter(session_id=session_id).first()
+            or ConsultSession.objects.filter(session_id=session_id).first()
+        )
+        session.is_locked = True
+        session.save()
+        return Response({"success": True, "message": "با موفقیت انجام شد"})
+   
+    def close_session(self, session_id):
+        session = (
+            DebugSession.objects.filter(session_id=session_id).first()
+            or ConsultSession.objects.filter(session_id=session_id).first()
+        )
+        session.status = "close"
+        session.save()
+        return Response({"success": True}, status=status.HTTP_200_OK)
+
+    def reject_session(self,session_id,user):
+        
+        find_session_to_reject = DebugSession.objects.filter(session_id=session_id).first() or ConsultSession.objects.filter(session_id=session_id).first()
+        if find_session_to_reject is None:
+            return Response({
+                "success":False,
+                "message":"جلسه مورد نظر پیدا نشد"
+            })
+        user_wants_to_reject = User.objects.filter(id=user.id).first()
+        if user_wants_to_reject is None:
+            return Response({
+                "success":False,
+                "message":"کاربر پیدا نشد"
+            }) 
+
+        find_session_to_reject.is_rejected = True
+        find_session_to_reject.rejected_by = user_wants_to_reject
+        find_session_to_reject.save()
+        return Response({
+            "success":True,
+            "message":"با موفقیت بسته شد"
+        })
+
+ 
 
 
 class DebugHubService:
@@ -152,26 +195,50 @@ class DebugHubService:
         else:
             return Response({"message": "there is no pending session"})
 
-
-
     def OpenedSessionBySessionId(self, request: Request):
         user = request.user
+
         opened_debug = DebugSession.objects.filter(
-            Q(debuger=user, status="open") | Q(debuger=user, status="pending")
+            Q(debuger=user) & Q(status__in=["open", "pending"]) & Q(is_rejected=False)
         )
         opened_consult = ConsultSession.objects.filter(
-            Q(consult=user, status="open") | Q(consult=user, status="pending")
+            Q(consult=user) & Q(status__in=["open", "pending"]) & Q(is_rejected=False)
         )
+
         if opened_debug.exists() or opened_consult.exists():
-            return Response({
-                "opened_debug": DebuggerSerializer(opened_debug, many=True).data,
-                "opened_consult": ConsultSerializer(opened_consult, many=True).data,
-            })
+            return Response(
+                {
+                    "opened_debug": DebuggerSerializer(opened_debug, many=True).data,
+                    "opened_consult": ConsultSerializer(opened_consult, many=True).data,
+                }
+            )
         else:
             return Response(
                 {"message": "There is no opened session."},
-                status=status.HTTP_204_NO_CONTENT
+                status=status.HTTP_204_NO_CONTENT,
             )
-   
+    def OpenedSessionBySessionIdForNormalUser(self, request: Request):
+        user = request.user
+
+        opened_debug = DebugSession.objects.filter(
+            Q(debuger_applicator=user) & Q(status__in=["open", "pending"]) & Q(is_rejected=False)
+        )
+        opened_consult = ConsultSession.objects.filter(
+            Q(consult_applicator=user) & Q(status__in=["open", "pending"]) & Q(is_rejected=False)
+        )
+
+        if opened_debug.exists() or opened_consult.exists():
+            return Response(
+                {
+                    "opened_debug": DebuggerSerializer(opened_debug, many=True).data,
+                    "opened_consult": ConsultSerializer(opened_consult, many=True).data,
+                }
+            )
+        else:
+            return Response(
+                {"message": "There is no opened session."},
+                status=status.HTTP_204_NO_CONTENT,
+            )
+
     def RejectSession(self, session_id):
         pass

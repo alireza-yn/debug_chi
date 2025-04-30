@@ -47,8 +47,12 @@ class ConsultSerializer(serializers.ModelSerializer):
             "mode",
             "price",
             "discount",
-            "lnaguage",
-            "is_realtime"
+            "language",
+            "is_realtime",
+            "is_locked",
+            "is_payed",
+            "is_rejected",
+            "rejected_by"
         ]
 
     def to_representation(self, instance):
@@ -98,7 +102,12 @@ class DebuggerSerializer(serializers.ModelSerializer):
             "discount",
             "mode",
             "time",
-            "is_realtime"
+            "is_realtime",
+            "is_locked",
+            "is_payed",
+            "is_rejected",
+            "rejected_by"           
+
         ]
 
     def to_representation(self, instance):
@@ -109,9 +118,3 @@ class DebuggerSerializer(serializers.ModelSerializer):
         ).data
         return representation
    
-    def update(self, instance, validated_data):
-        session_id = validated_data.pop("session_id")
-        message,result = self.AcceptSession(session_id)
-        if not result:
-            raise ValidationError({"success": False, "message": message})
-        return super().update(instance, validated_data)

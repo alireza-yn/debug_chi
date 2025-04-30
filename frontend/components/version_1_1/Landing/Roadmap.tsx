@@ -14,18 +14,17 @@ const Roadmap = (props: Props) => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null; // از رندر کردن روی سرور جلوگیری می‌کند
+  if (!mounted) return null;
 
   return (
-    <div className="w-full flex flex-col justify-center gap-4 items-center min-h-[1400px] text-violet-500  box-border p-5 relative">
-      <BackgroundLines className="flex flex-col ">
+    <div className="w-full flex flex-col justify-center gap-4 items-center min-h-[1400px] bg-slate-100 dark:bg-slate-900 border-b dark:border-b-slate-950 text-violet-500  box-border p-5 relative">
+      <BackgroundLines className="flex flex-col">
         <span></span>
-        {/* <h2 className="text-2xl">چگونه از خدمات استفاده کنیم</h2> */}
       </BackgroundLines>
       <div className="absolute top-0">
         <Image
           src={
-            theme === "light" ? "/landing/card_9.png" : "/landing/card_4.png"
+            theme === "light" ? "/landing/card_9.png" : "/landing/roadmap-dark.png"
           }
           width={1400}
           height={700}

@@ -122,7 +122,9 @@ const config = {
     extend: {
       colors:{
           c_background:"#2c2552",
-          c_secondary:"#232035"
+          c_secondary:"#232035",
+          main_bg:"#140a31",
+          community:"#1D142D"
       },
       fontFamily: {
         iranSans: ["var(--font-iran-sans)",...fontFamily.sans,],

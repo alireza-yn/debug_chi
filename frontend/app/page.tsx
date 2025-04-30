@@ -36,6 +36,7 @@ import {
 import clientPromise from "@/lib/mongodb";
 import NewRequestIncoming from "@/components/version_1_1/User/NewRequestIncoming";
 import OnlineAction from "@/components/version_1_1/User/OnlineAction";
+import { RequestFilterProvider } from "@/context/RequetsFilterProvider";
 // import { service } from "@/components/routes/home/Services/data";
 // import { LogoIcon } from "@/components/ui/icons";
 // import { Chip } from "@heroui/react";
@@ -63,15 +64,13 @@ export default async function Home() {
           </Sidebar>
           <div className="flex flex-1 box-border gap-4 p-4" dir="rtl">
             <div className="flex flex-col w-96 h-full rounded-2xl bg-c_background/50">
-              <DebugerRequest />
+              <RequestFilterProvider>
+                <DebugerRequest />
+              </RequestFilterProvider>
             </div>
             <div className="flex-1 flex flex-col h-full bg-c_background/50 rounded-2xl">
               <section className="flex-1">
                 <DebugerHome user={response} faq={serializedFaq} />
-              </section>
-              <section className="h-32 flex items-center justify-center relative">
-                <OnlineAction />
-                <NewRequestIncoming />
               </section>
             </div>
           </div>
@@ -84,7 +83,7 @@ export default async function Home() {
     <main className="w-full h-screen flex">
       <Sidebar>
         <SidebarBody />
-        <SidebarFooter />
+        <SidebarFooter token={token} />
       </Sidebar>
       <div className="flex-1 flex  h-full box-border p-4 gap-4">
         <div className="bg-gray-100 dark:bg-c_background/50  rounded-3xl h-full w-96">
@@ -92,7 +91,6 @@ export default async function Home() {
         </div>
         <div className="relative bg-gray-100 dark:bg-c_background/50  flex flex-col rounded-3xl h-full w-full">
           <FindUser />
-
           <div className="flex-1 w-full">
             <AiWelcome />
           </div>

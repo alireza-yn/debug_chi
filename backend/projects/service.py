@@ -1,9 +1,9 @@
-from .models import Bid, TenderProject
+from .models import Bid, TenderProject,TenderLikes
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.shortcuts import get_object_or_404
-
+from rest_framework import status
 
 import redis
 from .serializers import *
@@ -137,3 +137,25 @@ class TenderService:
             return True, "با موفقیت بروزرسانی شد"
         except Bid.DoesNotExist:
             return False, "پیشنهاد شما در این مناقصه ثبت نشده است."
+    
+
+
+    def toggle_tender_like_handler(self, user, tender_uuid):
+        try:
+            tender = TenderProject.objects.get(uuid=tender_uuid)
+        except TenderProject.DoesNotExist:
+            return Response({"success": False, "message": "Tender not found."}, status=status.HTTP_404_NOT_FOUND)
+
+        like = TenderLikes.objects.filter(user=user, tender=tender).first()
+
+        if like:
+            like.delete()
+            return Response({
+                "liked": False,
+            })
+        else:
+            TenderLikes.objects.create(user=user, tender=tender)
+            return Response({
+                "liked":True
+  
+            },status=status.HTTP_201_CREATED)

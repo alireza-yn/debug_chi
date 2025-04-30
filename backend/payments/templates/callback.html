@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>فاکتور پرداخت</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        font-family: "Vazirmatn", sans-serif;
+        background-color: #f4f6f8;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+
+      .invoice-container {
+        background-color: #fff;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 32px;
+        width: 100%;
+        max-width: 400px;
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        text-align: center;
+      }
+
+      .invoice-container h2 {
+        margin-bottom: 8px;
+        font-size: 20px;
+        color: #2c3e50;
+      }
+
+      .invoice-item {
+        font-size: 16px;
+        color: #34495e;
+        padding: 6px 0;
+        border-bottom: 1px solid #ecf0f1;
+      }
+
+      .invoice-item:last-child {
+        border-bottom: none;
+      }
+
+      .continue-button {
+        display: inline-block;
+        margin-top: 16px;
+        padding: 12px 0;
+        background-color: #3498db;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background-color 0.3s ease;
+      }
+
+      .continue-button:hover {
+        background-color: #2980b9;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="invoice-container">
+      <h2>جزئیات پرداخت</h2>
+      <div class="invoice-item">مبلغ: {{amount}}</div>
+      <div class="invoice-item">کد پیگیری: {{code}}</div>
+      <div class="invoice-item">Ref ID: {{refid}}</div>
+      <div class="invoice-item">Client Ref ID: {{clientrefid}}</div>
+      <a
+        href="http://localhost:3000/chat/{{session_id}}/"
+        class="continue-button"
+        >ادامه</a
+      >
+    </div>
+  </body>
+</html>

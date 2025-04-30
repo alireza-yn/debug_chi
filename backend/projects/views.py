@@ -1,7 +1,6 @@
 from rest_framework.viewsets import ModelViewSet, ViewSet
 from django.contrib.auth import get_user_model
 from .serializers import *
-from rest_framework import serializers
 from rest_framework.views import APIView
 from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
@@ -213,7 +212,7 @@ class GetBidTender(APIView):
             bids = Bid.objects.filter(tender=tender)  # دریافت بیدهای مرتبط با هر تندر
             data.append(
                 {
-                    "tender": CustomTenderSerializers(tender).data,
+                    "tender": CustomTenderSerializers(tender, context={"request": request}).data,
                     "bids": BidSerializers(bids, many=True).data,
                 }
             )
@@ -224,3 +223,17 @@ class GetBidTender(APIView):
 class ProjectImageViewSet(ModelViewSet):
     queryset = ProjectImage.objects.all()
     serializer_class = ProjectImageSerializer
+
+
+
+class TenderLikeHandlerAPIView(APIView,TenderService):
+    def get(self,request:Request,tender_uuid:str):
+        return self.toggle_tender_like_handler(request.user,tender_uuid)
+
+
+
+class GetAllClassDetails(APIView):
+    permission_classes = [IsAuthenticated]
+    def get(self,request:Request):
+        all_educations = EducationProject.objects.filter(created_by=request.user)
+        return Response(ProjectSerializer(all_educations,many=True).data)

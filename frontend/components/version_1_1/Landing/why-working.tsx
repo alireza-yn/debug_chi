@@ -68,7 +68,7 @@ export default function WhyWorkingWithUs() {
 
   return (
     <section
-      className="py-16 bg-gradient-to-r bg-slate-100 dark:bg-gray-900"
+      className="py-16"
       ref={ref}
     >
       <div className="container mx-auto px-4">

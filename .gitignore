@@ -1,4 +1,5 @@
 /backend/venv
+/backend/env
 /backend/static
 /backend/db.sqlite3
 /node/node_modules

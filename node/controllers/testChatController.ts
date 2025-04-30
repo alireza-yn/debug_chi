@@ -33,7 +33,7 @@ export const checkSentMessage = async (msg_id:string)=>{
     if (mongoose.connection && mongoose.connection.db) {
       const collection = mongoose.connection.db.collection('test_messages');
       const result = await collection.updateOne(
-        { id: msg_id }, // پیدا کردن سند بر اساس id
+        { 'data.id': msg_id }, // پیدا کردن سند بر اساس id
         { $set: { 'data.status': 'sent' } } // آپدیت فقط فیلد status در data
       );
 

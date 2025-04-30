@@ -1,5 +1,5 @@
 from rest_framework.permissions import BasePermission
-
+from auths.models import Role
 class HasRolePermission(BasePermission):
     """
     Allows access only to users with a specific role.
@@ -29,3 +29,7 @@ class IsDebugger(BasePermission):
         
         # بررسی اینکه آیا کاربر نقش "Debugger" را دارد
         return request.user.user_roles.filter(name="debugger").exists()
+    
+class RoleMixin:
+    def has_role(self, user, role_name: str) -> bool:
+        return user.user_roles.filter(name=role_name).exists()

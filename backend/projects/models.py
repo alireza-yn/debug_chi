@@ -13,6 +13,7 @@ class EducationProject(models.Model):
         ('public','عمومی'),
         ('private','خصوصی')
     ]
+
     class_session = models.UUIDField(default=uuid.uuid4)
     language = models.TextField(blank=True,null=True)
     expertise = models.TextField(blank=True,null=True)
@@ -21,15 +22,15 @@ class EducationProject(models.Model):
     class_title = models.CharField(max_length=150,blank=True,null=True)
     educational_heading = models.TextField(blank=True,null=True)
     educational_heading_file = models.FileField(upload_to='static/project/files')
-    price = models.IntegerField(default=0)
+    price = models.BigIntegerField(default=0)
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_projects_by',null=True,blank=True)
-    discount = models.IntegerField(default=0)
+    discount = models.BigIntegerField(default=0)
     users = models.ManyToManyField(User,related_name='project_user',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     start_date = models.DateTimeField(blank=True,null=True)
     end_date = models.DateTimeField(blank=True,null=True)
-    buffer_date = models.IntegerField(default=0)
+    buffer_date = models.BigIntegerField(default=0)
     is_deleted = models.BooleanField(default=False)
     time_line = models.TextField(null=True,blank=True)
     is_tender = models.BooleanField(default=False)
@@ -63,13 +64,12 @@ class TenderProject(Timestamp):
     start_time = models.DateTimeField()  
     end_time = models.DateTimeField()  
     created_by = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='created_tenders') 
-    start_bid = models.IntegerField(default=0) 
-    highest_bid = models.IntegerField(default=0)  
+    start_bid = models.BigIntegerField(default=0) 
+    highest_bid = models.BigIntegerField(default=0)  
     winner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True, blank=True, related_name='won_tenders')  # برنده نهایی
     language = models.TextField(blank=True,null=True)
     expertise = models.TextField(blank=True,null=True)
     skills = models.TextField(blank=True,null=True)
-
     mode = models.CharField(max_length=50,choices=tender_type,default='tender')
     
 
@@ -88,6 +88,15 @@ class Bid(Timestamp):
     class Meta:
         ordering = ['-amount']  
         
-        
     def __str__(self):
         return self.tender.title
+
+
+
+
+class TenderLikes(Timestamp):
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='tender_like_user')
+    tender = models.ForeignKey(TenderProject,on_delete=models.CASCADE,related_name="tender_like")
+
+    class Meta:
+        unique_together = ['user','tender']

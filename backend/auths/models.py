@@ -66,6 +66,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     user_bio = models.CharField(max_length=1000, blank=True,null=True)
     debugger_bio = models.CharField(max_length=1000, blank=True,null=True)
     user_score = models.IntegerField(default=0,validators=[MaxValueValidator(5,"امتیاز نمیتواند بیشتر از 5 باشد")])
+
+
     def user_directory_path(instance, filename):
         extension = filename.split('.')[-1]
         new_filename = f"profile_{instance.email}_{datetime.now().strftime('%Y%m%d%H%M%S')}.{extension}"
@@ -106,6 +108,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         return self.user_phone
 
 class OTP(models.Model):
+    
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.SET_NULL, null=True)
     otp_code = models.CharField(max_length=6)
     created_at = models.DateTimeField(auto_now_add=True)
@@ -115,9 +118,9 @@ class OTP(models.Model):
         verbose_name_plural = "One-Time Passwords"
 
 class Role(models.Model):
+
     name = models.CharField(max_length=50,unique=True)
     users = models.ManyToManyField(settings.AUTH_USER_MODEL,related_name="user_roles",blank=True)
-
     def __str__(self):
         return self.name
 

@@ -46,9 +46,13 @@ class AcceptDebugSession(APIView,DebugHubService):
 
 
 class OpenedDebugSession(APIView,DebugHubService):
-    permission_classes = [IsAuthenticated,IsDebugger]
+    permission_classes = [IsAuthenticated]
+    check_roles = RoleMixin()
     def get(self,request:Request):
-        return self.OpenedSessionBySessionId(request)
+        if self.check_roles.has_role(request.user,"debugger"):
+            return self.OpenedSessionBySessionId(request)
+        else:
+            return self.OpenedSessionBySessionIdForNormalUser(request)
 
 class PendingSession(APIView,DebugHubService):
     permission_classes = [IsAuthenticated,IsDebugger]
@@ -72,6 +76,7 @@ class UserOpendDebugList(ListAPIView,ConsultHubService):
 
 
 class GetSessionInfo(APIView,ConsultHubService):
+    permission_classes = [IsAuthenticated]
     def get(self,request:Request,session_id:str):
         return self.getSessionInfoBySessionId(request,session_id)
     
@@ -86,3 +91,29 @@ class GetDebugerRequest(APIView,ConsultHubService):
             "success":False,
             "message":"عدم دسترسی"
         },status=status.HTTP_401_UNAUTHORIZED)
+
+class LockSession(APIView,ConsultHubService):
+    permission_classes = [IsAuthenticated]
+    def post(self,request:Request):
+        session_id = request.data.get('session_id')
+        return self.LockSession(session_id)
+
+
+class CloseSession(APIView,ConsultHubService):
+    permission_classes = [IsAuthenticated]
+    def post(self,request:Request):
+        session_id = request.data.get('session_id')
+        return self.close_session(session_id)
+
+
+class RejectSession(APIView,ConsultHubService):
+    permission_classes = [IsAuthenticated]
+    def post(self,request:Request):
+        session_id = request.data.get("session_id")
+        return self.reject_session(session_id=session_id,user=request.user)
+    
+
+
+class AllDebugersAndConsulters(APIView,ConsultHubService):
+    def get(self,request:Request):
+        return self.get_all_debugers(request)

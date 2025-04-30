@@ -12,7 +12,13 @@ from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView 
 import requests
+from core.permissions import RoleMixin
 User = get_user_model()
+
+
+
+
+
 class UsersByRoleListView(ListAPIView):
     serializer_class = CustomRoleSerializers
     
@@ -110,3 +116,5 @@ class TextToSpeech(APIView):
 #             return user
 #         except User.DoesNotExist:
 #             raise NotFound(detail="User not found.")
+
+
