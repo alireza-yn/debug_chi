@@ -9,6 +9,13 @@ import {
   DrawerFooter,
   Button,
   useDisclosure,
+  Modal,
+  ModalHeader,
+  ModalContent,
+  ModalBody,
+  ModalFooter,
+  Textarea,
+  Input,
 } from "@heroui/react";
 import {
   Cable,
@@ -20,8 +27,10 @@ import {
   MailOpen,
   MessageCircle,
   MonitorPlay,
+  PhoneCall,
   Play,
   Projector,
+  Send,
   Ticket,
   User,
   Users,
@@ -30,8 +39,12 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { SettingTabContent } from "../OnlineAction";
+import EventCard from "../../Bid/EventCard";
 
-export default function ClassDetails({ details }: { details: Main }) {
+import { Project } from "@/components/types/tender.type";
+
+export default function ClassDetails({ details }: { details: any }) {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const [readmore, setReadMore] = useState<number>(50);
@@ -60,7 +73,6 @@ export default function ClassDetails({ details }: { details: Main }) {
             <h2 className="text-xl font-bold text-center">جزئیات کلاس</h2>
           </DrawerHeader>
           <DrawerBody className="overflow-auto max-w-7xl mx-auto scrollbar-hide">
-            {/* Hero Section */}
             <div
               className="w-full rounded-xl bg-purple-950/50 p-6 mb-10 flex flex-col md:flex-row items-center gap-6 min-h-96"
               dir="rtl"
@@ -78,7 +90,7 @@ export default function ClassDetails({ details }: { details: Main }) {
                   className="object-cover  rounded-2xl "
                 />
               </div>
-              <div className="w-full md:w-2/3 text-white mr-4 flex flex-col h-full">
+              <div className="w-full md:w-2/3 text-white mr-4 flex flex-col h-full relative">
                 <div className=" flex items-center h-28">
                   <h2 className="text-2xl md:text-3xl font-bold mb-2">
                     {details.class_title}
@@ -99,7 +111,10 @@ export default function ClassDetails({ details }: { details: Main }) {
                     توضیحات بیشتر در مورد این کلاس و ویژگی های آن
                   </p>
                 </div>
-                <Button
+                <div>
+                <EventCard data={details} color={"success"}/>
+                </div>
+                {/* <Button
                   fullWidth={false}
                   as={Link}
                   href={
@@ -108,7 +123,7 @@ export default function ClassDetails({ details }: { details: Main }) {
                   className="max-w-48 bg-green-500 hover:bg-green-600 text-white rounded-full px-6"
                 >
                   دیدن سرفصل ها
-                </Button>
+                </Button> */}
               </div>
             </div>
 
@@ -134,12 +149,9 @@ export default function ClassDetails({ details }: { details: Main }) {
                       <div className="w-auto p-2 h-auto bg-violet-900 rounded-full flex items-center justify-center gap-2">
                         <Cable />
                       </div>
-                      <h3 className="text-sm">لیست دانشجویان</h3>
+                      <h3 className="text-sm">ارتباط با پشتیبانی</h3>
                     </div>
-
-                    <Button size="sm" color="primary" fullWidth>
-                      مشاهده دانشجویان
-                    </Button>
+                    <SendTicketModal />
                   </div>
                 </div>
 
@@ -280,6 +292,90 @@ const UsersList = ({ users }: { users: UserType[] }) => {
           )}
         </DrawerContent>
       </Drawer>
+    </>
+  );
+};
+
+const SendTicketModal = () => {
+  const { onOpen, onOpenChange, isOpen } = useDisclosure();
+
+  const [description, setDescription] = useState({
+    title: "",
+    description: "",
+  });
+  return (
+    <>
+      <Button size="sm" color="primary" fullWidth onPress={onOpen}>
+        تیکت
+      </Button>
+      <Modal
+        isOpen={isOpen}
+        onOpenChange={onOpenChange}
+        dir="rtl"
+        hideCloseButton
+        size="5xl"
+      >
+        <ModalContent>
+          <ModalHeader>ارسال تیکت</ModalHeader>
+          <ModalBody className="">
+            {/* <SettingTabContent /> */}
+            <div className="w-full flex items-center justify-center flex-col gap-4">
+              <div className="w-auto h-auto p-5 bg-secondary-200 rounded-full">
+                <Headset size={90} className="stroke-secondary-900" />
+              </div>
+              <span className="mb-6">جهت ارتباط با کارشناسان تماس بگیرید</span>
+              <Input
+                className="max-w-96"
+                type="tel"
+                value={"+989029457261"}
+                variant="faded"
+                startContent={
+                  <Button
+                    startContent={<PhoneCall size={14} />}
+                    isIconOnly
+                    variant="light"
+                  ></Button>
+                }
+              />
+            </div>
+
+            <Input
+              isRequired
+              isClearable
+              placeholder="عنوان مشکل خود را بنویسید..."
+              fullWidth
+              onValueChange={(value) =>
+                setDescription({
+                  ...description,
+                  title: value,
+                })
+              }
+            />
+
+            <Textarea
+              className="relative"
+              onValueChange={(value) =>
+                setDescription({ ...description, description: value })
+              }
+              placeholder="توضیحات خود را بنویسید..."
+              minRows={4}
+              maxRows={6}
+              endContent={
+                <Button
+                  className="absolute left-2 bottom-2"
+                  variant="solid"
+                  color="success"
+                  startContent={<Send />}
+                >
+                  ارسال
+                </Button>
+              }
+            />
+          </ModalBody>
+          {/* <ModalFooter>
+          </ModalFooter> */}
+        </ModalContent>
+      </Modal>
     </>
   );
 };

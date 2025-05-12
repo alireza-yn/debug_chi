@@ -4,9 +4,11 @@ from rest_framework.request import HttpRequest
 from .models import *
 from .serializers import *
 from rest_framework import views
+from rest_framework.generics import ListAPIView
 from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.decorators import action
+from rest_framework.permissions import IsAdminUser
 class QuestionView(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
@@ -41,3 +43,28 @@ class CategoryDetailAPIView(views.APIView):
         categories = Category.objects.all()
         serializer = CategorySerializer(categories, many=True)
         return Response(serializer.data)
+
+
+
+class AiCategorQuestionViewSet(viewsets.ModelViewSet):
+    permission_classes=[IsAdminUser]
+    queryset = AiCategoryQuestion.objects.all()
+    serializer_class = AiQuestionCategorySerializer
+
+
+class AiQuestionViewSet(viewsets.ModelViewSet):
+    permission_classes=[IsAdminUser]
+    queryset = AiQuestion.objects.all()
+    serializer_class = AiQuestionSerializer
+
+
+class AiQuestionAnswerViewSet(viewsets.ModelViewSet):
+    permission_classes=[IsAdminUser]
+    queryset = AiQuestionAnswer.objects.all()
+    serializer_class = AiQuestionAnswerSerilzers
+
+
+
+class GetAiQuestions(ListAPIView):
+    queryset = AiCategoryQuestion.objects.all()
+    serializer_class = AiQuestionCategorySerializer

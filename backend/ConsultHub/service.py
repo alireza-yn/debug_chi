@@ -23,8 +23,8 @@ class ConsultHubService:
             ).all()
 
     def getAllRequest(self, user):
-        debug = DebugSession.objects.filter(debuger=user).all()
-        consult = ConsultSession.objects.filter(consult=user).all()
+        debug = DebugSession.objects.filter(debuger=user,rejected_by__isnull=True).all()
+        consult = ConsultSession.objects.filter(consult=user,rejected_by__isnull=True).all()
 
         return Response(
             {
@@ -110,6 +110,38 @@ class ConsultHubService:
             "success":True,
             "message":"با موفقیت بسته شد"
         })
+    
+    def session_handler(self,request:Request,user):
+        action = request.data.get('action')
+        session_id = request.data.get('session_id')
+        find_session_to_reject = DebugSession.objects.filter(session_id=session_id).first() or ConsultSession.objects.filter(session_id=session_id).first()
+        if action is None:
+            return Response({
+                "action":"این فیلد برای اجرا نیاز است"
+            },status=status.HTTP_400_BAD_REQUEST)
+        
+        elif session_id is None:
+            return Response({
+                "session_id":"این فیلد برای اجرا نیاز است"
+            },status=status.HTTP_400_BAD_REQUEST)
+        
+        if action == "reject":
+            find_session_to_reject.rejected_by = user
+            find_session_to_reject.save()
+
+            return Response({
+                "success":True,
+                "message":"عملیات با موفقیت انجام شد"
+            },status=status.HTTP_201_CREATED)
+        else:
+            return Response({
+                "success":False,
+                "message":"عملیات شما با خطا مواجه شد دوباره اقدام کنید"
+            })
+        
+
+
+            
 
  
 
@@ -242,3 +274,7 @@ class DebugHubService:
 
     def RejectSession(self, session_id):
         pass
+
+    def create_temporary_session(self,user):
+        debuggers = User.objects.filter(user_roles__name="debugger").distinct()
+        

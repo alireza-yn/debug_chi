@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Category, Question, Answer
+from .models import Category, Question, Answer,AiCategoryQuestion,AiQuestion,AiQuestionAnswer
 
 # نمایش پاسخ‌ها در صفحه سوال
 class AnswerInline(admin.TabularInline):  
@@ -26,3 +26,11 @@ class CategoryAdmin(admin.ModelAdmin):
 class AnswerAdmin(admin.ModelAdmin):
     list_display = ('id', 'text', 'description')  # نمایش این فیلدها در لیست پاسخ‌ها
     search_fields = ('text',)  # امکان جستجو در پاسخ‌ها
+
+
+admin.site.register(AiQuestionAnswer)
+admin.site.register(AiCategoryQuestion)
+admin.site.register(AiQuestion)
+
+
+

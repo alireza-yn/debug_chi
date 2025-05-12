@@ -183,6 +183,13 @@ class UserService:
                 "default_card":new_card.default_card
 
             }
+        
+    def delete_bank_card(self, card_id, user):
+        card = UserBankCards.objects.filter(user=user, id=card_id).first()
+        if card:
+            card.delete()
+            return True, "کارت با موفقیت حذف شد."
+        return False, "کارت یافت نشد."
 
 
 

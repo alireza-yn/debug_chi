@@ -101,12 +101,36 @@ export const Questions = [
         question: "مشکل شما در چه زمینه ای است",
         sound: "/ai/sound/starter-1.mp3",
         answers: [
-          { id: 1, answer: "توسعه وب",message:"من در زمینه نیاز به کمک دارم" },
-          { id: 2, answer: "اپلیکیشن های موبایل",message:"من در زمینه نیاز به کمک دارم" },
-          { id: 3, answer: "داد های هوش مصنوعی",message:"من در زمینه نیاز به کمک دارم" },
-          { id: 4, answer: "بازی سازی",message:"من در زمینه نیاز به کمک دارم" },
-          { id: 5, answer: "بلاکچین وب 3",message:"من در زمینه نیاز به کمک دارم" },
-          { id: 6, answer: "نرم افزار ویندوز",message:"من در زمینه نیاز به کمک دارم"},
+          {
+            id: 1,
+            answer: "توسعه وب",
+            message: "من در زمینه نیاز به کمک دارم",
+          },
+          {
+            id: 2,
+            answer: "اپلیکیشن های موبایل",
+            message: "من در زمینه نیاز به کمک دارم",
+          },
+          {
+            id: 3,
+            answer: "داد های هوش مصنوعی",
+            message: "من در زمینه نیاز به کمک دارم",
+          },
+          {
+            id: 4,
+            answer: "بازی سازی",
+            message: "من در زمینه نیاز به کمک دارم",
+          },
+          {
+            id: 5,
+            answer: "بلاکچین وب 3",
+            message: "من در زمینه نیاز به کمک دارم",
+          },
+          {
+            id: 6,
+            answer: "نرم افزار ویندوز",
+            message: "من در زمینه نیاز به کمک دارم",
+          },
         ],
       },
       {
@@ -115,20 +139,20 @@ export const Questions = [
         sound: "/ai/sound/starter-2.mp3",
         answers: [
           { id: 1, answer: "بخش بک اند" },
-          { id: 2, answer: "بخش فران اند" }
+          { id: 2, answer: "بخش فران اند" },
         ],
       },
       {
         id: 3,
         question: "زبانی که استفاده کرده اید را انتخاب کنید",
         answers: [
-          { id: 1, answer: "python",message:"من از زبان استفاده میکنم" },
-          { id: 2, answer: "node.js",message:"من از زبان استفاده میکنم" },
-          { id: 3, answer: "java",message:"من از زبان استفاده میکنم" },
-          { id: 4, answer: "GO",message:"من از زبان استفاده میکنم" },
-          { id: 5, answer: "c#",message:"من از زبان استفاده میکنم" },
-          { id: 6, answer: "Ruby",message:"من از زبان استفاده میکنم" },
-          { id: 7, answer: "flutter",message:"من از زبان استفاده میکنم" },
+          { id: 1, answer: "python", message: "من از زبان استفاده میکنم" },
+          { id: 2, answer: "node.js", message: "من از زبان استفاده میکنم" },
+          { id: 3, answer: "java", message: "من از زبان استفاده میکنم" },
+          { id: 4, answer: "GO", message: "من از زبان استفاده میکنم" },
+          { id: 5, answer: "c#", message: "من از زبان استفاده میکنم" },
+          { id: 6, answer: "Ruby", message: "من از زبان استفاده میکنم" },
+          { id: 7, answer: "flutter", message: "من از زبان استفاده میکنم" },
         ],
       },
     ],

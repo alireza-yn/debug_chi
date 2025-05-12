@@ -15,13 +15,13 @@ type Props = {
   user:any[]
 };
 
-
-
 const Dashboard = (props: Props) => {
   const params =useSearchParams()
   console.log(params.get('tab_id'))
   let tab_id = params.get('tab_id')
-  console.log(tab_id)
+
+
+  
   const TabTrigger = [
     {
       label: "پروفایل",

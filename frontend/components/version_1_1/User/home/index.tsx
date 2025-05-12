@@ -39,13 +39,12 @@ import {
 import React, { useState } from "react";
 import { GetUserActivityHistoryTab } from "../TabsData";
 import RequetsList from "./RequetsList";
-import Image from "next/image";
 import ChatList from "../../chatList";
 import OnlineAction from "../OnlineAction";
 import NewRequestIncoming from "../NewRequestIncoming";
-import { a } from "motion/react-client";
 import { useRequestFilter } from "@/context/RequetsFilterProvider";
 import ClassActivities from "./ClassActivity";
+import TicketsTracking from "./TicketsTracking";
 
 type Props = {
   user: Main;
@@ -100,9 +99,10 @@ export const DebugerHome = ({ user, faq }: Props) => {
           }
         >
           <div className="w-full h-full ">
-            <div className="h-[600px] box-border p-5 overflow-y-auto gap-3 flex flex-col">
+            <div className="h-[600px] box-border p-5 overflow-y-auto gap-3 flex flex-col relative">
               <Chip variant="faded">پرتکرارترین ها</Chip>
               <SupportFAQ data={faq} user={user} />
+              <TicketsTracking phone={user.user_phone}/>
             </div>
           </div>
         </Tab>
@@ -116,7 +116,7 @@ export const DebugerHome = ({ user, faq }: Props) => {
           }
         >
           <div className="w-full h-full ">
-            <div className="h-[600px] box-border overflow-y-auto p-5">
+            <div className="h-[750px] box-border overflow-y-auto p-5">
               <GetUserActivityHistoryTab />
             </div>
           </div>
@@ -131,10 +131,8 @@ export const DebugerHome = ({ user, faq }: Props) => {
           }
         >
           <div className="w-full h-full">
-            {/* <div className="h-[600px] overflow-y-auto box-border p-5"> */}
             <RankTab user={user} />
 
-            {/* </div> */}
           </div>
         </Tab>
       </Tabs>

@@ -91,11 +91,11 @@ export const CustomLoginIcon = () => {
   );
 };
 
-export const LogoIcon = () => {
+export const LogoIcon = ({size}:{size?:string}) => {
   return (
     <svg
-      width="329"
-      height="119"
+      width={size || "329"}
+      height={size  ||"119"}
       viewBox="0 0 329 119"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"

@@ -12,37 +12,35 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
 
-
 interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined }
+  searchParams: { [key: string]: string | string[] | undefined };
 }
 
-const page = async ({searchParams}:PageProps) => {
+const page = async ({ searchParams }: PageProps) => {
   const token = (await cookies()).get("token")?.value;
   const { type } = await searchParams;
   let response;
-  if (type == "debugers"){
+  if (type == "debugers") {
     response = await perform_get("auths/all_debuger/");
-  }
-  else{
-    response = await perform_get('post/course_list/')
+  } else {
+    response = await perform_get("post/course_list/");
   }
 
-  if (!response){
-    return(
+  if (!response) {
+    return (
       <main className="w-full h-screen flex">
-      <Sidebar>
-        <SidebarBody />
-        <SidebarFooter token={token} />
-      </Sidebar>
-      <div className="flex flex-1 box-border gap-4" dir="rtl">
-        <div className="flex-1 flex flex-col h-full box-border p-4">
-          دیتایی یافت نشد دوباره اقدام کنید
-          <Button as={Link} href="/community?type=debugers"></Button>
+        <Sidebar>
+          <SidebarBody />
+          <SidebarFooter token={token} />
+        </Sidebar>
+        <div className="flex flex-1 box-border gap-4" dir="rtl">
+          <div className="flex-1 flex flex-col h-full box-border p-4">
+            دیتایی یافت نشد دوباره اقدام کنید
+            <Button as={Link} href="/community?type=debugers"></Button>
+          </div>
         </div>
-      </div>
-    </main>
-    )
+      </main>
+    );
   }
 
   return (
@@ -51,22 +49,20 @@ const page = async ({searchParams}:PageProps) => {
         <SidebarBody />
         <SidebarFooter token={token} />
       </Sidebar>
-      <div className="flex flex-1 box-border gap-4 bg-community "  dir="rtl">
+      <div className="flex flex-1 box-border gap-4 bg-community " dir="rtl">
         <div className="flex-1 flex flex-col h-full overflow-y-auto">
-          {
-            type == "debugers" ? 
+          {type == "debugers" ? (
             <FilterProvider users={response}>
-            <FilterControls />
-            <EngineersList users={response} />
-          </FilterProvider>
-          :
+              <FilterControls />
+              <EngineersList users={response} />
+            </FilterProvider>
+          ) : (
             <FilterProvider users={[]}>
-            <FilterControls />
-            <VideoList data={response} />
-            {/* <EngineersList users={response} /> */}
-          </FilterProvider>
-
-          }
+              <FilterControls />
+              <VideoList data={response} />
+              {/* <EngineersList users={response} /> */}
+            </FilterProvider>
+          )}
         </div>
       </div>
     </main>

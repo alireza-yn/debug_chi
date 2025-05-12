@@ -6,6 +6,7 @@ import { Cross, Plus, Trash2, X } from "lucide-react"
 import { UserJobHistory } from "@/components/types/user.types"
 import { perform_delete, perform_post } from "@/lib/api"
 import { addToast, Button, Input, Textarea } from "@heroui/react"
+import { usePathname } from "next/navigation"
 
 interface JobEntry {
   id: string
@@ -194,6 +195,8 @@ useEffect(()=>{
   setJobs(data)
 },[])
   const [isDialogOpen, setIsDialogOpen] = useState(false)
+  const currentPath = usePathname()
+  const is_engineer = currentPath.startsWith("/engineers/")
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -265,7 +268,7 @@ useEffect(()=>{
       </div>
 
       {
-        jobs.length != 4 &&
+        jobs.length != 4 && !is_engineer &&
         <Button variant="flat" color="secondary" onPress={() => setIsDialogOpen(true)} className="absolute left-2 top-2">
           <Plus className="mr-2 h-4 w-4" /> سابقه شغلی
         </Button>
@@ -275,7 +278,10 @@ useEffect(()=>{
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
         {jobs.map((job) => (
           <div key={job.id} className="flex flex-col items-center relative">
+            {
+              !is_engineer &&
             <Button onPress={()=>deleteObject(job.id)} size="sm" isIconOnly startContent={<Trash2 size={14} />}  variant="shadow" className="bg-c_secondary absolute -left-2 -top-2"></Button>
+            }
             <HeroCard className="w-full mb-2 bg-gradient-to-b from-purple-50 to-white dark:from-purple-900 dark:to-gray-800">
               <HeroCardContent className="text-center">
                 <h3 className="font-bold text-lg text-purple-800 dark:text-purple-300">
@@ -328,9 +334,9 @@ useEffect(()=>{
           </div>
         ))}
       </div>
-
+ 
       <HeroDialog isOpen={isDialogOpen} onClose={() => setIsDialogOpen(false)}>
-        <HeroDialogHeader>Add New Job Experience</HeroDialogHeader>
+        <HeroDialogHeader>اضافه کردن شغل جدید</HeroDialogHeader>
         <div className="p-4 flex flex-col gap-5">
           <Input label="Company" id="companyName" name="companyName" defaultValue={newJob.companyName} onChange={handleInputChange} />
           <Input label="Job Title" id="jobTitle" name="jobTitle" defaultValue={newJob.jobTitle} onChange={handleInputChange} />
@@ -339,9 +345,10 @@ useEffect(()=>{
           <HeroInput label="endDate" id="endDate" name="endDate" type="date" value={newJob.endDate} onChange={handleInputChange} />
           <Textarea label="Responsibilities" id="responsibilities" name="responsibilities" defaultValue={newJob.responsibilities} onChange={handleInputChange} />
         </div>
-        <HeroDialogFooter>
-          <HeroButton variant="outline" onClick={() => setIsDialogOpen(false)}>Cancel</HeroButton>
-          <HeroButton onClick={addNewJob}>Save</HeroButton>
+        <HeroDialogFooter >
+          <HeroButton variant="outline" onClick={() => setIsDialogOpen(false)}>لغو</HeroButton>
+          <span></span>
+          <HeroButton onClick={addNewJob}>ذخیره</HeroButton>
         </HeroDialogFooter>
       </HeroDialog>
     </div>

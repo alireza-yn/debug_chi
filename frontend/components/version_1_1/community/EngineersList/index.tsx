@@ -54,8 +54,30 @@ const EngineersList = ({ users }: Props) => {
                     {user.debugger_bio}
                   </p>
                 )}
+                  {user.user_expertise.length > 0 && (
+                  <div>
+                    <div className="flex flex-wrap gap-1 mt-1">
+                      {user.user_expertise.map((exp, index) => {
+                        return exp.expertise?.map((item) => {
+                          return (
+                            <Chip
+                              key={item.id}
+                              variant="flat"
+                              color="warning"
+                              size="sm"
+                            >
+                              {item.title}
+                            </Chip>
+                          );
+                        });
+                      })}
+                    </div>
+                  </div>
+                )}
+               
+                <Divider />
 
-                {user.user_language.length > 0 && (
+               {user.user_language.length > 0 && (
                   <div>
                     <div className="flex flex-wrap gap-2 mt-1">
                       {user.user_language.map((lang, index) => (
@@ -80,28 +102,6 @@ const EngineersList = ({ users }: Props) => {
                           </Chip>
                         </div>
                       ))}
-                    </div>
-                  </div>
-                )}
-                <Divider />
-
-                {user.user_expertise.length > 0 && (
-                  <div>
-                    <div className="flex flex-wrap gap-1 mt-1">
-                      {user.user_expertise.map((exp, index) => {
-                        return exp.expertise?.map((item) => {
-                          return (
-                            <Chip
-                              key={item.id}
-                              variant="flat"
-                              color="warning"
-                              size="sm"
-                            >
-                              {item.title}
-                            </Chip>
-                          );
-                        });
-                      })}
                     </div>
                   </div>
                 )}

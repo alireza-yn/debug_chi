@@ -94,7 +94,7 @@ export default function Testimonials({
       dir="ltr"
     >
       <motion.div
-        className="max-w-7xl mx-auto"
+        className="w-full"
         variants={containerVariants}
         initial="hidden"
         animate={isVisible ? "visible" : "hidden"}
@@ -109,6 +109,8 @@ export default function Testimonials({
         </motion.div>
 
         <AnimatePresence mode="wait" custom={direction}>
+            {visibleTestimonials.length === 0 && <div className="w-full h-40 rounded-2xl border border-dashed border-slate-800 flex items-center justify-center">کامنتی ثبت نشده</div> }
+
           <motion.div
             key={currentPage}
             custom={direction}
@@ -285,8 +287,9 @@ export default function Testimonials({
               />
             ))}
           </div>
-
-          <div className="flex gap-2 ml-4">
+            {
+              visibleTestimonials.length > 0 
+              &&  <div className="flex gap-2 ml-4">
             <motion.button
               onClick={prevPage}
               className="w-10 h-10 rounded-full border border-gray-700 flex items-center justify-center hover:bg-violet-900 transition-colors"
@@ -309,6 +312,7 @@ export default function Testimonials({
               <ChevronRight className="w-5 h-5" />
             </motion.button>
           </div>
+            }
         </motion.div>
       </motion.div>
     </motion.div>

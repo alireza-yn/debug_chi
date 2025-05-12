@@ -41,7 +41,7 @@ class EducationProject(models.Model):
 
 class ProjectImage(models.Model):
     project = models.ForeignKey(EducationProject, on_delete=models.CASCADE, related_name='images')
-    image = models.ImageField(upload_to='static/project/image_project/')
+    image = models.ImageField(upload_to='project/image_project/')
     uploaded_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

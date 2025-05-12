@@ -99,7 +99,7 @@ const RequestCard = ({ data }: { data: Main }) => {
   if (pendingList.length === 0) {
     return (
       <div className="flex flex-col gap-2 w-full box-border p-4 bg-c_background/50 rounded-3xl">
-        <span className="flex-1 flex justify-center items-center box-border text-primary-700">
+        <span className="fleSx-1 flex justify-center items-center box-border text-primary-700">
           هیچ درخواستی وجود ندارد
         </span>
       </div>

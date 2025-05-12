@@ -19,7 +19,15 @@ import {
   DatePicker,
   NumberInput,
 } from "@heroui/react";
-import { ArrowLeft, CircleFadingPlusIcon, Gavel, Image } from "lucide-react";
+import {
+  ArrowLeft,
+  Check,
+  CheckCircle,
+  CircleFadingPlusIcon,
+  Gavel,
+  Image,
+  X,
+} from "lucide-react";
 import { LibraIcon } from "@/components/ui/icons";
 import { tenderContext, TenderProvider } from "@/context/UploadTenderContext";
 import { I18nProvider, useDateFormatter } from "@react-aria/i18n";
@@ -33,10 +41,14 @@ import {
 } from "@internationalized/date";
 import ImageUploader from "../UploadImage";
 import axios from "axios";
-import { perform_post } from "@/lib/api";
+import { perform_get, perform_post } from "@/lib/api";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { usePathname } from "next/navigation";
+import { Main, Public } from "@/components/types/RequestListForBid";
+import { formatCurrency } from "@/utils/tools";
+import TenderBidsList from "./TenderBidsList";
+import TednerCancelation from "./TenderCancelation";
 type Bid = {
   id: number;
   name: string;
@@ -97,6 +109,21 @@ const statusOptions = [
 ];
 
 const BidIncomingList = () => {
+  const [tenderClass, setTenderClass] = useState<Main>();
+
+  useEffect(() => {
+    const getAllClassData = async () => {
+      const response = await perform_get("api/v1/get_all_tender_class/");
+      if (response.status === 404) {
+        console.log(response.data);
+      } else {
+        console.log(response);
+        setTenderClass(response);
+      }
+    };
+    getAllClassData();
+  }, []);
+
   // برای هر دو فیلتر مقدار پیش‌فرض "همه"
   const [selectedClass, setSelectedClass] = React.useState<any>(
     new Set(["all"])
@@ -126,7 +153,7 @@ const BidIncomingList = () => {
     <TenderProvider>
       <div
         className={`${
-          isOpen ? "w-[700px]" : "w-96"
+          isOpen ? "w-[700px]" : "w-[500px]"
         } transition-all duration-500 ease-in-out h-full flex flex-col gap-4 relative`}
       >
         <UploadBidSection setIsOpen={setIsOpen} />
@@ -160,71 +187,8 @@ const BidIncomingList = () => {
 
         {/* بخش نمایش بیدها */}
         <div className="w-full h-full flex flex-col gap-2 overflow-y-auto box-border px-4 py-1">
-          <Accordion variant="splitted">
-            {filteredBids.map((bid) => (
-              <AccordionItem
-                key={bid.id}
-                aria-label={`Accordion ${bid.id}`}
-                title={
-                  <div className="flex items-center justify-between w-full">
-                    <User
-                      avatarProps={{
-                        src: bid.avatar,
-                      }}
-                      description={bid.role}
-                      name={bid.name}
-                    />
-                    <div className="text-sm text-gray-500">
-                      {bid.classType === "private"
-                        ? "کلاس خصوصی"
-                        : bid.classType === "public"
-                        ? "کلاس عمومی"
-                        : "مشاوره"}
-                    </div>
-                  </div>
-                }
-              >
-                <Card>
-                  <CardHeader />
-                  <CardBody>
-                    <div className="w-full h-full flex flex-col gap-2">
-                      <div className="text-sm text-gray-500 flex items-center justify-end">
-                        <Chip color="primary" size="sm" variant="flat">
-                          مزایده #{bid.id}
-                        </Chip>
-                      </div>
-                      <div className="text-sm text-gray-500 flex items-center justify-between">
-                        <span>{bid.date}</span>
-                        <span>تاریخ</span>
-                      </div>
-                      <div className="text-sm text-gray-500 flex items-center justify-between">
-                        <span>{bid.amount}</span>
-                        <span>مبلغ</span>
-                      </div>
-                      <div className="text-sm text-gray-500 flex items-center justify-between">
-                        <span>
-                          {bid.status === "approved"
-                            ? "تایید شده"
-                            : bid.status === "pending"
-                            ? "در حال بررسی"
-                            : "رد شده"}
-                        </span>
-                        <span>وضعیت</span>
-                      </div>
-                    </div>
-                  </CardBody>
-                  <CardFooter className="flex items-center gap-4 w-full">
-                    <Button color="success" fullWidth>
-                      تایید
-                    </Button>
-                    <Button color="danger" variant="bordered" fullWidth>
-                      رد درخواست
-                    </Button>
-                  </CardFooter>
-                </Card>
-              </AccordionItem>
-            ))}
-          </Accordion>
+          <PublicAuctionRquestList public_data={tenderClass?.public || []} />
+          <PrivateTenderRquestList private_data={tenderClass?.private || []} />
         </div>
       </div>
     </TenderProvider>
@@ -232,6 +196,114 @@ const BidIncomingList = () => {
 };
 
 export default BidIncomingList;
+
+const PublicAuctionRquestList = ({
+  public_data,
+}: {
+  public_data: Public[];
+}) => {
+  return (
+    <Accordion variant="splitted" dir="rtl">
+      <AccordionItem
+        key={"public"}
+        aria-label="public"
+        title={<div className="text-tiny">کلاس عمومی</div>}
+      >
+        {public_data.map((item) => {
+          return (
+            <div
+              className="w-full py-4 my-2 bg-default-100 rounded-xl box-border px-2"
+              key={item.id}
+            >
+              <div className="flex items-center  gap-2">
+                <div className="flex-1">
+                  <User
+                    name={item.title.substring(0, 24)}
+                    avatarProps={{
+                      src: item.image || "/user.jpg",
+                    }}
+                  />
+                </div>
+                <TenderBidsList bids={item.bids} title={item.title} />
+               <TednerCancelation tender_uuid={item.uuid}/>
+              </div>
+            </div>
+          );
+        })}
+        {public_data.length == 0 && <span>کلاسی وجود ندارد</span>}
+      </AccordionItem>
+    </Accordion>
+  );
+};
+
+const PrivateTenderRquestList = ({
+  private_data,
+}: {
+  private_data: Public[];
+}) => {
+  return (
+    <Accordion variant="splitted" dir="rtl">
+      <AccordionItem
+        key={"public"}
+        aria-label="public"
+        title={<div className="text-tiny">کلاس خصوصی</div>}
+      >
+        {private_data.map((item) => {
+          return (
+            <Accordion key={item.id} variant="splitted" className="my-2">
+              <AccordionItem
+                title={item.title.substring(0, 24)}
+                aria-label={`tender ${item.id}`}
+                className="text-tiny font-lightSans bg-default-100"
+              >
+                {item.bids.map((bid) => {
+                  return (
+                    <Accordion key={bid.id} variant="splitted">
+                      <AccordionItem
+                        aria-label={`user_bid_${bid.id}`}
+                        className="my-2 gap-2"
+                        title={
+                          <div className="flex gap-3 items-center">
+                            <User
+                              name={
+                                bid.user.first_name + " " + bid.user.last_name
+                              }
+                              avatarProps={{
+                                src: bid.user.image_profile || "/user.jpg",
+                              }}
+                            />
+                            <span className="text-tiny">
+                              {formatCurrency(Number(bid.amount), false)}
+                            </span>
+                          </div>
+                        }
+                      >
+                        <div className="flex gap-2 w-full">
+                          <Button variant="solid" color="success">
+                            تایید
+                          </Button>
+                          <Button variant="flat" color="danger">
+                            رد درخواست
+                          </Button>
+                        </div>
+                      </AccordionItem>
+                    </Accordion>
+                  );
+                })}
+                {item.bids.length == 0 && (
+                  <div className="w-full text-center py-2">
+                    کاربری شرکت نکرده
+                  </div>
+                )}
+              </AccordionItem>
+            </Accordion>
+          );
+        })}
+        {private_data.length == 0 && <span>کلاسی وجود ندارد</span>}
+      </AccordionItem>
+    </Accordion>
+  );
+};
 
 const UploadBidSection = ({
   setIsOpen,
@@ -256,7 +328,7 @@ const UploadBidSection = ({
           }}
           endContent={<LibraIcon />}
         >
-          مناقصه جدید
+          آگهی جدید
         </Button>
         <Button
           fullWidth
@@ -519,8 +591,7 @@ const PageTwoUpload = ({
   const createTender = async () => {
     const token = Cookies.get("token");
 
-    
-    const user_id:any = jwtDecode(token || "");
+    const user_id: any = jwtDecode(token || "");
 
     console.log(token);
     const response = await axios.post(
@@ -537,7 +608,7 @@ const PageTwoUpload = ({
     const data = await response.data;
     if (data) {
       console.log(response.data);
-      window.location.href = "/bid"
+      window.location.href = "/bid";
     }
   };
 

@@ -97,6 +97,10 @@ class UserBankCardsListCreateView(ListCreateAPIView, UserService):
 class UserBankCardApiView(APIView,UserService):
     permission_classes= [IsAuthenticated]
     def post(self, request: Request):
+
+
+
+
         title = request.data.get('title')
         card_number = request.data.get("card_number")
         created, message,data = self.add_bank_card(card_number=card_number, title=title,user=request.user)
@@ -105,6 +109,24 @@ class UserBankCardApiView(APIView,UserService):
             return Response({"success": created, "message": message,"data":data}, status=status.HTTP_201_CREATED)
         else:
             return Response({"success": created, "message": message}, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request: Request):
+        card_id = request.query_params.get('card_id')
+        if not card_id:
+            return Response({"success": False, "message": "شناسه کارت ارسال نشده است."}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            card_id = int(card_id)
+        except ValueError:
+            return Response({"success": False, "message": "شناسه کارت نامعتبر است."}, status=status.HTTP_400_BAD_REQUEST)
+
+        user = request.user
+        success, message = self.delete_bank_card(card_id=card_id, user=user)
+
+        if success:
+            return Response({"success": success, "message": message}, status=status.HTTP_204_NO_CONTENT)
+
+        return Response({"success": success, "message": message}, status=status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -59,11 +59,13 @@ const Card = ({ tender, bids }: Props) => {
   }
   const value = useRef<HTMLInputElement | null>(null);
   const [bidsList, setBidsList] = useState<Bid[]>(bids);
+  
   const submitBid = async (
     action: "submit" | "update",
     tender_id: number,
     price: number
   ) => {
+    console.log(action)
     if (!token) {
       setIsOpen(false);
       dispatch(showLogin({ show: true, path: pathname }));
@@ -73,7 +75,7 @@ const Card = ({ tender, bids }: Props) => {
         tender: tender_id,
         amount: price.toString(),
       });
-
+      console.log(response)
       if (response.success) {
         const newBid: Bid = {
           user: user || "",
@@ -280,7 +282,7 @@ const Card = ({ tender, bids }: Props) => {
                 size="sm"
                 className="bg-purple-700 "
                 startContent={<Coins />}
-                onPress={() => submitBid("update", tender.id, Number(value))}
+                onPress={() => submitBid( user_exist ? "update" : "submit", tender.id, Number(value))}
               >
                 {user_exist ? "بروزرسانی پیشنهاد" : "شرکت در مزایده"}
               </Button>
@@ -308,7 +310,7 @@ const Card = ({ tender, bids }: Props) => {
                           color="success"
                           size="sm"
                           onPress={() =>
-                            submitBid("update", tender.id, Number(value))
+                            submitBid( user_exist ? "update" : "submit", tender.id, Number(value))
                           }
                         >
                           تایید
@@ -319,14 +321,14 @@ const Card = ({ tender, bids }: Props) => {
                     />
                     <Button
                       onPress={() =>
-                        submitBid("update", tender.id, Number(bid) * 1.2)
+                        submitBid( user_exist ? "update" : "submit", tender.id, Number(bid) * 1.2)
                       }
                     >
                       {formatCurrency(Number(bid) * 1.2)}
                     </Button>
                     <Button
                       onPress={() =>
-                        submitBid("update", tender.id, Number(bid) * 1.5)
+                        submitBid( user_exist ? "update" : "submit", tender.id, Number(bid) * 1.5)
                       }
                     >
                       {formatCurrency(Number(bid) * 1.5)}
@@ -454,7 +456,7 @@ const ActionBid = ({
             variant="solid"
             color="secondary"
             size="sm"
-            className="bg-purple-700 "
+            className="bg-purple-700"
             startContent={<Coins />}
           >
             {user_exist ? "بروزرسانی پیشنهاد" : "شرکت با قیمت کمتر"}

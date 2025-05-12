@@ -69,11 +69,11 @@ export default function Header() {
           <Button
             variant="solid"
             color="secondary"
-            // href="/"
-            // as={Link}
-            onPress={() => {
-              dispatch(showLogin({ show: true, path: "" }));
-            }}
+            href="/debug/sign-up"
+            as={Link}
+            // onPress={() => {
+            //   dispatch(showLogin({ show: true, path: "programmer introduction" }));
+            // }}
             endContent={<CoinsIcon />}
           >
             کسب درآمد

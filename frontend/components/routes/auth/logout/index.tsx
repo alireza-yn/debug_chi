@@ -34,7 +34,7 @@ export default function Logout() {
     return (
       <>
         <Button onPress={onOpen} variant="light" color="danger" endContent={<LogOut size={14} className="rotate-180"/>}>خروج</Button>
-        <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+        <Modal isOpen={isOpen} onOpenChange={onOpenChange} dir="rtl" hideCloseButton>
           <ModalContent>
             {(onClose) => (
               <>

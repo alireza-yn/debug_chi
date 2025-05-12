@@ -5,6 +5,9 @@ from tasks.views import *
 from programming_language.views import *
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from .views import * 
+
+
+
 from user_resume.views import *
 from projects.views import *
 from ConsultHub.views import *
@@ -85,15 +88,21 @@ router.register(r'comments',CommentViewSet,basename='کامنت ویدیوی آ�
 router.register(r'Like',LikedPostViewSet,basename='لایک ویدیوی آموزشی'),
 #endregion
 
-
 #paymen Region
 router.register(r'payment_withdraw',WithDrawViewSet,basename='برداشت اعتبار')
+#endregion
 
+
+
+
+#UserResume Region
+router.register(r'foriegn_language',viewset=UserForeignLanguageViewSet,basename='foriegn_language')
 #endregion
 
 
 urlpatterns = [
     path('v1/',include(router.urls)),
+    path('v1/test-upload/',TestUploadView.as_view(),name='test-upload'),
     path('v1/user-by-role/',UsersByRoleListView.as_view(),name='user-by-role'),
     path('v1/user-info/<uuid:uuid>/', GetUserInfoByUUID.as_view(), name='get-user-info'),
     path('v1/get-user-consult/',DebuggerApplicatorView.as_view(),name='get-user-consult'),
@@ -119,19 +128,20 @@ urlpatterns = [
     path('v1/lock-session/',view=LockSession.as_view(),name='lock-session'),
     path('v1/close-session/',view=CloseSession.as_view(),name='close-session'),
     path('v1/reject-session/',view=RejectSession.as_view(),name='reject-session'),
+    path('v1/reject-session/',view=SessionHandlerAPIView.as_view(),name="handle-session"),
 
     #endregion 
     
     
     #region Project
+
     path('v1/tender/',TenderProjectListView.as_view(),name='tender_info'),
     path('v1/tender_list/',ShowTenderProject.as_view(),name='tender_list'),
     path('v1/bids_tender_list/',GetBidTender.as_view(),name='bid_tender_list'),
     path('v1/submit_bid/',BidProjectAPIView.as_view(),name='submit_bid'),
     path('v1/like_tender/<str:tender_uuid>/',TenderLikeHandlerAPIView.as_view(), name='like_tender'),
     path('v1/get_all_class/',GetAllClassDetails.as_view(), name='all_class'),
-
-    
+    path('v1/get_all_tender_class/',EducationTenderListView.as_view(), name='tender_class'),
     #endregion
     
     #region question

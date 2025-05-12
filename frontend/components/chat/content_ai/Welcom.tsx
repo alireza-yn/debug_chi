@@ -27,6 +27,8 @@ const AiWelcome: React.FC = () => {
   const mode = searchParams.get("mode");
   const dispatch = useAppDispatch();
   const [message_id, setMessageId] = useState(0);
+
+  
   const filterMode: any = Questions.find(
     (item) => item.category == "starter"
   );

@@ -13,6 +13,8 @@ from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView 
 import requests
 from core.permissions import RoleMixin
+from django.core.files.storage import default_storage
+from django.core.files.base import ContentFile
 User = get_user_model()
 
 
@@ -118,3 +120,10 @@ class TextToSpeech(APIView):
 #             raise NotFound(detail="User not found.")
 
 
+class TestUploadView(APIView):
+    def get(self, request):
+        content = ContentFile(b"Hello world!")
+        path = default_storage.save("test/test_file.txt", content)
+        file_url = default_storage.url(path)
+        
+        return Response({"file_url": file_url})

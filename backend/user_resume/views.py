@@ -143,3 +143,26 @@ class AddLanguageForUser(APIView):
             {"success": True, "created": created},
             status=status.HTTP_201_CREATED if created else status.HTTP_200_OK,
         )
+    
+
+
+
+class UserForeignLanguageViewSet(ModelViewSet):
+    serializer_class  = UserForeignLanguageSerializer
+    queryset = UserForiegnLanguage.objects.all()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

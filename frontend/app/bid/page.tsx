@@ -14,7 +14,7 @@ import React from "react";
 
 const page = async ({ params }: any) => {
   const token = (await cookies()).get("token")?.value;
-  const tender: Main = await perform_get("api/v1/bids_tender_list/",token);
+  const tender: Main = await perform_get("api/v1/bids_tender_list/", token);
 
   return (
     <main className="w-full h-screen flex">
@@ -33,9 +33,11 @@ const page = async ({ params }: any) => {
             </div>
           </BidFilterProvider>
         </div>
-        <div className="bg-foreground-100 rounded-3xl h-full">
-          <BidIncomingList />
-        </div>
+        {token ? (
+          <div className="bg-foreground-100 rounded-3xl h-full">
+            <BidIncomingList />
+          </div>
+        ) : null}
       </div>
     </main>
   );

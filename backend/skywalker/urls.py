@@ -24,6 +24,8 @@ urlpatterns = [
     path('api/',include('api.urls')),
     path('',homePage, name="home"),
     path('payment/',include('payments.urls'),name='payment'),
-    path('post/',include('post.urls'),name="post")
+    path('post/',include('post.urls'),name="post"),
+    path('questions/',include('questions.urls'),name="questions"),
+    
     
 ]

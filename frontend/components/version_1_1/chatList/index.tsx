@@ -24,6 +24,10 @@ const ChatList = (props: Props) => {
   const path = usePathname();
   const session_id = path.split("/")[2];
   const { filter } = useRequestFilter();
+  const currentPath = usePathname()
+
+
+  const is_main = currentPath === '/'
 
   const userHandler = (user: any) => {
     setSelectedUser(user);
@@ -111,7 +115,7 @@ const ChatList = (props: Props) => {
 
   return (
     <div className="flex flex-col gap-4 box-border p-4 flex-1  overflow-y-auto">
-      {selectedUser && (
+      {selectedUser && !is_main &&(
         <UserCard
           user={selectedUser}
           data={data}

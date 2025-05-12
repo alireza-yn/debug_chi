@@ -12,7 +12,7 @@ from user_resume.serializers import *
 from django.contrib.auth import get_user_model
 from programming_language.serializers import *
 from followers.serializer import Followers,UserComments,UserCommentsSerializer
-from user_resume.serializers import UserPortfolioSerializer
+from user_resume.serializers import UserPortfolioSerializer,UserForeignLanguageSerializer
 User = get_user_model()
 
 
@@ -40,7 +40,7 @@ class UserSerializer(ModelSerializer):
     user_portfolios = UserPortfolioSerializer(many=True,read_only=True)
     user_job_history = UserJobHistorySerializer(many=True,read_only=True)
     user_degree = UserDegreeSerializer(many=True,read_only=True)
-
+    user_foreign_language = UserForeignLanguageSerializer(many=True,read_only=True)
     # followers = FollowerSerializer(read_only=True)
     class Meta:
         model = User
@@ -75,7 +75,8 @@ class UserSerializer(ModelSerializer):
             'user_portfolios',
             'user_job_history',
             'user_degree',
-            'user_main_comment'
+            'user_main_comment',
+            'user_foreign_language'
         ]
 
     def get_followers(self, obj):
@@ -96,6 +97,9 @@ class UserSerializer(ModelSerializer):
         except Followers.DoesNotExist:
             return []  # اگر فالوئری نداشت، لیست خالی برمی‌گردانیم.
         # extra_kwargs = {'user_roles': {'read_only': True}
+
+
+
 
     def create(self, validated_data):
         password = validated_data.pop("password", None)
@@ -204,6 +208,7 @@ class NormalUserSerializer(ModelSerializer):
     user_portfolios = UserPortfolioSerializer(many=True,read_only=True)
     user_job_history = UserJobHistorySerializer(many=True,read_only=True)
     user_degree = UserDegreeSerializer(many=True,read_only=True)
+    user_foreign_language = UserForeignLanguageSerializer(many=True,read_only=True)
 
     # followers = FollowerSerializer(read_only=True)
     class Meta:
@@ -235,7 +240,8 @@ class NormalUserSerializer(ModelSerializer):
             'user_portfolios',
             'user_job_history',
             'user_degree',
-            'user_main_comment'
+            'user_main_comment',
+            'user_foreign_language'
         ]
 
     def get_followers(self, obj):

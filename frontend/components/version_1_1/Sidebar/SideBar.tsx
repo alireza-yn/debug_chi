@@ -3,20 +3,8 @@
 // import { Sidebar, SidebarBody, SidebarLink } from "./index";
 "use client";
 
-import { Button, ButtonGroup, Tooltip } from "@heroui/react";
-import {
-  Book,
-  Bug,
-  Gavel,
-  Hammer,
-  HandCoins,
-  Home,
-  MessageCircleCode,
-  PackageSearch,
-  Search,
-  Globe,
-  User,
-} from "lucide-react";
+import { Button, Tooltip } from "@heroui/react";
+import { Gavel, Home, Search, Globe } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
@@ -128,14 +116,10 @@ import { usePathname } from "next/navigation";
 //   );
 // }
 const linkData = [
-  // { name: "دیباگ پروژه", path: "/debug", icon: Bug },
-  // { name: "کلاس خصوصی", path: "/private_class", icon: User },
-  // { name: "دوره‌های آموزشی", path: "/courses", icon: Book },
   { name: "خانه", path: "/", icon: Home },
   { name: "اکسپلور", path: "/landing", icon: Search },
   { name: "مزایده و مناقصه", path: "/bid", icon: Gavel },
-  { name: "جامعه", path: "/community", icon: Globe },
-  // {name:"چت",path:'/chat',icon:MessageCircleCode}
+  { name: "جامعه", path: "/community?type=debugers", icon: Globe },
 ];
 
 import React from "react";
@@ -147,18 +131,23 @@ const SidebarBody = (props: Props) => {
   return (
     <div className="w-full flex-1 flex items-center flex-col justify-center py-4 box-border gap-4">
       {linkData.map((item, index) => {
+        const isActive =
+          item.path === pathname ||
+          (item.path.startsWith("/community") &&
+            pathname.startsWith("/community"));
+
         return (
           <Tooltip content={item.name} placement="right" key={index}>
             <Link href={item.path}>
               <Button
                 className={`${
-                  item.path === pathname ? "scale-110" : ""
+                  isActive ? "scale-110" : ""
                 } hover:scale-125 transition-all duration-500 ease-in-out`}
-                variant={item.path === pathname ? "solid" : "flat"}
+                variant={isActive ? "solid" : "flat"}
                 name={item.name}
                 isIconOnly
                 radius="full"
-                color={item.path === pathname ? "primary" : "default"}
+                color={isActive ? "primary" : "default"}
                 startContent={<item.icon size={24} />}
                 size="lg"
               ></Button>

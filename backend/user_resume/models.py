@@ -4,6 +4,12 @@ from django.conf import settings
 from programming_language.models import *
 from core.models import Timestamp
 
+from django.contrib.auth import get_user_model
+
+
+
+
+User = get_user_model()
 
 class TimeStampModel(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
@@ -136,3 +142,11 @@ class UserJobHistory(Timestamp):
     endDate = models.DateTimeField()
     responsibilities = models.TextField()
     user = models.ForeignKey(settings.AUTH_USER_MODEL,on_delete=models.CASCADE,related_name='user_job_history')
+
+
+
+
+class UserForiegnLanguage(Timestamp):
+    name = models.CharField(max_length=30)
+    rate = models.IntegerField(default=0)
+    user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user_foreign_language')

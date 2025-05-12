@@ -29,13 +29,21 @@ class TenderLikeSerializer(ModelSerializer):
         model = TenderLikes
         fields = ['user','tender']
 
+
+class CustomBidSerializers(ModelSerializer):
+    user = CustomUserSerializer()
+    class Meta:
+        model = Bid
+        fields = ["id", "user", "amount"]
+
+
 class ProjectSerializer(ModelSerializer):
     images = ProjectImageSerializer(many=True, read_only=True)
     # language = ProgrammingLanguageSerializer(many=True)
     # expertise = ProgrammerExpertiseSerializer(many=True)
     # created_by = CustomUserSerializer()
     # users = CustomUserSerializer(many=True,read_only=True)
-
+    # bids = CustomBidSerializers(many=True, read_only=True)
     class Meta:
         model = EducationProject
         fields = [
@@ -59,13 +67,22 @@ class ProjectSerializer(ModelSerializer):
             "expertise",
             "users",
             "created_by",
-            "is_tender",
+            "is_tender"
+            
         ]
+class BidSerializers(ModelSerializer):
+    user = CustomUserSerializer(read_only=True)
+
+    class Meta:
+        model = Bid
+        fields = ["id", "user", "amount", "created_at", "updated_at", "tender"]
+
 
 
 class TenderSerializers(ModelSerializer):
     # tender_like = TenderLikeSerializer(many=True,read_only=True)
     tender_like = SerializerMethodField()
+    bids = BidSerializers(many=True,read_only=True)
     class Meta:
         model = TenderProject
         fields = [
@@ -86,7 +103,8 @@ class TenderSerializers(ModelSerializer):
             "expertise",
             "skills",
             "mode",
-            "tender_like"
+            "tender_like",
+            "bids"
             
         ]
         # depth = 1
@@ -95,13 +113,6 @@ class TenderSerializers(ModelSerializer):
         if user.is_authenticated:
             return TenderLikes.objects.filter(user=user, tender=obj).exists()
         return False
-
-class BidSerializers(ModelSerializer):
-    user = CustomUserSerializer(read_only=True)
-
-    class Meta:
-        model = Bid
-        fields = ["id", "user", "amount", "created_at", "updated_at", "tender"]
 
 
 class CustomTenderSerializers(ModelSerializer):
@@ -146,9 +157,3 @@ class CustomTenderSerializers(ModelSerializer):
     
 
 
-class CustomBidSerializers(ModelSerializer):
-    user = CustomUserSerializer()
-
-    class Meta:
-        model = Bid
-        fields = ["id", "user", "amount"]

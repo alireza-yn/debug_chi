@@ -30,6 +30,7 @@ export interface Main {
   user_job_history: UserJobHistory[];
   user_degree: UserDegree[];
   user_main_comment: UserMainComment[];
+  user_foreign_language: []
 }
 
 export interface Followers {
@@ -137,4 +138,13 @@ export interface CommentedUserClass {
   last_name: string;
   username: string;
   uuid: string;
+}
+
+export interface UserForiegnLanguage {
+  id: number,
+  created_at: string,
+  updated_at: string,
+  name: string,
+  rate: number,
+  user: number
 }

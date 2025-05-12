@@ -39,6 +39,7 @@ import {
   MoveUpRight,
   Plus,
   Search,
+  Trash2,
 } from "lucide-react";
 import { div, span } from "motion/react-client";
 import React, { useEffect, useRef, useState } from "react";
@@ -46,7 +47,8 @@ import AddNewCard from "./AddNewCard";
 import Image from "next/image";
 import { perform_post } from "@/lib/api";
 import { setDescription } from "@/redux/slices/aiSlice";
-import {I18nProvider} from "@react-aria/i18n";
+import { I18nProvider } from "@react-aria/i18n";
+import DeleteModal from "./deleteModal";
 type Props = {
   user: Main;
 };
@@ -68,7 +70,6 @@ const Wallet = (props: Props) => {
           placement="bottom"
           className="w-96"
           classNames={{
-            // base:"rounded-3xl",
             tab: "p-0",
             tabContent: "h-10 flex items-center justify-center",
             panel: "p-0 bg",
@@ -119,7 +120,7 @@ export default Wallet;
 
 const TabHome = ({ user }: { user: Main }) => {
   const { show, setShow } = useModalContext();
-  const card = user.user_bank_cards.find((item) => item.default_card == true);
+  // const card = user.user_bank_cards.find((item) => item.default_card == true);
   return (
     <div className="h-full flex flex-col gap-2 relative">
       <div className="w-full flex flex-row-reverse flex-1 bg-[radial-gradient(circle,_var(--tw-gradient-stops))]  from-violet-800 to-violet-400 rounded-3xl relative box-border p-5">
@@ -171,9 +172,16 @@ const TabHistory = () => {
         <FilterAction />
         <div className="flex gap-2" dir="rtl">
           <I18nProvider locale="fa-IR">
-
-          <DatePicker  className="max-w-[284px]" label="از تاریخ" variant="bordered"/>
-          <DatePicker  className="max-w-[284px]" label="تا تاریخ" variant="bordered"/>
+            <DatePicker
+              className="max-w-[284px]"
+              label="از تاریخ"
+              variant="bordered"
+            />
+            <DatePicker
+              className="max-w-[284px]"
+              label="تا تاریخ"
+              variant="bordered"
+            />
           </I18nProvider>
         </div>
         <FinancialActivities />
@@ -709,6 +717,8 @@ const AddNewCardContent = () => {
     }
   };
 
+
+
   return (
     <div
       className={`w-full h-full flex flex-col gap-4 bg-c_secondary rounded-2xl box-border p-4`}
@@ -721,12 +731,38 @@ const AddNewCardContent = () => {
           <div
             className={`${
               show
-                ? "flex-1 flex items-start justify-center w-full overflow-y-auto scrollbar-hide max-h-[420px]"
+                ? "flex-1 flex flex-col gap-2 items-start justify-start w-full overflow-y-auto scrollbar-hide max-h-[420px]"
                 : "hidden"
             }`}
             dir="rtl"
           >
-            <RadioGroup
+            {user?.user_bank_cards.map((item) => {
+              return (
+                <div
+                  key={item.id}
+                  className="w-full  mx-auto h-20 rounded-3xl flex gap-4 items-center justify-between box-border px-4 bg-default-50 relative"
+
+                >
+
+                  <Image
+                    src={"/bank/tejarat.png"}
+                    alt={item.title}
+                    width={25}
+                    height={25}
+                    className="rounded-3xl"
+                  />
+                  {formatCardNumber(item.card_number)}
+
+                <DeleteModal 
+                title="حذف کارت"
+                description="آیا از حذف کار خود مطمئنید؟"
+                url={`auths/user_cards/?card_id=${item.id}`}
+                />
+                </div>
+              );  
+            })}
+
+            {/* <RadioGroup
               className="w-full"
               label="کارت ها"
               defaultValue={"5859831058918326"}
@@ -753,7 +789,7 @@ const AddNewCardContent = () => {
                   </div>
                 );
               })}
-            </RadioGroup>
+            </RadioGroup> */}
           </div>
         </>
       )}

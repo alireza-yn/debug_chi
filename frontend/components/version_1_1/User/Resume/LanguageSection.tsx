@@ -1,7 +1,6 @@
-"use client"
-
+"use client";
 import type { UserLanguage } from "@/components/types/user.types"
-import { perform_post } from "@/lib/api"
+import { perform_patch } from "@/lib/api"
 import {
   Button,
   Card,
@@ -13,15 +12,19 @@ import {
   ModalBody,
   ModalContent,
   ModalFooter,
-  ModalHeader,
   ScrollShadow,
   Checkbox,
   useDisclosure,
+  Textarea,
+  addToast,
+  ModalHeader, // Import ModalHeader
 } from "@heroui/react"
 import axios from "axios"
-import { Plus, Search, Sparkle } from "lucide-react"
+import { EditIcon, Plus, Search, Sparkle } from "lucide-react"
 import { useEffect, useMemo, useState } from "react"
 import Cookies from "js-cookie"
+import { usePathname } from "next/navigation";
+
 const LanguageSection = ({
   debugger_bio,
   languages,
@@ -29,44 +32,36 @@ const LanguageSection = ({
   debugger_bio: string
   languages: UserLanguage[]
 }) => {
-  // Define base position classes for the scattered layout
-  const basePositions = [
-    "top-[20%] right-[10%]",
-    "top-[40%] right-[30%]",
-    "top-[65%] right-[15%]",
-    "top-[50%] right-[50%]",
-    "top-[30%] right-[65%]",
-    "top-[60%] right-[70%]",
-    "top-[75%] right-[40%]",
-    "top-[20%] right-[40%]",
-    "top-[45%] right-[5%]",
-    "top-[70%] right-[60%]",
-  ]
+  const [text, setText] = useState<string>(debugger_bio)
+  const [rotations, setRotations] = useState<number[]>([])
 
-  // Generate random translations for each language
-  // Using useMemo to ensure consistent random values between renders
-  const chipStyles = useMemo(() => {
-    return languages.map((_, index) => {
-      // Use a seeded random approach based on index
-      // This creates a pseudo-random effect that's consistent between renders
-      const seed = index * 9973 // Using a prime number as multiplier
+    const currentPath = usePathname()
+    const is_engineer = currentPath.startsWith("/engineers/")
+  
 
-      // Generate random translations within a controlled range
-      // The modulo operations ensure values stay within desired bounds
-      const translateX = ((seed % 17) - 8) * 3 // Range: -24px to +24px
-      const translateY = ((seed % 13) - 6) * 3 // Range: -18px to +18px
+useEffect(() => {
+  const generated = languages.map(() => Math.floor(Math.random() * 21) - 10)
+  setRotations(generated)
+}, [languages])
 
-      // Generate random rotation for added visual interest
-      const rotate = ((seed % 11) - 5) * 2 // Range: -10deg to +10deg
 
-      return {
-        transform: `translate(${translateX}px, ${translateY}px) rotate(${rotate}deg)`,
-      }
-    })
-  }, [languages.length])
+
+  // Add custom animation styles
+  const animationStyles = `
+    @keyframes pulse-subtle {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+      100% { transform: scale(1); }
+    }
+    .animate-pulse-subtle {
+      animation: pulse-subtle 3s infinite ease-in-out;
+    }
+  `
 
   return (
     <div className="flex flex-col gap-8">
+      <style jsx>{animationStyles}</style>
+
       <div className="flex items-center gap-3">
         <div className="w-5 h-5 rounded-full bg-white"></div>
         <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
@@ -74,17 +69,19 @@ const LanguageSection = ({
         </h3>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 w-3/4">
-        <div className="flex flex-col">
-          <Card className="border-2 border-violet-900">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 w-full md:w-3/4 mx-auto">
+        <div className="flex flex-col h-full">
+          <Card className="border-2 border-violet-900 h-full">
             <CardHeader className="bg-c_background/50 flex justify-between">
               <Chip color="secondary" variant="light" className="bg-black/40 text-tiny p-4">
                 زبان های برنامه نویسی
               </Chip>
-              <EditLanguageModal />
+              {
+                !is_engineer && <EditLanguageModal />
+              }
             </CardHeader>
-            <CardBody className="box-border p-5 bg-c_background/50">
-              <div className="flex gap-4 flex-col w-full min-h-[300px] bg-[#140b1b] box-border p-5 rounded-xl">
+            <CardBody className="box-border p-5 bg-c_background/50 h-full">
+              <div className="flex gap-4 flex-col w-full h-full bg-[#140b1b] box-border p-5 rounded-xl">
                 <div className="w-full flex gap-4 box-border px-10">
                   <span>علاقه مند به</span>
                   <span>
@@ -92,40 +89,53 @@ const LanguageSection = ({
                   </span>
                 </div>
                 <div className="relative w-full h-full min-h-[220px]">
-                  {languages.map((item, index) => {
-                    // Use modulo to cycle through positions if there are more languages than positions
-                    const positionClass = basePositions[index % basePositions.length]
+                  <div className="flex flex-wrap gap-3 p-2 justify-center">
+                    {languages.map((item, index) => {
+                      // Generate a unique key using index if id is not available
+                      const uniqueKey = item.language_name?.id || `lang-${index}`
 
-                    // Fix: Generate a unique key using index if id is not available
-                    const uniqueKey = item.language_name?.id || `lang-${index}`
+                      // Generate random rotation between -10 and 10 degrees
+                      const rotation = rotations[index] ?? 0
 
-                    return (
-                      <div
-                        key={uniqueKey}
-                        className={`absolute ${positionClass} transition-all duration-300 hover:scale-110 hover:z-20`}
-                        style={chipStyles[index]}
-                      >
-                        <Chip className="border-b-2 shadow-lg cursor-pointer" color="secondary" variant="solid">
-                          {item.language_name?.name} {item.language_name?.level}
-                        </Chip>
-                      </div>
-                    )
-                  })}
+                      return (
+                        <div
+                          key={uniqueKey}
+                          className="transition-all duration-300 hover:scale-110 hover:z-20 m-2"
+                          style={{
+                            transform: `rotate(${rotation}deg)`,
+                            transformOrigin: "center",
+                            display: "inline-block",
+                          }}
+                        >
+                          <Chip
+                            className="border-b-2 shadow-lg cursor-pointer text-sm md:text-base whitespace-normal max-w-[150px] md:max-w-none animate-pulse-subtle hover:animate-none"
+                            color="secondary"
+                            variant="solid"
+                          >
+                            {item.language_name?.name} {item.language_name?.level}
+                          </Chip>
+                        </div>
+                      )
+                    })}
+                  </div>
                 </div>
               </div>
             </CardBody>
           </Card>
         </div>
-        <div className="flex flex-col items-start">
-          <Card className="border-2 border-violet-900">
-            <CardHeader className="bg-c_background/50">
+        <div className="flex flex-col items-start h-full">
+          <Card className="border-2 border-violet-900 h-full">
+            <CardHeader className="bg-c_background/50 flex justify-between">
               <Chip color="secondary" variant="light" className="bg-black/40 text-tiny p-4">
                 درباره من
               </Chip>
+              {
+                !is_engineer && <EditModal bio={debugger_bio} text={text} setText={setText} />  
+              }
             </CardHeader>
-            <CardBody className="box-border p-5 bg-c_background/50">
-              <div className="flex gap-4 flex-col w-full min-h-[300px] bg-[#140b1b] box-border p-5 rounded-xl">
-                <p className="text-justify leading-10">{debugger_bio}</p>
+            <CardBody className="box-border p-5 bg-c_background/50 h-full">
+              <div className="flex gap-4 flex-col w-full h-full bg-[#140b1b] box-border p-5 rounded-xl">
+                <p className="text-justify leading-10">{text}</p>
               </div>
             </CardBody>
           </Card>
@@ -216,47 +226,46 @@ const EditLanguageModal = ({ initialSelectedLanguages = [], onSave }: EditLangua
     setSelectedLanguages(selectedLanguages.filter((lang) => lang.id !== id))
   }
 
-
-
-  const postLanguage = async (item:any, token:any) => {
-    return axios.post('http://localhost:8000/api/v1/add_language/', {
-      language_id: item.id,
-    }, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json"
-      }
-    });
-  };
-  
+  const postLanguage = async (item: any, token: any) => {
+    return axios.post(
+      "http://localhost:8000/api/v1/add_language/",
+      {
+        language_id: item.id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
+      },
+    )
+  }
 
   const handleSave = async () => {
-    const token = Cookies.get('token');
-  
+    const token = Cookies.get("token")
+
     for (const item of selectedLanguages) {
       try {
-        const response = await postLanguage(item, token);
-        console.log("Posted:", response.data);
+        const response = await postLanguage(item, token)
+        console.log("Posted:", response.data)
       } catch (error) {
-        console.error("Error posting language:", item.id, error);
+        console.error("Error posting language:", item.id, error)
       }
     }
-  
-    if (onSave){
 
-      onSave(selectedLanguages);
-    } 
+    if (onSave) {
+      onSave(selectedLanguages)
+    }
     onOpenChange()
-    
-  };
+  }
 
   return (
     <>
-      <Button startContent={<Plus size={14} />} variant="light" color="secondary" onPress={onOpen}>
+      <Button startContent={<Plus size={14} />} variant="solid" color="secondary" onPress={onOpen}>
         ویرایش زبان ها
       </Button>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="inside">
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} size="2xl" scrollBehavior="inside" suppressHydrationWarning>
         <ModalContent>
           {(onClose) => (
             <>
@@ -282,7 +291,8 @@ const EditLanguageModal = ({ initialSelectedLanguages = [], onSave }: EditLangua
                           onClose={() => removeLanguage(lang.id)}
                           variant="flat"
                           color="secondary"
-                          className="transition-all hover:scale-105"
+                          className="transition-all hover:scale-105 m-1 text-sm"
+                          size="sm"
                         >
                           {lang.language_name?.name} {lang.language_name?.level && `(${lang.language_name.level})`}
                         </Chip>
@@ -355,6 +365,81 @@ const EditLanguageModal = ({ initialSelectedLanguages = [], onSave }: EditLangua
               </ModalFooter>
             </>
           )}
+        </ModalContent>
+      </Modal>
+    </>
+  )
+}
+
+const EditModal = ({
+  bio,
+  text,
+  setText,
+}: {
+  bio: string
+  text: string
+  setText: (text: string) => void
+}) => {
+  const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure()
+  const [changeText, setChangeText] = useState<string>(bio)
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+
+  const editHandler = async () => {
+    const respone = await perform_patch(`auths/register/${1}/`, {
+      debugger_bio: text,
+    })
+    console.log(respone)
+    if (respone) {
+      onClose()
+      addToast({
+        title: "ویرایش بایو",
+        description: "ویرایش بایو با موفقیت انجام شد",
+        color: "success",
+        variant: "flat",
+      })
+      setText(changeText)
+      setIsLoading(false)
+    } else {
+      setIsLoading(false)
+      addToast({
+        title: "ویرایش بایو",
+        description: "با خطا موجه شد دوباره اقدام کنید",
+        color: "danger",
+        variant: "flat",
+      })
+    }
+  }
+
+  return (
+    <>
+      <Button variant="solid" color="secondary" onPress={onOpen} startContent={<EditIcon size={14} />}>
+        ویرایش
+      </Button>
+      <Modal size="3xl" isOpen={isOpen} onOpenChange={onOpenChange} dir="rtl" suppressHydrationWarning>
+        <ModalContent>
+          <ModalHeader>ویرایش بایو</ModalHeader>
+          <ModalBody>
+            <Textarea
+              minRows={4}
+              maxRows={10}
+              onValueChange={(value) => setChangeText(value)}
+              defaultValue={changeText}
+            />
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              variant="solid"
+              color="secondary"
+              onPress={editHandler}
+              isLoading={isLoading}
+              isDisabled={isLoading}
+            >
+              ثبت
+            </Button>
+            <Button variant="bordered" color="danger" onPress={onClose}>
+              لغو
+            </Button>
+          </ModalFooter>
         </ModalContent>
       </Modal>
     </>

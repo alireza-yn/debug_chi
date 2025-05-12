@@ -1,56 +1,70 @@
-"use client";
-import {
-  Calendar,
-  RefreshCcw,
-  ShoppingBag,
-  Globe,
-  Percent,
-  Cloud,
-  PiggyBank,
-  Smartphone,
-} from "lucide-react";
-import { motion } from "framer-motion";
-import Link from "next/link";
+"use client"
+import { Calendar, RefreshCcw, ShoppingBag, Globe, Cloud, PiggyBank } from "lucide-react"
+import { motion } from "framer-motion"
+import Link from "next/link"
+import { useEffect, useState } from "react"
+import type { Main } from "@/components/types/user.types"
 
 export function ServiceFeatures() {
+  const [user, setUser] = useState<Main | null>(null)
+
+  useEffect(() => {
+    const user_data = localStorage.getItem("user_data")
+    if (user_data) {
+      try {
+        const parsedUser = JSON.parse(user_data)
+        setUser(parsedUser)
+      } catch (error) {
+        console.error("Error parsing user data from localStorage:", error)
+      }
+    }
+  }, [])
+
+  console.log(user)
+
+  const is_debugger = user?.user_roles?.includes("debugger") ?? false
+  console.log(is_debugger, "test")
+
   const features = [
     {
       icon: Calendar,
       title: "آموزش رایگان",
-      description: "پرداخت‌های منظم از طریق اشتراک دریافت کنید",
-      href: "/community?type=free courses",
+      description: "دسترسی به دوره‌های آموزشی رایگان برای یادگیری مهارت‌های جدید",
+      href: "/community?type=courses",
     },
     {
       icon: RefreshCcw,
-      title: "دریافت سریع دیباگ",
-      description: "بازپرداخت‌های کامل و جزئی را به‌سادگی انجام دهید",
+      title: is_debugger ? "انجام سریع دیباگ" : "دریافت سریع دیباگ",
+      description: is_debugger
+        ? "کمک به رفع مشکلات برنامه‌نویسی دیگران به صورت سریع"
+        : "دریافت کمک فوری برای رفع مشکلات برنامه‌نویسی",
       href: "/",
     },
     {
       icon: ShoppingBag,
       title: "مشاهده مدرسان دیباگچی",
-      description: "پیشنهاد ویژه برای کسب‌وکارهای خرده‌فروشی",
-      href: "/community?type=users",
+      description: "مشاهده لیست مدرسان متخصص در زمینه دیباگ و رفع اشکال برنامه‌نویسی",
+      href: "/community?type=debugers",
     },
     {
       icon: Globe,
-      title: "نیاز به کلاس خصوصی دارم",
-      description: "پرداخت‌ها را از ۲۱۸ کشور بپذیرید",
-      href: "/",
+      title: is_debugger ? "دریافت کلاس خصوصی" : "نیاز به کلاس خصوصی دارم",
+      description: "درخواست کلاس خصوصی با مدرسان برای یادگیری اختصاصی و شخصی‌سازی شده",
+      href: is_debugger ?  "/bid" : '/',
     },
     {
       icon: Cloud,
       title: "دریافت مشاوره فوری",
-      description: "پرداخت‌های آنلاین را مطابق با قوانین انجام دهید",
+      description: "ارتباط سریع با مشاوران متخصص برای راهنمایی در مسیر یادگیری و توسعه",
       href: "/",
     },
     {
       icon: PiggyBank,
       title: "شرکت در مزایده و مناقصه",
-      description: "تعرفه‌های انعطاف‌پذیر: حجم تراکنش بیشتر، کمیسیون کمتر",
+      description: "مشارکت در پروژه‌های مزایده و مناقصه برای کسب درآمد و تجربه عملی",
       href: "/bid",
     },
-  ];
+  ]
 
   return (
     <div className="w-full bg-pink-50 dark:bg-slate-900 py-16 px-4 md:px-8 lg:px-16 relative overflow-hidden rounded-t-[100px] mt-20">
@@ -59,9 +73,7 @@ export function ServiceFeatures() {
           <h2 className="text-3xl md:text-4xl font-bold mb-4 text-foreground">
             ما سرویسی ایجاد کرده‌ایم که تمام نیازها را پوشش می‌دهد
           </h2>
-          <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-            از آموزش تا دیباگینگ برای پیشرفت شما
-          </p>
+          <p className="text-lg text-gray-600 max-w-2xl mx-auto">از آموزش تا دیباگینگ برای پیشرفت شما</p>
         </div>
 
         <motion.div
@@ -73,19 +85,19 @@ export function ServiceFeatures() {
           {features.map((feature, index) => (
             <Link key={index} href={feature.href} className="w-auto h-auto">
               <motion.div
-                key={index}
-                className="bg-white dark:bg-slate-950 rounded-2xl p-6 flex flex-col items-center text-center shadow-md  shadow-pink-100 dark:shadow-slate-800 transition-transform duration-300 ease-in-out hover:shadow-lg hover:shadow-pink-200 dark:hover:shadow-slate-700"
+                className="bg-white dark:bg-slate-950 rounded-2xl p-6 flex flex-col items-center text-center shadow-md shadow-pink-100 dark:shadow-slate-800 transition-transform duration-300 ease-in-out hover:shadow-lg hover:shadow-pink-200 dark:hover:shadow-slate-700 h-64"
                 whileHover={{ scale: 1.05 }}
               >
                 <div className="w-16 h-16 rounded-full bg-purple-400 dark:bg-purple-950 flex items-center justify-center mb-4">
                   <feature.icon className="w-8 h-8 text-white" />
                 </div>
-                <h3 className="font-semibold text-lg mb-2">{feature.title}</h3>
+                <h3 className="font-semibold text-lg mb-3">{feature.title}</h3>
+                <p className="text-gray-600 dark:text-gray-400 text-sm flex-grow">{feature.description}</p>
               </motion.div>
             </Link>
           ))}
         </motion.div>
       </div>
     </div>
-  );
+  )
 }

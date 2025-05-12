@@ -46,7 +46,6 @@ const FindUser = (props: Props) => {
       }, 1500)
 
       const get = async ()=>{
-
         const response = await perform_get('auths/register/')
         setUser(response[0])
         console.log()

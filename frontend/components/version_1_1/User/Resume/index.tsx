@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import LanguageSection from "./LanguageSection";
 import { Main } from "@/components/types/user.types";
@@ -12,6 +13,7 @@ import { Divider } from "@heroui/react";
 type Props = {};
 
 const UserResume = ({ data }: { data: Main }) => {
+  console.log(data);
   return (
     <div className="w-full flex flex-col gap-10 items-center h-auto box-border p-5">
       <LanguageSection
@@ -25,10 +27,10 @@ const UserResume = ({ data }: { data: Main }) => {
       <Divider className="w-3/4" />
       <EducationSection degree={data.user_degree} user_id={data.id} />
       <Divider className="w-3/4" />
-      <ForigenLanguageSection />
+      <ForigenLanguageSection data={data.user_foreign_language} user_id={data.id}/>
       <Divider className="w-3/4" />
 
-      <Testimonials comments={data.user_main_comment}/>
+      <Testimonials comments={data.user_main_comment} />
     </div>
   );
 };

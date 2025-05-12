@@ -23,6 +23,7 @@ import { GetUserActivityHistoryTab } from "./TabsData";
 import AddPost from "../AddPost";
 import UserResume from "./Resume";
 import UploadResume from "./AddBadge";
+import { usePathname } from "next/navigation";
 
 type Props = {
   user: UserType;
@@ -38,92 +39,8 @@ const UserDashboard = ({ user, posts }: Props) => {
   };
   return (
     <>
-      <div className="w-full flex h-auto gap-4 ">
-        <div className="max-w-[500px] flex flex-col box-border p-4">
-          <div className="rounded-full w-[90px] h-[90px] p-1 box-border border-2 border-secondary-500">
-            <Image
-              src={user.image_profile}
-              alt="avatar"
-              width={90}
-              height={90}
-              className="rounded-full aspect-square  bg-black"
-            />
-          </div>
-          <div className=" w-3/4 h-full flex items-center justify-center gap-4 ">
-            <Button
-              variant="light"
-              color="default"
-              size="lg"
-              className="flex flex-col py-2 box-border h-24"
-            >
-              {user.user_roles.includes("debugger") ? (
-                <>
-                  <span>دنبال کنندگان</span>
-                  <span>{user.followers.count}</span>
-                </>
-              ) : (
-                <>
-                  <span>دنبال شوندگان</span>
-                  <span>{user.followers.count || 0}</span>
-                </>
-              )}
-            </Button>
-            <Button
-              variant="light"
-              color="default"
-              size="lg"
-              className="flex flex-col py-2 box-border h-24"
-            >
-              {user.user_roles.includes("debugger") ? (
-                <>
-                  <span>پروژه های انجام شده</span>
-                  <span>220</span>
-                </>
-              ) : (
-                <>
-                  <span>خدمات دریافت شده</span>
-                  <span>220</span>
-                </>
-              )}
-            </Button>
-          </div>
-          <p className="text-foreground-500 text-justify">
-            {user.user_bio || "برای بایو خود یک متن خوب بنویسید..."}
-          </p>
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center gap-4 relative">
-          <h1 className="text-5xl py-2  font-bold bg-gradient-to-tr from-orange-900 to-orange-500 bg-clip-text text-transparent">
-            {user.job_title || "عنوان شغلی شما"}
-          </h1>
-
-          <div className="flex items-center justify-between  flex-row-reverse gap-4  absolute bottom-0">
-            {user.user_roles.includes("debugger") &&
-              user.user_resume.map((item) => {
-                return (
-                  <div
-                    className="rounded-full flex flex-col items-center gap-2 w-auto h-auto aspect-square box-border p-2"
-                    key={item.id}
-                  >
-                    <Image
-                      className="rounded-full aspect-square"
-                      src={item.cv_file}
-                      width={60}
-                      height={60}
-                      alt={item.title}
-                    />
-                    <span>{item.title}</span>
-                  </div>
-                );
-              })}
-
-            {user.user_roles.includes("debugger") &&
-              user.user_resume.length != 5 && (
-              <UploadResume />
-              )}
-          </div>
-        </div>
-      </div>
-
+    
+    <UserProfile user={user} />
       <div className=" w-full h-[1px] border-b-4 rounded-full border-black gap-4 grid grid-cols-2 my-5 "></div>
 
       <div className="min-h-96 max-w-7xl mx-auto flex flex-col items-center ">
@@ -431,3 +348,106 @@ const UserDashboard = ({ user, posts }: Props) => {
 };
 
 export default UserDashboard;
+
+
+
+
+
+export const UserProfile = ({ user }: { user: UserType }) => {
+  const currentPath = usePathname ();
+  let image;
+  if (currentPath === "/engineers/"+ user.uuid) {
+    image = process.env.server + "/" + user.image_profile;
+
+    
+  }else {
+    image = user.image_profile;
+  }
+  return(
+    <div className="w-full flex h-auto gap-4  ">
+    <div className="max-w-[500px] flex flex-col box-border p-4">
+      <div className="rounded-full w-[90px] h-[90px] p-1 box-border border-2 border-secondary-500">
+        <Image
+          src={image}
+          alt="avatar"
+          width={90}
+          height={90}
+          className="rounded-full aspect-square  bg-black"
+        />
+      </div>
+      <div className=" w-3/4 h-full flex items-center justify-center gap-4 ">
+        <Button
+          variant="light"
+          color="default"
+          size="lg"
+          className="flex flex-col py-2 box-border h-24"
+        >
+          { user.user_roles?.includes("debugger") ? (
+            <>
+              <span>دنبال کنندگان</span>
+              <span>{user.followers.count}</span>
+            </>
+          ) : (
+            <>
+              <span>دنبال شوندگان</span>
+              <span>{user.followers.count || 0}</span>
+            </>
+          )}
+        </Button>
+        <Button
+          variant="light"
+          color="default"
+          size="lg"
+          className="flex flex-col py-2 box-border h-24"
+        >
+          {user.user_roles?.includes("debugger") ? (
+            <>
+              <span>پروژه های انجام شده</span>
+              <span>220</span>
+            </>
+          ) : (
+            <>
+              <span>خدمات دریافت شده</span>
+              <span>220</span>
+            </>
+          )}
+        </Button>
+      </div>
+      <p className="text-foreground-500 text-justify">
+        {user.user_bio || "برای بایو خود یک متن خوب بنویسید..."}
+      </p>
+    </div>
+    <div className="flex-1 flex flex-col items-center justify-center gap-4 relative">
+      <h1 className="text-5xl py-2  font-bold bg-gradient-to-tr from-orange-900 to-orange-500 bg-clip-text text-transparent">
+        {user.job_title || "عنوان شغلی شما"}
+      </h1>
+
+      <div className="flex items-center justify-between  flex-row-reverse gap-4  absolute bottom-0">
+        {user.user_roles?.includes("debugger") &&
+          user.user_resume.map((item) => {
+            return (
+              <div
+                className="rounded-full flex flex-col items-center gap-2 w-auto h-auto aspect-square box-border p-2"
+                key={item.id}
+              >
+                <Image
+                  className="rounded-full aspect-square"
+                  src={item.cv_file}
+                  width={60}
+                  height={60}
+                  alt={item.title}
+                />
+                <span>{item.title}</span>
+              </div>
+            );
+          })}
+
+        {user.user_roles?.includes("debugger") &&
+          user.user_resume.length != 5 && (
+          <UploadResume />
+          )}
+      </div>
+    </div>
+  </div>
+  )
+}

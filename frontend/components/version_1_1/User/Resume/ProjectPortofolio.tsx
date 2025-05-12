@@ -1,5 +1,4 @@
 "use client";
-
 import type { UserPortfolio } from "@/components/types/user.types";
 import {
   Button,
@@ -7,7 +6,6 @@ import {
   DrawerContent,
   DrawerHeader,
   DrawerBody,
-  DrawerFooter,
   useDisclosure,
   Modal,
   ModalContent,
@@ -24,6 +22,7 @@ import { useEffect, useState } from "react";
 import PorfolioImageUploader from "./PortfolioImageUploader";
 import axios from "axios";
 import { perform_post } from "@/lib/api";
+import { usePathname } from "next/navigation";
 
 const ProjectPortofolio = ({
   data,
@@ -42,8 +41,10 @@ const ProjectPortofolio = ({
   // Display only first 3 items if showAll is false
   const displayedPortfolio = showAll ? portfolio : portfolio.slice(0, 5);
   const hasMoreItems = portfolio.length > 3;
+  const currentPath = usePathname();
+  console.log(currentPath.startsWith("/engineers/"));
 
-  if (portfolio.length == 0) {
+  if (portfolio.length == 0 && !currentPath.startsWith("/engineers/")) {
     return (
       <div className="w-full h-full py-8 border border-dashed border-slate-700 flex flex-col items-center justify-center gap-3 rounded-3xl box-border">
         <AddNewPortfolio
@@ -58,38 +59,43 @@ const ProjectPortofolio = ({
 
   return (
     <div className="w-full flex flex-col gap-4">
-       <div className="flex items-center gap-3 mb-4 ">
+      <div className="flex items-center gap-3 mb-4 ">
         <div className="w-5 h-5 rounded-full bg-white"></div>
         <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
           پروژه های شخصی من
         </h3>
       </div>
-      <div className="w-full grid grid-cols-3 gap-2 relative">
-        {displayedPortfolio.map((item) => (
-          <div
-            key={item.id}
-            className="min-h-[400px] rounded-3xl relative overflow-hidden"
-          >
-            <Image
-              src={item.images[0].image || "/placeholder.svg"}
-              alt="image"
-              fill
-              className="object-cover"
-            />
-            <div className="w-full flex justify-between items-center box-border px-4 absolute bottom-0 h-20 bg-black">
-              <ShowPortfolioDetails data={item} />
-              <span>{item.name}</span>
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 relative">
+        {displayedPortfolio.map((item) => {
+          let image;
+          if (currentPath.startsWith("/engineers/")) {
+            image = process.env.server + item.images[0].image;
+          } else {
+            image = item.images[0].image;
+          }
+          return (
+            <div
+              key={item.id}
+              className="min-h-[400px] rounded-3xl relative overflow-hidden"
+            >
+              <Image src={image} alt="image" fill className="object-cover" />
+              <div className="w-full flex justify-between items-center box-border px-4 absolute bottom-0 h-20 bg-black">
+                <ShowPortfolioDetails data={item} />
+                <span>{item.name}</span>
+              </div>
             </div>
+          );
+        })}
+        {currentPath.startsWith("/engineers/") ? null : (
+          <div className="w-full min-h-[400px] rounded-3xl border border-dashed border-default-100 flex flex-col items-center justify-center gap-4">
+            <AddNewPortfolio
+              user_id={user_id}
+              portfolio={portfolio}
+              setPortfolio={setPortfolio}
+            />
+            <span>نمونه کار جدید</span>
           </div>
-        ))}
-        <div className="w-full min-h-[400px] rounded-3xl border border-dashed border-default-100 flex flex-col items-center justify-center gap-4">
-          <AddNewPortfolio
-            user_id={user_id}
-            portfolio={portfolio}
-            setPortfolio={setPortfolio}
-          />
-          <span>نمونه کار جدید</span>
-        </div>
+        )}
       </div>
 
       {hasMoreItems && (
@@ -112,6 +118,7 @@ export default ProjectPortofolio;
 
 export const ShowPortfolioDetails = ({ data }: { data: UserPortfolio }) => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const currentPath = usePathname();
 
   return (
     <>
@@ -128,20 +135,32 @@ export const ShowPortfolioDetails = ({ data }: { data: UserPortfolio }) => {
         <DrawerContent>
           {(onClose) => (
             <>
-              <DrawerHeader className="flex flex-col gap-1" dir="rtl">
-                {data.name}
+              <DrawerHeader className="flex justify-between gap-1" dir="rtl">
+                <span>{data.name}</span>
+
+                <Button color="danger" variant="solid" onPress={onClose}>
+                  بستن
+                </Button>
               </DrawerHeader>
               <DrawerBody>
                 <div className="flex w-full h-full gap-4 relative">
                   <div className="flex-1 flex flex-col box-border gap-4 overflow-y-auto rounded-3xl scrollbar-left">
-                    {data.images.map((image) => {
+                    {data.images.map((item) => {
+                      let image_src;
+
+                      if (currentPath.startsWith("/engineers/")) {
+                        image_src = process.env.server + item.image;
+                      } else {
+                        image_src = item.image;
+                      }
+
                       return (
                         <div
-                          key={image.id}
+                          key={item.id}
                           className="relative w-full min-h-[900px] rounded-lg"
                         >
                           <Image
-                            src={image.image || "/placeholder.svg"}
+                            src={image_src}
                             alt={data.name}
                             fill
                             objectFit="cover"
@@ -158,14 +177,6 @@ export const ShowPortfolioDetails = ({ data }: { data: UserPortfolio }) => {
                   </div>
                 </div>
               </DrawerBody>
-              <DrawerFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={() => console.log(data.name)}>
-                  Action
-                </Button>
-              </DrawerFooter>
             </>
           )}
         </DrawerContent>

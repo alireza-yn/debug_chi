@@ -25,38 +25,34 @@ redis_client = redis.StrictRedis(
 class TenderProjectViewSet(ModelViewSet):
     queryset = TenderProject.objects.all()
     serializer_class = TenderSerializers
-    
+
     # def perform_create(self, serializer):
     #     if self.request.user:
     #         print(serializer.data,self.request.user)
     #         serializer.save(created_by=self.request.user)
     #     raise ("not valid user")
-        # ارسال اطلاعات مزایده به Redis برای اطلاع‌رسانی به Node.js
-        # trend_data = {
-        #     "title": trend.title,
-        #     "description": trend.description,
-        #     "start_time": str(trend.start_time),
-        #     "end_time": str(trend.end_time),
-        #     "created_by": trend.created_by.user_phone,
-        #     "start_bid": str(trend.start_bid),
-        # }
-        # message = json.dumps(trend_data)
-        # redis_client.publish("new_trend", message)
-
-
-
-
+    # ارسال اطلاعات مزایده به Redis برای اطلاع‌رسانی به Node.js
+    # trend_data = {
+    #     "title": trend.title,
+    #     "description": trend.description,
+    #     "start_time": str(trend.start_time),
+    #     "end_time": str(trend.end_time),
+    #     "created_by": trend.created_by.user_phone,
+    #     "start_bid": str(trend.start_bid),
+    # }
+    # message = json.dumps(trend_data)
+    # redis_client.publish("new_trend", message)
 
 
 class BidProjectListView(APIView, TenderService):
     permission_classes = [IsAuthenticated]
-    
+
     def get(self, request: Request):
         # دریافت بیدهای مرتبط با کاربر
         bids = Bid.objects.filter(user=request.user)
         serializer = BidSerializers(bids, many=True)
         return Response(serializer.data, status=status.HTTP_200_OK)
-    
+
 
 class BidProjectAPIView(APIView, TenderService):
 
@@ -68,7 +64,7 @@ class BidProjectAPIView(APIView, TenderService):
         serializer = BidSerializers(data=request.data)
         serializer.is_valid(raise_exception=True)
         success, message = self.submit_bid(serializer, request)
-    
+
         if not success:
             raise ValidationError({"success": success, "message": message})
 
@@ -105,9 +101,6 @@ class ProjectViewSet(ModelViewSet):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
-
-
-
 
 
 class CreateProjectAPIView(ViewSet):
@@ -199,6 +192,7 @@ class ShowTenderProject(ListAPIView):
 
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
     # def get_object(self):
     #     return super().get_object()
 
@@ -212,7 +206,9 @@ class GetBidTender(APIView):
             bids = Bid.objects.filter(tender=tender)  # دریافت بیدهای مرتبط با هر تندر
             data.append(
                 {
-                    "tender": CustomTenderSerializers(tender, context={"request": request}).data,
+                    "tender": CustomTenderSerializers(
+                        tender, context={"request": request}
+                    ).data,
                     "bids": BidSerializers(bids, many=True).data,
                 }
             )
@@ -225,15 +221,42 @@ class ProjectImageViewSet(ModelViewSet):
     serializer_class = ProjectImageSerializer
 
 
-
-class TenderLikeHandlerAPIView(APIView,TenderService):
-    def get(self,request:Request,tender_uuid:str):
-        return self.toggle_tender_like_handler(request.user,tender_uuid)
-
+class TenderLikeHandlerAPIView(APIView, TenderService):
+    def get(self, request: Request, tender_uuid: str):
+        return self.toggle_tender_like_handler(request.user, tender_uuid)
 
 
 class GetAllClassDetails(APIView):
     permission_classes = [IsAuthenticated]
-    def get(self,request:Request):
+
+    def get(self, request: Request):
         all_educations = EducationProject.objects.filter(created_by=request.user)
-        return Response(ProjectSerializer(all_educations,many=True).data)
+        return Response(ProjectSerializer(all_educations, many=True).data)
+
+
+
+
+class EducationTenderListView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request: Request):
+
+        # دریافت لیست پروژه‌های آموزشی
+        tender_projects_public = TenderProject.objects.filter(created_by=request.user,project__is_tender=True,project__type_class="public").order_by("-created_at")
+        tender_projects_private = TenderProject.objects.filter(created_by=request.user,project__is_tender=True,project__type_class="private").order_by("-created_at")
+        if not tender_projects_public.exists() and not tender_projects_private.exists():
+            return Response(
+                {"message": "No educational projects found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
+        serializer_public = TenderSerializers(tender_projects_public, many=True,context={"request": request})
+        serializer_private = TenderSerializers(tender_projects_private,many=True,context={"request": request})
+        return Response({
+            "public":serializer_public.data,
+            "private":serializer_private.data
+
+        }, status=status.HTTP_200_OK)
+
+
+# class UserTenderListView(APIView):
+    

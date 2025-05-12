@@ -15,15 +15,23 @@ import {
 } from "@heroui/react";
 import axios from "axios";
 import { motion } from "framer-motion";
-import { FilePlus2, GraduationCap, Plus, Trash, Trash2, TrashIcon } from "lucide-react";
+import {
+  FilePlus2,
+  GraduationCap,
+  Plus,
+  Trash,
+  Trash2,
+  TrashIcon,
+} from "lucide-react";
 import { useEffect, useState } from "react";
-import education from "@/public/lottie/education.json.json"
+import education from "@/public/lottie/education.json.json";
 
 import Cookies from "js-cookie";
 import { perform_delete } from "@/lib/api";
 import dynamic from "next/dynamic";
+import { usePathname } from "next/navigation";
 
-const Lottie = dynamic(() => import("lottie-react"), { ssr: false })
+const Lottie = dynamic(() => import("lottie-react"), { ssr: false });
 
 type EducationItem = {
   id: number;
@@ -40,6 +48,9 @@ const EducationSection = ({
   degree: UserDegree[];
   user_id: number;
 }) => {
+  const currentPath = usePathname();
+  const is_engineer = currentPath.startsWith("/engineers/");
+
   const [mounted, setMounted] = useState(false);
   const [data, setData] = useState<UserDegree[]>([]);
   useEffect(() => {
@@ -86,10 +97,12 @@ const EducationSection = ({
       <div className="flex items-center gap-3 mb-4 absolute top-2 right-2">
         <div className="w-5 h-5 rounded-full bg-white"></div>
         <h3 className="text-3xl font-bold bg-gradient-to-r to-violet-500 from-white bg-clip-text text-transparent">
-        تحصیلات آکادمیک و دانشگاهی
+          تحصیلات آکادمیک و دانشگاهی
         </h3>
       </div>
-      <AddEducation data={data} setData={setData} user_id={user_id} />
+      {!is_engineer && (
+        <AddEducation data={data} setData={setData} user_id={user_id} />
+      )}
       <div className="absolute w-[700px] h-[700px] rounded-full border border-dashed border-purple-500/30"></div>
 
       {/* Small glowing dots on the path */}
@@ -133,9 +146,9 @@ const EducationSection = ({
         </div>
 
         <div className=" font-bold relative z-10">
-        {/* <Lottie animationData={education} loop={true}  /> */}
-        
-      <GraduationCap size={64}/>
+          {/* <Lottie animationData={education} loop={true}  /> */}
+
+          <GraduationCap size={64} />
         </div>
       </motion.div>
 
@@ -164,14 +177,16 @@ const EducationSection = ({
                 transition: { duration: 0.3 },
               }}
             >
-              <Button
-                className="absolute right-0 bottom-0 bg-c_secondary"
-                variant="shadow"
-                isIconOnly
-                size="md"
-                startContent={<Trash2 size={14}/>}
-                onPress={() => deleteDegree(item.id || 0)}
-              ></Button>
+              {!is_engineer && (
+                <Button
+                  className="absolute right-0 bottom-0 bg-c_secondary"
+                  variant="shadow"
+                  isIconOnly
+                  size="md"
+                  startContent={<Trash2 size={14} />}
+                  onPress={() => deleteDegree(item.id || 0)}
+                ></Button>
+              )}
 
               {/* Dot pattern overlay for dark circles */}
 

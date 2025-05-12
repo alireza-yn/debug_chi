@@ -1,15 +1,22 @@
 import { Main } from "@/components/types/debug-request";
 import { useRequestFilter } from "@/context/RequetsFilterProvider";
-import { perform_get } from "@/lib/api";
+import { perform_get, perform_post } from "@/lib/api";
 import {
   Accordion,
   AccordionItem,
+  addToast,
   Button,
   Card,
   CardBody,
   CardFooter,
   CardHeader,
   Chip,
+  Modal,
+  ModalBody,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  useDisclosure,
   User,
 } from "@heroui/react";
 import Link from "next/link";
@@ -20,6 +27,7 @@ type Props = {};
 const RequetsList = (props: Props) => {
   const [isLoading, setIsloading] = useState<boolean>(false);
   const { filter } = useRequestFilter();
+  const [refresh,setRefresh] = useState<boolean>(false)
   const [data, setData] = useState<Main>({
     consult: [],
     debug: [],
@@ -35,9 +43,11 @@ const RequetsList = (props: Props) => {
         setData(response);
       }
       setIsloading(false);
+      setRefresh(false)
     };
     getRequest();
-  }, []);
+    
+  }, [refresh]);
 
   // Deep search utility
   const deepSearch = (obj: any, keyword: string): boolean => {
@@ -71,26 +81,30 @@ const RequetsList = (props: Props) => {
       ? item.consult_applicator
       : item.debuger_applicator;
     const label = isConsult ? "مشاوره" : "دیباگ";
-
+    const image_profile =
+      applicator.image_profile != null
+        ? `${process.env.server}/${applicator.image_profile}`
+        : "/user.jpg";
     return (
       <AccordionItem
         key={item.id}
         aria-label={`Accordion ${item.id}`}
         title={
           <div className="flex items-center justify-between w-full">
-            <User
-              avatarProps={{
-                src:
-                  `${process.env.server}/${applicator.image_profile}` ||
-                  "/user.jpg",
-              }}
-              description={item.description.substring(0, 50) + "..."}
-              name={applicator.first_name}
-            />
-            <div className="text-sm text-gray-500">
-              <Chip size="sm">
-                {item.is_realtime === false ? "انلاین" : "زمان بندی شده"}
-              </Chip>
+            <div className="flex flex-col gap-2">
+              <User
+                avatarProps={{
+                  src: image_profile,
+                }}
+                description={item.description.substring(0, 40) + "..."}
+                name={applicator.first_name}
+              />
+
+              <div className="text-tiny text-gray-500">
+                <Chip size="sm">
+                  {item.is_realtime === false ? "انلاین" : "زمان بندی شده"}
+                </Chip>
+              </div>
             </div>
           </div>
         }
@@ -145,11 +159,7 @@ const RequetsList = (props: Props) => {
             >
               {item.status == "close" ? "بسته شده" : "بررسی درخواست"}
             </Button>
-            <Button color="danger" variant="bordered" fullWidth
-              isDisabled={item.status == "close"}
-            >
-              رد درخواست
-            </Button>
+            <RejectSession session_id={item.session_id} setRefresh={setRefresh}/>
           </CardFooter>
         </Card>
       </AccordionItem>
@@ -173,3 +183,84 @@ const RequetsList = (props: Props) => {
 };
 
 export default RequetsList;
+
+
+
+
+const RejectSession = ({
+  session_id,
+  setRefresh,
+
+}:{
+  session_id:string,
+  setRefresh:(refresh:boolean)=>void
+})=>{
+  const {onOpen,onOpenChange,onClose,isOpen} = useDisclosure()
+  
+  const [isLoading,setIsloading] = useState<boolean>(false)
+
+  const rejectHandler = async ()=>{
+    setIsloading(true)
+    const response = await perform_post('api/v1/reject-session/',{
+      action:"reject",
+      session_id:session_id,
+    }) 
+    if (response.success){
+      addToast({
+        title:"لغو درخواست",
+        description:"لغو درخواست با موفقیت انجام شد",
+        color:"success",
+        variant:"bordered",
+        size:"lg",
+        timeout:5000
+      })
+      setRefresh(true)
+      setIsloading(false)
+
+
+    }
+    else if (response.status == 400){
+      addToast({
+        title:"لغو درخواست",
+        description:"لغو درخواست با موفقیت انجام شد",
+        color:"danger",
+        variant:"bordered",
+        size:"lg",
+        timeout:5000
+      })
+      setIsloading(false)
+
+    }
+  }
+
+
+
+  return (
+    <>
+         <Button
+              color="danger"
+              variant="bordered"
+              fullWidth
+              onPress={onOpen}
+            >
+              رد درخواست
+            </Button>
+
+            <Modal onOpenChange={onOpenChange} isOpen={isOpen} dir="rtl">
+              <ModalContent>
+                <ModalHeader>
+                  لغور درخواست
+                </ModalHeader>
+                <ModalBody>
+                  <p>آیا از لغو درخواست مطمئنید؟</p>
+                </ModalBody>
+                <ModalFooter>
+                  <Button onPress={onClose} variant="solid" color="success">ادامه میدم</Button>
+                  <Button onPress={rejectHandler} isDisabled={isLoading} isLoading={isLoading} variant="bordered" color="danger">بله مطمئنم</Button>
+                </ModalFooter>
+
+              </ModalContent>
+            </Modal>
+    </>
+  )
+}

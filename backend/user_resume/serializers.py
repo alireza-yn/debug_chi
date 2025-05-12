@@ -1,6 +1,8 @@
 from rest_framework.serializers import ModelSerializer
 from .models import *
 from programming_language.serializers import ProgrammingLanguageSerializer,ProgrammerExpertiseSerializer
+
+
 class UserResumeSerializer(ModelSerializer):
     class Meta:
         model = UserResume
@@ -61,4 +63,11 @@ class UserPortfolioSerializer(ModelSerializer):
 class UserJobHistorySerializer(ModelSerializer):
     class Meta:
         model = UserJobHistory
+        fields = '__all__'
+
+
+
+class UserForeignLanguageSerializer(ModelSerializer):
+    class Meta:
+        model = UserForiegnLanguage
         fields = '__all__'

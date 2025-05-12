@@ -14,7 +14,6 @@ import Video from "@/components/version_1_1/Landing/Video";
 import WhyWorkingWithUs from "@/components/version_1_1/Landing/why-working";
 import { Badge } from "lucide-react";
 import Link from "next/link";
-
 export const page = () => {
   return (
     <main

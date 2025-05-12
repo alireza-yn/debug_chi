@@ -133,7 +133,7 @@ const ModalSettings = ({
   );
 };
 
-const SettingTabContent = () => {
+export const SettingTabContent = () => {
   return (
     <div className="flex w-full flex-col ">
       <Tabs aria-label="Options" variant="underlined">

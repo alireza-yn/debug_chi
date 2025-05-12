@@ -39,7 +39,8 @@
 #         model = Answer
 #         fields = "__all__"
 from rest_framework import serializers
-from .models import Category, Section, Question, Answer
+from .models import Category, Section, Question, Answer,AiCategoryQuestion,AiQuestion,AiQuestionAnswer
+
 
 
 class AnswerSerializer(serializers.ModelSerializer):
@@ -70,3 +71,46 @@ class CategorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Category
         fields = '__all__'
+
+
+
+
+
+class AiQuestionAnswerSerilzers(serializers.ModelSerializer):
+    class Meta:
+        model = AiQuestionAnswer
+        fields = '__all__'
+
+
+class AiQuestionSerializer(serializers.ModelSerializer):
+    ai_answer = AiQuestionAnswerSerilzers(many=True,read_only=True)
+    class Meta:
+        model = AiQuestion
+        fields = [
+            'id',
+            'category',
+            'title',
+            'description',
+            # 'answers',
+            'ai_answer',
+            'priority',
+            'sound'
+        ]
+
+    def get_ai_category(self, obj):
+        questions = obj.ai_category.all().order_by('priority')  # مرتب‌سازی براساس priority
+        return AiQuestionSerializer(questions, many=True).data
+
+
+class AiQuestionCategorySerializer(serializers.ModelSerializer):
+    ai_category = AiQuestionSerializer(many=True,read_only=True)
+    class Meta:
+        model = AiCategoryQuestion
+        fields = [
+            'id',
+            'category_name',
+            'title',
+            'ai_category',
+            'created_at',
+            'updated_at'
+        ]
