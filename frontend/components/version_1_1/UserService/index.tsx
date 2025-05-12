@@ -3,14 +3,13 @@ import React from "react";
 
 import { Accordion, AccordionItem, Button, Checkbox } from "@heroui/react";
 
-type Props = {};
+
 
 const UserSerivices = () => {
   return (
     <div className="w-full flex flex-col gap-4">
         <Accordion variant="splitted" hideIndicator className="sticky top-0" dir="rtl" itemClasses={{
-          base:'bg-default-100',
-
+          base:'bg-default-100'
         }}>
 
             <AccordionItem
