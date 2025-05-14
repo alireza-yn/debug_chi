@@ -3,17 +3,18 @@ import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
 import UserResume from "@/components/version_1_1/User/Resume";
-import UserDashboard, {
+import  {
   UserProfile,
 } from "@/components/version_1_1/User/UserDashboard";
 import { perform_get } from "@/lib/api";
 import { cookies } from "next/headers";
 import React from "react";
 
-type Props = {};
 
-const page = async ({ params }: { params: { uuid: string } }) => {
-  const response = await perform_get(`api/v1/user/${params.uuid}/`);
+const page = async ({ params }: { params: Promise<{ uuid: string }> }) => {
+
+  const {uuid }= await params 
+  const response = await perform_get(`api/v1/user/${uuid}/`);
   const token = (await cookies()).get("token")?.value;
 
   return (

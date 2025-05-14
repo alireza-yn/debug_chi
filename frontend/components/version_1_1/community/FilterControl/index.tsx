@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { Suspense } from "react";
 import {
   Input,
   Dropdown,
@@ -40,6 +40,8 @@ const FilterControls: React.FC = () => {
   const type = searchParams.get("type");
 
   return (
+    <Suspense fallback={<div>Loading..</div>}>
+
     <div className="w-full mb-6 space-y-4 sticky top-0 bg-community p-4 box-border  px-20 z-[50]">
       <div className="flex flex-col md:flex-row gap-4">
         <div className="flex-1 flex items-center justify-center gap-2">
@@ -205,6 +207,8 @@ const FilterControls: React.FC = () => {
         </div>
       )}
     </div>
+    </Suspense>
+
   );
 };
 

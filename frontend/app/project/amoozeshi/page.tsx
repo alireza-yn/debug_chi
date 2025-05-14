@@ -1,6 +1,5 @@
 import Amoozeshi from "@/components/routes/projects/Amoozeshi/Amoozeshi";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
 import { cookies } from "next/headers";
 import React from "react";
 

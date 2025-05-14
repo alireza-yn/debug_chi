@@ -1,12 +1,11 @@
 "use client"
 
-import { usePathname, useSearchParams } from "next/navigation"
+import { usePathname } from "next/navigation"
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 export function NavigationProgress() {
   const pathname = usePathname()
-  const searchParams = useSearchParams()
   const [isNavigating, setIsNavigating] = useState(false)
   const [progress, setProgress] = useState(0)
 

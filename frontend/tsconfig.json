@@ -22,6 +22,6 @@
       "@/*": ["./*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "config/socket-config.ts", "components/Layout/Header.tsx", "components/Tools/flow/Flow.jsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "config/socket-config.ts", "components/Layout/Header.tsx", "components/Tools/flow/Flow.jsx", "next.config.mjs"],
   "exclude": ["node_modules"]
 }

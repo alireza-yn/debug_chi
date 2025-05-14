@@ -148,5 +148,5 @@ class UserJobHistory(Timestamp):
 
 class UserForiegnLanguage(Timestamp):
     name = models.CharField(max_length=30)
-    rate = models.IntegerField(default=0)
+    rate = models.BigIntegerField(default=0)
     user = models.ForeignKey(User,on_delete=models.CASCADE,related_name='user_foreign_language')

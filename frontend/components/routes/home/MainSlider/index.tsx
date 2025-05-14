@@ -59,13 +59,13 @@ const MainSLider = (props: Props) => {
                 </motion.div>
                 <motion.div className="w-[500px] flex flex-col justify-between h-full box-border p-5">
                   <div className="w-full h-20 flex items-center justify-start">
-                    <ProfileWithImageCard
+                    {/* <ProfileWithImageCard
                       image={item.image}
                       name={item.name}
                       speciality={item.user_expertise}
                       user_score={item.score}
                       key={item.id}
-                    />
+                    /> */}
                     <div className="flex flex-1 justify-end items-center">
                       {item.is_instant && (
                         <Badge variant={"destructive"}>فوری</Badge>

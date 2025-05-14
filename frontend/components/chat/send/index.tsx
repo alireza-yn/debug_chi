@@ -62,7 +62,7 @@ const SendChat = (props: Props) => {
             size="sm"
             radius="full"
           ></Button>
-        <SendCode />
+        {/* <SendCode /> */}
           <Button
             isIconOnly
             startContent={<ScreenShare />}

@@ -1,4 +1,3 @@
-import DebugerLogin from '@/components/routes/auth/DebugerLogin'
 import DebugerSignUp from '@/components/routes/auth/DebugerSignUp'
 import Sidebar from '@/components/version_1_1/Sidebar'
 import SidebarBody from '@/components/version_1_1/Sidebar/SideBar'

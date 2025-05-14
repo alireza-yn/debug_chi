@@ -3,6 +3,7 @@
 // import { Sidebar, SidebarBody, SidebarLink } from "./index";
 "use client";
 
+import { socket } from "@/config/socket-config";
 import { Button, Tooltip } from "@heroui/react";
 import { Gavel, Home, Search, Globe } from "lucide-react";
 import Link from "next/link";
@@ -122,12 +123,20 @@ const linkData = [
   { name: "جامعه", path: "/community?type=debugers", icon: Globe },
 ];
 
-import React from "react";
+import React, { useEffect } from "react";
 
 type Props = {};
 
 const SidebarBody = (props: Props) => {
   const pathname = usePathname();
+
+  useEffect(()=>{
+    socket.on('connect',()=>{
+      console.log("connected",socket.id)
+    })
+  })
+
+
   return (
     <div className="w-full flex-1 flex items-center flex-col justify-center py-4 box-border gap-4">
       {linkData.map((item, index) => {

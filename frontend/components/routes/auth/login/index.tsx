@@ -20,7 +20,7 @@ import {
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
 import { ArrowLeft, CircleUserRound, Headset, Lock, Phone } from "lucide-react";
@@ -32,7 +32,7 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const { login } = useAppSelector((state: RootState) => state.gloabal);
   const path = usePathname();
-  const query = useSearchParams();
+  // const query = useSearchParams();
   const [selected, setSelected] = useState<string>("login");
   const [formData, setFormData] = useState({ username: "", password: "" });
   const [error, setError] = useState({
@@ -82,7 +82,7 @@ export default function Login() {
     if (response.success && response.user) {
       Cookies.set("token", response.access);
       localStorage.setItem("user_data", JSON.stringify(response.user));
-      window.location.href = `${path}?${query.toString()}`;
+      window.location.href = path ;
       dispatch(showLogin({ show: false, path: "" })); // بستن مودال لاگین
     } else {
       setError({
@@ -94,6 +94,7 @@ export default function Login() {
   };
 
   return (
+
     <Drawer
       dir="rtl"
       hideCloseButton
@@ -371,5 +372,6 @@ export default function Login() {
         )}
       </DrawerContent>
     </Drawer>
+
   );
 }

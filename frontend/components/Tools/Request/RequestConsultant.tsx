@@ -12,7 +12,7 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { MessageSquare, Phone, Video } from 'lucide-react'
 import axios from 'axios'
 import { toast } from 'sonner'
-import socket from '@/config/socket-config'
+import {socket} from '@/config/socket-config'
 import { useAppSelector } from '@/redux/store/store'
 import { id } from 'date-fns/locale'
 

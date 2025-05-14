@@ -1,12 +1,11 @@
-import type { NextConfig } from "next";
+/** @type {import('next').NextConfig} */
 
-const nextConfig: NextConfig = {
-  /* config options here */
+const nextConfig = {
   env:{
-    server:"http://127.0.0.1:8000",
+    server:"https://api.debugchiai.com",
     ws:"http://127.0.0.1:8001",
     dashboard:'/user/dashboard',
-    nodejs_server:"http://localhost:3001",
+    nodejs_server:"https://195.248.242.157",
     MONGODB_URI:"mongodb://localhost:27017/"
   },
   images: {

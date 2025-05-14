@@ -5,7 +5,7 @@ import { Bell, Dot, Clock, Video, PhoneCall, User, MessageCircleCodeIcon } from 
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '../ui/card'
 import { Avatar, AvatarFallback, AvatarImage } from '../ui/avatar'
 import { Badge } from '../ui/badge'
-import socket from '@/config/socket-config'
+import {socket} from '@/config/socket-config'
 import { useAppSelector } from '@/redux/store/store'
 import Cookies from 'js-cookie'
 import { Button } from '../ui/button';

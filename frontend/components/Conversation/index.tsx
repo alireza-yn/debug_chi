@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useRef, useState } from "react";
+import React, { Suspense, useEffect, useRef, useState } from "react";
 import Message from "./Message";
 import { socket } from "@/config/socket-config";
 import { usePathname, useSearchParams } from "next/navigation";
@@ -89,6 +89,8 @@ const Conversation = ({
   }, [socket, chat]);
 
   return (
+    <Suspense fallback={<div>loading...</div>}>
+
     <div className="w-full flex flex-col gap-2 pt-20 flex-1 overflow-y-auto">
       {chat.map((item: MainChat, index) => {
         return (
@@ -112,6 +114,7 @@ const Conversation = ({
       <div ref={messagesEndRef} />{" "}
       {/* اینجا رفرنس را به انتهای لیست پیام‌ها اضافه می‌کنیم */}
     </div>
+    </Suspense>
   );
 };
 

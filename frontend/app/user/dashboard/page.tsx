@@ -100,9 +100,6 @@ import UserDashboard from "@/components/version_1_1/User/UserDashboard";
 import Wallet from "@/components/version_1_1/User/Wallet";
 import { UserInfoProvider } from "@/context/userContext";
 import { perform_get } from "@/lib/api";
-import { formatCurrency } from "@/utils/tools";
-import { Button, Chip, Tooltip } from "@heroui/react";
-import { Edit2 } from "lucide-react";
 import { cookies } from "next/headers";
 import React from "react";
 

@@ -1,12 +1,10 @@
 import { Main } from "@/components/types/tender.type";
-import UserProfile from "@/components/ui/Profile";
 import Bid from "@/components/version_1_1/Bid";
 import BidFilter from "@/components/version_1_1/Bid/BidFilter";
 import BidIncomingList from "@/components/version_1_1/Bid/BidIncomingList";
 import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
-import TinderUserProfile from "@/components/version_1_1/User/TinderUserProfile";
 import { BidFilterProvider } from "@/context/BidFilterContext";
 import { perform_get, perform_post } from "@/lib/api";
 import { cookies } from "next/headers";

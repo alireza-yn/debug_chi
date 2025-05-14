@@ -125,14 +125,14 @@ DATABASES = {
 
 
 
-# STORAGES = {
-#     "default": {
-#         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
-#     },
-#     "staticfiles": {
-#         "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
-#     },
-# }
+STORAGES = {
+    "default": {
+        "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
+    },
+    "staticfiles": {
+        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+    },
+}
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -257,18 +257,18 @@ CACHES = {
 PAYPING_TOKEN = "hHyAxYWyYPHRraE3vMKp3F_ySwhhmTvqLkIyrhBKQgw"
 
 
-# AWS_ACCESS_KEY_ID = "jwRi59W3fYhsw1tp"
-# AWS_SECRET_ACCESS_KEY = "XRW9K7VcDvC0E5P86EMgPcVsCE4PWmix"
-# AWS_STORAGE_BUCKET_NAME = "c244557"
-# AWS_S3_ENDPOINT_URL = 'https://c244557.parspack.net'  # آدرس پارس‌پک
+AWS_ACCESS_KEY_ID = "UV9SmrEVOPxR1ulZ"
+AWS_SECRET_ACCESS_KEY = "05YjNJdLf6R7AeiaklMq1iyNi51SN7Vi"
+AWS_STORAGE_BUCKET_NAME = "c290918"
+AWS_S3_ENDPOINT_URL = 'https://c290918.parspack.net'  # آدرس پارس‌پک
 
-# AWS_S3_FILE_OVERWRITE = False  # برای جلوگیری از بازنویسی فایل‌ها با نام مشابه
-# AWS_DEFAULT_ACL = None  # اختیاری؛ بعضی مواقع نیاز به تعریف سطح دسترسی
-# AWS_QUERYSTRING_AUTH = False  # اختیاری؛ اگر نمی‌خوای لینک‌ها امضای موقت داشته باشن
+AWS_S3_FILE_OVERWRITE = False  # برای جلوگیری از بازنویسی فایل‌ها با نام مشابه
+AWS_DEFAULT_ACL = None  # اختیاری؛ بعضی مواقع نیاز به تعریف سطح دسترسی
+AWS_QUERYSTRING_AUTH = False  # اختیاری؛ اگر نمی‌خوای لینک‌ها امضای موقت داشته باشن
 
-# AWS_S3_REGION_NAME = "default"
-# AWS_S3_SIGNATURE_VERSION = "s3v4"
+AWS_S3_REGION_NAME = "default"
+AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 
 
-# MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"
+MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"

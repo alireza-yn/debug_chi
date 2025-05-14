@@ -18,7 +18,7 @@ import { useAppDispatch, useAppSelector } from "@/redux/store/store"
 import { formatCurrency, toBase64 } from "@/utils/tools"
 import { Banknote, Coins } from 'lucide-react'
 import { submitConsultRequest, updateRequest } from "@/redux/slices/consultSlice"
-import socket from "@/config/socket-config"
+import {socket} from "@/config/socket-config"
 import { useParams } from "next/navigation"
 import { toast } from "sonner"
 

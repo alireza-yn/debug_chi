@@ -1,6 +1,5 @@
 import EngineersList from "@/components/version_1_1/community/EngineersList";
 import FilterControls from "@/components/version_1_1/community/FilterControl";
-import ProgrammingLanguageList from "@/components/version_1_1/community/ProgrammingLanguageList";
 import VideoList from "@/components/version_1_1/community/VideoList";
 import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
@@ -12,11 +11,11 @@ import { cookies } from "next/headers";
 import Link from "next/link";
 import React from "react";
 
-interface PageProps {
-  searchParams: { [key: string]: string | string[] | undefined };
-}
 
-const page = async ({ searchParams }: PageProps) => {
+
+const page = async ({ searchParams }: {
+  searchParams:Promise<{ [key: string]: string | string[] | undefined }>
+}) => {
   const token = (await cookies()).get("token")?.value;
   const { type } = await searchParams;
   let response;

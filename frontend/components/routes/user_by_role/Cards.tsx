@@ -72,12 +72,12 @@ const DebuggerCards = ({ data ,debugger_applicator}: Props) => {
     <Card >
       <CardHeader >
     <CardTitle className="flex items-center">
-        <ProfileWithImageCard
+        {/* <ProfileWithImageCard
           name={`${data.first_name} ${data.last_name}`}
           image={data.image_profile}
           speciality={data.user_expertise}
           user_score={data.user_score}
-          />
+          /> */}
         <div className="flex-1"></div>
         <div className="w-auto h-full flex items-center">
           <RequestConsultant debugger={data.id} debugger_applicator={debugger_applicator} uuid={data.uuid}/>

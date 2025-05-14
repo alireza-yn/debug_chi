@@ -34,7 +34,7 @@ const SendMessageButton = (props: Props) => {
         size="sm"
         className="bg-lime-300"
         startContent={<ArrowUp color="black" />}
-        onPress={()=>dispatch(showLogin(true))}
+        // onPress={()=>dispatch(showLogin(true))}
       ></Button>
     );
   }

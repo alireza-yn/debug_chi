@@ -263,7 +263,7 @@ const Header = (props: Props) => {
       ) : (
         <>
           <Button
-            onPress={() => dispatch(showSignUp(true))}
+            // onPress={() => dispatch(showSignUp(true))}
             variant="flat"
             color="default"
             startContent={<CoustomUserIcon />}
@@ -271,7 +271,7 @@ const Header = (props: Props) => {
             <span className="text-foreground">ثبت نام</span>
           </Button>
           <Button
-            onPress={() => dispatch(showLogin(true))}
+            // onPress={() => dispatch(showLogin(true))}
             variant="flat"
             color="default"
             startContent={<CustomLoginIcon />}

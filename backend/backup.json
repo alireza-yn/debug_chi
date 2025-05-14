@@ -390,11 +390,570 @@
   }
 },
 {
+  "model": "admin.logentry",
+  "pk": 31,
+  "fields": {
+    "action_time": "2025-04-26T08:33:33.699Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "12",
+    "object_repr": "javascript - advanced",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 32,
+  "fields": {
+    "action_time": "2025-04-26T08:33:40.916Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "11",
+    "object_repr": "javascript - intermediate",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 33,
+  "fields": {
+    "action_time": "2025-04-26T08:33:57.146Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "10",
+    "object_repr": "javascript - beginner",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 34,
+  "fields": {
+    "action_time": "2025-04-26T08:34:10.538Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "9",
+    "object_repr": "php - advanced",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 35,
+  "fields": {
+    "action_time": "2025-04-26T08:34:28.892Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "8",
+    "object_repr": "php - intermediate",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 36,
+  "fields": {
+    "action_time": "2025-04-26T08:34:43.496Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "7",
+    "object_repr": "php - beginner",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 37,
+  "fields": {
+    "action_time": "2025-04-26T08:34:52.432Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "6",
+    "object_repr": "Java - advanced",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 38,
+  "fields": {
+    "action_time": "2025-04-26T08:35:11.089Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "5",
+    "object_repr": "Java - intermediate",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 39,
+  "fields": {
+    "action_time": "2025-04-26T08:35:26.823Z",
+    "user": 1,
+    "content_type": 14,
+    "object_id": "4",
+    "object_repr": "Java - beginner",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Image\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 40,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "183",
+    "object_repr": "vue.js",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 41,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "182",
+    "object_repr": "next.js",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 42,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "181",
+    "object_repr": "react.js",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 43,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "180",
+    "object_repr": "flutter",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 44,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "179",
+    "object_repr": "node js",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 45,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "178",
+    "object_repr": "Python",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 46,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "176",
+    "object_repr": "front-end",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 47,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "175",
+    "object_repr": "Back-End",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 48,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "174",
+    "object_repr": "Front-End",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 49,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "173",
+    "object_repr": "Back-End",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 50,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "169",
+    "object_repr": "آموزش برنامه نویسی",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 51,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "166",
+    "object_repr": "موبایل",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 52,
+  "fields": {
+    "action_time": "2025-05-01T09:48:25.362Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "165",
+    "object_repr": "Web Development",
+    "action_flag": 3,
+    "change_message": ""
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 53,
+  "fields": {
+    "action_time": "2025-05-01T09:51:03.601Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "184",
+    "object_repr": "توسعه موبایل",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 54,
+  "fields": {
+    "action_time": "2025-05-01T09:51:33.827Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "185",
+    "object_repr": "توسعه موبایل",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 55,
+  "fields": {
+    "action_time": "2025-05-01T10:15:26.626Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "172",
+    "object_repr": "در کدام بخش نیاز به کمک دارید؟ (دیباگ)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 56,
+  "fields": {
+    "action_time": "2025-05-01T10:15:36.550Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "177",
+    "object_repr": "از چه زبان هایی استفاده کردید؟ (دیباگ)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 57,
+  "fields": {
+    "action_time": "2025-05-01T10:18:03.387Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "195",
+    "object_repr": "Front-End فرانت اند",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 58,
+  "fields": {
+    "action_time": "2025-05-01T10:19:16.172Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "196",
+    "object_repr": "Back-End بک اند",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 59,
+  "fields": {
+    "action_time": "2025-05-01T11:50:41.395Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "201",
+    "object_repr": "Java",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Language type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 60,
+  "fields": {
+    "action_time": "2025-05-01T11:50:57.359Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "200",
+    "object_repr": "Ruby",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Language type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 61,
+  "fields": {
+    "action_time": "2025-05-01T11:51:03.465Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "199",
+    "object_repr": "Node.js",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Language type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 62,
+  "fields": {
+    "action_time": "2025-05-01T11:51:10.214Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "197",
+    "object_repr": "Python",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Language type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 63,
+  "fields": {
+    "action_time": "2025-05-01T11:52:27.105Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "198",
+    "object_repr": "Javascript",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Language type\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 64,
+  "fields": {
+    "action_time": "2025-05-02T06:32:52.500Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "203",
+    "object_repr": "در حال حاضر در چه سطحی قرار دارید؟ (کلاس خصوصی)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 65,
+  "fields": {
+    "action_time": "2025-05-02T06:33:39.912Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "204",
+    "object_repr": "برا آموزش چه حوزه ای رو میخوای یاد بگیری؟ (کلاس خصوصی)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 66,
+  "fields": {
+    "action_time": "2025-05-02T06:34:17.010Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "205",
+    "object_repr": "دوست داری چه زبان هایی رو یاد بگیری؟ (کلاس خصوصی)",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 67,
+  "fields": {
+    "action_time": "2025-05-02T06:34:23.265Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "205",
+    "object_repr": "دوست داری چه زبان هایی رو یاد بگیری؟ (کلاس خصوصی)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Priority\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 68,
+  "fields": {
+    "action_time": "2025-05-02T06:36:41.228Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "206",
+    "object_repr": "پایتون",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 69,
+  "fields": {
+    "action_time": "2025-05-02T06:38:12.560Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "207",
+    "object_repr": "وبسایت",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 70,
+  "fields": {
+    "action_time": "2025-05-02T06:38:36.971Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "208",
+    "object_repr": "موبایل",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 71,
+  "fields": {
+    "action_time": "2025-05-02T06:39:08.712Z",
+    "user": 1,
+    "content_type": 49,
+    "object_id": "209",
+    "object_repr": "ویندوز",
+    "action_flag": 1,
+    "change_message": "[{\"added\": {}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 72,
+  "fields": {
+    "action_time": "2025-05-02T06:40:09.060Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "203",
+    "object_repr": "به کدوم حوزه برای آموزش علاقه داری؟ (کلاس خصوصی)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Title\"]}}]"
+  }
+},
+{
+  "model": "admin.logentry",
+  "pk": 73,
+  "fields": {
+    "action_time": "2025-05-02T06:42:50.561Z",
+    "user": 1,
+    "content_type": 48,
+    "object_id": "204",
+    "object_repr": "برای آموزش چه بخشی رو میخوای یاد بگیری؟ (کلاس خصوصی)",
+    "action_flag": 2,
+    "change_message": "[{\"changed\": {\"fields\": [\"Title\"]}}]"
+  }
+},
+{
   "model": "auths.customuser",
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$870000$KH4izG2MRCPHnpohNHSl6v$hU3fN12vNxOmuxedg7zCvkL2950hXKR6vLcsprWeqT0=",
-    "last_login": "2025-04-19T13:04:12.603Z",
+    "last_login": "2025-05-10T13:06:48.884Z",
     "is_superuser": true,
     "username": "alireza_0631",
     "email": "alireza.yn@outlook.com",
@@ -405,7 +964,7 @@
     "is_staff": true,
     "unlimited": false,
     "created": "2024-12-22T09:44:37.734Z",
-    "updated": "2025-04-15T07:18:31.925Z",
+    "updated": "2025-05-03T11:54:37.064Z",
     "job_title": "Full-Stack Engineer",
     "uuid": "6e6b2721-0bdd-42d3-803b-2db033cac0ac",
     "intro_completed": true,
@@ -413,7 +972,7 @@
     "blocked_wallet": 0,
     "safe_withdraw": 55000,
     "user_bio": "برنامه‌نویس پرشور با تخصص در توسعه وب و اپلیکیشن‌های مدرن. مهارت در Next.js، Node.js، Django و ایجاد سیستم‌های چت، پلتفرم‌های آموزشی و ابزارهای نوآورانه. علاقه‌مند به یادگیری مداوم و توسعه محصولاتی که تجربه کاربران را بهبود می‌بخشند.",
-    "debugger_bio": "متخصص در دیباگینگ و رفع اشکال سیستم‌های پیچیده با تمرکز بر بهینه‌سازی و حل مشکلات عملکردی. مهارت در شناسایی باگ‌ها در Node.js، Django، و Next.js و ارائه راه‌حل‌های دقیق و کارآمد. علاقه‌مند به ساده‌سازی فرآیندهای توسعه و افزایش پایداری پروژه‌ها.",
+    "debugger_bio": "متخصص در دیباگینگ و رفع اشکال سیستم‌های پیچیده با تمرکز بر بهینه‌سازی و حل مشکلات عملکردی. مهارت در شناسایی باگ‌ها در Node.js، Django، و Next.js و ارائه راه‌حل‌های دقیق و کارآمد. علاقه‌مند به ساده‌سازی فرآیندهای توسعه و افزایش پایداری پروژه‌ها کس",
     "user_score": 5,
     "image_profile": "static/users/alireza.yn@outlook.com/profile_alireza.ynoutlook.com_20250406185501.jpg",
     "groups": [],
@@ -440,7 +999,7 @@
     "job_title": null,
     "uuid": "d5986a30-53d6-4f42-b769-434d172125c6",
     "intro_completed": true,
-    "digital_wallet": 500000,
+    "digital_wallet": 500000000,
     "blocked_wallet": 0,
     "safe_withdraw": 0,
     "user_bio": "برنامه‌نویس با تجربه در رفع اشکال سیستم‌های مبتنی بر Java و Spring Boot. مهارت در دیباگینگ کدهای enterprise، بهینه‌سازی پایگاه داده‌ها و حل مشکلات مرتبط با امنیت و مقیاس‌پذیری. تمرکز بر ارائه راه‌حل‌های سریع و دقیق.",
@@ -455,11 +1014,11 @@
   "model": "auths.customuser",
   "pk": 3,
   "fields": {
-    "password": "",
+    "password": "pbkdf2_sha256$870000$vWxy88hOl1UbUjIi5AXuU7$BAtWQumYJ2BjCkse4T0xKw32pWLBK+9XybABwHNrtvE=",
     "last_login": null,
     "is_superuser": false,
-    "username": null,
-    "email": "",
+    "username": "",
+    "email": null,
     "first_name": "",
     "last_name": "",
     "user_phone": "09991234567",
@@ -467,15 +1026,15 @@
     "is_staff": false,
     "unlimited": false,
     "created": "2024-12-23T22:05:27.439Z",
-    "updated": "2025-01-18T17:37:32.318Z",
-    "job_title": null,
+    "updated": "2025-05-09T13:33:43.705Z",
+    "job_title": "",
     "uuid": "1804c553-85fc-4c25-82bf-6099ac7180be",
     "intro_completed": false,
     "digital_wallet": 0,
     "blocked_wallet": 0,
     "safe_withdraw": 0,
-    "user_bio": null,
-    "debugger_bio": null,
+    "user_bio": "",
+    "debugger_bio": "",
     "user_score": 0,
     "image_profile": "",
     "groups": [],
@@ -486,10 +1045,10 @@
   "model": "auths.customuser",
   "pk": 4,
   "fields": {
-    "password": "",
+    "password": "pbkdf2_sha256$870000$BpkYrxp2fNTZXadGu5p6g5$2qa897Q3VT0eZ0N0AwX+5sfZ+pTLSrX6iBtYFAAxKwg=",
     "last_login": null,
     "is_superuser": false,
-    "username": null,
+    "username": "mohammad0631",
     "email": null,
     "first_name": "",
     "last_name": "",
@@ -498,17 +1057,17 @@
     "is_staff": false,
     "unlimited": false,
     "created": "2024-12-23T22:15:32.312Z",
-    "updated": "2024-12-23T22:15:54.561Z",
-    "job_title": null,
+    "updated": "2025-05-13T10:01:59.238Z",
+    "job_title": "",
     "uuid": "c1ad0b4c-c4f5-471e-8bae-853f7fc13481",
     "intro_completed": false,
     "digital_wallet": 0,
     "blocked_wallet": 0,
     "safe_withdraw": 0,
-    "user_bio": null,
-    "debugger_bio": null,
+    "user_bio": "",
+    "debugger_bio": "",
     "user_score": 0,
-    "image_profile": "",
+    "image_profile": "static/users/None/profile_None_20250513133159.jpg",
     "groups": [],
     "user_permissions": []
   }
@@ -704,7 +1263,7 @@
   "pk": 30,
   "fields": {
     "password": "pbkdf2_sha256$870000$AI5zG6EGuhBXfwL1hBW5bE$mzwe73RIf4XsLoSraoZ+7NpXfDIhOQdYC56/WwuBbLQ=",
-    "last_login": "2025-03-12T14:16:24.438Z",
+    "last_login": "2025-04-27T12:06:18.348Z",
     "is_superuser": true,
     "username": null,
     "email": "a@gmail.com",
@@ -1184,7 +1743,7 @@
     "job_title": "",
     "uuid": "9e64aa7e-235d-4671-9ce2-0400e997ddd1",
     "intro_completed": false,
-    "digital_wallet": 500000,
+    "digital_wallet": 500000000,
     "blocked_wallet": 0,
     "safe_withdraw": 0,
     "user_bio": "",
@@ -1196,12 +1755,123 @@
   }
 },
 {
+  "model": "auths.customuser",
+  "pk": 46,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$FPUisa6dcmQpKrYr8GcBNL$h1nf+Xpu+LkX4oVFMRKL4OvId2zRUTQa8V6T98Uhum8=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "mahdi",
+    "email": "mahdi1380hamodi@gmail.com",
+    "first_name": "مهدی",
+    "last_name": "حمودی",
+    "user_phone": "09303362613",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-05-03T09:28:14.797Z",
+    "updated": "2025-05-03T09:28:14.797Z",
+    "job_title": null,
+    "uuid": "b23e03b0-4640-4b13-becb-25027095b73f",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 47,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$tQRCBBATYinHSD7Ao2HCLM$X8Xj1KXHmLvYGzCHuy9JVcUq7pqpc1qtCeM9kC/q0tI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "mahdi1234",
+    "email": "mahdi1380haodi@gmail.com",
+    "first_name": "مهدی",
+    "last_name": "حمودی",
+    "user_phone": "09151234567",
+    "is_active": false,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-05-03T09:32:11.892Z",
+    "updated": "2025-05-03T09:32:11.892Z",
+    "job_title": null,
+    "uuid": "2d881a2e-80be-49e8-a9fd-061d5203767f",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": null,
+    "debugger_bio": null,
+    "user_score": 0,
+    "image_profile": "",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auths.customuser",
+  "pk": 48,
+  "fields": {
+    "password": "pbkdf2_sha256$870000$5FCAuv46hu5V2HrZEc8wGG$uvct+Vi09vTwKyV8qNbiVNtSw+KKjAKrW4XwCxfW/MI=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "aaaa",
+    "email": "gasgd@gmail.com",
+    "first_name": "asd",
+    "last_name": "asd",
+    "user_phone": "09999998877",
+    "is_active": true,
+    "is_staff": false,
+    "unlimited": false,
+    "created": "2025-05-09T12:47:03.317Z",
+    "updated": "2025-05-10T06:11:22.905Z",
+    "job_title": "asd",
+    "uuid": "be27ca6b-a31f-45e9-b1dd-b02dbf5f5eed",
+    "intro_completed": false,
+    "digital_wallet": 0,
+    "blocked_wallet": 0,
+    "safe_withdraw": 0,
+    "user_bio": "sadas",
+    "debugger_bio": "asdasd",
+    "user_score": 5,
+    "image_profile": "static/users/gasgd@gmail.com/profile_gasgdgmail.com_20250510094122.jpg",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "auths.otp",
   "pk": 1865,
   "fields": {
     "user": 43,
     "otp_code": "529600",
     "created_at": "2025-02-27T07:24:40.104Z"
+  }
+},
+{
+  "model": "auths.otp",
+  "pk": 1866,
+  "fields": {
+    "user": 46,
+    "otp_code": "110478",
+    "created_at": "2025-05-03T09:28:14.903Z"
+  }
+},
+{
+  "model": "auths.otp",
+  "pk": 1867,
+  "fields": {
+    "user": 47,
+    "otp_code": "885178",
+    "created_at": "2025-05-03T09:32:11.920Z"
   }
 },
 {
@@ -1249,21 +1919,21 @@
 },
 {
   "model": "auths.userbankcards",
-  "pk": 1,
+  "pk": 14,
   "fields": {
     "user": 1,
     "title": "تجارت",
     "card_number": "5859831058918326",
-    "default_card": true
+    "default_card": false
   }
 },
 {
   "model": "auths.userbankcards",
-  "pk": 11,
+  "pk": 15,
   "fields": {
     "user": 1,
     "title": "تجارت",
-    "card_number": "5555555555555555",
+    "card_number": "5859831058918325",
     "default_card": false
   }
 },
@@ -1309,8 +1979,8 @@
   "fields": {
     "name": "Java",
     "created_at": "2024-12-24T15:21:47.574Z",
-    "updated_at": "2024-12-24T15:21:47.575Z",
-    "image": "static/programming_language/icons8-classroom-48.png",
+    "updated_at": "2025-04-26T08:35:26.820Z",
+    "image": "static/programming_language/icons8-java-48_mzJ7lq2.png",
     "video": "",
     "level": "beginner"
   }
@@ -1321,8 +1991,8 @@
   "fields": {
     "name": "Java",
     "created_at": "2024-12-24T15:23:15.968Z",
-    "updated_at": "2024-12-24T15:23:15.968Z",
-    "image": "static/programming_language/icons8-classroom-48_cyapfkt.png",
+    "updated_at": "2025-04-26T08:35:11.085Z",
+    "image": "static/programming_language/icons8-java-48_ifMAY2L.png",
     "video": "",
     "level": "intermediate"
   }
@@ -1333,8 +2003,8 @@
   "fields": {
     "name": "Java",
     "created_at": "2024-12-24T15:23:49.141Z",
-    "updated_at": "2024-12-24T15:23:49.141Z",
-    "image": "static/programming_language/icons8-classroom-48_gRTOjtl.png",
+    "updated_at": "2025-04-26T08:34:52.430Z",
+    "image": "static/programming_language/icons8-java-48.png",
     "video": "",
     "level": "advanced"
   }
@@ -1345,8 +2015,8 @@
   "fields": {
     "name": "php",
     "created_at": "2024-12-24T15:24:09.015Z",
-    "updated_at": "2024-12-24T15:24:09.015Z",
-    "image": "static/programming_language/icons8-python-50_aI9U4UT.png",
+    "updated_at": "2025-04-26T08:34:43.492Z",
+    "image": "static/programming_language/icons8-php-logo-80_eOexOoa.png",
     "video": "",
     "level": "beginner"
   }
@@ -1357,8 +2027,8 @@
   "fields": {
     "name": "php",
     "created_at": "2024-12-24T15:24:13.977Z",
-    "updated_at": "2024-12-24T15:24:13.978Z",
-    "image": "static/programming_language/icons8-python-50_y0LOxHf.png",
+    "updated_at": "2025-04-26T08:34:28.888Z",
+    "image": "static/programming_language/icons8-php-logo-80_0Ne9Cyz.png",
     "video": "",
     "level": "intermediate"
   }
@@ -1369,8 +2039,8 @@
   "fields": {
     "name": "php",
     "created_at": "2024-12-24T15:24:18.784Z",
-    "updated_at": "2024-12-24T15:24:18.784Z",
-    "image": "static/programming_language/icons8-python-50_JGvRpB9.png",
+    "updated_at": "2025-04-26T08:34:10.535Z",
+    "image": "static/programming_language/icons8-php-logo-80.png",
     "video": "",
     "level": "advanced"
   }
@@ -1381,8 +2051,8 @@
   "fields": {
     "name": "javascript",
     "created_at": "2024-12-24T15:24:35.755Z",
-    "updated_at": "2024-12-24T15:24:35.755Z",
-    "image": "static/programming_language/icons8-python-50_VF6ESvI.png",
+    "updated_at": "2025-04-26T08:33:57.143Z",
+    "image": "static/programming_language/icons8-javascript-48_CkGCNZ2.png",
     "video": "",
     "level": "beginner"
   }
@@ -1393,8 +2063,8 @@
   "fields": {
     "name": "javascript",
     "created_at": "2024-12-24T15:24:41.584Z",
-    "updated_at": "2024-12-24T15:24:41.585Z",
-    "image": "static/programming_language/icons8-python-50_GnAF2s4.png",
+    "updated_at": "2025-04-26T08:33:40.914Z",
+    "image": "static/programming_language/icons8-javascript-48_UHLR3Ct.png",
     "video": "",
     "level": "intermediate"
   }
@@ -1405,8 +2075,8 @@
   "fields": {
     "name": "javascript",
     "created_at": "2024-12-24T15:24:47.392Z",
-    "updated_at": "2024-12-24T15:24:47.392Z",
-    "image": "static/programming_language/icons8-python-50_EQZW7W8.png",
+    "updated_at": "2025-04-26T08:33:33.696Z",
+    "image": "static/programming_language/icons8-javascript-48.png",
     "video": "",
     "level": "advanced"
   }
@@ -1800,6 +2470,16 @@
   }
 },
 {
+  "model": "user_resume.userlanguage",
+  "pk": 36,
+  "fields": {
+    "user": 1,
+    "language_name": 6,
+    "created_at": "2025-05-03T11:51:47.677Z",
+    "updated_at": "2025-05-03T11:51:47.677Z"
+  }
+},
+{
   "model": "user_resume.userskill",
   "pk": 1,
   "fields": {
@@ -2071,6 +2751,33 @@
   }
 },
 {
+  "model": "user_resume.userforiegnlanguage",
+  "pk": 214,
+  "fields": {
+    "name": "EN",
+    "rate": 60,
+    "user": 1
+  }
+},
+{
+  "model": "user_resume.userforiegnlanguage",
+  "pk": 215,
+  "fields": {
+    "name": "AR",
+    "rate": 100,
+    "user": 1
+  }
+},
+{
+  "model": "user_resume.userforiegnlanguage",
+  "pk": 216,
+  "fields": {
+    "name": "FA",
+    "rate": 100,
+    "user": 1
+  }
+},
+{
   "model": "projects.educationproject",
   "pk": 1,
   "fields": {
@@ -2153,19 +2860,19 @@
   "pk": 4,
   "fields": {
     "class_session": "47126a2e-f17a-4186-9eb6-5141b549c908",
-    "language": null,
-    "expertise": null,
-    "description": "asdasd",
-    "type_class": "public",
-    "class_title": "asdasd",
-    "educational_heading": "asdasdasd\r\nAsd",
-    "educational_heading_file": "static/project/files/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5_dHP1YKt.jpg",
+    "language": "node.js,html,css,javascript",
+    "expertise": "Full-Stack Developer",
+    "description": "عنوان دوره: آموزش جامع Node.js از مقدماتی تا پیشرفته\r\nمدرس: (نام مدرس یا برند)\r\nمدت زمان دوره: (مثلاً ۴۰ ساعت، بسته به برنامه)\r\nپیش‌نیاز: آشنایی مقدماتی با JavaScript\r\n\r\nدرباره دوره:\r\nNode.js انقلابی در دنیای توسعه وب ایجاد کرده است. با استفاده از این تکنولوژی، می‌توانید اپلیکیشن‌های مقیاس‌پذیر، سریع و انعطاف‌پذیر سمت سرور بسازید.\r\n\r\nدر این دوره‌ی جامع، شما با مفاهیم پایه‌ای Node.js شروع می‌کنید، و قدم به قدم تا ساخت پروژه‌های واقعی و حرفه‌ای پیش می‌روید.\r\nاز ایجاد سرورهای ساده تا ساخت APIهای پیشرفته، مدیریت دیتابیس، احراز هویت، کار با WebSocket و دیپلوی کردن اپلیکیشن‌ها، تمام مباحث مهم و کاربردی را به‌صورت پروژه‌محور یاد خواهید گرفت.",
+    "type_class": "private",
+    "class_title": "آموزش node.js",
+    "educational_heading": "🔥 سرفصل آموزش Node.js (از صفر تا پیشرفته)\r\n۱. مقدمه و شروع کار با Node.js\r\nNode.js چیست و چرا مهم است؟\r\n\r\nنصب Node.js و npm\r\n\r\nاجرای اولین برنامه‌ی Node.js (console.log(\"Hello World\"))\r\n\r\nمعرفی ساختار برنامه‌های Node.js\r\n\r\nمفهوم Event Loop و Non-blocking I/O\r\n\r\n۲. مبانی اصلی Node.js\r\nکار با ماژول‌های داخلی (Built-in Modules):\r\n\r\nfs (فایل سیستم)\r\n\r\npath\r\n\r\nos\r\n\r\nhttp\r\n\r\nevents\r\n\r\nایجاد و مدیریت سرور HTTP ساده\r\n\r\nکار با فایل‌ها (خواندن، نوشتن، حذف فایل‌ها)\r\n\r\nمدیریت مسیرها (path module)\r\n\r\n۳. معماری پروژه‌های Node.js\r\nساختاردهی به پروژه‌های کوچک و بزرگ\r\n\r\nاستفاده از محیط‌های توسعه (nodemon)\r\n\r\nآشنایی با CommonJS و ES6 Modules\r\n\r\n۴. npm و مدیریت پکیج‌ها\r\nمعرفی npm و yarn\r\n\r\nنصب و استفاده از پکیج‌ها\r\n\r\nساخت فایل package.json\r\n\r\nایجاد و انتشار یک پکیج ساده روی npm\r\n\r\n۵. ساخت API با Node.js (بدون فریمورک)\r\nساخت یک API ساده با http module\r\n\r\nآشنایی با مفاهیم REST API\r\n\r\nمدیریت Request و Response\r\n\r\nساخت Router ساده\r\n\r\n۶. آشنایی با Express.js (فریمورک محبوب Node.js)\r\nنصب و راه‌اندازی Express\r\n\r\nایجاد روت‌ها و کنترلرها\r\n\r\nMiddleware چیست و چطور ساخته می‌شود؟\r\n\r\nمدیریت ارورهای سمت سرور\r\n\r\nارسال و دریافت اطلاعات (Body Parser)\r\n\r\n۷. ارتباط با دیتابیس\r\nکار با MongoDB:\r\n\r\nنصب و راه‌اندازی MongoDB\r\n\r\nاتصال Node.js به MongoDB با Mongoose\r\n\r\nساخت مدل‌ها و اسکیماها\r\n\r\nاصول CRUD (Create, Read, Update, Delete)\r\n\r\n۸. احراز هویت (Authentication)\r\nمدیریت Token با JWT (Json Web Token)\r\n\r\nساخت سیستم ثبت‌نام و ورود\r\n\r\nMiddleware برای محافظت از روت‌ها\r\n\r\n۹. ارتقاء و امنیت پروژه\r\nآشنایی با مفاهیم امنیتی:\r\n\r\nجلوگیری از XSS و CSRF\r\n\r\nValidation داده‌ها با پکیج‌هایی مثل Joi\r\n\r\nلاگ‌گیری با Winston یا Morgan\r\n\r\nRate Limiting و جلوگیری از حملات DDoS ساده\r\n\r\n۱۰. پروژه عملی\r\nساخت یک پروژه واقعی:\r\n\r\nمثلاً: ساخت یک سایت فروشگاهی ساده یا بلاگ\r\n\r\nشامل آپلود عکس، سبد خرید، احراز هویت و مدیریت کاربرها\r\n\r\nDeploy پروژه روی سرور یا Vercel / Render\r\n\r\n۱۱. نکات پیشرفته (اختیاری برای سطوح بالاتر)\r\nکار با WebSocket (برقراری ارتباط Real-time)\r\n\r\nمعرفی GraphQL با Node.js\r\n\r\nتست نویسی با Jest و Supertest\r\n\r\nآشنایی با Microservices در Node.js\r\n\r\nپیام‌رسانی بین سرویس‌ها با RabbitMQ یا Kafka\r\n\r\n🎯 خلاصه هدف دوره:\r\nمقدماتی: شناخت Node و اجرای پروژه\r\n\r\nمتوسط: ساخت API های واقعی\r\n\r\nپیشرفته: امنیت، بهینه‌سازی، دیپلوی، ارتباط Realtime",
+    "educational_heading_file": "static/project/files/_سرفصل_آموزش_Node.docx",
     "price": 0,
-    "created_by": 45,
+    "created_by": 1,
     "discount": 0,
     "created_at": "2025-04-13T10:28:19.258Z",
-    "updated_at": "2025-04-13T10:28:19.258Z",
-    "start_date": "2025-03-30T00:00:00Z",
+    "updated_at": "2025-04-28T07:17:39.272Z",
+    "start_date": null,
     "end_date": null,
     "buffer_date": 0,
     "is_deleted": false,
@@ -2721,6 +3428,32 @@
   }
 },
 {
+  "model": "projects.educationproject",
+  "pk": 26,
+  "fields": {
+    "class_session": "04a061a4-cd1f-4ef2-abfd-3f9701447c8f",
+    "language": null,
+    "expertise": null,
+    "description": "میخوام کامل پایتون رو به مهدی خان یاد بدم",
+    "type_class": "public",
+    "class_title": "آموزش پایتون",
+    "educational_heading": "برای یک دوره آموزشی یا کتاب درسی پایتون، سرفصل‌ها می‌توانند به صورت زیر تنظیم شوند. این سرفصل‌ها به طور کلی شامل مفاهیم پایه تا پیشرفته‌ی پایتون هستند:\r\n\r\n### سرفصل دوره آموزشی پایتون\r\n\r\n1. **مقدمه‌ای بر پایتون**\r\n   - تاریخچه و ویژگی‌های پایتون\r\n   - نصب و راه‌اندازی محیط پایتون (IDE ها و ویرایشگرها)\r\n   - معرفی محیط تعاملی (Python Shell)\r\n\r\n2. **متغیرها و انواع داده‌ها**\r\n   - متغیرها و انتساب مقدار\r\n   - انواع داده‌ها: عدد صحیح (int)، اعشاری (float)، رشته (str)، لیست‌ها (list)، تاپل‌ها (tuple)، دیکشنری‌ها (dict)، مجموعه‌ها (set)\r\n   - تبدیل انواع داده‌ها\r\n\r\n3. **عملگرها**\r\n   - عملگرهای ریاضی (جمع، تفریق، ضرب، تقسیم، توان)\r\n   - عملگرهای منطقی (AND، OR، NOT)\r\n   - عملگرهای مقایسه‌ای (برابر، بزرگتر از، کوچکتر از، غیر برابر)\r\n   - عملگرهای تخصیص\r\n\r\n4. **ساختارهای کنترلی**\r\n   - دستورات شرطی (if، elif، else)\r\n   - حلقه‌ها: for و while\r\n   - دستور break و continue\r\n\r\n5. **توابع**\r\n   - تعریف و استفاده از توابع\r\n   - پارامترها و آرگومان‌ها\r\n   - بازگشت مقدار از توابع\r\n   - توابع بازگشتی\r\n\r\n6. **مدیریت خطا و استثناها**\r\n   - بلوک try-except\r\n   - استفاده از finally\r\n   - استثناهای سفارشی\r\n\r\n7. **کار با فایل‌ها**\r\n   - خواندن و نوشتن در فایل‌ها\r\n   - کار با فایل‌های متنی و باینری\r\n   - مدیریت مسیرهای فایل\r\n\r\n8. **کتابخانه‌ها و ماژول‌ها**\r\n   - معرفی کتابخانه‌ها و ماژول‌های استاندارد\r\n   - نصب و استفاده از پکیج‌ها با pip\r\n   - ساخت ماژول‌های شخصی\r\n\r\n9. **برنامه‌نویسی شی‌گرا (OOP)**\r\n   - کلاس‌ها و شی‌ها\r\n   - ویژگی‌ها و متدها\r\n   - وراثت و چندریختی\r\n   - کپسوله‌سازی و انکپسولاسیون\r\n   - متدهای خاص: __init__، __str__ و ...\r\n\r\n10. **مدیریت حافظه و بهینه‌سازی**\r\n    - حافظه در پایتون: Garbage Collection\r\n    - ساختارهای داده بهینه و تحلیل پیچیدگی زمانی\r\n\r\n11. **کار با کتابخانه‌های خارجی**\r\n    - NumPy برای پردازش داده‌های عددی\r\n    - Pandas برای پردازش داده‌های جدولی\r\n    - Matplotlib و Seaborn برای تجزیه و تحلیل داده‌ها و رسم نمودار\r\n    - Requests برای کار با وب\r\n\r\n12. **مفاهیم پیشرفته**\r\n    - Decorators و Lambdas\r\n    - Comprehensions (لیست، دیکشنری، و ست)\r\n    - Generator‌ها و Iterators\r\n    - Asyncio و پردازش همزمان\r\n\r\n13. **پروژه‌های عملی و کاربردی**\r\n    - ایجاد برنامه‌های کاربردی و پروژه‌های کوچک\r\n    - کار با پایگاه‌های داده (SQLite، MySQL)\r\n    - توسعه وب با Django یا Flask\r\n    - تحلیل داده‌ها و یادگیری ماشین با پایتون\r\n\r\nاین سرفصل‌ها می‌توانند بسته به نیاز شما تغییر کنند یا توسعه یابند، و همچنین می‌توانند برای سطوح مبتدی تا پیشرفته طراحی شوند. اگر چیزی خاص مد نظر دارید، می‌توانم کمک کنم که آن را بیشتر جزئیات بدهم!",
+    "educational_heading_file": "static/project/files/کلاس_خصوصی_WebSocket_fHsvL6E_1_1.docx",
+    "price": 0,
+    "created_by": 1,
+    "discount": 0,
+    "created_at": "2025-04-27T06:56:47.018Z",
+    "updated_at": "2025-04-27T06:56:47.018Z",
+    "start_date": "2025-05-22T00:00:00Z",
+    "end_date": "2025-08-22T00:00:00Z",
+    "buffer_date": 0,
+    "is_deleted": false,
+    "time_line": null,
+    "is_tender": true,
+    "users": []
+  }
+},
+{
   "model": "projects.projectimage",
   "pk": 1,
   "fields": {
@@ -3194,7 +3927,7 @@
   "fields": {
     "project": 22,
     "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_RQG7pDP.jpg",
-    "uploaded_at": "2025-04-13T12:29:22.000Z"
+    "uploaded_at": "2025-04-13T12:29:22Z"
   }
 },
 {
@@ -3357,6 +4090,105 @@
     "project": 25,
     "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_e8EqPRy.jpg",
     "uploaded_at": "2025-04-13T12:52:06.790Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 72,
+  "fields": {
+    "project": 26,
+    "image": "static/project/image_project/icons8-javascript-48.png",
+    "uploaded_at": "2025-04-27T06:56:47.860Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 73,
+  "fields": {
+    "project": 26,
+    "image": "static/project/image_project/icons8-java-48.png",
+    "uploaded_at": "2025-04-27T06:56:47.870Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 74,
+  "fields": {
+    "project": 26,
+    "image": "static/project/image_project/Artboard_1_2.png",
+    "uploaded_at": "2025-04-27T06:56:47.871Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 75,
+  "fields": {
+    "project": 26,
+    "image": "static/project/image_project/icons8-php-logo-80.png",
+    "uploaded_at": "2025-04-27T06:56:47.958Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 76,
+  "fields": {
+    "project": 4,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_0XVhAO0.jpg",
+    "uploaded_at": "2025-04-28T07:21:06.606Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 77,
+  "fields": {
+    "project": 4,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_66QcJjb.jpg",
+    "uploaded_at": "2025-04-28T07:21:13.755Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 78,
+  "fields": {
+    "project": 4,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_5P2bTbW.jpg",
+    "uploaded_at": "2025-04-28T07:21:19.592Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 79,
+  "fields": {
+    "project": 1,
+    "image": "static/project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875_zxrLJt4.jpg",
+    "uploaded_at": "2025-05-09T13:35:29.698Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 80,
+  "fields": {
+    "project": 1,
+    "image": "project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_5.jpg",
+    "uploaded_at": "2025-05-09T13:43:41.647Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 81,
+  "fields": {
+    "project": 1,
+    "image": "project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2.jpg",
+    "uploaded_at": "2025-05-09T15:45:38.568Z"
+  }
+},
+{
+  "model": "projects.projectimage",
+  "pk": 82,
+  "fields": {
+    "project": 1,
+    "image": "project/image_project/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2_fVwB0fi.jpg",
+    "uploaded_at": "2025-05-09T15:49:09.287Z"
   }
 },
 {
@@ -3536,30 +4368,100 @@
   }
 },
 {
-  "model": "projects.bid",
-  "pk": 43,
+  "model": "projects.tenderproject",
+  "pk": 135,
   "fields": {
-    "user": 45,
-    "tender": 30,
-    "amount": "373248.00"
+    "uuid": "94f5eba9-cf40-44be-b200-9d20a6b0d947",
+    "active": false,
+    "title": "آموزش پایتون",
+    "description": "برای یک دوره آموزشی یا کتاب درسی پایتون، سرفصل‌ها می‌توانند به صورت زیر تنظیم شوند. این سرفصل‌ها به طور کلی شامل مفاهیم پایه تا پیشرفته‌ی پایتون هستند",
+    "image": "static/tender/image/Screenshot_14.png",
+    "project": 26,
+    "start_time": "2025-05-28T00:00:00Z",
+    "end_time": "2025-05-04T00:00:00Z",
+    "created_by": 1,
+    "start_bid": 300000,
+    "highest_bid": 0,
+    "winner": null,
+    "language": null,
+    "expertise": null,
+    "skills": null,
+    "mode": "tender"
   }
 },
 {
   "model": "projects.bid",
-  "pk": 44,
+  "pk": 210,
   "fields": {
     "user": 45,
-    "tender": 20,
-    "amount": "600000.00"
+    "tender": 68,
+    "amount": "4000000.00"
   }
 },
 {
   "model": "projects.bid",
-  "pk": 64,
+  "pk": 211,
   "fields": {
     "user": 45,
-    "tender": 15,
-    "amount": "75000.00"
+    "tender": 135,
+    "amount": "360000.00"
+  }
+},
+{
+  "model": "projects.bid",
+  "pk": 212,
+  "fields": {
+    "user": 45,
+    "tender": 66,
+    "amount": "60000.00"
+  }
+},
+{
+  "model": "projects.tenderlikes",
+  "pk": 138,
+  "fields": {
+    "user": 45,
+    "tender": 15
+  }
+},
+{
+  "model": "projects.tenderlikes",
+  "pk": 149,
+  "fields": {
+    "user": 1,
+    "tender": 68
+  }
+},
+{
+  "model": "projects.tenderlikes",
+  "pk": 151,
+  "fields": {
+    "user": 1,
+    "tender": 135
+  }
+},
+{
+  "model": "projects.tenderlikes",
+  "pk": 152,
+  "fields": {
+    "user": 1,
+    "tender": 67
+  }
+},
+{
+  "model": "projects.tenderlikes",
+  "pk": 153,
+  "fields": {
+    "user": 1,
+    "tender": 66
+  }
+},
+{
+  "model": "projects.tenderlikes",
+  "pk": 213,
+  "fields": {
+    "user": 45,
+    "tender": 135
   }
 },
 {
@@ -3567,7 +4469,7 @@
   "pk": 57,
   "fields": {
     "created_at": "2025-04-07T10:10:46.904Z",
-    "updated_at": "2025-04-23T11:12:29.679Z",
+    "updated_at": "2025-05-02T08:15:16.738Z",
     "title": "وب سوکت",
     "session_id": "794f3548-90fc-493b-bacf-360fbc3f13b1",
     "debuger": 1,
@@ -3582,8 +4484,8 @@
     "description": "در بخس سایت برای برقراری وب سوکت مشکل خورده اتصال برقرار میشه ولی اطلاعات ارسال نمیشن روی لوکال کار میکنه اما روی سرور نه",
     "time": 40,
     "is_realtime": true,
-    "is_locked": true,
-    "is_payed": false,
+    "is_locked": false,
+    "is_payed": true,
     "is_rejected": false,
     "rejected_by": null
   }
@@ -3598,7 +4500,7 @@
     "session_id": "e460d561-8dba-4ee7-939e-5770bd5e8a5d",
     "debuger": 1,
     "debuger_applicator": 5,
-    "status": "pending",
+    "status": "open",
     "start_at": "2025-04-07T13:43:00Z",
     "close_at": null,
     "mode": "chat",
@@ -3619,7 +4521,7 @@
   "pk": 59,
   "fields": {
     "created_at": "2025-04-07T10:19:07.017Z",
-    "updated_at": "2025-04-07T10:19:07.017Z",
+    "updated_at": "2025-05-05T12:49:40.788Z",
     "title": "هوش مصنوعی",
     "session_id": "6c1d06bd-2d43-455c-a84f-d15f531c0c0c",
     "debuger": 1,
@@ -3636,8 +4538,8 @@
     "is_realtime": true,
     "is_locked": true,
     "is_payed": false,
-    "is_rejected": false,
-    "rejected_by": null
+    "is_rejected": true,
+    "rejected_by": 1
   }
 },
 {
@@ -4060,6 +4962,438 @@
   }
 },
 {
+  "model": "core.timestamp",
+  "pk": 135,
+  "fields": {
+    "created_at": "2025-04-27T06:59:06.451Z",
+    "updated_at": "2025-04-27T06:59:06.451Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 136,
+  "fields": {
+    "created_at": "2025-04-27T07:51:13.114Z",
+    "updated_at": "2025-04-27T07:51:13.140Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 138,
+  "fields": {
+    "created_at": "2025-04-27T11:52:45.561Z",
+    "updated_at": "2025-04-27T11:52:45.561Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 149,
+  "fields": {
+    "created_at": "2025-04-27T13:16:13.008Z",
+    "updated_at": "2025-04-27T13:16:13.008Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 151,
+  "fields": {
+    "created_at": "2025-04-27T13:42:42.911Z",
+    "updated_at": "2025-04-27T13:42:42.911Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 152,
+  "fields": {
+    "created_at": "2025-04-27T13:42:48.506Z",
+    "updated_at": "2025-04-27T13:42:48.506Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 153,
+  "fields": {
+    "created_at": "2025-04-27T13:42:51.044Z",
+    "updated_at": "2025-04-27T13:42:51.044Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 154,
+  "fields": {
+    "created_at": "2025-04-29T10:44:23.514Z",
+    "updated_at": "2025-04-29T10:54:08.331Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 155,
+  "fields": {
+    "created_at": "2025-04-29T11:03:05.926Z",
+    "updated_at": "2025-04-29T11:12:39.137Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 156,
+  "fields": {
+    "created_at": "2025-04-29T11:18:31.259Z",
+    "updated_at": "2025-04-29T11:18:31.259Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 157,
+  "fields": {
+    "created_at": "2025-04-29T11:24:19.276Z",
+    "updated_at": "2025-04-29T11:24:19.276Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 158,
+  "fields": {
+    "created_at": "2025-04-29T11:26:39.209Z",
+    "updated_at": "2025-04-29T11:26:39.209Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 159,
+  "fields": {
+    "created_at": "2025-04-29T12:18:32.938Z",
+    "updated_at": "2025-04-29T12:18:32.938Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 160,
+  "fields": {
+    "created_at": "2025-04-29T12:27:51.217Z",
+    "updated_at": "2025-04-29T12:27:51.217Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 161,
+  "fields": {
+    "created_at": "2025-04-30T09:05:11.058Z",
+    "updated_at": "2025-04-30T10:35:21.699Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 164,
+  "fields": {
+    "created_at": "2025-04-30T10:12:22.364Z",
+    "updated_at": "2025-05-01T09:47:18.319Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 167,
+  "fields": {
+    "created_at": "2025-04-30T10:21:42.528Z",
+    "updated_at": "2025-04-30T10:35:56.115Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 168,
+  "fields": {
+    "created_at": "2025-04-30T10:22:28.211Z",
+    "updated_at": "2025-04-30T10:22:28.211Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 170,
+  "fields": {
+    "created_at": "2025-04-30T10:36:27.778Z",
+    "updated_at": "2025-04-30T10:36:27.778Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 171,
+  "fields": {
+    "created_at": "2025-04-30T10:36:48.205Z",
+    "updated_at": "2025-04-30T10:36:48.205Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 172,
+  "fields": {
+    "created_at": "2025-04-30T13:05:38.693Z",
+    "updated_at": "2025-05-01T10:15:26.620Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 177,
+  "fields": {
+    "created_at": "2025-05-01T06:42:49.335Z",
+    "updated_at": "2025-05-01T10:15:36.546Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 184,
+  "fields": {
+    "created_at": "2025-05-01T09:51:03.593Z",
+    "updated_at": "2025-05-01T09:51:03.593Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 185,
+  "fields": {
+    "created_at": "2025-05-01T09:51:33.823Z",
+    "updated_at": "2025-05-01T09:52:30.043Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 187,
+  "fields": {
+    "created_at": "2025-05-01T09:55:47.349Z",
+    "updated_at": "2025-05-01T09:55:47.349Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 188,
+  "fields": {
+    "created_at": "2025-05-01T09:56:40.084Z",
+    "updated_at": "2025-05-01T09:56:40.084Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 189,
+  "fields": {
+    "created_at": "2025-05-01T09:57:30.122Z",
+    "updated_at": "2025-05-01T09:57:30.122Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 190,
+  "fields": {
+    "created_at": "2025-05-01T09:57:56.547Z",
+    "updated_at": "2025-05-01T09:57:56.547Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 191,
+  "fields": {
+    "created_at": "2025-05-01T09:58:22.174Z",
+    "updated_at": "2025-05-01T09:58:22.174Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 192,
+  "fields": {
+    "created_at": "2025-05-01T09:58:59.373Z",
+    "updated_at": "2025-05-01T09:58:59.373Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 193,
+  "fields": {
+    "created_at": "2025-05-01T10:02:15.511Z",
+    "updated_at": "2025-05-01T10:02:15.511Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 194,
+  "fields": {
+    "created_at": "2025-05-01T10:02:31.644Z",
+    "updated_at": "2025-05-01T10:02:31.644Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 195,
+  "fields": {
+    "created_at": "2025-05-01T10:18:03.381Z",
+    "updated_at": "2025-05-01T10:18:03.381Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 196,
+  "fields": {
+    "created_at": "2025-05-01T10:19:16.166Z",
+    "updated_at": "2025-05-01T10:19:16.166Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 197,
+  "fields": {
+    "created_at": "2025-05-01T11:41:05.102Z",
+    "updated_at": "2025-05-01T11:51:10.211Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 198,
+  "fields": {
+    "created_at": "2025-05-01T11:41:37.642Z",
+    "updated_at": "2025-05-01T11:52:27.102Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 199,
+  "fields": {
+    "created_at": "2025-05-01T11:41:55.535Z",
+    "updated_at": "2025-05-01T11:51:03.463Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 200,
+  "fields": {
+    "created_at": "2025-05-01T11:42:17.148Z",
+    "updated_at": "2025-05-01T11:50:57.356Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 201,
+  "fields": {
+    "created_at": "2025-05-01T11:42:22.893Z",
+    "updated_at": "2025-05-01T11:50:41.392Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 202,
+  "fields": {
+    "created_at": "2025-05-01T11:53:22.422Z",
+    "updated_at": "2025-05-01T11:53:22.422Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 203,
+  "fields": {
+    "created_at": "2025-05-02T06:32:52.488Z",
+    "updated_at": "2025-05-02T06:40:09.057Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 204,
+  "fields": {
+    "created_at": "2025-05-02T06:33:39.907Z",
+    "updated_at": "2025-05-02T06:42:50.558Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 205,
+  "fields": {
+    "created_at": "2025-05-02T06:34:17.007Z",
+    "updated_at": "2025-05-02T06:34:23.250Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 206,
+  "fields": {
+    "created_at": "2025-05-02T06:36:41.224Z",
+    "updated_at": "2025-05-02T06:36:41.224Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 207,
+  "fields": {
+    "created_at": "2025-05-02T06:38:12.556Z",
+    "updated_at": "2025-05-02T06:38:12.556Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 208,
+  "fields": {
+    "created_at": "2025-05-02T06:38:36.967Z",
+    "updated_at": "2025-05-02T06:38:36.967Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 209,
+  "fields": {
+    "created_at": "2025-05-02T06:39:08.708Z",
+    "updated_at": "2025-05-02T06:39:08.708Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 210,
+  "fields": {
+    "created_at": "2025-05-03T11:27:17.292Z",
+    "updated_at": "2025-05-03T11:27:17.292Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 211,
+  "fields": {
+    "created_at": "2025-05-07T10:15:03.315Z",
+    "updated_at": "2025-05-07T10:15:03.315Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 212,
+  "fields": {
+    "created_at": "2025-05-07T10:17:05.706Z",
+    "updated_at": "2025-05-07T10:17:05.706Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 213,
+  "fields": {
+    "created_at": "2025-05-08T11:04:51.384Z",
+    "updated_at": "2025-05-08T11:04:51.384Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 214,
+  "fields": {
+    "created_at": "2025-05-10T07:55:22.377Z",
+    "updated_at": "2025-05-10T07:55:22.377Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 215,
+  "fields": {
+    "created_at": "2025-05-10T07:55:45.010Z",
+    "updated_at": "2025-05-10T07:55:45.010Z"
+  }
+},
+{
+  "model": "core.timestamp",
+  "pk": 216,
+  "fields": {
+    "created_at": "2025-05-10T07:55:50.819Z",
+    "updated_at": "2025-05-10T07:55:50.819Z"
+  }
+},
+{
   "model": "questions.category",
   "pk": 1,
   "fields": {
@@ -4192,6 +5526,357 @@
   }
 },
 {
+  "model": "questions.aicategoryquestion",
+  "pk": 161,
+  "fields": {
+    "category_name": "دیباگ",
+    "title": "دیباگینگ میخوام"
+  }
+},
+{
+  "model": "questions.aicategoryquestion",
+  "pk": 167,
+  "fields": {
+    "category_name": "مشاوره",
+    "title": "به مشاوره نیاز دارم"
+  }
+},
+{
+  "model": "questions.aicategoryquestion",
+  "pk": 170,
+  "fields": {
+    "category_name": "کلاس خصوصی",
+    "title": "به کلاس خصوصی نیاز دارم"
+  }
+},
+{
+  "model": "questions.aicategoryquestion",
+  "pk": 171,
+  "fields": {
+    "category_name": "کلاس عمومی",
+    "title": "کلاس عمومی میخوام"
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 164,
+  "fields": {
+    "category": 161,
+    "title": "مشکل شما در چه زمینه ای است؟",
+    "description": "",
+    "sound": "",
+    "priority": 1
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 168,
+  "fields": {
+    "category": 167,
+    "title": "مشکل شما در چه زمینه ای است؟",
+    "description": "",
+    "sound": "",
+    "priority": 1
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 172,
+  "fields": {
+    "category": 161,
+    "title": "در کدام بخش نیاز به کمک دارید؟",
+    "description": "",
+    "sound": "",
+    "priority": 2
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 177,
+  "fields": {
+    "category": 161,
+    "title": "از چه زبان هایی استفاده کردید؟",
+    "description": "",
+    "sound": "",
+    "priority": 3
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 203,
+  "fields": {
+    "category": 170,
+    "title": "به کدوم حوزه برای آموزش علاقه داری؟",
+    "description": "",
+    "sound": "",
+    "priority": 1
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 204,
+  "fields": {
+    "category": 170,
+    "title": "برای آموزش چه بخشی رو میخوای یاد بگیری؟",
+    "description": "",
+    "sound": "",
+    "priority": 2
+  }
+},
+{
+  "model": "questions.aiquestion",
+  "pk": 205,
+  "fields": {
+    "category": 170,
+    "title": "دوست داری چه زبان هایی رو یاد بگیری؟",
+    "description": "",
+    "sound": "",
+    "priority": 3
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 184,
+  "fields": {
+    "answer": "توسعه موبایل",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 185,
+  "fields": {
+    "answer": "توسعه وب",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 187,
+  "fields": {
+    "answer": "هوش مصنوعی و یادگیری ماشین",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 188,
+  "fields": {
+    "answer": "تحلیل داده و علم داده",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 189,
+  "fields": {
+    "answer": "برنامه‌ نویسی دسکتاپ",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 190,
+  "fields": {
+    "answer": "برنامه‌ نویسی بازی",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 191,
+  "fields": {
+    "answer": "اتوماسیون و اسکریپت‌ نویسی",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 192,
+  "fields": {
+    "answer": "برنامه‌ نویسی سیستم و توکار",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 193,
+  "fields": {
+    "answer": "امنیت سایبری و هک اخلاقی",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 194,
+  "fields": {
+    "answer": "DevOps و مدیریت سرور",
+    "description": "",
+    "type": "button",
+    "question": 164,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 195,
+  "fields": {
+    "answer": "Front-End فرانت اند",
+    "description": "بخشی از برنامه‌نویسیه که با ظاهر سایت یا اپلیکیشن سروکار داره؛ یعنی هر چیزی که کاربر می‌بینه و باهاش کار می‌کنه مثل دکمه‌ها، رنگ‌ها، منوها و فرم‌ها.",
+    "type": "button",
+    "question": 172,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 196,
+  "fields": {
+    "answer": "Back-End بک اند",
+    "description": "پشت‌صحنه‌ی سایت یا اپلیکیشنه؛ جایی که داده‌ها ذخیره می‌شن و پردازش می‌شن. مثلاً وقتی کاربر ثبت‌نام می‌کنه، این بخش اطلاعات رو ذخیره می‌کنه یا موقع ورود، هویت کاربر رو بررسی می‌کنه.",
+    "type": "button",
+    "question": 172,
+    "language_type": "all"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 197,
+  "fields": {
+    "answer": "Python",
+    "description": "",
+    "type": "button",
+    "question": 177,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 198,
+  "fields": {
+    "answer": "Javascript",
+    "description": "",
+    "type": "button",
+    "question": 177,
+    "language_type": "front-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 199,
+  "fields": {
+    "answer": "Node.js",
+    "description": "",
+    "type": "button",
+    "question": 177,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 200,
+  "fields": {
+    "answer": "Ruby",
+    "description": "",
+    "type": "button",
+    "question": 177,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 201,
+  "fields": {
+    "answer": "Java",
+    "description": "",
+    "type": "button",
+    "question": 177,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 202,
+  "fields": {
+    "answer": "LLM",
+    "description": "",
+    "type": "button",
+    "question": 177,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 206,
+  "fields": {
+    "answer": "پایتون",
+    "description": "زبان چند منظوره که در حوزه های مختلف مانند وب ، هوش مصنوعی ، علم داده کاربرد فراوانی دارد",
+    "type": "button",
+    "question": 205,
+    "language_type": "back-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 207,
+  "fields": {
+    "answer": "وبسایت",
+    "description": "",
+    "type": "button",
+    "question": 203,
+    "language_type": "front-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 208,
+  "fields": {
+    "answer": "موبایل",
+    "description": "",
+    "type": "button",
+    "question": 203,
+    "language_type": "front-end"
+  }
+},
+{
+  "model": "questions.aiquestionanswer",
+  "pk": 209,
+  "fields": {
+    "answer": "ویندوز",
+    "description": "",
+    "type": "button",
+    "question": 203,
+    "language_type": "back-end"
+  }
+},
+{
   "model": "followers.followers",
   "pk": 46,
   "fields": {
@@ -4209,11 +5894,11 @@
   "fields": {
     "user": 2,
     "followers": [
-      29,
       35,
       40,
       41,
-      42
+      42,
+      29
     ]
   }
 },
@@ -4235,6 +5920,7 @@
   "model": "post.posts",
   "pk": 57,
   "fields": {
+    "user": null,
     "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_2_pmjO7IB.jpg",
     "media_type": "picture",
     "post_type": "آموزشی",
@@ -4248,6 +5934,7 @@
   "model": "post.posts",
   "pk": 63,
   "fields": {
+    "user": null,
     "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_3_ChzlSrg.jpg",
     "media_type": "picture",
     "post_type": "آموزشی",
@@ -4255,6 +5942,104 @@
     "caption": "کپشن دو",
     "file": "static/posts/file/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_3.jpg",
     "order": 1
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 154,
+  "fields": {
+    "user": 1,
+    "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4.jpg",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "آموزش وب سوکت",
+    "caption": "یادگیری عالی و پیاده سازی وب سوکت",
+    "file": "static/posts/file/demo_ATmgyaY.mp4",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 155,
+  "fields": {
+    "user": 2,
+    "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_4_no4g64G.jpg",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "آموزش فیگما",
+    "caption": "جلسه اول",
+    "file": "static/posts/file/back-end_jeDtYHw.mp4",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 156,
+  "fields": {
+    "user": 28,
+    "thumbnail": "static/posts/images/logo-microsoft-sql-server-595x3350.jpg",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "نصب SQL SERVER",
+    "caption": "آموزش sql سرور بصورت کامل",
+    "file": "static/posts/file/sql_part_1.mp4",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 157,
+  "fields": {
+    "user": 28,
+    "thumbnail": "static/posts/images/ae1410223020979.67f153f3dcfbd_1.png",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "نصب Python",
+    "caption": "افزایش مهارت با فیگما با ابزارها و پلاگین ها",
+    "file": "static/posts/file/python_part_1.mp4",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 158,
+  "fields": {
+    "user": 2,
+    "thumbnail": "static/posts/images/ae1410223020979_eHmH9ET.67f153f3dcfbd_1.png",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "نصب Python پارت 2",
+    "caption": "افزایش مهارت با فیگما با ابزارها و پلاگین ها",
+    "file": "static/posts/file/demo_Rrtso0I.mp4",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 159,
+  "fields": {
+    "user": 2,
+    "thumbnail": "static/posts/images/1cc5bd596d4c806fe78ec399dbcd07808cc27762bef10190c22d83fe875b7a9e_6.jpg",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "نصب Python پارت 2",
+    "caption": "aisdjandsnakjnsdkjnas",
+    "file": "static/posts/file/Rec_0036.mp4",
+    "order": 0
+  }
+},
+{
+  "model": "post.posts",
+  "pk": 160,
+  "fields": {
+    "user": 2,
+    "thumbnail": "static/posts/images/debuger_home_iPjfZsB.png",
+    "media_type": "video",
+    "post_type": "آموزشی",
+    "title": "نصب Python پارت 2",
+    "caption": "aisdjandsnakjnsdkjnas",
+    "file": "static/posts/file/Demo_3_2.mp4",
+    "order": 0
   }
 },
 {
@@ -4298,6 +6083,15 @@
   "pk": 60,
   "fields": {
     "user": 35,
+    "post": 57,
+    "is_liked": true
+  }
+},
+{
+  "model": "post.liked",
+  "pk": 136,
+  "fields": {
+    "user": 1,
     "post": 57,
     "is_liked": true
   }

@@ -1,7 +1,7 @@
 "use client";
 import { PinContainer } from '@/components/ui/ace/3d-pin'
 import { CardItem, ExpandableCard } from '@/components/ui/ace/evaluation-card';
-import socket from '@/config/socket-config';
+import {socket} from '@/config/socket-config';
 import React, { useEffect, useState } from 'react'
 
 type Props = {

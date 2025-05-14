@@ -1,26 +1,17 @@
 
-import ChatWithAi from "@/components/chat/send_ai";
 import AIBotProfile from "@/components/ui/Profile/aibotprofile";
 import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
-import AiContent from "@/components/chat/content_ai";
 import * as React from "react";
-import AiWelcome from "@/components/chat/content_ai/Welcom";
-import SendDescription from "@/components/chat/content_ai/SendDescription";
 import FindUser from "@/components/version_1_1/FindUser";
 import { cookies } from "next/headers";
 import { perform_get } from "@/lib/api";
-import Image from "next/image";
-import { Button } from "@heroui/react";
-import { Power, Settings, Star } from "lucide-react";
 import {
   DebugerHome,
   DebugerRequest,
 } from "@/components/version_1_1/User/home";
 import clientPromise from "@/lib/mongodb";
-import NewRequestIncoming from "@/components/version_1_1/User/NewRequestIncoming";
-import OnlineAction from "@/components/version_1_1/User/OnlineAction";
 import { RequestFilterProvider } from "@/context/RequetsFilterProvider";
 import AiQuestion from "@/components/version_1_1/AiQuestions";
 import Answers from "@/components/version_1_1/AiQuestions/Answers";

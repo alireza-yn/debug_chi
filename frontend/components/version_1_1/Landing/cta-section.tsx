@@ -20,10 +20,10 @@ export function ServiceFeatures() {
     }
   }, [])
 
-  console.log(user)
+
 
   const is_debugger = user?.user_roles?.includes("debugger") ?? false
-  console.log(is_debugger, "test")
+
 
   const features = [
     {

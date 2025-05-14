@@ -1,11 +1,8 @@
 import Action from "@/components/chat/header/action";
-import InputChat from "@/components/chatApp/InputChat";
 import Conversation from "@/components/Conversation";
 import InputMessage from "@/components/Conversation/Input";
 import RequestModal from "@/components/Modal/RequestModal";
 import MoreRequest from "@/components/Modal/RequestModal/MoreRequest";
-import { Main } from "@/components/types/user.types";
-import UserProfile from "@/components/ui/Profile";
 import ChatList from "@/components/version_1_1/chatList";
 import UserNormalChatList from "@/components/version_1_1/chatList/noramal-user-chatlist";
 import Sidebar from "@/components/version_1_1/Sidebar";
@@ -13,9 +10,7 @@ import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
 import { RequestFilterProvider } from "@/context/RequetsFilterProvider";
 import { perform_get } from "@/lib/api";
-import { Button } from "@heroui/react";
 import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
 import React from "react";
 
 const page = async ({ params }: any) => {
