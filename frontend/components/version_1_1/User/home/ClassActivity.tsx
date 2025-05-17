@@ -269,7 +269,7 @@ export default function ClassActivities() {
       case "name":
         return (
           <User
-            avatarProps={{ radius: "lg", src: item.images && item.images.length > 0 ? process.env.server+"/"+item.images[0].image : "/user.jpg" }}
+            avatarProps={{ radius: "lg", src: item.images && item.images.length > 0 ? item.images[0].image : "/user.jpg" }}
             description={item.educational_heading.substring(0,15)+ " ..."}
             name={item.class_title}
           >

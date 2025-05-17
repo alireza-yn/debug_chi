@@ -81,7 +81,7 @@ export default function ClassDetails({ details }: { details: any }) {
                 <Image
                   src={
                     details.images && details.images.length > 0
-                      ? process.env.server + "/" + details.images[0].image
+                      ? details.images[0].image
                       : "/user.jpg"
                   }
                   alt={details.class_title}

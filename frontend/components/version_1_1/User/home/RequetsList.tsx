@@ -83,7 +83,7 @@ const RequetsList = (props: Props) => {
     const label = isConsult ? "مشاوره" : "دیباگ";
     const image_profile =
       applicator.image_profile != null
-        ? `${process.env.server}/${applicator.image_profile}`
+        ? applicator.image_profile
         : "/user.jpg";
     return (
       <AccordionItem

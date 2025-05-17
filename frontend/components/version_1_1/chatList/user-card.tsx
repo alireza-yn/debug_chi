@@ -336,11 +336,7 @@ export const UserCard = ({
   return (
     <div className="flex flex-col gap-4 items-center box-border p-4 min-h-[400px] bg-default/80 rounded-3xl">
       <img
-        src={
-          user.image_profile != null
-            ? `${process.env.server}/${user.image_profile}`
-            : "/user.jpg"
-        }
+        src={user.image_profile}
         className="w-10 h-10 rounded-full"
       />
       <span className="font-blackSans">
@@ -687,7 +683,10 @@ export const UserCard = ({
           )}
           {!data.is_locked && data.is_payed && (
             <>
-             <EndOfRequest defaultSession={defaultSession} session_id={data.session_id}/>
+              <EndOfRequest
+                defaultSession={defaultSession}
+                session_id={data.session_id}
+              />
               <DismisRequest
                 defaultSession={defaultSession}
                 session_id={data.session_id}
@@ -874,8 +873,8 @@ const EndOfRequest = ({
 
                 <span className="text-sm font-lightSans">
                   استفاده از این گزینه به منزله پایان این خدمات است
-                  <br />
-                 * توجه گنید کاربر خدمات شما رو دریافت کرده و جلسه شما به پایان رسیده*
+                  <br />* توجه گنید کاربر خدمات شما رو دریافت کرده و جلسه شما به
+                  پایان رسیده*
                 </span>
               </ModalBody>
               <ModalFooter>

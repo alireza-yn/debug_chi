@@ -148,7 +148,6 @@ const ChatCard = ({
   const user = isDebug ? chat.debuger_applicator : chat.consult_applicator;
   const startAt = isDebug ? chat.start_at : chat.close_at;
   const description = chat.description;
-  const image = user.image_profile;
   const router = useRouter();
 
   return (
@@ -166,7 +165,7 @@ const ChatCard = ({
     >
       <div className="flex items-center gap-4">
         <Image
-          src={image != null ? `${process.env.server}/${image}` : "/user.jpg"}
+          src={user.image_profile || "/user.jpg"}
           width={40}
           height={40}
           alt={user.first_name + " " + user.last_name}
