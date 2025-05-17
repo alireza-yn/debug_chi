@@ -67,18 +67,18 @@ const ProjectPortofolio = ({
       </div>
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 relative">
         {displayedPortfolio.map((item) => {
-          let image;
-          if (currentPath.startsWith("/engineers/")) {
-            image = process.env.server + item.images[0].image;
-          } else {
-            image = item.images[0].image;
-          }
+          // let image;
+          // if (currentPath.startsWith("/engineers/")) {
+          //   image = process.env.server + item.images[0].image;
+          // } else {
+          //   image = item.images[0].image;
+          // }
           return (
             <div
               key={item.id}
               className="min-h-[400px] rounded-3xl relative overflow-hidden"
             >
-              <Image src={image} alt="image" fill className="object-cover" />
+              <Image src={item.images[0].image} alt="image" fill className="object-cover" />
               <div className="w-full flex justify-between items-center box-border px-4 absolute bottom-0 h-20 bg-black">
                 <ShowPortfolioDetails data={item} />
                 <span>{item.name}</span>
@@ -146,13 +146,13 @@ export const ShowPortfolioDetails = ({ data }: { data: UserPortfolio }) => {
                 <div className="flex w-full h-full gap-4 relative">
                   <div className="flex-1 flex flex-col box-border gap-4 overflow-y-auto rounded-3xl scrollbar-left">
                     {data.images.map((item) => {
-                      let image_src;
+                      // let image_src;
 
-                      if (currentPath.startsWith("/engineers/")) {
-                        image_src = process.env.server + item.image;
-                      } else {
-                        image_src = item.image;
-                      }
+                      // if (currentPath.startsWith("/engineers/")) {
+                      //   image_src = process.env.server + item.image;
+                      // } else {
+                      //   image_src = item.image;
+                      // }
 
                       return (
                         <div
@@ -160,7 +160,7 @@ export const ShowPortfolioDetails = ({ data }: { data: UserPortfolio }) => {
                           className="relative w-full min-h-[900px] rounded-lg"
                         >
                           <Image
-                            src={image_src}
+                            src={item.image}
                             alt={data.name}
                             fill
                             objectFit="cover"

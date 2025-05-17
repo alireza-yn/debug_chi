@@ -31,7 +31,7 @@ const HistoryCard = (props: Props) => {
       id: 1,
       name: `${user.first_name} ${user.last_name}`,
       designation: user.job_title || "",
-      image: `${process.env.server}/${user.image_profile}`,
+      image: user.image_profile || "",
     },
   ];
   return (

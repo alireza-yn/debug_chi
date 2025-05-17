@@ -354,21 +354,22 @@ export default UserDashboard;
 
 
 export const UserProfile = ({ user }: { user: UserType }) => {
-  const currentPath = usePathname ();
-  let image;
-  if (currentPath === "/engineers/"+ user.uuid) {
-    image = process.env.server + "/" + user.image_profile;
+  console.log(user.image_profile)
+  // const currentPath = usePathname ();
+  // let image;
+  // if (currentPath === "/engineers/"+ user.uuid) {
+  //   image = process.env.server + "/" + user.image_profile;
 
     
-  }else {
-    image = user.image_profile;
-  }
+  // }else {
+  //   image = user.image_profile;
+  // }
   return(
     <div className="w-full flex h-auto gap-4  ">
     <div className="max-w-[500px] flex flex-col box-border p-4">
       <div className="rounded-full w-[90px] h-[90px] p-1 box-border border-2 border-secondary-500">
         <Image
-          src={image}
+          src={user.image_profile}
           alt="avatar"
           width={90}
           height={90}
