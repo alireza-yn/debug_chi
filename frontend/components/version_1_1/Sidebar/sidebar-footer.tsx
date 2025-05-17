@@ -19,28 +19,26 @@ const SidebarFooter = ({ user, token }: Props) => {
   const [userData, setUserData] = useState<any>(null);
   const pathname = usePathname();
   useEffect(() => {
-    if (token) {
+    if (typeof window !== "undefined" && token) {
       const user_data = localStorage.getItem("user_data");
       if (user_data) {
         setUserData(JSON.parse(user_data));
-        console.log(user_data);
       }
     }
-  }, []);
+  }, [token]);
 
-
-  const is_service = pathname === '/user-services'
+  const is_service = pathname === "/user-services";
 
   return (
     <div className="h-auto py-2 w-full flex flex-col gap-4 items-center justify-center">
       <Tooltip content={"سرویس های من"} placement="right">
         <Button
-        className={`${is_service && 'scale-110' }`}
+          className={`${is_service && "scale-110"}`}
           as={Link}
           href="/user-services"
           radius="full"
-          variant={is_service ? 'solid' : 'light'}
-          color={is_service ? 'primary' : 'default'}
+          variant={is_service ? "solid" : "light"}
+          color={is_service ? "primary" : "default"}
           isIconOnly
           size="lg"
           startContent={<LayoutList />}

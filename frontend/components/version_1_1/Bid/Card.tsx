@@ -50,13 +50,20 @@ const Card = ({ tender, bids }: Props) => {
   const dispatch = useAppDispatch();
   const pathname = usePathname();
   const token = Cookies.get("token");
-  const user_data = localStorage.getItem("user_data");
-  let user: any;
+
+    const [userData, setUserData] = useState<any>(null);
+
+  useEffect(() => {
+    const data = localStorage.getItem("user_data");
+    if (data) {
+      setUserData(JSON.parse(data));
+    }
+  }, []);
   const is_tender = tender.mode == "tender" ? true : false;
 
-  if (user_data) {
-    user = JSON.parse(user_data || "");
-  }
+  // if (userData) {
+  //   userData = JSON.parse(userData || "");
+  // }
   const value = useRef<HTMLInputElement | null>(null);
   const [bidsList, setBidsList] = useState<Bid[]>(bids);
   
@@ -65,7 +72,6 @@ const Card = ({ tender, bids }: Props) => {
     tender_id: number,
     price: number
   ) => {
-    console.log(action)
     if (!token) {
       setIsOpen(false);
       dispatch(showLogin({ show: true, path: pathname }));
@@ -75,10 +81,9 @@ const Card = ({ tender, bids }: Props) => {
         tender: tender_id,
         amount: price.toString(),
       });
-      console.log(response)
       if (response.success) {
         const newBid: Bid = {
-          user: user || "",
+          user: userData || "",
           id: Date.now(), // برای نمایش سریع در UI، بعداً ID واقعی از سرور دریافت می‌شود
           amount: price.toString(),
           created_at: new Date(),
@@ -110,7 +115,7 @@ const Card = ({ tender, bids }: Props) => {
       if (response.success) {
         setBidsList((prevBids) => {
           return prevBids.map((item) =>
-            item.user.uuid === user.uuid
+            item.user.uuid === userData.uuid
               ? { ...item, amount: price.toString(), updated_at: new Date() }
               : item
           );
@@ -124,17 +129,15 @@ const Card = ({ tender, bids }: Props) => {
       }
     }
 
-    console.log(bidsList);
   };
 
   let user_exist: any;
-  if (user) {
-    user_exist = bids.find((item) => item.user.uuid == user.uuid);
+  if (userData) {
+    user_exist = bids.find((item) => item.user.uuid == userData.uuid);
   }
   const [isOpen, setIsOpen] = useState<boolean>(false);
   // Calculate remaining time
   useEffect(() => {
-    console.log("Updated bidsList:", bidsList);
   }, [bidsList]);
   useEffect(() => {
     socket.on("", (msg) => {
@@ -347,72 +350,7 @@ const Card = ({ tender, bids }: Props) => {
             value={value}
             user_exist={user_exist}
           />
-          // <Popover
-          //   showArrow
-          //   offset={10}
-          //   placement="bottom"
-          //   onOpenChange={(open) => setIsOpen(open)}
-          //   isOpen={isOpen}
-          // >
-          //   <PopoverTrigger>
-          //     <Button
-          //       variant="solid"
-          //       color="secondary"
-          //       size="lg"
-          //       className="bg-purple-700 "
-          //       startContent={<Coins />}
-          //     >
-          //       شرکت در مزایده
-          //     </Button>
-          //   </PopoverTrigger>
-          //   <PopoverContent className="w-auto">
-          //     {(titleProps) => (
-          //       <div className="px-1 py-2 w-full">
-          //         <p
-          //           className="text-small font-bold text-foreground"
-          //           {...titleProps}
-          //         ></p>
-          //         <div className="mt-2 flex flex-col gap-2 w-full">
-          //           <Input
-          //             color="success"
-          //             ref={value}
-          //             min={0}
-          //             placeholder="قیمت خود را وارد نمایید"
-          //             type="number"
-          //             defaultValue={`${tender.highest_bid}`}
-          //             endContent={
-          //               <Button
-          //                 color="success"
-          //                 size="sm"
-          //                 onPress={() =>
-          //                   submitBid("submit", tender.id, Number(value))
-          //                 }
-          //               >
-          //                 تایید
-          //               </Button>
-          //             }
-          //             size="lg"
-          //             variant="faded"
-          //           />
-          //           <Button
-          //             onPress={() =>
-          //               submitBid("submit", tender.id, tender.start_bid * 1.2)
-          //             }
-          //           >
-          //             {tender.start_bid * 1.2}
-          //           </Button>
-          //           <Button
-          //             onPress={() =>
-          //               submitBid("submit", tender.id, tender.start_bid * 1.5)
-          //             }
-          //           >
-          //             {tender.start_bid * 1.5}
-          //           </Button>
-          //         </div>
-          //       </div>
-          //     )}
-          //   </PopoverContent>
-          // </Popover>
+       
         )}
 
         <Action tender_uuid={tender.uuid} comment_id={tender.uuid} is_like={tender.tender_like} like_count={tender.tender_like_count} />
@@ -494,28 +432,7 @@ const ActionBid = ({
                   size="lg"
                   variant="faded"
                 />
-                {/* <Button
-                  onPress={() =>
-                    submitBid(
-                      user_exist ? "update" : "submit",
-                      tender.id,
-                      tender.start_bid * 1.2
-                    )
-                  }
-                >
-                  {tender.start_bid * 1.2}
-                </Button>
-                <Button
-                  onPress={() =>
-                    submitBid(
-                      user_exist ? "update" : "submit",
-                      tender.id,
-                      tender.start_bid * 1.5
-                    )
-                  }
-                >
-                  {tender.start_bid * 1.5}
-                </Button> */}
+          
               </div>
             </div>
           )}
@@ -587,28 +504,7 @@ const ActionBid = ({
                   size="sm"
                   variant="faded"
                 />
-                {/* <Button
-                onPress={() =>
-                  submitBid(
-                    user_exist ? "update" : "submit",
-                    tender.id,
-                    tender.start_bid * 1.2
-                  )
-                }
-              >
-                {tender.start_bid * 1.2}
-              </Button>
-              <Button
-                onPress={() =>
-                  submitBid(
-                    user_exist ? "update" : "submit",
-                    tender.id,
-                    tender.start_bid * 1.5
-                  )
-                }
-              >
-                {tender.start_bid * 1.5}
-              </Button> */}
+             
               </div>
             </div>
           )}

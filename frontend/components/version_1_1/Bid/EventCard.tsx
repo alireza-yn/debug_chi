@@ -28,10 +28,8 @@ export default function EventCard({
   data: any;
   color?: "success";
 }) {
-  console.log(data);
   const currentPath = usePathname();
   const is_main = currentPath === "/" ? true : false;
-  console.log(is_main);
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   const [selecetdImage, setSelectedImage] = useState<string>(
     is_main
@@ -163,7 +161,6 @@ export default function EventCard({
                   <div className="w-full justify-center items-center flex gap-2">
                     {data.images
                       .map((item: ImageDetails) => {
-                        console.log(item);
                         return (
                           <Image
                             onClick={() =>

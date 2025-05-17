@@ -115,9 +115,7 @@ const BidIncomingList = () => {
     const getAllClassData = async () => {
       const response = await perform_get("api/v1/get_all_tender_class/");
       if (response.status === 404) {
-        console.log(response.data);
       } else {
-        console.log(response);
         setTenderClass(response);
       }
     };
@@ -385,32 +383,8 @@ const PageOneUpload = ({
     tenderContext();
   const [isLoading, setIsloading] = useState(false);
 
-  // const createProjectHandler = async ()=>{
-  //   if (!project) {
-  //     console.error("Project data is null or undefined.");
-  //     return;
-  //   }
-
-  //   const formData = new FormData();
-
-  //   Object.entries(project).forEach(([key, value]) => {
-  //     if (value !== undefined && value !== null) {
-  //       if (value instanceof File) {
-  //         formData.append(key, value); // File
-  //       } else {
-  //         formData.append(key, String(value)); // Convert to string for safety
-  //       }
-  //     }
-  //   });
-
-  //   // Example usage to avoid unused variable error
-  //   console.log("Form data prepared:", formData);
-  //   const response = await perform_post("api/v1/create_project/", formData);
-  //   console.log(response);
-  // };
 
   const createImageProject = async (project_id: number) => {
-    console.log(project_id);
     try {
       const promises = images.map((data) =>
         axios.post(
@@ -593,7 +567,6 @@ const PageTwoUpload = ({
 
     const user_id: any = jwtDecode(token || "");
 
-    console.log(token);
     const response = await axios.post(
       `http://127.0.0.1:8000/api/v1/tender_project/`,
       { ...tender, created_by: user_id.user_id },

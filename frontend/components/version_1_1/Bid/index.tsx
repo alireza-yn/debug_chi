@@ -32,7 +32,6 @@ const Bid = ({ data }: Props) => {
         item.tender.description.toLowerCase().includes(text)
       );
     });
-  console.log(filter.search_text);
 
   return (
     <div className="w-full h-full">

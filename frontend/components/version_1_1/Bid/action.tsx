@@ -30,7 +30,6 @@ const Action = ({ comment_id, is_like, like_count, tender_uuid }: Props) => {
 
   const likeHandler = async () => {
     const response = await perform_get(`api/v1/like_tender/${tender_uuid}/`);
-    console.log(response);
     if (response.liked == true) {
       setLike({
         is_like: true,
@@ -72,85 +71,82 @@ const CommentAction = ({ comment_id }: { comment_id: string }) => {
   const [show, setShow] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [message, setMessage] = useState<string>();
-
-  const user_data = localStorage.getItem("user_data");
-  const parsed_user_data = user_data ? JSON.parse(user_data) : null;
+  const [userData, setUserData] = useState<any>(null);
   const [is_reply, setIsReply] = useState<string>("");
-  const [comments_len,setLength] = useState<number>(0)
+  const [comments_len, setLength] = useState<number>(0);
+
   const fetchComments = () => {
     comment_socket.emit("get_comments", `${comment_id}`);
-    
   };
 
+  // گرفتن user_data از localStorage فقط در کلاینت
   useEffect(() => {
+    const stored = localStorage.getItem("user_data");
+    if (stored) {
+      setUserData(JSON.parse(stored));
+    }
+  }, []);
 
-    fetchComments()
-
+  useEffect(() => {
+    fetchComments();
 
     comment_socket.on(`${comment_id}`, (data) => {
-      console.log(data);
       if (data) {
         setComments(data.comments);
-        setLength(data.comments.length)
+        setLength(data.comments.length);
       }
     });
 
     return () => {
-      comment_socket.off(comment_socket.id);
+      comment_socket.off(`${comment_id}`);
     };
   }, []);
 
   const sendComment = () => {
-    if (message?.length == 0) {
+    if (!message || message.length === 0) {
       setMessage("پیغامی وارد نکردید");
+      return;
+    }
+
+    if (!userData) return;
+
+    const commonUser = {
+      name: `${userData?.first_name} ${userData?.last_name}`,
+      uuid: userData?.uuid,
+      img: `${process.env.server}/${userData?.image_profile}`,
+    };
+
+    if (is_reply) {
+      comment_socket.emit("reply_comment", {
+        comment_id,
+        reply: {
+          id: uuidv4(),
+          user: commonUser,
+          created_at: new Date().toString(),
+          text: message,
+        },
+      });
+      setIsReply("");
     } else {
       const data = {
-        comment_id: comment_id,
+        comment_id,
         payload: {
           id: uuidv4(),
-          user: {
-            name:
-              parsed_user_data?.first_name + " " + parsed_user_data?.last_name,
-            uuid: parsed_user_data?.uuid,
-            img: `${process.env.server}/${parsed_user_data?.image_profile}`,
-          },
+          user: commonUser,
           created_at: new Date().toString(),
           text: message,
           reply: [],
         },
       };
-      if (is_reply) {
-        comment_socket.emit("reply_comment", {
-          comment_id: comment_id,
-          reply: {
-            id: uuidv4(),
-            user: {
-              name:
-                parsed_user_data?.first_name +
-                " " +
-                parsed_user_data?.last_name,
-              uuid: parsed_user_data?.uuid,
-              img: `${process.env.server}/${parsed_user_data?.image_profile}`,
-            },
-            created_at: new Date().toString(),
-            text: message,
-          },
-        });
-        setIsReply("");
-        // setComments((prev)=>[...prev,])
-      } else {
-        comment_socket.emit("new_comment", data);
-        setComments((prev) => [...prev, data.payload]);
-      }
+      comment_socket.emit("new_comment", data);
+      setComments((prev) => [...prev, data.payload]);
     }
+
+    setMessage("");
   };
 
   const ReplyHandler = (value: string) => {
-    if (is_reply.length == 0) {
-      setIsReply(value);
-    } else {
-      setIsReply("");
-    }
+    setIsReply((prev) => (prev === value ? "" : value));
   };
 
   return (
@@ -159,77 +155,74 @@ const CommentAction = ({ comment_id }: { comment_id: string }) => {
         <Button
           startContent={<MessageCircleMore />}
           size="sm"
-          
           variant="light"
           onClick={fetchComments}
-        >{comments_len}</Button>
+        >
+          {comments_len}
+        </Button>
       </PopoverTrigger>
       <PopoverContent className="p-0">
-        <div className={`w-96 h-[500px] flex flex-col relative`} dir="rtl">
+        <div className="w-96 h-[500px] flex flex-col relative" dir="rtl">
           <div className="flex-1 box-border p-4 overflow-y-auto">
-            {comments.length == 0 && <div>کامنتی ثبت نشده</div>}
-
-            {comments.length}
+            {comments.length === 0 && <div>کامنتی ثبت نشده</div>}
             {comments
-              .map((comment: any) => {
-                return (
-                  <div
-                    key={comment.id}
-                    className={`w-full flex flex-col gap-2 justify-start rounded-3xl box-border p-4 ${
-                      is_reply == comment.id ? "bg-foreground-200" : ""
-                    }`}
-                  >
-                    <div className="flex justify-between items-center">
-                      <div className="flex gap-4 items-center">
-                        <User
-                          avatarProps={{
-                            src: comment.user.img,
-                          }}
-                          name={comment.user.name}
-                        />
-                        <span className="text-foreground-500 font-lightSans">
-                          {formatTimeAgo(comment.created_at)}
-                        </span>
-                      </div>
-
-                      <Button
-                        onPress={() => ReplyHandler(comment.id)}
-                        variant={is_reply == comment.id ? "solid" : "light"}
-                        color={is_reply == comment.id ? "default" : "primary"}
-                        size="sm"
-                        startContent={<Reply size={16} />}
-                      >
-                        پاسخ
-                      </Button>
-                    </div>
-                    <p className="box-border pr-10 text-foreground-500 font-lightSans">
-                      {comment.text}
-                    </p>
-                    <div className="w-full flex items-center justify-between box-border pr-10">
-                      {comment.reply.length > 0 && (
-                        <Button
-                          onPress={() => setShow(!show)}
-                          size="sm"
-                          variant="light"
-                          color="default"
-                        >
-                          پاسخ ها
-                        </Button>
-                      )}
+              .map((comment: any) => (
+                <div
+                  key={comment.id}
+                  className={`w-full flex flex-col gap-2 justify-start rounded-3xl box-border p-4 ${
+                    is_reply === comment.id ? "bg-foreground-200" : ""
+                  }`}
+                >
+                  <div className="flex justify-between items-center">
+                    <div className="flex gap-4 items-center">
+                      <User
+                        avatarProps={{
+                          src: comment.user.img,
+                        }}
+                        name={comment.user.name}
+                      />
+                      <span className="text-foreground-500 font-lightSans">
+                        {formatTimeAgo(comment.created_at)}
+                      </span>
                     </div>
 
-                    <div
-                      className={`flex flex-col box-border mt-2 pr-10 w-full overflow-hidden ${
-                        show ? "h-auto" : "h-0"
-                      } transition-all duration-500`}
+                    <Button
+                      onPress={() => ReplyHandler(comment.id)}
+                      variant={is_reply === comment.id ? "solid" : "light"}
+                      color={is_reply === comment.id ? "default" : "primary"}
+                      size="sm"
+                      startContent={<Reply size={16} />}
                     >
-                      {comment.reply.map((reply: any) => {
-                        return <CommentList key={reply._id} comment={reply} />;
-                      })}
-                    </div>
+                      پاسخ
+                    </Button>
                   </div>
-                );
-              })
+                  <p className="box-border pr-10 text-foreground-500 font-lightSans">
+                    {comment.text}
+                  </p>
+                  <div className="w-full flex items-center justify-between box-border pr-10">
+                    {comment.reply.length > 0 && (
+                      <Button
+                        onPress={() => setShow(!show)}
+                        size="sm"
+                        variant="light"
+                        color="default"
+                      >
+                        پاسخ ها
+                      </Button>
+                    )}
+                  </div>
+
+                  <div
+                    className={`flex flex-col box-border mt-2 pr-10 w-full overflow-hidden ${
+                      show ? "h-auto" : "h-0"
+                    } transition-all duration-500`}
+                  >
+                    {comment.reply.map((reply: any) => (
+                      <CommentList key={reply._id} comment={reply} />
+                    ))}
+                  </div>
+                </div>
+              ))
               .reverse()}
           </div>
           <div className="flex gap-2 absolute items-center box-border px-2 bottom-0 bg-default-50 w-full h-14 rounded-b-2xl">
@@ -239,11 +232,8 @@ const CommentAction = ({ comment_id }: { comment_id: string }) => {
               onPress={sendComment}
             ></Button>
             <Input
-              placeholder={message ? message : "کامنت بنویس..."}
-              onValueChange={(value) => {
-                setMessage(value);
-                console.log(value);
-              }}
+              placeholder={message || "کامنت بنویس..."}
+              onValueChange={(value) => setMessage(value)}
             />
           </div>
         </div>
