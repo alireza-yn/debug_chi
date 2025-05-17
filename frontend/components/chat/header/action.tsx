@@ -1,15 +1,12 @@
 "use client";
 import { Button, Tooltip } from "@heroui/react";
-import { PhoneCall, Search, Video, Volume2, VolumeOff } from "lucide-react";
-import React, { useState } from "react";
+import { PhoneCall, Search, Video } from "lucide-react";
+import React, { useEffect, useState } from "react";
 import { AnyDeskIcon } from "../../ui/icons";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { setMessage } from "@/redux/slices/chatSocketSlice";
-import { v4 } from "uuid";
 import { socket } from "@/config/socket-config";
 import { Main } from "@/components/types/user.types";
-import { text } from "stream/consumers";
-import { setShowRequest } from "@/redux/slices/globalSlice";
 import { usePathname } from "next/navigation";
 
 type Props = {
@@ -17,20 +14,27 @@ type Props = {
 };
 
 const Action = ({ reciever }: Props) => {
+  const [user, setUser] = useState<any>(null); // حالت اولیه null
   const [mute, setMute] = useState(false);
-  // const {chat}= useAppSelector((state:RootState)=>state)
   const dispatch = useAppDispatch();
   const { payed } = useAppSelector((state: RootState) => state.gloabal);
 
   const path = usePathname();
   const session_id = path.split("/")[2];
 
-  const sendMessage = () => {
-    let user: any;
-    const user_data = localStorage.getItem("user_data");
-    if (user_data) {
-      user = JSON.parse(user_data);
+  // خواندن اطلاعات کاربر از localStorage در سمت کلاینت
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        setUser(JSON.parse(user_data));
+      }
     }
+  }, []);
+
+  const sendMessage = () => {
+    if (!user) return; // اطمینان از وجود user قبل از ارسال پیام
+
     const data = {
       session_id: session_id,
       sender: user.uuid,
@@ -42,10 +46,12 @@ const Action = ({ reciever }: Props) => {
         status: "pending",
       },
     };
+
     console.log(data);
     dispatch(setMessage(data));
     socket.emit("test_message", data);
   };
+
   return (
     <>
       <Tooltip color="primary" content="جستجو...">
@@ -55,21 +61,8 @@ const Action = ({ reciever }: Props) => {
           color="primary"
           radius="full"
           startContent={<Search />}
-        ></Button>
+        />
       </Tooltip>
-      {/* <Tooltip color="primary" content="صدا">
-          <Button
-            isIconOnly
-            variant="flat"
-            color="primary"
-            radius="full"
-            startContent={mute ? <Volume2 /> : <VolumeOff />}
-            onPress={() => {
-              setMute(!mute);
-            }}
-          ></Button>
-        </Tooltip> */}
-      {/* <div className="flex flex-1 justify-end gap-4 items-center"> */}
 
       <Tooltip color="primary" content="صوتی">
         <Button
@@ -78,7 +71,7 @@ const Action = ({ reciever }: Props) => {
           color="primary"
           variant="flat"
           radius="full"
-        ></Button>
+        />
       </Tooltip>
 
       <Tooltip color="primary" content="ویدیو">
@@ -88,10 +81,10 @@ const Action = ({ reciever }: Props) => {
           color="primary"
           variant="flat"
           radius="full"
-        ></Button>
+        />
       </Tooltip>
 
-      <Tooltip color="primary" content="انی دسک">
+      <Tooltip color="primary" content="انی‌دسک">
         <Button
           isIconOnly
           onPress={sendMessage}
@@ -99,9 +92,8 @@ const Action = ({ reciever }: Props) => {
           color="primary"
           variant="flat"
           radius="full"
-        ></Button>
+        />
       </Tooltip>
-      {/* </div> */}
     </>
   );
 };

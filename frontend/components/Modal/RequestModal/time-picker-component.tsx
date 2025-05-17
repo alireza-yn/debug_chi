@@ -24,7 +24,9 @@ export const TimePicker: React.FC<TimePickerProps> = ({
   const hourScrollRef = useRef<HTMLDivElement>(null)
   const minuteScrollRef = useRef<HTMLDivElement>(null)
 
-  const hourRange = is24Hour ? Array.from({ length: 24 }, (_, i) => i) : Array.from({ length: 12 }, (_, i) => i + 1)
+  const hourRange = is24Hour
+    ? Array.from({ length: 24 }, (_, i) => i)
+    : Array.from({ length: 12 }, (_, i) => i + 1)
 
   const minuteRange = Array.from({ length: 60 }, (_, i) => i)
 
@@ -34,14 +36,14 @@ export const TimePicker: React.FC<TimePickerProps> = ({
 
   useEffect(() => {
     if (hourScrollRef.current && minuteScrollRef.current) {
-      // Set initial scroll position to middle set of items
       const hourItemHeight = 60
       const minuteItemHeight = 60
 
       hourScrollRef.current.scrollTop =
         hourRange.length * hourItemHeight + hourRange.indexOf(selectedHour) * hourItemHeight
 
-      minuteScrollRef.current.scrollTop = minuteRange.length * minuteItemHeight + selectedMinute * minuteItemHeight
+      minuteScrollRef.current.scrollTop =
+        minuteRange.length * minuteItemHeight + selectedMinute * minuteItemHeight
     }
   }, [hourRange, minuteRange, selectedHour, selectedMinute])
 
@@ -64,7 +66,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         hourScrollRef.current.scrollTop = scrollTop - hourRange.length * itemHeight
       }
 
-      // Calculate selected hour
       const index = Math.round(scrollTop / itemHeight) % hourRange.length
       const hour = hourRange[index]
       if (hour !== undefined && hour !== selectedHour) {
@@ -86,7 +87,6 @@ export const TimePicker: React.FC<TimePickerProps> = ({
         minuteScrollRef.current.scrollTop = scrollTop - minuteRange.length * itemHeight
       }
 
-      // Calculate selected minute
       const index = Math.round(scrollTop / itemHeight) % minuteRange.length
       const minute = minuteRange[index]
       if (minute !== undefined && minute !== selectedMinute) {
@@ -119,6 +119,25 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     }
   }
 
+  useEffect(() => {
+    // Add CSS to hide scrollbars but keep functionality
+    const style = document.createElement("style")
+    style.textContent = `
+      .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+      }
+      .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+      }
+    `
+    document.head.appendChild(style)
+
+    return () => {
+      document.head.removeChild(style)
+    }
+  }, [])
+
   return (
     <div className="flex flex-col items-center">
       <div className="text-white text-2xl mb-8">انتخاب زمان</div>
@@ -143,7 +162,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             }
           }}
         >
-          <div ref={hourScrollRef} className="h-full overflow-auto scrollbar-hide" onScroll={handleHourScroll}>
+          <div
+            ref={hourScrollRef}
+            className="h-full overflow-auto scrollbar-hide"
+            onScroll={handleHourScroll}
+          >
             <div className="py-[60px]">
               {hourItems.map((hour, index) => (
                 <div
@@ -181,7 +204,11 @@ export const TimePicker: React.FC<TimePickerProps> = ({
             }
           }}
         >
-          <div ref={minuteScrollRef} className="h-full overflow-auto scrollbar-hide" onScroll={handleMinuteScroll}>
+          <div
+            ref={minuteScrollRef}
+            className="h-full overflow-auto scrollbar-hide"
+            onScroll={handleMinuteScroll}
+          >
             <div className="py-[60px]">
               {minuteItems.map((minute, index) => (
                 <div
@@ -203,17 +230,3 @@ export const TimePicker: React.FC<TimePickerProps> = ({
     </div>
   )
 }
-
-// Add CSS to hide scrollbars but keep functionality
-const style = document.createElement("style")
-style.textContent = `
-  .scrollbar-hide::-webkit-scrollbar {
-    display: none;
-  }
-  .scrollbar-hide {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-`
-document.head.appendChild(style)
-

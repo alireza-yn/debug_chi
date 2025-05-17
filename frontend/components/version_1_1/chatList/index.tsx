@@ -68,26 +68,7 @@ const ChatList = (props: Props) => {
     findAndSetUser();
   }, [chatList, session_id]);
 
-  // ✅ Deep search function
-  // const deepSearch = (obj: any, keyword: string): boolean => {
-  //   const lowerKeyword = keyword.toLowerCase();
 
-  //   if (typeof obj === "string") {
-  //     return obj.toLowerCase().includes(lowerKeyword);
-  //   }
-
-  //   if (Array.isArray(obj)) {
-  //     return obj.some((item) => deepSearch(item, keyword));
-  //   }
-
-  //   if (typeof obj === "object" && obj !== null) {
-  //     return Object.values(obj).some((value) => deepSearch(value, keyword));
-  //   }
-
-  //   return false;
-  // };
-
-  // ✅ Combine chats
   const allChats = useMemo(() => {
     if (!chatList) return [];
     return [...chatList.opened_consult, ...chatList.opened_debug];

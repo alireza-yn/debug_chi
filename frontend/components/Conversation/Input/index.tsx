@@ -37,11 +37,10 @@ const InputMessage = ({ reciever, data }: Props) => {
   const [response_data, setData ] = useState<SessionInfo>();
   const dispatch = useAppDispatch();
   const { payed } = useAppSelector((state: RootState) => state.gloabal);
-  let user: any;
-  const user_data = localStorage.getItem("user_data");
-  if (user_data) {
-    user = JSON.parse(user_data);
-  }
+
+
+  const [user,setUser] = useState<any>()
+
   const session_id = path.split("/")[2];
 
   const sendMessage = () => {
@@ -65,7 +64,22 @@ const InputMessage = ({ reciever, data }: Props) => {
     
   };
 
+
+
+    useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        setUser(JSON.parse(user_data));
+      }
+    }
+  }, []);
+
+
+
   useEffect(() => {
+
+
     setData(data);
   
     const lockHandler = (data: { lock: boolean }) => {
@@ -108,7 +122,7 @@ const InputMessage = ({ reciever, data }: Props) => {
     };
   }, []);
   
-  
+    if (!user) return null;
 
  if (response_data?.is_debuger == false && response_data?.data.is_locked) {
     return (

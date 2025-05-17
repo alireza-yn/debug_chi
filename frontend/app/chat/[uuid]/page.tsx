@@ -22,7 +22,6 @@ const page = async ({ params }: any) => {
     token
   );
 
-  console.log(response);
 
   if (!token) {
     return <div>not found</div>;
@@ -81,29 +80,7 @@ const page = async ({ params }: any) => {
                 reciever={response.data.debuger || response.data.consult}
               />
             )}
-            {/*             
-            {response.is_debuger ? (
-              <InputMessage
-                reciever={
-                  response.data.debuger_applicator ||
-                  response.data.consult_applicator
-                }
-              />
-            ) : response.data.is_locked  ? (
-              <div className="w-full flex justify-center items-center bg-foreground-100 rounded-3xl h-16">
-                <p className="text-sm text-foreground-200">
-                  در حال بررسی درخواست شما هستیم
-                </p>
-              </div>
-            ) : (
-              <>
-                {response.data.is_locked == false && (
-                  <InputMessage
-                    reciever={response.data.debuger || response.data.consult}
-                  />
-                )}
-              </>
-            )} */}
+          
           </div>
         </div>
       </div>

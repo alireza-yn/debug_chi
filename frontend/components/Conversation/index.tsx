@@ -38,27 +38,32 @@ const Conversation = ({
   const dispatch = useAppDispatch();
   const path = usePathname();
   const [isClosed, setIsClosed] = useState<boolean>(false);
-  const user_data = localStorage.getItem("user_data");
+  const [user_data, setUserData] = useState<any>();
+
   const messagesEndRef = useRef<HTMLDivElement | null>(null);
   const CheckClosed = is_closed == "close" || isClosed;
 
-  if (user_data) {
-    sender = JSON.parse(user_data);
-  }
+  // if (user_data) {
+  //   sender = JSON.parse(user_data);
+  // }
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      let user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        setUserData(JSON.parse(user_data));
+      }
+    }
+
     const data = {
       session_id: session_id,
     };
-    console.log(data);
     socket.emit("get_messages", data);
     socket.on("get_messages", (data) => {
-      console.log(data);
       dispatch(setData(data));
     });
-  }, [1]);
+  }, []);
   useEffect(() => {
     const closeHandler = (data: { closed: string }) => {
-      console.log(data);
       if (data.closed) {
         setIsClosed(true);
       }
@@ -83,18 +88,21 @@ const Conversation = ({
     messagesEndRef.current?.scrollIntoView({ behavior: "instant" });
 
     return () => {
+      socket.off(`get_messages`);
       socket.off(String(session_id));
+      socket.off(`${session_id}_sent`);
+      socket.off(`${session_id}_read`);
       socket.off(`close_session_${session_id}`, closeHandler);
     };
   }, [socket, chat]);
 
   return (
-    <Suspense fallback={<div>loading...</div>}>
+    // <Suspense fallback={<div>loading...</div>}>
 
     <div className="w-full flex flex-col gap-2 pt-20 flex-1 overflow-y-auto">
       {chat.map((item: MainChat, index) => {
         return (
-          <div key={index} dir={item.sender == sender.uuid ? "rtl" : ""}>
+          <div key={index} dir={item.sender == user_data.uuid ? "rtl" : ""}>
             <Message
               session={session_id}
               data={item.data}
@@ -114,7 +122,7 @@ const Conversation = ({
       <div ref={messagesEndRef} />{" "}
       {/* اینجا رفرنس را به انتهای لیست پیام‌ها اضافه می‌کنیم */}
     </div>
-    </Suspense>
+    // </Suspense>
   );
 };
 

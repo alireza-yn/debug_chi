@@ -25,21 +25,18 @@ type Props = {
 };
 
 const Message = (props: Props) => {
-  // console.log(props.reciever)
-  // console.log(props.data.audioUrl)
-  const user_data = localStorage.getItem("user_data");
-  let user: any;
-  if (user_data) {
-    user = JSON.parse(user_data);
-    console.log(user.first_name);
-  }
-
-  // #region audio
+  const [user, setUserData] = useState<any>();
   const [time, setTime] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-
   useEffect(() => {
+    if (typeof window !== "undefined") {
+      let user_data = localStorage.getItem("user_data");
+      if (user_data) {
+        setUserData(JSON.parse(user_data));
+      }
+    }
+
     if (audioRef.current) {
       audioRef.current.ontimeupdate = () => {
         setTime(audioRef.current?.currentTime || 0);
@@ -95,7 +92,10 @@ const Message = (props: Props) => {
     navigator.clipboard.writeText(text);
     // You could add a toast notification here
   };
-  console.log(props.reciever);
+
+  if(!user) return null
+
+
   if (props.data.type === "text") {
     return (
       <div className="flex gap-2 items-start h-auto">
@@ -103,8 +103,8 @@ const Message = (props: Props) => {
           <img
             src={
               user.uuid == props.sender
-                ? `${process.env.server}/${user?.image_profile}`
-                : `${process.env.server}/${props.reciever}`
+                ? user.image_profile || "/user.jpg"
+                : props.reciever
             }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"
@@ -134,8 +134,8 @@ const Message = (props: Props) => {
           <img
             src={
               user.uuid == props.sender
-                ? `${process.env.server}/${user?.image_profile}`
-                : `${process.env.server}/${props.reciever}`
+                ? user.image_profile || "/user.jpg"
+                : props.reciever
             }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"
@@ -154,14 +154,14 @@ const Message = (props: Props) => {
               isIconOnly
               radius="full"
               variant="flat"
-              startContent={isPlaying ? (
-                <Pause size={14} />
-              ) : (
-                <Play size={14} className="fill-current ml-0.5" />
-              )}
-            >
-              
-            </Button>
+              startContent={
+                isPlaying ? (
+                  <Pause size={14} />
+                ) : (
+                  <Play size={14} className="fill-current ml-0.5" />
+                )
+              }
+            ></Button>
 
             <div className="flex-1">
               <input
@@ -192,8 +192,8 @@ const Message = (props: Props) => {
           <img
             src={
               user.uuid == props.sender
-                ? `${process.env.server}/${user?.image_profile}`
-                : `${process.env.server}/${props.reciever}`
+                ? user.image_profile || "/user.jpg"
+                : props.reciever
             }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"
@@ -226,11 +226,11 @@ const Message = (props: Props) => {
       <div className="flex gap-4 items-start">
         <div className="h-10 w-10 rounded-full bg-gray-200 dark:bg-gray-800 overflow-hidden flex-shrink-0">
           <img
-               src={
-                user.uuid == props.sender
-                  ? `${process.env.server}/${user?.image_profile}`
-                  : `${process.env.server}/${props.reciever}`
-              }
+            src={
+              user.uuid == props.sender
+                ? user.image_profile || "/user.jpg"
+                : props.reciever
+            }
             alt={user?.first_name || "sender"}
             className="h-full w-full object-cover"
             onError={(e) => {
@@ -267,7 +267,7 @@ const Message = (props: Props) => {
           <Avatar
             src={
               user.uuid == props.sender
-                ? `${process.env.server}/${user?.image_profile}`
+                ? user.image_profile || "/user.jpg"
                 : props.reciever
             }
             alt={user?.first_name || "کاربر"}
@@ -360,8 +360,8 @@ const Message = (props: Props) => {
           <img
             src={
               user.uuid == props.sender
-                ? `${process.env.server}/${user?.image_profile}`
-                : `${process.env.server}/${props.reciever}`
+                ? user.image_profile || "/user.jpg"
+                : props.reciever
             }
             alt={user?.first_name || "User"}
             className="h-full w-full object-cover"

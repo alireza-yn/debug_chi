@@ -112,8 +112,7 @@ export const perform_update = async (url: string, data: any) => {
 };
 
 export const perform_get = async (url: string,token?:string) => {
-  // console.log(headers())
-  console.log(token)
+
   try {
     const request = await axios.get(`${process.env.server}/${url}`, {
       headers: !token  ? headers() : {
