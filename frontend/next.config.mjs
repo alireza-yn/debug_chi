@@ -5,7 +5,7 @@ const nextConfig = {
     server:"https://api.debugchiai.com",
     ws:"http://127.0.0.1:8001",
     dashboard:'/user/dashboard',
-    nodejs_server:"https://195.248.242.157",
+    nodejs_server:"https://www.debugchiai.com",
     MONGODB_URI:"mongodb://localhost:27017/"
   },
   images: {

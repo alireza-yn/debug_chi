@@ -34,8 +34,8 @@ const EngineersList = ({ users }: Props) => {
                 height={40}
                 radius="sm"
                 src={
-                  `${process.env.server}/${user.image_profile}` ||
-                  "/placeholder.svg"
+                  user.image_profile ||
+                  "/user.jpg"
                 }
                 width={40}
               />
@@ -90,8 +90,7 @@ const EngineersList = ({ users }: Props) => {
                                 alt={lang.language_name.name}
                                 height={20}
                                 src={
-                                  `${process.env.server}/${lang.language_name.image}` ||
-                                  "/placeholder.svg"
+                                  lang.language_name.image
                                 }
                                 width={20}
                               />

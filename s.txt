@@ -1,6 +1,85 @@
-کمکی
-که
-نیاز
-دارید
-در
-کدامبخش است؟
+server {
+    listen 80;
+    server_name debugchiai.com www.debugchiai.com;
+
+    # Redirect all HTTP traffic to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name debugchiai.com www.debugchiai.com;
+
+   # ssl_certificate /etc/letsencrypt/live/debugchiai.com/fullchain.pem;
+   # ssl_certificate_key /etc/letsencrypt/live/debugchiai.com/privkey.pem;
+
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    access_log /var/log/nginx/debugchiai_access.log;
+    error_log /var/log/nginx/debugchiai_error.log;
+
+
+
+
+    # WebSocket and Socket.IO endpoint
+    location /socket.io/ {
+        proxy_pass http://127.0.0.1:3001;
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection "upgrade";
+  	 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+  	   proxy_set_header Host $host;
+    }
+    
+    location /static/ {
+        alias /home/debugchi/Downloads/debug_chi-main/backend/static/;
+        autoindex off;
+    }
+    
+        location / {
+        proxy_pass http://127.0.0.1:3000;  # Your Django app
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+    
+
+
+}
+
+
+
+server {
+    listen 80;
+    server_name api.debugchiai.com;
+
+    # Redirect HTTP to HTTPS
+    return 301 https://$host$request_uri;
+}
+
+server {
+    listen 443 ssl;
+    server_name api.debugchiai.com;
+
+   # ssl_certificate /etc/letsencrypt/live/debugchiai.com/fullchain.pem;
+   # ssl_certificate_key /etc/letsencrypt/live/debugchiai.com/privkey.pem;
+	
+    ssl_protocols TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers on;
+
+    access_log /var/log/nginx/api_debugchiai_access.log;
+    error_log /var/log/nginx/api_debugchiai_error.log;
+
+    location / {
+        proxy_pass http://127.0.0.1:8000;  # Django API server
+        proxy_set_header Host $host;
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+        proxy_set_header X-Forwarded-Proto $scheme;
+    }
+}
+

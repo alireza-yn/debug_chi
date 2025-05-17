@@ -29,9 +29,13 @@ SECRET_KEY = "django-insecure-_(6i1%ngkkt+f=hu(!tfy3v$!nis*ze9988#679zk2#u@5v!)s
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
-
+ALLOWED_HOSTS = [
+    # "localhost:8000",
+    "debugchiai.com",
+    "api.debugchiai.com",
+    "195.248.242.157",
+    "www.debugchiai.com"
+]
 # Application definition
 
 INSTALLED_APPS = [
@@ -117,7 +121,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        "PASSWORD": "Tt1012@@",
+        "PASSWORD": "Mm872872i",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -146,7 +150,7 @@ SPECTACULAR_SETTINGS = {
     "DESCRIPTION": "HA HA HA!!!",
     "VERSION": "1.0.0",
     "SERVE_INCLUDE_SCHEMA": False,
-    "SWAGGER_UI_DIST": "SIDECAR",  # shorthand to use the sidecar instead
+    "SWAGGER_UI_DIST": "SIDECAR",  # shorthand to use the sidecar in0stead
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "REDOC_DIST": "SIDECAR",
     "LANGUAGE_CODE": "fa",
@@ -176,6 +180,9 @@ CORS_ALLOWED_ORIGINS = [
     "http://localhost:3001",
     "http://localhost:3000",
     "http://localhost:3002",
+    "https://api.debugchiai.com",
+    "https://www.debugchiai.com",
+    "https://debugchiai.com"
 ]
 # CORS_ALLOW_ALL_ORIGINS = True
 

@@ -1,4 +1,4 @@
-import express, { Application } from "express";
+import express, { Application ,Request,Response} from "express";
 import connectDB from "./db/mongo";
 import http from "http";
 import userRoutes from "./routes/users";
@@ -11,6 +11,7 @@ import { redisHandler } from "./redis/redis";
 import path from "path";
 import { UserSocket } from "./sockets/userSocket";
 import commentSocket from "./sockets/comment";
+
 const app: Application = express();
 const PORT: number = 3001;
 
@@ -19,9 +20,16 @@ connectDB();
 
 // میدل‌ورها
 app.use(express.json());
+
+app.get("/", (_req: Request, res: Response) => {
+  res.send("hello js");
+});
+
 app.use(
   cors({
-    origin: ["http://localhost:3000", "http://127.0.0.1:5500"],
+    // origin:["*"],
+
+    origin: ["http://localhost:3000","https://www.debugchiai.com","http://debugchiai.com"],
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
@@ -35,7 +43,8 @@ const server = http.createServer(app);
 
 const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:3000", "http://127.0.0.1:5500"],
+    // origin:["*"],
+    origin: ["http://localhost:3000","http://127.0.0.1:5500","https://192.248.242.157","https://www.debugchiai.com","https://debugchiai.com"],
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -105,7 +114,14 @@ io.on("connection", (socket) => {
 
     console.log(online_debuger);
   });
-
+socket.on('ping-check',(clientSendTime)=>{
+  const serverTime = Date.now()
+  socket.emit('pong-check',{
+    clientSendTime,
+          serverReceivedTime: serverTime,
+           serverSentTime: Date.now()
+  });
+});
   socket.on("get_data", (condition) => {
     if (condition == "online_debuger") {
       socket.emit("recieved_data", online_debuger);
