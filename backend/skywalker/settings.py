@@ -133,8 +133,8 @@ STORAGES = {
     "default": {
         "BACKEND": "storages.backends.s3boto3.S3Boto3Storage",
     },
-    "staticfiles": {
-        "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+      "staticfiles": {
+        "BACKEND": "storages.backends.s3boto3.S3StaticStorage",
     },
 }
 
@@ -201,10 +201,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
-STATIC_URL = "static/"
+# STATIC_URL = "static/"
 
 # STATIC_ROOT = "static/"
-STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
+# STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
@@ -279,3 +279,12 @@ AWS_S3_SIGNATURE_VERSION = "s3v4"
 
 
 MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/"
+
+
+DEFAULT_FILE_STORAGE = "core.storage_backends.MediaStorage"
+STATICFILES_STORAGE = "core.storage_backends.StaticStorage"
+
+STATIC_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/static/"
+MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/"
+
+
