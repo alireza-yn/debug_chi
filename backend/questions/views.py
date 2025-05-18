@@ -9,11 +9,12 @@ from rest_framework.response import Response
 from rest_framework.request import Request
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
+from drf_spectacular.utils import extend_schema
 class QuestionView(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer
         
-
+@extend_schema(tags=['interview'])
 class CategoryView(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -28,16 +29,17 @@ class CategoryView(viewsets.ModelViewSet):
             return Response(serializer.data)
         return Response({"error": "Category not found"}, status=404)
 
+@extend_schema(tags=['interview'])
 class AnswersView(viewsets.ModelViewSet):
     queryset = Answer.objects.all()
     serializer_class = AnswerSerializer
 
-
+@extend_schema(tags=['interview'])
 class SectionView(viewsets.ModelViewSet):
     queryset = Section.objects.all()
     serializer_class = SectionSerializer
 
-
+@extend_schema(tags=['interview'])
 class CategoryDetailAPIView(views.APIView):
     def get(self, request):
         categories = Category.objects.all()
@@ -45,26 +47,26 @@ class CategoryDetailAPIView(views.APIView):
         return Response(serializer.data)
 
 
-
+@extend_schema(tags=['AIQuestions'])
 class AiCategorQuestionViewSet(viewsets.ModelViewSet):
     permission_classes=[IsAdminUser]
     queryset = AiCategoryQuestion.objects.all()
     serializer_class = AiQuestionCategorySerializer
 
-
+@extend_schema(tags=['AIQuestions'])
 class AiQuestionViewSet(viewsets.ModelViewSet):
     permission_classes=[IsAdminUser]
     queryset = AiQuestion.objects.all()
     serializer_class = AiQuestionSerializer
 
-
+@extend_schema(tags=['AIQuestions'])
 class AiQuestionAnswerViewSet(viewsets.ModelViewSet):
     permission_classes=[IsAdminUser]
     queryset = AiQuestionAnswer.objects.all()
     serializer_class = AiQuestionAnswerSerilzers
 
 
-
+@extend_schema(tags=['AIQuestions'])
 class GetAiQuestions(ListAPIView):
     queryset = AiCategoryQuestion.objects.all()
     serializer_class = AiQuestionCategorySerializer

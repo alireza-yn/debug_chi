@@ -34,7 +34,8 @@ ALLOWED_HOSTS = [
     "debugchiai.com",
     "api.debugchiai.com",
     "195.248.242.157",
-    "www.debugchiai.com"
+    "www.debugchiai.com",
+    "127.0.0.1"
 ]
 # Application definition
 
@@ -121,7 +122,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
+        # "PASSWORD": "Mm872872i",
+        "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
     }
