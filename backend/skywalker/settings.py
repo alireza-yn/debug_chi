@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_(6i1%ngkkt+f=hu(!tfy3v$!nis*ze9988#679zk2#u@5v!)s"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     # "localhost:8000",
@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     "api.debugchiai.com",
     "195.248.242.157",
     "www.debugchiai.com",
-    "127.0.0.1"
+    # "127.0.0.1"
 ]
 # Application definition
 
@@ -122,8 +122,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        # "PASSWORD": "Mm872872i",
-        "PASSWORD": "Tt1012@@",
+        "PASSWORD": "Mm872872i",
+        # "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -178,10 +178,10 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:8000",
-    "http://localhost:3001",
+    # "http://localhost:8000",
+    # "http://localhost:3001",
     "http://localhost:3000",
-    "http://localhost:3002",
+    # "http://localhost:3002",
     "https://api.debugchiai.com",
     "https://www.debugchiai.com",
     "https://debugchiai.com"
