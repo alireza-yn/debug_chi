@@ -2,7 +2,7 @@
 
 const nextConfig = {
   env:{
-    server:"http://api.debugchiai.com",
+    server:"https://api.debugchiai.com",
     ws:"http://127.0.0.1:8001",
     dashboard:'/user/dashboard',
     nodejs_server:"https://www.debugchiai.com",
