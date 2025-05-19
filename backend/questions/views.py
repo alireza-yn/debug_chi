@@ -10,6 +10,10 @@ from rest_framework.request import Request
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAdminUser
 from drf_spectacular.utils import extend_schema
+
+
+
+@extend_schema(tags=['interview'])
 class QuestionView(viewsets.ModelViewSet):
     queryset = Question.objects.all()
     serializer_class = QuestionSerializer

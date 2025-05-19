@@ -122,8 +122,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        # "PASSWORD": "Mm872872i",
-        "PASSWORD": "Tt1012@@",
+        "PASSWORD": "Mm872872i",
+        # "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -249,7 +249,7 @@ SIMPLE_JWT = {
     "SLIDING_TOKEN_REFRESH_SERIALIZER": "rest_framework_simplejwt.serializers.TokenRefreshSlidingSerializer",
 }
 
-NODE_JS_URL = "http://localhost:3000"
+NODE_JS_URL = "http://localhost:3001"
 
 
 CACHES = {

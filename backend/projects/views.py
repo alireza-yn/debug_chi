@@ -247,7 +247,7 @@ class EducationTenderListView(APIView):
         if not tender_projects_public.exists() and not tender_projects_private.exists():
             return Response(
                 {"message": "No educational projects found."},
-                status=status.HTTP_404_NOT_FOUND,
+                status=status.HTTP_200_OK,
             )
         serializer_public = TenderSerializers(tender_projects_public, many=True,context={"request": request})
         serializer_private = TenderSerializers(tender_projects_private,many=True,context={"request": request})
