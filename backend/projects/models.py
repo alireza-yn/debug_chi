@@ -76,8 +76,8 @@ class TenderProject(Timestamp):
 
     def __str__(self):
         user = self.created_by
-        user_name = user.get_full_name().strip() or user.email or getattr(user, 'phone_number', 'Unknown User')
-        return f"{self.title} created by {user_name}"
+        username = user.username
+        return f"{self.title} created by {username}"
     
     
 class Bid(Timestamp):

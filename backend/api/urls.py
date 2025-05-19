@@ -142,6 +142,7 @@ urlpatterns = [
     path('v1/like_tender/<str:tender_uuid>/',TenderLikeHandlerAPIView.as_view(), name='like_tender'),
     path('v1/get_all_class/',GetAllClassDetails.as_view(), name='all_class'),
     path('v1/get_all_tender_class/',EducationTenderListView.as_view(), name='tender_class'),
+ 
     #endregion
     
     #region question

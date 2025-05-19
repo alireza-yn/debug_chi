@@ -152,7 +152,7 @@ class UserService:
 
         return Response(
             {"error": "Credentials are not valid"},
-            status=status.HTTP_400_BAD_REQUEST,
+            status=status.HTTP_200_OK,
         )
 
     def create_otp(self, user_phone):

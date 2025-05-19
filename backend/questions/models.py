@@ -8,7 +8,7 @@ class Category(models.Model):
 
 class Section(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="sections")
-    number = models.IntegerField(default=0)  # ترتیب بخش‌ها
+    number = models.BigIntegerField(default=0)  # ترتیب بخش‌ها
     
     def __str__(self):
         return f"{self.category.name} - Section {self.number}"
@@ -24,7 +24,7 @@ class Question(models.Model):
 
     section = models.ForeignKey(Section, on_delete=models.CASCADE, related_name="questions")
     description = models.TextField(default="")
-    text = models.CharField(max_length=100)
+    text = models.CharField(max_length=250)
     sound = models.FileField(upload_to='static/sound/questions_sounds/', blank=True, null=True)
     active = models.BooleanField(default=False)
     question_type = models.CharField(max_length=50, choices=QUESTION_TYPES, default="button")
@@ -66,7 +66,7 @@ class AiQuestion(Timestamp):
     description = models.TextField(blank=True,null=True)
     sound = models.FileField(upload_to='static/ai_question/',blank=True,null=True)
     # answers = models.TextField(default="")
-    priority = models.IntegerField(default=1)
+    priority = models.BigIntegerField(default=1)
     def __str__(self):
         return f"{self.title} ({self.category.category_name})"
     
