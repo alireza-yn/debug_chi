@@ -126,7 +126,8 @@ const config = {
           main_bg:"#140a31",
           community:"#1D142D",
           bg_global_blur:"#002D78",
-          btn_primary:"#3344D9"
+          btn_primary:"#3344D9",
+          bg_card:"#0F0F0F"
       },
       fontFamily: {
         iranSans: ["var(--font-iran-sans)",...fontFamily.sans,],

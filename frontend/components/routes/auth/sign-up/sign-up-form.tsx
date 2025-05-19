@@ -1,5 +1,5 @@
 import React, { FormEvent, useEffect } from "react";
-import { Form, Input, Button, Divider, InputOtp } from "@heroui/react";
+import { Form, Divider, InputOtp } from "@heroui/react";
 import { LogoIcon } from "@/components/ui/icons";
 import { perform_post } from "@/lib/api";
 import * as motion from "motion/react-client";
@@ -7,6 +7,8 @@ import Cookies from "js-cookie";
 import { usePathname } from "next/navigation";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { setPath, showLogin, showSignUp } from "@/redux/slices/globalSlice";
+import Inputs from "@/components/version_1_1/ui/input";
+import Button from "@/components/version_1_1/ui/button";
 
 type Props = {
   switchToLogin: () => void;
@@ -71,7 +73,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
         onSubmit={registerHandler}
       >
         <LogoIcon />
-        <Input
+        <Inputs
+          size="lg"
           isRequired
           errorMessage={message.user_phone || ""}
           label="شماره تلفن"
@@ -87,7 +90,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
           }}
         />
         <div className="flex w-full gap-4">
-          <Input
+          <Inputs
+            size="lg"
             isRequired
             errorMessage="نام خود را وارد نمایید"
             label="نام"
@@ -95,7 +99,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
             placeholder="جان"
             type="text"
           />
-          <Input
+          <Inputs
+          size="lg"
             isRequired
             errorMessage="نام خانوادگی را وارد نمایید"
             label="نام خانودگی"
@@ -104,7 +109,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
             type="text"
           />
         </div>
-        <Input
+        <Inputs
+        size="lg"
           isRequired
           errorMessage="ایمیل صحیح وارد نمایید"
           label="ایمیل"
@@ -112,7 +118,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
           placeholder="abc@gmail.com"
           type="email"
         />
-        <Input
+        <Inputs
+        size="lg"
           isRequired
           errorMessage="نام کاربری صحیح نمی باشد"
           label="نام کاربری"
@@ -120,7 +127,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
           placeholder="HelloWorld"
           type="text"
         />
-        <Input
+        <Inputs
+        size="lg"
           isRequired
           errorMessage="حداقل 8 کاراکتر وارد نمایید"
           label="کلمه عبور"
@@ -135,8 +143,6 @@ export default function SignUpForm({ switchToLogin }: Props) {
         />
         <div className="flex w-full gap-2">
           <Button
-            color="warning"
-            variant="shadow"
             type="submit"
             className="w-full h-14 text-xl"
           >
@@ -150,7 +156,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
         </div>
         <Button
           variant="faded"
-          color="warning"
+          color="primary"
           className="h-14 w-full text-xl"
           onPress={() => {
             switchToLogin();
@@ -177,12 +183,12 @@ export default function SignUpForm({ switchToLogin }: Props) {
             console.log(e);
           }}
         />
-        <Input hidden value={phone} name="phone" className="hidden" />
+        <Inputs isRequired={false} size="sm" value={phone} name="phone" hidden={true} />
         <Button
           isLoading={isLoading}
           className="w-full"
           variant="flat"
-          color="warning"
+          color="primary"
           type="submit"
         >
           تایید کد

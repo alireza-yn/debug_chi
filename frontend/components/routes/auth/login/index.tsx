@@ -4,9 +4,7 @@ import {
   Drawer,
   DrawerContent,
   DrawerHeader,
-  Button,
   useDisclosure,
-  Input,
   Form,
   Divider,
   Card,
@@ -23,9 +21,18 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
-import { ArrowLeft, CircleUserRound, Headset, Lock, Phone, UserCircle } from "lucide-react";
+import {
+  ArrowLeft,
+  CircleUserRound,
+  Headset,
+  Lock,
+  Phone,
+  UserCircle,
+} from "lucide-react";
 import Link from "next/link";
 import BackgorundGLobalGradiant from "@/components/version_1_1/ui/backgorund-gradiant-global";
+import Input from "@/components/version_1_1/ui/input";
+import Button from "@/components/version_1_1/ui/button";
 
 export default function Login() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -68,15 +75,14 @@ export default function Login() {
 
   // ارسال فرم
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-
-    let data = Object.fromEntries(new FormData(e.currentTarget))
+    let data = Object.fromEntries(new FormData(e.currentTarget));
 
     e.preventDefault();
     setIsLoading(true);
 
     Cookies.remove("token");
     const response = await perform_post("auths/login/", data);
-    console.log(response)
+    console.log(response);
     if (response.success && response.user) {
       Cookies.set("token", response.access);
       localStorage.setItem("user_data", JSON.stringify(response.user));
@@ -92,7 +98,6 @@ export default function Login() {
   };
 
   return (
-
     <Drawer
       dir="rtl"
       hideCloseButton
@@ -106,89 +111,73 @@ export default function Login() {
       }}
       onOpenChange={onOpenChange}
     >
-      <DrawerContent >
+      <DrawerContent>
         {(onClose) => (
-        <BackgorundGLobalGradiant>
-          
-            <DrawerHeader className="absolute left-0 top-0">
-              <Button
-                endContent={<ArrowLeft size={28}/>}
-                variant="light"
-                isIconOnly
-                size="lg"
-                onPress={() => {
-                  dispatch(showLogin({ show: false, path: "" }));
-                  onClose();
-                }}
-                className="absolute left-5"
-              >
-                
-              </Button>
-            </DrawerHeader>
+          <BackgorundGLobalGradiant>
+            <Button
+              endContent={<ArrowLeft size={28} />}
+              variant="light"
+              isIconOnly
+              size="lg"
+              onPress={() => {
+                dispatch(showLogin({ show: false, path: "" }));
+                onClose();
+              }}
+              className="absolute left-4 top-2"
+            ></Button>
             <DrawerBody className="h-screen">
-
               <div className="flex flex-col items-center justify-center h-full w-full ">
-                <Card className="min-w-[500px] max-w-[600px] h-3/4 border border-default-100">
+                <Card className="min-w-[500px] max-w-[600px] h-3/4 border border-default-100 bg-bg_card">
                   <CardBody className="overflow-hidden">
                     <Tabs
                       fullWidth
-                      className="mt-4"  
+                      className="mt-4"
                       aria-label="Tabs form"
                       // selectedKey={selected}
                       size="md"
                       // onSelectionChange={setSelected}
                     >
-                      <Tab key="login" title={
-                        <div className="flex gap-4 items-center">
-                          <CircleUserRound size={16} />
-                          <span>کاربر عادی</span>
-                        </div>
-                      }>
-                     
+                      <Tab
+                        key="login"
+                        title={
+                          <div className="flex gap-4 items-center">
+                            <CircleUserRound size={16} />
+                            <span>کاربر عادی</span>
+                          </div>
+                        }
+                      >
                         <motion.div className="rounded-2xl w-full h-full flex items-center justify-center">
                           <Form
-                            className="w-full  flex flex-col min-h-[500px] items-center justify-center  px-5 rounded-lg"
+                            className="w-full flex flex-col min-h-[500px] items-center justify-center  px-5 rounded-lg"
                             onSubmit={handleSubmit}
                           >
-                          
                             <Input
                               startContent={<UserCircle color="gray" />}
                               isRequired
                               errorMessage={"اطلاعات وارد شده صحیح نمی باشد"}
                               label="نام کاربری"
-                            
                               labelPlacement="outside"
                               name="username"
                               size="lg"
                               placeholder="نام کاربری ، ایمیل یا شماره تلفن"
                               type="text"
-                              className="text-sm"
                               variant="faded"
-                              classNames={{
-                                input:"text-tiny font-lightSans"
-                              }}
-            
                             />
 
                             <Input
                               startContent={<Lock color="gray" />}
                               isRequired
-                              errorMessage={error.password}
                               label="کلمه عبور"
                               labelPlacement="outside"
                               placeholder="کلمه عبور را وارد نمایید"
                               name="password"
                               size="lg"
-                              classNames={{
-                                input:"text-tiny font-lightSans"
-                              }}
                               type="password"
-                              validate={(value)=>{
-                                if (value.length < 8){
-                                    return "حداقل 8 کاراکتر باید وارد کنید"
+                              validate={(value) => {
+                                if (value.length < 8) {
+                                  return "حداقل 8 کاراکتر باید وارد کنید";
                                 }
                               }}
-                          
                             />
 
                             {error.server && (
@@ -202,8 +191,6 @@ export default function Login() {
                               <Button
                                 isLoading={isLoading}
                                 variant="solid"
-                                // color="warning"
-                                className="bg-btn_primary"
                                 type="submit"
                                 size="lg"
                               >
@@ -219,8 +206,6 @@ export default function Login() {
                               <Button
                                 isDisabled={isLoading}
                                 variant="faded"
-                                // color="warning"
-                                // className="text-btn_primary"
                                 size="lg"
                                 onPress={() => {
                                   onClose();
@@ -235,39 +220,20 @@ export default function Login() {
                           </Form>
                         </motion.div>
                       </Tab>
-                      <Tab key="sign-up"  title={
-                        <div className="flex gap-4 items-center">
-                          <Headset size={16} />
-                          <span>متخصص</span>
-                        </div>
-                      }>
-                        {/* <form className="flex flex-col gap-4 h-[300px]">
-                <Input isRequired label="Name" placeholder="Enter your name" type="password" />
-                <Input isRequired label="Email" placeholder="Enter your email" type="email" />
-                <Input
-                  isRequired
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                />
-                <p className="text-center text-small">
-                  Already have an account?{" "}
-                  <HeroLink size="sm" onPress={() => setSelected("login")}>
-                    Login
-                  </HeroLink>
-                </p>
-                <div className="flex gap-2 justify-end">
-                  <Button fullWidth color="primary">
-                    Sign up
-                  </Button>
-                </div>
-              </form> */}
-                           <motion.div className="rounded-2xl w-full h-full flex items-center justify-center">
+                      <Tab
+                        key="sign-up"
+                        title={
+                          <div className="flex gap-4 items-center">
+                            <Headset size={16} />
+                            <span>متخصص</span>
+                          </div>
+                        }
+                      >
+                        <motion.div className="rounded-2xl w-full h-full flex items-center justify-center">
                           <Form
-                            className="w-full max-w-96 flex flex-col min-h-[500px] items-center justify-center shadow-sm shadow-yellow-500 px-5 rounded-lg"
+                            className="w-full flex flex-col min-h-[500px] items-center justify-center  px-5 rounded-lg"
                             onSubmit={handleSubmit}
                           >
-                          
                             <Input
                               startContent={<Phone color="gray" />}
                               isRequired
@@ -279,13 +245,6 @@ export default function Login() {
                               placeholder="نام کاربری خود را وارد نمایید"
                               type="text"
                               variant="faded"
-                              value={formData.username}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  username: e.target.value,
-                                })
-                              }
                             />
 
                             <Input
@@ -298,13 +257,6 @@ export default function Login() {
                               name="password"
                               size="lg"
                               type="password"
-                              value={formData.password}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  password: e.target.value,
-                                })
-                              }
                             />
 
                             {error.server && (
@@ -317,8 +269,6 @@ export default function Login() {
                               <br />
                               <Button
                                 isLoading={isLoading}
-                                variant="solid"
-                                color="warning"
                                 type="submit"
                                 size="lg"
                               >
@@ -333,9 +283,8 @@ export default function Login() {
 
                               <Button
                                 isDisabled={isLoading}
-                                variant="faded"
-                                color="warning"
                                 size="lg"
+                                variant="faded"
                                 onPress={() => {
                                   onClose();
                                   dispatch(
@@ -353,13 +302,10 @@ export default function Login() {
                   </CardBody>
                 </Card>
               </div>
-
             </DrawerBody>
-          
-        </BackgorundGLobalGradiant>
+          </BackgorundGLobalGradiant>
         )}
       </DrawerContent>
     </Drawer>
-
   );
 }

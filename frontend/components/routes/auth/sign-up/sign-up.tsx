@@ -5,7 +5,6 @@ import {
   DrawerHeader,
   DrawerBody,
   DrawerFooter,
-  Button,
   useDisclosure,
 } from "@heroui/react";
 import { ArrowLeft } from "lucide-react";
@@ -14,6 +13,8 @@ import * as motion from "motion/react-client";
 import { useEffect } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
+import BackgroundGlobalGradient from "@/components/version_1_1/ui/backgorund-gradiant-global";
+import Button from "@/components/version_1_1/ui/button";
 export default function SignUp() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
@@ -28,7 +29,7 @@ export default function SignUp() {
 
   const closeHandler = () => {
     onClose();
-    dispatch(showLogin({show:true,path:""}));
+    dispatch(showLogin({ show: true, path: "" }));
   };
 
   return (
@@ -55,22 +56,21 @@ export default function SignUp() {
     >
       <DrawerContent>
         {(onClose) => (
-          <>
-            <DrawerHeader className="flex gap-1 items-center relative mt-5 ">
+          <BackgroundGlobalGradient>
+            <DrawerHeader className="flex gap-1 items-center relative mt-5">
               <Button
                 endContent={<ArrowLeft />}
-                variant="flat"
-                color="warning"
+                variant="light"
+                color="default"
+                isIconOnly
                 onPress={() => {
-                  dispatch(showSignUp({show:false,path:""}));
+                  dispatch(showSignUp({ show: false, path: "" }));
                   onClose();
                 }}
                 className="absolute left-5"
-              >
-                بازگشت
-              </Button>
+              ></Button>
             </DrawerHeader>
-            <DrawerBody className="flex items-center justify-center ">
+            <DrawerBody className="flex items-center justify-center">
               <motion.div
                 initial={{ opacity: 0, scale: 0 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -78,20 +78,13 @@ export default function SignUp() {
                   duration: 0.4,
                   scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
                 }}
-                className="w-[500px] min-h-[600px] rounded-lg border border-amber-100 dark:border-amber-950 flex items-center justify-center"
+                className="w-[500px] min-h-[600px] rounded-lg border border-default-100 flex items-center justify-center"
               >
                 <SignUpForm switchToLogin={closeHandler} />
               </motion.div>
             </DrawerBody>
-            <DrawerFooter>
-              {/* <Button color="danger" variant="light" onPress={onClose}>
-                  Close
-                </Button>
-                <Button color="primary" onPress={onClose}>
-                  Action
-                </Button> */}
-            </DrawerFooter>
-          </>
+            <DrawerFooter> </DrawerFooter>
+          </BackgroundGlobalGradient>
         )}
       </DrawerContent>
     </Drawer>
