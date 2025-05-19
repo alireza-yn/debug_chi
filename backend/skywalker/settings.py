@@ -122,8 +122,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
-        # "PASSWORD": "Tt1012@@",
+        # "PASSWORD": "Mm872872i",
+        "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -290,3 +290,4 @@ STATIC_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/static/"
 MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/"
 
 
+BASE_URL = "https://www.debugchiai.com"

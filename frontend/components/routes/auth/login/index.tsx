@@ -9,6 +9,7 @@ import {
   Divider,
   Card,
   DrawerBody,
+  Button,
   CardBody,
   Tabs,
   Tab,
@@ -32,7 +33,6 @@ import {
 import Link from "next/link";
 import BackgorundGLobalGradiant from "@/components/version_1_1/ui/backgorund-gradiant-global";
 import Input from "@/components/version_1_1/ui/input";
-import Button from "@/components/version_1_1/ui/button";
 
 export default function Login() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -179,7 +179,21 @@ export default function Login() {
                                 }
                               }}
                             />
-
+                            <div className="w-full flex items-center justify-start my-2">
+                              <Button
+                              as={Link}
+                                variant="light"
+                                href={"/auth/forget-password/"}
+                                className="text-tiny text-blue-500 underline"
+                                onPress={() =>{
+                                  dispatch(showLogin({ show: false, path: "" }))
+                                  onClose()
+                                }
+                                }
+                              >
+                                بازیابی کلمه عبور؟
+                              </Button>
+                            </div>
                             {error.server && (
                               <p className="text-red-500 text-sm mt-2">
                                 {error.server}
@@ -191,6 +205,7 @@ export default function Login() {
                               <Button
                                 isLoading={isLoading}
                                 variant="solid"
+                                className="bg-btn_primary"
                                 type="submit"
                                 size="lg"
                               >
@@ -204,6 +219,7 @@ export default function Login() {
                               </div>
 
                               <Button
+                                as={HeroLink}
                                 isDisabled={isLoading}
                                 variant="faded"
                                 size="lg"

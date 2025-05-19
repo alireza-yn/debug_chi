@@ -32,7 +32,7 @@ class IsStaffPermission(BasePermission):
 
 
 
-def send_verification_code(mobile, code):
+def send_verification_code(mobile, code,templateID="300543"):
     url = 'https://api.sms.ir/v1/send/verify'
     headers = {
         'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ def send_verification_code(mobile, code):
     }
     post_data = {
         'mobile': mobile,
-        'templateId': '300543',
+        'templateId': templateID,
         'parameters': [
             {
                 'name': 'code',

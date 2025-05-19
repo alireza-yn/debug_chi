@@ -3,6 +3,7 @@ import React from "react";
 import { UserCircle } from "lucide-react"; // اگر آیکون جایگزین دارید، این را تغییر دهید
 
 type Props = {
+  dir?:"rtl" | "ltr";
   startContent?: React.ReactNode;
   isRequired?: boolean;
   errorMessage?: string;
@@ -15,10 +16,13 @@ type Props = {
   variant?: "faded" | "bordered" | "flat";
   validate?: (value: string) => string | undefined;
   value?:string;
-  hidden?:boolean
+  hidden?:boolean;
+  autoComplete?:string
 };
 
 const Inputs = ({
+  dir="rtl",
+  autoComplete,
   startContent,
   isRequired,
   errorMessage,
@@ -36,7 +40,9 @@ const Inputs = ({
 }: Props) => {
   return (
     <Input
-      startContent={startContent ?? <UserCircle color="gray" />}
+    dir={dir}
+    autoComplete={autoComplete}
+      startContent={startContent}
       isRequired={isRequired}
       errorMessage={errorMessage}
       label={label}

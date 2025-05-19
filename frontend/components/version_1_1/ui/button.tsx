@@ -2,6 +2,7 @@ import React from 'react';
 import { Button as MainButton } from '@heroui/react';
 
 type Props = {
+  fullwidth?:boolean;
   isDisabled?: boolean;
   variant?: 'solid' | 'faded' | 'bordered' | 'light' | 'flat' | 'ghost' | 'shadow';
   color?: 'primary' | 'secondary' | 'success' | 'warning' | 'danger' | 'default';
@@ -18,6 +19,7 @@ type Props = {
 };
 
 const Button = ({
+  fullwidth=false,
   isDisabled = false,
   variant = 'solid',
   color = 'primary',
@@ -34,6 +36,7 @@ const Button = ({
 }: Props) => {
   return (
     <MainButton
+      fullWidth={fullwidth}
       isDisabled={isDisabled}
       variant={variant}
       color={color}

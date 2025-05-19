@@ -1,4 +1,4 @@
-from .models import CustomUser, OTP, UserBankCards
+from .models import CustomUser, OTP, UserBankCards, RequestPassowordReset
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -10,6 +10,7 @@ import json
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from .utils import send_verification_code
+from django.conf import settings
 
 User = get_user_model()
 redis_client = redis.StrictRedis(
@@ -39,13 +40,13 @@ class UserService:
 
             created, otp_code = self.create_otp(user.user_phone)
             if otp_code is not None:
-               response =  send_verification_code(user.user_phone, otp_code)
+                response = send_verification_code(user.user_phone, otp_code)
             return Response(
                 {
                     "message": "کاربر با موفقیت ثبت شد",
                     "user_id": user.id,
                     "success": True,
-                    "response":response
+                    "response": response,
                 },
                 status=status.HTTP_201_CREATED,
             )
@@ -61,7 +62,7 @@ class UserService:
         if user:
             otp = OTP.objects.create(user=user, otp_code=otp_code)
             if otp:
-                send_verification_code(user.user_phone,otp.otp_code)
+                send_verification_code(user.user_phone, otp.otp_code)
         else:
             new_user = CustomUser.objects.create(user_phone=phone)
             otp = OTP.objects.create(user=new_user, otp_code=otp_code)
@@ -200,3 +201,103 @@ class UserService:
             card.delete()
             return True, "کارت با موفقیت حذف شد."
         return False, "کارت یافت نشد."
+
+    def create_reset_password_link(self, user_phone):
+        user = CustomUser.objects.filter(user_phone=user_phone).first()
+        if user is None:
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": True,
+                    "data": "",
+                    "message": "شماره تلفن وارد شده پیدا نشد",
+                }
+            )
+
+        code = random.randint(100000, 999999)
+
+        exist = RequestPassowordReset.objects.filter(user=user).first()
+        if exist:
+            exist.code = code
+            exist.save()
+            send_verification_code(exist.user.user_phone, exist.code, "767468")
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": False,
+                    "message": "کد تغییر کلمه عبور برای شما ارسال شد",
+                }
+            )
+
+        password_object = RequestPassowordReset.objects.create(
+            user=user, code=str(code)
+        )
+
+        if password_object:
+            send_verification_code(
+                user.user_phone, code=password_object.code, templateID="767468"
+            )
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": False,
+                    "message": "کد تغییر کلمه عبور برای شما ارسال شد",
+                }
+            )
+        else:
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": True,
+                    "message": "درخواست شما با خطا مواجه شد دوباره اقدام کنید",
+                }
+            )
+
+    def code_verification(self, code):
+        code = RequestPassowordReset.objects.filter(code=code).first()
+        if code is None:
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": False,
+                    "message": "کد ارسالی اشتباه است دوباره اقدام کنید"
+                }
+            )
+
+        else:
+
+            code.is_verified = True
+            code.save()
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": False,
+                    "data":str(code.token),
+                    "message": "کد شما تایید شد",
+                }
+            )
+
+    def reset_user_password(self, token, password):
+        token_obj = RequestPassowordReset.objects.filter(token=token).first()
+        if token_obj.is_verified:
+            token_obj.save()
+
+            user = token_obj.user
+            user.set_password(password)
+            user.save()
+            token_obj.delete()
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": False,
+                    "message": "پسورد شما با موفقیت تغییر کرد",
+                }
+            )
+        else:
+            return Response(
+                {
+                    "status": status.HTTP_201_CREATED,
+                    "error": True,
+                    "message": "توکن معتبر نیست یا قبلاً استفاده شده است",
+                }
+            )

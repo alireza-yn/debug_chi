@@ -149,3 +149,26 @@ class UsersByRoleView(APIView):
 
         except Role.DoesNotExist:
             return Response({"error": "Role not found."}, status=status.HTTP_400_BAD_REQUEST)
+
+
+
+class CreateResetPasswordLinkApiView(APIView,UserService):
+    
+    def post(self,request:Request):
+        phone = request.data.get('phone')
+        return self.create_reset_password_link(phone)
+
+
+class CodeVerification(APIView,UserService):
+    
+    def post(self,request:Request):
+        code = request.data.get('code')
+        return self.code_verification(code=code)
+
+
+class ResetPasswordApiView(APIView,UserService):
+    
+    def post(self,request:Request):
+        token = request.data.get('token')
+        password = request.data.get('password')
+        return self.reset_user_password(token,password)

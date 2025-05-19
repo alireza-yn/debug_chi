@@ -8,6 +8,9 @@ import os
 import uuid
 from programming_language.models import *
 
+
+
+
 class CustomUserManager(BaseUserManager):
     def create_user(self, email, password=None, **extra_fields):
         if not email:
@@ -76,14 +79,16 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     image_profile = models.ImageField(upload_to=user_directory_path, blank=True)
     
     def save(self, *args, **kwargs):
-        if self.pk is None or not CustomUser.objects.filter(pk=self.pk).exists():
-            # اگر کاربر جدید است
-            if self.password and not self.password.startswith('pbkdf2_'): 
+        if self.pk is None:
+            if self.password and not self.password.startswith('pbkdf2_'):
                 self.set_password(self.password)
-        elif self.password != CustomUser.objects.get(pk=self.pk).password:
-            # اگر رمز عبور تغییر کرده است
-            self.set_password(self.password)
+        else:
+            old_password = CustomUser.objects.get(pk=self.pk).password
+            if self.password != old_password and not self.password.startswith('pbkdf2_'):
+                self.set_password(self.password)
         super().save(*args, **kwargs)
+
+        
     groups = models.ManyToManyField(
         Group,
         related_name='customuser_set',
@@ -134,3 +139,9 @@ class UserBankCards(models.Model):
     def __str__(self):
         return f"{self.user.first_name} {self.user.last_name}"
 
+class RequestPassowordReset(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE,related_name="request_reset_password")
+    code = models.CharField(max_length=6)
+    token = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_verified = models.BooleanField(default=False)

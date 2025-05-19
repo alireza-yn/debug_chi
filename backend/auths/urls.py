@@ -21,6 +21,10 @@ urlpatterns = [
     path('verify_otp/',OTPView.as_view(),name="verify_otp"),
     path('user_info/',GetUserData.as_view(),name="user_info"),
     path('user_cards/',UserBankCardApiView.as_view(),name="user_cards"),
-    path('all_debuger/',UsersByRoleView.as_view(),name="all_debuger")
+    path('all_debuger/',UsersByRoleView.as_view(),name="all_debuger"),
+    path('forget-password/',CreateResetPasswordLinkApiView.as_view(),name="forget-password"),
+    path('reset-password/',ResetPasswordApiView.as_view(),name="reset-password"),
+    path('code-verification/',CodeVerification.as_view(),name="code-verification")
+
     
 ]
