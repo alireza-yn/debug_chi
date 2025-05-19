@@ -25,6 +25,7 @@ import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
 import { ArrowLeft, CircleUserRound, Headset, Lock, Phone } from "lucide-react";
 import Link from "next/link";
+import BackgorundGLobalGradiant from "@/components/version_1_1/ui/backgorund-gradiant-global";
 
 export default function Login() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -105,29 +106,33 @@ export default function Login() {
       }}
       onOpenChange={onOpenChange}
     >
-      <DrawerContent>
+      <DrawerContent >
         {(onClose) => (
-          <>
-            <DrawerHeader>
+        <BackgorundGLobalGradiant>
+          
+            <DrawerHeader className="absolute left-0 top-0">
               <Button
-                endContent={<ArrowLeft />}
-                variant="flat"
-                color="warning"
+                endContent={<ArrowLeft size={28}/>}
+                variant="light"
+                isIconOnly
+                size="lg"
                 onPress={() => {
                   dispatch(showLogin({ show: false, path: "" }));
                   onClose();
                 }}
                 className="absolute left-5"
               >
-                بازگشت
+                
               </Button>
             </DrawerHeader>
-            <DrawerBody>
-              <div className="flex flex-col items-center justify-center h-full  w-full">
-                <Card className="w-96 h-auto">
+            <DrawerBody className="h-screen">
+
+              <div className="flex flex-col items-center justify-center h-full w-full ">
+                <Card className="min-w-[500px] max-w-[600px] h-3/4 border border-default-100">
                   <CardBody className="overflow-hidden">
                     <Tabs
                       fullWidth
+                      className="mt-4"  
                       aria-label="Tabs form"
                       // selectedKey={selected}
                       size="md"
@@ -142,7 +147,7 @@ export default function Login() {
                      
                         <motion.div className="rounded-2xl w-full h-full flex items-center justify-center">
                           <Form
-                            className="w-full max-w-96 flex flex-col min-h-[500px] items-center justify-center shadow-sm shadow-yellow-500 px-5 rounded-lg"
+                            className="w-full  flex flex-col min-h-[500px] items-center justify-center  px-5 rounded-lg"
                             onSubmit={handleSubmit}
                           >
                           
@@ -201,7 +206,8 @@ export default function Login() {
                               <Button
                                 isLoading={isLoading}
                                 variant="solid"
-                                color="warning"
+                                // color="warning"
+                                className="bg-btn_primary"
                                 type="submit"
                                 size="lg"
                               >
@@ -217,7 +223,8 @@ export default function Login() {
                               <Button
                                 isDisabled={isLoading}
                                 variant="faded"
-                                color="warning"
+                                // color="warning"
+                                // className="text-btn_primary"
                                 size="lg"
                                 onPress={() => {
                                   onClose();
@@ -350,8 +357,10 @@ export default function Login() {
                   </CardBody>
                 </Card>
               </div>
+
             </DrawerBody>
-          </>
+          
+        </BackgorundGLobalGradiant>
         )}
       </DrawerContent>
     </Drawer>

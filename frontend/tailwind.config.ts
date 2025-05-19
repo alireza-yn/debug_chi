@@ -124,7 +124,9 @@ const config = {
           c_background:"#2c2552",
           c_secondary:"#232035",
           main_bg:"#140a31",
-          community:"#1D142D"
+          community:"#1D142D",
+          bg_global_blur:"#002D78",
+          btn_primary:"#3344D9"
       },
       fontFamily: {
         iranSans: ["var(--font-iran-sans)",...fontFamily.sans,],
