@@ -23,7 +23,7 @@ import { usePathname, useSearchParams } from "next/navigation";
 import { FormEvent, Suspense, useEffect, useState } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
-import { ArrowLeft, CircleUserRound, Headset, Lock, Phone } from "lucide-react";
+import { ArrowLeft, CircleUserRound, Headset, Lock, Phone, UserCircle } from "lucide-react";
 import Link from "next/link";
 import BackgorundGLobalGradiant from "@/components/version_1_1/ui/backgorund-gradiant-global";
 
@@ -152,23 +152,22 @@ export default function Login() {
                           >
                           
                             <Input
-                              startContent={<Phone color="gray" />}
+                              startContent={<UserCircle color="gray" />}
                               isRequired
-                              errorMessage={error.username}
+                              errorMessage={"اطلاعات وارد شده صحیح نمی باشد"}
                               label="نام کاربری"
+                            
                               labelPlacement="outside"
                               name="username"
                               size="lg"
                               placeholder="نام کاربری ، ایمیل یا شماره تلفن"
                               type="text"
+                              className="text-sm"
                               variant="faded"
-                              // value={formData.username}
-                              // onChange={(e) =>
-                              //   setFormData({
-                              //     ...formData,
-                              //     username: e.target.value,
-                              //   })
-                              // }
+                              classNames={{
+                                input:"text-tiny font-lightSans"
+                              }}
+            
                             />
 
                             <Input
@@ -180,19 +179,16 @@ export default function Login() {
                               placeholder="کلمه عبور را وارد نمایید"
                               name="password"
                               size="lg"
+                              classNames={{
+                                input:"text-tiny font-lightSans"
+                              }}
                               type="password"
                               validate={(value)=>{
                                 if (value.length < 8){
                                     return "حداقل 8 کاراکتر باید وارد کنید"
                                 }
                               }}
-                              // value={formData.password}
-                              // onChange={(e) =>
-                              //   setFormData({
-                              //     ...formData,
-                              //     password: e.target.value,
-                              //   })
-                              // }
+                          
                             />
 
                             {error.server && (
