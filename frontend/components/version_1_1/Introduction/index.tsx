@@ -2,8 +2,10 @@
 
 import type { Main, Question, Answer } from "@/components/types/intorduction";
 import { Button } from "@heroui/react";
+import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
+import { skip } from "node:test";
 import { useState, useEffect } from "react";
 
 type Props = {
@@ -46,6 +48,9 @@ const Introduction = ({ data }: Props) => {
   // Get current section and question
   const currentSection = data.sections[activeSection];
   const currentQuestion = currentSection?.questions[activeQuestionIndex];
+
+
+  const [skip,setSkip] = useState<boolean>(false)
 
   // Auto-mark text questions as answered when they're displayed
   useEffect(() => {
@@ -110,6 +115,13 @@ const Introduction = ({ data }: Props) => {
   };
 
   // Handle button answer click - now toggles answers in/out of array
+  const skipHandler = ()=>{
+    setSkip(true)
+    setTimeout(()=>{
+      window.location.href = "/"
+      setSkip(false)
+    },1500)
+  }
   const handleButtonAnswer = (questionId: number, answer: Answer) => {
     setButtonAnswers((prev) => {
       const currentAnswers = prev[questionId] || [];
@@ -291,36 +303,7 @@ const Introduction = ({ data }: Props) => {
             <Button className="w-3/4 my-5" variant="flat" color="success" as={Link} href="/user/dashboard/">ادامه</Button>
           </div>
         </div>
-        {/* <h1 className="text-2xl font-bold mb-6 text-center text-[#1a2e4c]">
-          نتایج ارسال
-        </h1>
-
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-2 text-[#1a2e4c]">
-            داده های جمع آوری شده:
-          </h2>
-          <pre className="bg-white p-4 rounded-lg overflow-auto max-h-[400px] text-sm border border-gray-200">
-            {JSON.stringify(collectedData, null, 2)}
-          </pre>
-        </div>
-
-        <div className="mb-6">
-          <h2 className="text-lg font-semibold mb-2 text-[#1a2e4c]">
-            رشته JSON برای ارسال:
-          </h2>
-          <div className="bg-white p-4 rounded-lg overflow-auto max-h-[200px] text-sm break-all border border-gray-200">
-            {JSON.stringify(collectedData)}
-          </div>
-        </div>
-
-        <div className="flex justify-end space-x-4 space-x-reverse rtl">
-          <button
-            onClick={resetForm}
-            className="px-6 py-2 bg-[#1a2e4c] text-white rounded-md hover:bg-[#2a3e5c] transition-colors"
-          >
-            شروع مجدد
-          </button>
-        </div> */}
+  
       </div>
     );
   }
@@ -328,30 +311,9 @@ const Introduction = ({ data }: Props) => {
   return (
     <div className="w-full max-w-xl flex items-center justify-center py-8 px-4">
       <div className="w-full max-w-2xl border dark:border-none dark:bg-slate-900 text-foreground rounded-lg shadow-xl overflow-hidden">
-        {/* Header */}
-        {/* <div className="bg-[#1a2e4c] text-white p-4 text-center">
-          <h1 className="text-xl font-bold">{data.name}</h1>
-        </div> */}
 
-        {/* Content */}
         <div className="p-6">
-          {/* Section Progress */}
-          {/* <div className="mb-6">
-            <div className="flex justify-between mb-2 text-[#1a2e4c]">
-              <span className="text-sm font-medium">بخش {currentSection?.number}</span>
-              <span className="text-sm font-medium">
-                {answeredCount}/{totalQuestions} سوال
-              </span>
-            </div>
-            <div className="w-full bg-gray-200 rounded-full h-2">
-              <div
-                className="bg-[#1a2e4c] h-2 rounded-full transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              ></div>
-            </div>
-          </div> */}
-
-          {/* Current Question */}
+        
           {currentQuestion && (
             <div className=" p-6 rounded-lg shadow-sm mb-6 text-foreground">
               <h3 className="text-xl font-medium mb-4 text-foreground">
@@ -361,7 +323,7 @@ const Introduction = ({ data }: Props) => {
                 <p className="mb-6 ">{currentQuestion.description}</p>
               )}
 
-              {/* Sound element if available */}
+          
               {currentQuestion.sound && (
                 <div className="mb-6 text-foreground">
                   <audio controls className="w-full">
@@ -433,7 +395,6 @@ const Introduction = ({ data }: Props) => {
                     ))}
                   </div>
                 )}
-
                 {currentQuestion.question_type === "text" && (
                   <div>
                     <input
@@ -493,8 +454,9 @@ const Introduction = ({ data }: Props) => {
             </div>
           )}
 
-          {/* Navigation buttons */}
+     
           <div className="flex gap-4 mt-6 rtl">
+            
             <Button
               onPress={goToNextQuestion}
               disabled={!isCurrentQuestionCompleted}
@@ -518,6 +480,9 @@ const Introduction = ({ data }: Props) => {
             >
               قبلی
             </Button>
+            <div className="flex-1 flex items-center justify-end">
+              <Button variant="flat" color="secondary" startContent={<ArrowRight />} isDisabled={skip} isLoading={skip} onPress={skipHandler}>رد کردن</Button>
+            </div>
           </div>
         </div>
       </div>

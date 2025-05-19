@@ -81,7 +81,6 @@ export const getUserChatList = async (token: string) => {
 };
 
 export const perform_post = async (url: string, data: any) => {
-  console.log(headers())
   try {
     const post_data = await axios.post(`${process.env.server}/${url}`, data, {
       headers:  headers(),
@@ -89,6 +88,7 @@ export const perform_post = async (url: string, data: any) => {
     const response = await post_data.data;
     return response;
   } catch (e: any) {
+    console.log(e.response)
     return {
       data: e.response.data,
       status: e.status,

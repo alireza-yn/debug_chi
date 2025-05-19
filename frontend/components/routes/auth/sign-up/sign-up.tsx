@@ -18,7 +18,7 @@ export default function SignUp() {
   const { isOpen, onOpen, onOpenChange, onClose } = useDisclosure();
 
   const { sign_up } = useAppSelector((state: RootState) => state.gloabal);
-  console.log(sign_up)
+
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (sign_up) {

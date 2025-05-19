@@ -20,7 +20,7 @@ import {
 import { motion } from "framer-motion";
 import Cookies from "js-cookie";
 import { usePathname, useSearchParams } from "next/navigation";
-import { Suspense, useEffect, useState } from "react";
+import { FormEvent, Suspense, useEffect, useState } from "react";
 import { RootState, useAppDispatch, useAppSelector } from "@/redux/store/store";
 import { showLogin, showSignUp } from "@/redux/slices/globalSlice";
 import { ArrowLeft, CircleUserRound, Headset, Lock, Phone } from "lucide-react";
@@ -66,23 +66,20 @@ export default function Login() {
   };
 
   // ارسال فرم
-  const handleSubmit = async (e: any) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+
+    let data = Object.fromEntries(new FormData(e.currentTarget))
+
     e.preventDefault();
     setIsLoading(true);
-    setError({ username: "", password: "", server: "" }); // پاک کردن ارورها قبل از ارسال
-
-    if (!validateForm()) {
-      setIsLoading(false);
-      return;
-    }
 
     Cookies.remove("token");
-    const response = await perform_post("auths/login/", formData);
-
+    const response = await perform_post("auths/login/", data);
+    console.log(response)
     if (response.success && response.user) {
       Cookies.set("token", response.access);
       localStorage.setItem("user_data", JSON.stringify(response.user));
-      window.location.href = path ;
+      window.location.href = path;
       dispatch(showLogin({ show: false, path: "" })); // بستن مودال لاگین
     } else {
       setError({
@@ -142,26 +139,7 @@ export default function Login() {
                           <span>کاربر عادی</span>
                         </div>
                       }>
-                        {/* <form className="flex flex-col gap-4">
-                <Input isRequired label="Email" placeholder="Enter your email" type="email" />
-                <Input
-                  isRequired
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                />
-                <p className="text-center text-small">
-                  Need to create an account?{" "}
-                  <HeroLink size="sm" onPress={() => setSelected("sign-up")}>
-                    Sign up
-                  </HeroLink>
-                </p>
-                <div className="flex gap-2 justify-end">
-                  <Button fullWidth color="primary">
-                    Login
-                  </Button>
-                </div>
-              </form> */}
+                     
                         <motion.div className="rounded-2xl w-full h-full flex items-center justify-center">
                           <Form
                             className="w-full max-w-96 flex flex-col min-h-[500px] items-center justify-center shadow-sm shadow-yellow-500 px-5 rounded-lg"
@@ -176,16 +154,16 @@ export default function Login() {
                               labelPlacement="outside"
                               name="username"
                               size="lg"
-                              placeholder="نام کاربری خود را وارد نمایید"
+                              placeholder="نام کاربری ، ایمیل یا شماره تلفن"
                               type="text"
                               variant="faded"
-                              value={formData.username}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  username: e.target.value,
-                                })
-                              }
+                              // value={formData.username}
+                              // onChange={(e) =>
+                              //   setFormData({
+                              //     ...formData,
+                              //     username: e.target.value,
+                              //   })
+                              // }
                             />
 
                             <Input
@@ -198,13 +176,18 @@ export default function Login() {
                               name="password"
                               size="lg"
                               type="password"
-                              value={formData.password}
-                              onChange={(e) =>
-                                setFormData({
-                                  ...formData,
-                                  password: e.target.value,
-                                })
-                              }
+                              validate={(value)=>{
+                                if (value.length < 8){
+                                    return "حداقل 8 کاراکتر باید وارد کنید"
+                                }
+                              }}
+                              // value={formData.password}
+                              // onChange={(e) =>
+                              //   setFormData({
+                              //     ...formData,
+                              //     password: e.target.value,
+                              //   })
+                              // }
                             />
 
                             {error.server && (

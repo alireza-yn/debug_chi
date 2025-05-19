@@ -6,7 +6,7 @@ import Sidebar from "@/components/version_1_1/Sidebar";
 import SidebarBody from "@/components/version_1_1/Sidebar/SideBar";
 import SidebarFooter from "@/components/version_1_1/Sidebar/sidebar-footer";
 import { BidFilterProvider } from "@/context/BidFilterContext";
-import { perform_get, perform_post } from "@/lib/api";
+import { perform_get } from "@/lib/api";
 import { cookies } from "next/headers";
 import React from "react";
 

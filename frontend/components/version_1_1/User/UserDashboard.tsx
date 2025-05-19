@@ -30,7 +30,6 @@ type Props = {
   posts: PostType[];
 };
 const UserDashboard = ({ user, posts }: Props) => {
-  console.log(posts);
 
   const title = user?.user_expertise?.[0]?.expertise?.[0]?.title;
 
@@ -163,84 +162,7 @@ const UserDashboard = ({ user, posts }: Props) => {
                   }
                 })}
                 <AddPost />
-                {/* {posts.map((post) =>
-                  post.collection.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-center relative border-l-2 border-b-2 border-slate-900 h-[500px]"
-                    >
-                      {item.media_type === "video" && (
-                        <>
-                          <ModalVideoPlayer
-                            title={item.title}
-                            url={item.file}
-                            comments={item.comments}
-                            post_id={item.id}
-                            uuid={user.uuid}
-                            is_liked={item.likes.some(
-                              (like) => like.user.uuid === user.uuid
-                            )}
-                            count={item.likes_count}
-                          />
-                          <div className="z-0 w-full h-[500px] absolute">
-                            <Image
-                              alt={item.title}
-                              src={item.thumbnail}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                        </>
-                      )}
-                      {item.media_type === "picture" && (
-                        <>
-                          <ModalPicturePlayer
-                            title={item.title}
-                            url={item.file}
-                            comments={item.comments}
-                            post_id={item.id}
-                            uuid={user.uuid}
-                            is_liked={item.likes.some(
-                              (like) => like.user.uuid === user.uuid
-                            )}
-                            count={item.likes_count}
-                          />
-                          <div className="z-0 w-full h-[500px] absolute">
-                            <Image
-                              alt={item.title}
-                              src={item.thumbnail}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                        </>
-                      )}
-                        <div className="z-0 w-full h-[500px] absolute">
-                            <Image
-                              alt={item.title}
-                              src={item.thumbnail}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                      <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
-                        <span
-                          style={{
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
-                          }}
-                        >
-                          {item.likes_count}
-                        </span>
-                        <Eye
-                          size={14}
-                          style={{
-                            textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))
-                )} */}
+              
               </div>
             </Tab>
           ) : (
@@ -254,76 +176,7 @@ const UserDashboard = ({ user, posts }: Props) => {
               }
             >
               <div className="grid grid-cols-5">
-                {/* {posts.map((post) =>
-                  post.collection.map((item) => (
-                    <div
-                      key={item.id}
-                      className="flex items-center justify-center relative border-l-2 border-b-2 border-slate-900 h-[500px]"
-                    >
-                      {item.media_type === "video" && (
-                        <>
-                          <ModalVideoPlayer
-                            title={item.title}
-                            url={item.file}
-                            comments={item.comments}
-                            post_id={item.id}
-                            uuid={user.uuid}
-                            is_liked={item.likes.some(
-                              (like) => like.user.uuid === user.uuid
-                            )}
-                            count={item.likes_count}
-                          />
-                          <div className="z-0 w-full h-[500px] absolute">
-                            <Image
-                              alt={item.title}
-                              src={item.thumbnail}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                        </>
-                      )}
-                      {item.media_type === "picture" && (
-                        <>
-                          <ModalVideoPlayer
-                            title={item.title}
-                            url={item.file}
-                            comments={item.comments}
-                            post_id={item.id}
-                            uuid={user.uuid}
-                            is_liked={item.likes.some(
-                              (like) => like.user.uuid === user.uuid
-                            )}
-                            count={item.likes_count}
-                          />
-                          <div className="z-0 w-full h-[500px] absolute">
-                            <Image
-                              alt={item.title}
-                              src={item.thumbnail}
-                              layout="fill"
-                              objectFit="cover"
-                            />
-                          </div>
-                        </>
-                      )}
-                      <div className="z-0 flex items-center gap-1 text-tiny absolute left-2 bottom-2 bg-transparent text-foreground p-2 rounded-full">
-                        <span
-                          style={{
-                            textShadow: "2px 2px 4px rgba(0, 0, 0, 0.8)",
-                          }}
-                        >
-                          {item.likes_count}
-                        </span>
-                        <Eye
-                          size={14}
-                          style={{
-                            textShadow: "0px 0px 3px rgba(0, 0, 0, 0.5)",
-                          }}
-                        />
-                      </div>
-                    </div>
-                  ))
-                )} */}
+        
               </div>
             </Tab>
           )}
@@ -354,22 +207,13 @@ export default UserDashboard;
 
 
 export const UserProfile = ({ user }: { user: UserType }) => {
-  console.log(user.image_profile)
-  // const currentPath = usePathname ();
-  // let image;
-  // if (currentPath === "/engineers/"+ user.uuid) {
-  //   image = process.env.server + "/" + user.image_profile;
 
-    
-  // }else {
-  //   image = user.image_profile;
-  // }
   return(
     <div className="w-full flex h-auto gap-4  ">
     <div className="max-w-[500px] flex flex-col box-border p-4">
       <div className="rounded-full w-[90px] h-[90px] p-1 box-border border-2 border-secondary-500">
         <Image
-          src={user.image_profile}
+          src={user.image_profile || "/user.jpg"}
           alt="avatar"
           width={90}
           height={90}

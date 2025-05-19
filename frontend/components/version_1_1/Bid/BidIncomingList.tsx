@@ -151,7 +151,7 @@ const BidIncomingList = () => {
     <TenderProvider>
       <div
         className={`${
-          isOpen ? "w-[700px]" : "w-[500px]"
+          isOpen ? "w-[500px]" : "w-96"
         } transition-all duration-500 ease-in-out h-full flex flex-col gap-4 relative`}
       >
         <UploadBidSection setIsOpen={setIsOpen} />
@@ -418,7 +418,7 @@ const PageOneUpload = ({
 
     try {
       const response = await axios.post(
-        "http://127.0.0.1:8000/api/v1/create_project/",
+        `${process.env.server}/api/v1/create_project/`,
         { ...project, is_tender: true },
         {
           headers: {
@@ -568,7 +568,7 @@ const PageTwoUpload = ({
     const user_id: any = jwtDecode(token || "");
 
     const response = await axios.post(
-      `http://127.0.0.1:8000/api/v1/tender_project/`,
+      `${process.env.server}/api/v1/tender_project/`,
       { ...tender, created_by: user_id.user_id },
       {
         headers: {
