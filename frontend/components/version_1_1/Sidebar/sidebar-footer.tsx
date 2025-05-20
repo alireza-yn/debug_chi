@@ -62,7 +62,7 @@ const SidebarFooter = ({ user, token }: Props) => {
           >
             <Avatar
               size="lg"
-              src={userData.image_profile}
+              src={userData.image_profile || "/user.jpg"}
               name={userData.first_name}
               fallback={userData.first_name}
             />

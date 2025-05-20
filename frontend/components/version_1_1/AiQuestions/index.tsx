@@ -158,7 +158,7 @@ const AiQuestion = ({ question }: Props) => {
         className=" w-[56%] min-h-[150px] grid grid-cols-2 gap-4 mb-4 "
         id="questions"
       >
-        {question.map((item, index) => {
+        {question.length > 0 && question.map((item, index) => {
           return (
             <div
               key={index + 1}

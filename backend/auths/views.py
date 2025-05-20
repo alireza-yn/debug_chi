@@ -63,14 +63,13 @@ class UserLoginView(APIView, UserService):
 
 class OTPView(APIView, UserService):
     def post(self, request: Request):
-        phone = request.data.get("phone")
         otp_code = request.data.get("otp")
-        if otp_code is None and phone is None:
+        if otp_code is None :
             return Response(
                 {"error": "phone or otp is required"},
                 status=status.HTTP_400_BAD_REQUEST,
             )
-        return self.activate_user(phone=phone, otp_code=otp_code)
+        return self.activate_user(otp_code=otp_code)
 
 
 class UserRegister(APIView, UserService):

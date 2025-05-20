@@ -71,29 +71,31 @@ class UserService:
                 status=status.HTTP_201_CREATED,
             )
 
-    def activate_user(self, phone, otp_code):
+    def activate_user(self, otp_code):
 
-        user = self.get_by_phone(phone)
-        otp = OTP.objects.filter(user=user, otp_code=otp_code).first()
+        # user = self.get_by_phone(phone)
+        
+        otp = OTP.objects.filter(otp_code=otp_code).first()
         if otp:
             otp.delete()
-            user.is_active = True
-            user.save()
-            refresh = RefreshToken.for_user(user)
+            otp.user.is_active = True
+            otp.user.save()
+            refresh = RefreshToken.for_user(otp.user)
             return Response(
                 {
                     "success": True,
                     "refresh": str(refresh),
                     "access": str(refresh.access_token),
-                    "intro": user.intro_completed,
-                    "uuid": user.uuid,
+                    "intro": otp.user.intro_completed,
+                    "uuid": otp.user.uuid,
+                    "data": UserSerializer(otp.user).data
                 },
                 status=status.HTTP_200_OK,
             )
         else:
             return Response(
                 {"error": "Invalid OTP code"},
-                status=status.HTTP_400_BAD_REQUEST,
+                status=status.HTTP_200_OK,
             )
 
     def active_users(self):

@@ -26,12 +26,14 @@ export default function SignUpForm({ switchToLogin }: Props) {
   });
 
   const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
+    setIsLoading(true);
     e.preventDefault();
     let data = Object.fromEntries(new FormData(e.currentTarget));
     const response = await perform_post("auths/user_register/", data);
-    console.log(response)
+    console.log(response);
     if (response.success) {
       setOtp(true);
+      setIsLoading(false);
       setPhone(data.user_phone);
       setMessage({ user_phone: "" });
     }
@@ -54,7 +56,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
     }
     if (response.success) {
       Cookies.set("token", response.access);
-
+      localStorage.setItem("user_data", JSON.stringify(response.data));
       window.location.href = path || "";
       setIsLoading(false);
     }
@@ -100,7 +102,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
             type="text"
           />
           <Inputs
-          size="lg"
+            size="lg"
             isRequired
             errorMessage="نام خانوادگی را وارد نمایید"
             label="نام خانودگی"
@@ -110,7 +112,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
           />
         </div>
         <Inputs
-        size="lg"
+          size="lg"
           isRequired
           errorMessage="ایمیل صحیح وارد نمایید"
           label="ایمیل"
@@ -119,7 +121,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
           type="email"
         />
         <Inputs
-        size="lg"
+          size="lg"
           isRequired
           errorMessage="نام کاربری صحیح نمی باشد"
           label="نام کاربری"
@@ -128,7 +130,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
           type="text"
         />
         <Inputs
-        size="lg"
+          size="lg"
           isRequired
           errorMessage="حداقل 8 کاراکتر وارد نمایید"
           label="کلمه عبور"
@@ -143,6 +145,8 @@ export default function SignUpForm({ switchToLogin }: Props) {
         />
         <div className="flex w-full gap-2">
           <Button
+            isDisabled={isLoading}
+            isLoading={isLoading}
             type="submit"
             className="w-full h-14 text-xl"
           >
@@ -160,7 +164,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
           className="h-14 w-full text-xl"
           onPress={() => {
             switchToLogin();
-            dispatch(showLogin({show:true,path:""}));
+            dispatch(showLogin({ show: true, path: "" }));
           }}
         >
           ورود
@@ -183,12 +187,18 @@ export default function SignUpForm({ switchToLogin }: Props) {
             console.log(e);
           }}
         />
-        <Inputs isRequired={false} size="sm" value={phone} name="phone" hidden={true} />
+        <Inputs
+          isRequired={false}
+          size="sm"
+          value={phone}
+          name="phone"
+          hidden={true}
+        />
         <Button
           isLoading={isLoading}
+          isDisabled={isLoading}
           className="w-full"
-          variant="flat"
-          color="primary"
+          variant="solid"
           type="submit"
         >
           تایید کد

@@ -81,6 +81,7 @@ export default function SignUp() {
                 className="w-[500px] min-h-[600px] rounded-lg border border-default-100 flex items-center justify-center"
               >
                 <SignUpForm switchToLogin={closeHandler} />
+                
               </motion.div>
             </DrawerBody>
             <DrawerFooter> </DrawerFooter>
