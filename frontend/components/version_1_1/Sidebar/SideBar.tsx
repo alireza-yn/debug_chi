@@ -139,6 +139,8 @@ const SidebarBody = (props: Props) => {
 
   return (
     <div className="w-full flex-1 flex items-center flex-col justify-center py-4 box-border gap-4">
+      <div className="flex flex-col h-auto border p-2 rounded-full border-default-100 bg-default-50 gap-4">
+
       {linkData.map((item, index) => {
         const isActive =
           item.path === pathname ||
@@ -152,7 +154,7 @@ const SidebarBody = (props: Props) => {
                 className={`${
                   isActive ? "scale-110" : ""
                 } hover:scale-125 transition-all duration-500 ease-in-out`}
-                variant={isActive ? "solid" : "flat"}
+                variant={isActive ? "solid" : "light"}
                 name={item.name}
                 isIconOnly
                 radius="full"
@@ -164,6 +166,8 @@ const SidebarBody = (props: Props) => {
           </Tooltip>
         );
       })}
+      </div>
+
     </div>
   );
 };

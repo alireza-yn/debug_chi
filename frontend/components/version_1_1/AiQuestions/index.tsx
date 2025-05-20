@@ -14,12 +14,14 @@ import {
 import { ArrowUp, MessageCircleCode } from "lucide-react";
 import { useAnswer } from "@/context/AiContextAnswer";
 import AudioPlayer from "./AudioPlayer";
+import Image from "next/image";
 
 type Props = {
   question: Main[];
 };
 
 const AiQuestion = ({ question }: Props) => {
+  console.log(question);
   const [message_id, setMessageId] = useState(0);
   const {
     selectedAnswer,
@@ -150,60 +152,79 @@ const AiQuestion = ({ question }: Props) => {
   }
 
   return (
-    <div className="w-full flex-1 flex-col flex h-full items-center justify-center">
-      <MessageCircleCode className="stroke-lime-300" size={64} />
+    <div
+      className="w-full flex-1 flex-col flex h-full items-center justify-center"
+      dir="rtl"
+    >
+      {/* <MessageCircleCode className="stroke-lime-300" size={64} /> */}
       <span className="text-4xl mb-20">چطور میتونم کمکت کنم؟</span>
 
       <div
-        className=" w-[56%] min-h-[150px] grid grid-cols-2 gap-4 mb-4 "
+        className=" w-[55%] h-96 grid grid-cols-2 gap-4 mb-4 "
         id="questions"
       >
-        {question.length > 0 && question.map((item, index) => {
-          return (
-            <div
-              key={index + 1}
-              onClick={() => {
-                setSelectedQuestionIndex(index);
-                setWelcome(true);
-                handleQuestion(item.ai_category[0], index);
-              }}
-              className="flex items-center justify-center gap-4 bg-gray-300 dark:bg-c_secondary px-4 box-border rounded-md cursor-pointer overflow-y-auto"
-              onMouseEnter={() => showMessage(index + 1)}
-              onMouseLeave={() => setMessageId(0)}
-            >
-              <div className="flex-1 flex flex-col">
-                <h2
-                  className={`font-mediumSans ${
-                    message_id == index + 1
-                      ? "dark:text-lime-300"
-                      : "text-foreground"
+        {question.length > 0 &&
+          question.map((item, index) => {
+            console.log(item);
+            return (
+              <div
+                key={index + 1}
+                onClick={() => {
+                  setSelectedQuestionIndex(index);
+                  setWelcome(true);
+                  handleQuestion(item.ai_category[0], index);
+                }}
+                className="flex items-center justify-center gap-4 bg-default-50 border border-default-100 max-h-96 px-4 box-border rounded-2xl cursor-pointer overflow-y-auto"
+                onMouseEnter={() => showMessage(index + 1)}
+                onMouseLeave={() => setMessageId(0)}
+              >
+                <div className="flex-1 flex gap-4 p-2 items-center">
+                  <div className="w-24 h-24 flex-shrink-0">
+                    <Image
+                      src={item.icon || "/user.jpg"}
+                      alt={item.title}
+                      width={96}
+                      height={96}
+                      className="rounded-full border border-default-100 object-cover w-full h-full"
+                    />
+                  </div>
+                  <div className="flex flex-col justify-center gap-2">
+                    <h2
+                      className={`font-mediumSans ${
+                        message_id == index + 1
+                          ? "dark:text-lime-300"
+                          : "text-foreground"
+                      }`}
+                    >
+                      {item.category_name}
+                    </h2>
+                    <h3 className="w-full text-tiny text-wrap font-lightSans  leading-5">
+                      {item.description}
+                    </h3>
+                  </div>
+                </div>
+                <div
+                  className={`transition-all duration-500 ease-in-out ${
+                    message_id === index + 1
+                      ? "opacity-100 translate-y-0"
+                      : "opacity-0 translate-y-2"
                   }`}
                 >
-                  {item.title}
-                </h2>
+                  <Button
+                    isIconOnly
+                    size="sm"
+                    className="bg-lime-300"
+                    onPress={() => {
+                      setSelectedQuestionIndex(index);
+                      setWelcome(true);
+                      handleQuestion(item.ai_category[0], index);
+                    }}
+                    startContent={<ArrowUp color="black" />}
+                  ></Button>
+                </div>
               </div>
-              <div
-                className={`transition-all duration-500 ease-in-out ${
-                  message_id === index + 1
-                    ? "opacity-100 translate-y-0"
-                    : "opacity-0 translate-y-2"
-                }`}
-              >
-                <Button
-                  isIconOnly
-                  size="sm"
-                  className="bg-lime-300"
-                  onPress={() => {
-                    setSelectedQuestionIndex(index);
-                    setWelcome(true);
-                    handleQuestion(item.ai_category[0], index);
-                  }}
-                  startContent={<ArrowUp color="black" />}
-                ></Button>
-              </div>
-            </div>
-          );
-        })}
+            );
+          })}
       </div>
     </div>
   );

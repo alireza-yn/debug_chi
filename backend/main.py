@@ -140,17 +140,17 @@
 
 
 
-import boto3
-import os
-s3 = boto3.client(
-    's3',
-    endpoint_url='https://c244557.parspack.net',
-    aws_access_key_id='jwRi59W3fYhsw1tp',
-    aws_secret_access_key='XRW9K7VcDvC0E5P86EMgPcVsCE4PWmix'
-)
+# import boto3
+# import os
+# s3 = boto3.client(
+#     's3',
+#     endpoint_url='https://c244557.parspack.net',
+#     aws_access_key_id='jwRi59W3fYhsw1tp',
+#     aws_secret_access_key='XRW9K7VcDvC0E5P86EMgPcVsCE4PWmix'
+# )
 
-# لیست سطل‌ها
-print(s3.list_buckets())
+# # لیست سطل‌ها
+# print(s3.list_buckets())
 
 # # آپلود تستی
 #  extra_args = {'ContentLength': os.path.getsize("local_file.tx")}
@@ -160,3 +160,4 @@ print(s3.list_buckets())
 #     'test-bucket-0631',  # نام سطل
 #     'remote_file.txt'  # نام فایل در S3
 # )
+

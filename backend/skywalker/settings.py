@@ -13,12 +13,12 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
-
+from dotenv import load_dotenv
 # DEFAULT_FILE_STORAGE = "storages.backends.s3boto3.S3Boto3Storage"
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
+load_dotenv(os.path.join(BASE_DIR, '.env'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
@@ -27,7 +27,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-_(6i1%ngkkt+f=hu(!tfy3v$!nis*ze9988#679zk2#u@5v!)s"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = [
     # "localhost:8000",
@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     "api.debugchiai.com",
     "195.248.242.157",
     "www.debugchiai.com",
-    # "127.0.0.1"
+    "127.0.0.1"
 ]
 # Application definition
 
@@ -70,6 +70,7 @@ INSTALLED_APPS = [
     "report",
     "storages",
     "django_extensions",
+    'ai_app'
 
 ]
 
@@ -122,8 +123,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
-        # "PASSWORD": "Tt1012@@",
+        # "PASSWORD": "Mm872872i",
+        "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -291,3 +292,5 @@ MEDIA_URL = f"{AWS_S3_ENDPOINT_URL}/{AWS_STORAGE_BUCKET_NAME}/media/"
 
 
 BASE_URL = "https://www.debugchiai.com"
+
+GOOGLE_API_KEY = os.getenv('GOOGLE_API_KEY')

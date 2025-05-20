@@ -74,8 +74,6 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 
-
-
 class AiQuestionAnswerSerilzers(serializers.ModelSerializer):
     class Meta:
         model = AiQuestionAnswer
@@ -110,6 +108,8 @@ class AiQuestionCategorySerializer(serializers.ModelSerializer):
             'id',
             'category_name',
             'title',
+            'description',
+            'icon',
             'ai_category',
             'created_at',
             'updated_at'

@@ -50,7 +50,8 @@ class Answer(models.Model):
 class AiCategoryQuestion(Timestamp):
     category_name = models.CharField(max_length=100)
     title = models.CharField(max_length=150,default="")
-    
+    description = models.TextField(blank=True,null=True)
+    icon = models.ImageField('/media/ai_question/',blank=True,null=True)
     def __str__(self):
         return self.category_name
     

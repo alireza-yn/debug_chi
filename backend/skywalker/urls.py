@@ -26,6 +26,7 @@ urlpatterns = [
     path('payment/',include('payments.urls'),name='payment'),
     path('post/',include('post.urls'),name="post"),
     path('questions/',include('questions.urls'),name="questions"),
+    path('api/', include('ai_app.urls')),
     
     
 ]

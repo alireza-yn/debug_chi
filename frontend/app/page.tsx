@@ -16,6 +16,7 @@ import { RequestFilterProvider } from "@/context/RequetsFilterProvider";
 import AiQuestion from "@/components/version_1_1/AiQuestions";
 import Answers from "@/components/version_1_1/AiQuestions/Answers";
 import { AnswerProvider } from "@/context/AiContextAnswer";
+import BackgroundGlobalGradient from "@/components/version_1_1/ui/backgorund-gradiant-global";
 
 
 export default async function Home() {
@@ -64,11 +65,13 @@ export default async function Home() {
         <SidebarBody />
         <SidebarFooter token={token} />
       </Sidebar>
-      <div className="flex-1 flex  h-full box-border p-4 gap-4">
-        <div className="bg-gray-100 dark:bg-c_background/50  rounded-3xl h-full w-96">
+      <BackgroundGlobalGradient>
+
+      <div className="flex-1 flex  h-screen box-border p-4 gap-4">
+        {/* <div className="bg-gray-100 dark:bg-c_background/50  rounded-3xl h-full w-96">
           <AIBotProfile />
-        </div>
-        <div className="relative bg-gray-100 dark:bg-c_background/50  flex flex-col rounded-3xl h-full w-full">
+        </div> */}
+        <div className="relative flex flex-col h-full w-full">
           <FindUser />
           <AnswerProvider  >
           <div className="flex-1 w-full">
@@ -84,6 +87,8 @@ export default async function Home() {
           </div> */}
         </div>
       </div>
+      </BackgroundGlobalGradient>
+
     </main>
   );
 }

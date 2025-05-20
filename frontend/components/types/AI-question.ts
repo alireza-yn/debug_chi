@@ -2,6 +2,8 @@ export interface Main {
     id:            number;
     category_name: string;
     title:         string;
+    description:   string;
+    icon:          string;
     ai_category:   AICategory[];
     created_at:    string;
     updated_at:    string;
