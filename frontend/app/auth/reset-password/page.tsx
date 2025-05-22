@@ -21,12 +21,11 @@ const page = async ({
 else{
 
   return (
-    <BackgroundGlobalGradient>
-
-    <div className="w-full h-screen flex items-center justify-center">
+    
+    <div className="w-full h-screen flex items-center justify-center relative">
+      <BackgroundGlobalGradient />
       <ResetPassword token={code}/>
     </div>
-    </BackgroundGlobalGradient>
   );
 }
 };

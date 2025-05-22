@@ -17,14 +17,13 @@ const page = () => {
         <SidebarBody />
         <SidebarFooter />
       </Sidebar>
-        <BackgroundGlobalGradient>
 
-      <div className="flex-1 h-screen w-full flex items-center justify-center">
+      <div className="flex-1 h-screen w-full flex items-center justify-center relative">
+        <BackgroundGlobalGradient />
 
             <ForgetPassword />
 
       </div>
-      </BackgroundGlobalGradient>
     </main>
   );
 };
