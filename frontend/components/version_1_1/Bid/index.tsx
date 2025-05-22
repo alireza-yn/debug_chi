@@ -34,7 +34,7 @@ const Bid = ({ data }: Props) => {
     });
 
   return (
-    <div className="w-full h-full">
+    <div className="w-full h-full flex flex-col gap-4 mt-24">
       {filteredResults && filteredResults.length > 0 ? (
         filteredResults.map((result, index) => (
           <Card key={index} tender={result.tender} bids={result.bids} />

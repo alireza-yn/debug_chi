@@ -18,14 +18,23 @@ import {
   Textarea,
   DatePicker,
   NumberInput,
+  Dropdown,
+  DropdownItem,
+  DropdownTrigger,
+  DropdownMenu,
+  Avatar,
+  Alert,
 } from "@heroui/react";
 import {
   ArrowLeft,
   Check,
   CheckCircle,
+  ChevronLeft,
   CircleFadingPlusIcon,
+  EllipsisVertical,
   Gavel,
-  Image,
+  PlusSquare,
+  Search,
   X,
 } from "lucide-react";
 import { LibraIcon } from "@/components/ui/icons";
@@ -45,10 +54,18 @@ import { perform_get, perform_post } from "@/lib/api";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
 import { usePathname } from "next/navigation";
-import { Main, Public } from "@/components/types/RequestListForBid";
-import { formatCurrency } from "@/utils/tools";
+import {
+  Main,
+  Public,
+  Bid as MainBid,
+} from "@/components/types/RequestListForBid";
+import { formatCurrency, formatTimeAgo } from "@/utils/tools";
 import TenderBidsList from "./TenderBidsList";
 import TednerCancelation from "./TenderCancelation";
+import CardGradient from "../ui/CardGradient";
+import Scrollbar from "../ui/scroll-area";
+import Image from "next/image";
+
 type Bid = {
   id: number;
   name: string;
@@ -110,7 +127,7 @@ const statusOptions = [
 
 const BidIncomingList = () => {
   const [tenderClass, setTenderClass] = useState<Main>();
-
+  const { details, acceptModal } = tenderContext();
   useEffect(() => {
     const getAllClassData = async () => {
       const response = await perform_get("api/v1/get_all_tender_class/");
@@ -148,16 +165,18 @@ const BidIncomingList = () => {
   });
 
   return (
-    <TenderProvider>
-      <div
-        className={`${
-          isOpen ? "w-[500px]" : "w-96"
-        } transition-all duration-500 ease-in-out h-full flex flex-col gap-4 relative`}
-      >
-        <UploadBidSection setIsOpen={setIsOpen} />
-        {/* بخش فیلترها */}
-        <div className="w-full h-20 gap-3 flex items-center justify-between bg-default-50 rounded-t-3xl box-border p-4">
-          <Select
+    <div
+      className={`${
+        isOpen ? "w-[500px]" : "w-96"
+      } transition-all duration-500 ease-in-out h-full flex flex-col gap-4 relative`}
+    >
+      {/* <UploadBidSection setIsOpen={setIsOpen} /> */}
+      {/* بخش فیلترها */}
+      {acceptModal && <AcceptModal />}
+
+      <div className="w-full h-10 gap-3 flex items-center justify-between  rounded-t-3xl">
+        <TenderSearch />
+        {/* <Select
             fullWidth
             label="نوع کلاس"
             placeholder="انتخاب کلاس"
@@ -180,57 +199,138 @@ const BidIncomingList = () => {
             {statusOptions.map((option) => (
               <SelectItem key={option.key}>{option.label}</SelectItem>
             ))}
-          </Select>
-        </div>
-
-        {/* بخش نمایش بیدها */}
-        <div className="w-full h-full flex flex-col gap-2 overflow-y-auto box-border px-4 py-1">
-          <PublicAuctionRquestList public_data={tenderClass?.public || []} />
-          <PrivateTenderRquestList private_data={tenderClass?.private || []} />
-        </div>
+          </Select> */}
       </div>
-    </TenderProvider>
+
+      {/* بخش نمایش بیدها */}
+      <div className="w-full h-full flex flex-col gap-2 overflow-y-auto box-border py-1 scrollbar-left relative">
+        {details.state == false ? (
+          <>
+            <PublicAuctionRquestList public_data={tenderClass?.public || []} />
+            <PrivateTenderRquestList
+              private_data={tenderClass?.private || []}
+            />
+          </>
+        ) : (
+          <BidIncomingListItem bids={details.bids || []} />
+        )}
+      </div>
+    </div>
   );
 };
 
 export default BidIncomingList;
+
+const TenderSearch = () => {
+  const { details, setDetails } = tenderContext();
+  return (
+    <div className="flex gap-2 items-center w-full" dir="rtl">
+      <Input
+        startContent={<Search />}
+        size="sm"
+        radius="full"
+        variant="bordered"
+        className="border-default-50"
+        placeholder="جستجوی مزایده..."
+        fullWidth
+      />
+      <Button
+        variant="light"
+        isIconOnly
+        size="sm"
+        color="default"
+        startContent={<PlusSquare className="stroke-gray-500" />}
+      ></Button>
+      <Button
+        isDisabled={!details.state}
+        variant="light"
+        size="sm"
+        color="default"
+        startContent={<ArrowLeft />}
+        isIconOnly
+        onPress={() => setDetails({ bids: [], state: false })}
+      ></Button>
+    </div>
+  );
+};
 
 const PublicAuctionRquestList = ({
   public_data,
 }: {
   public_data: Public[];
 }) => {
+  const { setDetails } = tenderContext();
+
+  if (public_data.length == 0) {
+    return null;
+  }
+
   return (
-    <Accordion variant="splitted" dir="rtl">
-      <AccordionItem
-        key={"public"}
-        aria-label="public"
-        title={<div className="text-tiny">کلاس عمومی</div>}
-      >
-        {public_data.map((item) => {
-          return (
-            <div
-              className="w-full py-4 my-2 bg-default-100 rounded-xl box-border px-2"
-              key={item.id}
-            >
-              <div className="flex items-center  gap-2">
-                <div className="flex-1">
-                  <User
-                    name={item.title.substring(0, 24)}
-                    avatarProps={{
-                      src: item.image || "/user.jpg",
-                    }}
-                  />
-                </div>
-                <TenderBidsList bids={item.bids} title={item.title} />
-               <TednerCancelation tender_uuid={item.uuid}/>
-              </div>
-            </div>
-          );
-        })}
-        {public_data.length == 0 && <span>کلاسی وجود ندارد</span>}
-      </AccordionItem>
-    </Accordion>
+    <div className="space-y-4 flex flex-col">
+      {public_data.map((item) => {
+        console.log(item);
+        return (
+          <Card
+            dir="rtl"
+            key={item.id}
+            className="relative h-48 border border-default-100 mr-2"
+          >
+            <CardGradient />
+            <CardHeader className="text-lime-500 box-border px-4 flex justify-between">
+              <h2>{item.title}</h2>
+              <MoreTenderButton />
+            </CardHeader>
+            <CardBody className="space-y-2">
+              <Divider className="w-3/4 mx-auto" />
+              <Button
+                onPress={() => {
+                  setDetails({ bids: item.bids, state: true });
+                }}
+                variant="light"
+                fullWidth
+                className="justify-between hover:bg-transparent"
+              >
+                <span>درخواست ها</span>
+                <ChevronLeft size={14} />
+              </Button>
+              <Divider className="w-3/4 mx-auto" />
+              <Button
+                variant="light"
+                fullWidth
+                className="justify-between hover:bg-transparent"
+              >
+                <span>بررسی شده ها</span>
+                <ChevronLeft size={14} />
+              </Button>
+            </CardBody>
+          </Card>
+        );
+      })}
+    </div>
+  );
+};
+
+const MoreTenderButton = () => {
+  return (
+    <Dropdown dir="rtl" placement="bottom-start" backdrop="opaque">
+      <DropdownTrigger>
+        <Button
+          isIconOnly
+          variant="light"
+          color="default"
+          startContent={<EllipsisVertical size={14} />}
+        ></Button>
+      </DropdownTrigger>
+      <DropdownMenu>
+        <DropdownItem key={"edit"}>ویرایش</DropdownItem>
+        <DropdownItem key={"show"}>مشاهده در وبسایت</DropdownItem>
+        <DropdownItem key={"copy"}>کپی در آگهی</DropdownItem>
+        <DropdownItem key={"archive"}>ویرایش</DropdownItem>
+        <DropdownItem key={"close"} variant="flat" color="danger">
+          بستن
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
   );
 };
 
@@ -239,67 +339,84 @@ const PrivateTenderRquestList = ({
 }: {
   private_data: Public[];
 }) => {
+  if (private_data.length == 0) {
+    return null;
+  }
+
   return (
-    <Accordion variant="splitted" dir="rtl">
-      <AccordionItem
-        key={"public"}
-        aria-label="public"
-        title={<div className="text-tiny">کلاس خصوصی</div>}
-      >
-        {private_data.map((item) => {
-          return (
-            <Accordion key={item.id} variant="splitted" className="my-2">
-              <AccordionItem
-                title={item.title.substring(0, 24)}
-                aria-label={`tender ${item.id}`}
-                className="text-tiny font-lightSans bg-default-100"
-              >
-                {item.bids.map((bid) => {
-                  return (
-                    <Accordion key={bid.id} variant="splitted">
-                      <AccordionItem
-                        aria-label={`user_bid_${bid.id}`}
-                        className="my-2 gap-2"
-                        title={
-                          <div className="flex gap-3 items-center">
-                            <User
-                              name={
-                                bid.user.first_name + " " + bid.user.last_name
-                              }
-                              avatarProps={{
-                                src: bid.user.image_profile || "/user.jpg",
-                              }}
-                            />
-                            <span className="text-tiny">
-                              {formatCurrency(Number(bid.amount), false)}
-                            </span>
-                          </div>
-                        }
-                      >
-                        <div className="flex gap-2 w-full">
-                          <Button variant="solid" color="success">
-                            تایید
-                          </Button>
-                          <Button variant="flat" color="danger">
-                            رد درخواست
-                          </Button>
-                        </div>
-                      </AccordionItem>
-                    </Accordion>
-                  );
-                })}
-                {item.bids.length == 0 && (
-                  <div className="w-full text-center py-2">
-                    کاربری شرکت نکرده
-                  </div>
-                )}
-              </AccordionItem>
-            </Accordion>
-          );
-        })}
-        {private_data.length == 0 && <span>کلاسی وجود ندارد</span>}
-      </AccordionItem>
-    </Accordion>
+    <div className="space-y-4">
+      {private_data.map((item) => (
+        <Card key={item.id} dir="rtl">
+          <CardHeader>{item.title}</CardHeader>
+          <CardBody>{/* محتوای بدنه کارت */}</CardBody>
+          <CardFooter>{/* فوتر کارت */}</CardFooter>
+        </Card>
+      ))}
+    </div>
+  );
+};
+
+const BidIncomingListItem = ({ bids }: { bids: MainBid[] }) => {
+  const { details, setDetails, setAcceptModal } = tenderContext();
+
+  return (
+    <div className="w-full rounded-xl space-y-4 h-auto flex flex-col items-center gap-2 my-2 ">
+      {bids.map((bid) => (
+        <div className="w-full bg-default-100 h-44 border border-default-200 rounded-2xl space-y-4">
+          <div className="flex-1 h-16 flex gap-2 items-center bg-default-50 rounded-2xl border border-default-200 relative justify-between">
+            <CardGradient />
+            <Button
+              variant="solid"
+              color="success"
+              onPress={() => setAcceptModal(true)}
+              className="text-white ml-4 bg-[#4A9909]"
+              size="sm"
+            >
+              پذیرش
+            </Button>
+            <div className="flex items-center gap-2" dir="rtl">
+              <User
+              className="z-40 mr-4"
+                name={bid.user.first_name + " " + bid.user.last_name}
+                avatarProps={{
+                  name: bid.user.image_profile,
+                  src: bid.user.image_profile,
+                }}
+                description={bid.user.job_title || "تعیین نشده"}
+              />
+              {/* <Avatar
+                className="mr-4"
+                src={bid.user.image_profile}
+                name={bid.user.first_name + " " + bid.user.last_name}
+              />
+              <span className="text-white z-10 text-xs">
+                {bid.user.first_name + " " + bid.user.last_name}
+              </span> */}
+            </div>
+          </div>
+          <div className="w-full flex-1 flex flex-col gap-2 items-center justify-between box-border px-4">
+            <div className="flex justify-between box-border px-10 w-full">
+              <span className="text-xs font-lightSans">
+                {formatTimeAgo(bid.created_at)}
+              </span>
+              <span className="text-xs font-lightSans">تاریخ درخواست</span>
+            </div>
+            <Image
+              src={"/svg/LineGradient.svg"}
+              alt="LineGradient"
+              width={200}
+              height={1}
+            />
+            <div className="flex justify-between box-border px-10 w-full">
+              <span className="text-xs font-lightSans text-lime-500">
+                در انتظار تایید
+              </span>
+              <span className="text-xs font-lightSans">وضعیت</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
   );
 };
 
@@ -345,8 +462,8 @@ const UploadBidSection = ({
       </div>
 
       <div
-        className={`absolute box-border z-50 p-5 transition-all duration-500 ${
-          showUpload ? "w-full h-[100%]" : "w-0 h-[0%] opacity-0 -z-10"
+        className={`absolute box-border p-5 transition-all duration-500 ${
+          showUpload ? "w-full h-[100%] z-50" : "w-0 h-[0%] opacity-0 -z-10"
         }`}
       >
         <div className="w-full h-full flex flex-col rounded-3xl bg-default-50 box-border p-5">
@@ -382,7 +499,6 @@ const PageOneUpload = ({
   const { project, setProjectData, setTenderData, images, tender } =
     tenderContext();
   const [isLoading, setIsloading] = useState(false);
-
 
   const createImageProject = async (project_id: number) => {
     try {
@@ -732,5 +848,53 @@ const SubmitPrice = () => {
       onValueChange={(value) => setTenderData({ ...tender, start_bid: value })}
     />
     // </div>
+  );
+};
+
+const AcceptModal = () => {
+  const { acceptModal, setAcceptModal } = tenderContext();
+  return (
+    <div className="absolute z-50 w-full h-full flex items-center justify-center backdrop-blur-md bg-default-50/10 border border-default-100 rounded-2xl box-border p-5">
+      <Card className="w-96 h-64 flex items-center justify-center border border-default-100">
+        <CardHeader>
+          <Alert
+            color="danger"
+            variant="flat"
+            title={"این عملیات قابل بازگشت نیست"}
+            dir="rtl"
+          />
+        </CardHeader>
+        <CardBody className="flex flex-col items-center justify-center box-border p-4 gap-4">
+          <p className="text-center">
+            آیا از این که متخصص را به عنوان استاد پذیرفته اید اطمینان دارید؟
+          </p>
+        </CardBody>
+        <CardFooter className="flex gap-4">
+          <Button
+            variant="ghost"
+            fullWidth
+            radius="full"
+            color="default"
+            onPress={() => {
+              setAcceptModal(false);
+              // setIsOpen(false);
+            }}
+          >
+            خیر
+          </Button>
+          <Button
+            radius="full"
+            fullWidth
+            variant="ghost"
+            color="default"
+            onPress={() => {
+              // setIsOpen(false);
+            }}
+          >
+            بله
+          </Button>
+        </CardFooter>
+      </Card>
+    </div>
   );
 };

@@ -54,9 +54,10 @@ export default function SignUp() {
       }}
       onOpenChange={onOpenChange}
     >
-      <DrawerContent>
+      <DrawerContent className="relative overflow-hidden">
         {(onClose) => (
-          <BackgroundGlobalGradient>
+          <>
+        <BackgroundGlobalGradient />
             <DrawerHeader className="flex gap-1 items-center relative mt-5">
               <Button
                 endContent={<ArrowLeft />}
@@ -85,9 +86,10 @@ export default function SignUp() {
               </motion.div>
             </DrawerBody>
             <DrawerFooter> </DrawerFooter>
-          </BackgroundGlobalGradient>
+        </>
         )}
       </DrawerContent>
+
     </Drawer>
   );
 }

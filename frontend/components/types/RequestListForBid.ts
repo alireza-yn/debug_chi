@@ -29,8 +29,8 @@ export interface Bid {
     id:         number;
     user:       User;
     amount:     string;
-    created_at: Date;
-    updated_at: Date;
+    created_at: string;
+    updated_at: string;
     tender:     number;
 }
 
@@ -42,6 +42,7 @@ export interface User {
     user_phone:     string;
     first_name:     string;
     last_name:      string;
+    job_title:      string;
     uuid:           string;
     user_language:  any[];
     user_expertise: any[];

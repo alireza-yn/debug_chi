@@ -1,5 +1,5 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 import {
   Card,
   CardBody,
@@ -7,9 +7,15 @@ import {
   SelectItem,
   Slider,
   Input,
+  Dropdown,
+  DropdownItem,
+  DropdownTrigger,
+  Button,
+  DropdownMenu,
+  Badge,
 } from "@heroui/react";
 import { useBidFilter } from "@/context/BidFilterContext";
-import { SearchCode } from "lucide-react";
+import { Backpack, Search, SearchCode, SlidersHorizontal } from "lucide-react";
 
 type Props = {};
 
@@ -17,8 +23,8 @@ const BidFilter = (props: Props) => {
   const { filter, setFilter, priceValue, setValue } = useBidFilter();
 
   return (
-    <div className="w-full flex gap-4 items-center " dir="rtl">
-      <Card>
+    <div className="w-full flex gap-4 items-center justify-center" dir="rtl">
+      {/* <Card>
         <CardBody className="min-w-96 bg-default-100" dir="ltr">
           <Slider
             defaultValue={[100000, 5000000]}
@@ -30,9 +36,9 @@ const BidFilter = (props: Props) => {
             step={100000}
           />
         </CardBody>
-      </Card>
+      </Card> */}
 
-      <Select
+      {/* <Select
         className="max-w-xs"
         label="نوع"
         placeholder="انتخاب نوع"
@@ -71,14 +77,18 @@ const BidFilter = (props: Props) => {
         >
           مناقصه
         </SelectItem>
-      </Select>
-
+      </Select> */}
+      <FilterMenu />
       <Input
         type="text"
         size="lg"
-        className="w-96"
-        placeholder="مزایده , مناقصه , آموزش و...  "
-        startContent={<SearchCode className="fill-none" />}
+        className="w-[512px]"
+        classNames={{
+          inputWrapper: "bg-input border border-default-100",
+        }}
+        placeholder="جستجو..."
+        isClearable
+        startContent={<Search className="fill-none" />}
         onValueChange={(value) => {
           setFilter({
             ...filter,
@@ -86,8 +96,56 @@ const BidFilter = (props: Props) => {
           });
         }}
       />
+      <NotifMenu />
     </div>
   );
 };
 
 export default BidFilter;
+
+const FilterMenu = () => {
+  return (
+    <Dropdown>
+      <DropdownTrigger>
+        <Button
+          variant="light"
+          isIconOnly
+          startContent={<SlidersHorizontal />}
+        ></Button>
+      </DropdownTrigger>
+      <DropdownMenu aria-label="Static Actions">
+        <DropdownItem key="new">New file</DropdownItem>
+        <DropdownItem key="copy">Copy link</DropdownItem>
+        <DropdownItem key="edit">Edit file</DropdownItem>
+        <DropdownItem key="delete" className="text-danger" color="danger">
+          Delete file
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  );
+};
+const NotifMenu = () => {
+  const [number, setNumber] = useState(5);
+
+  return (
+    <Dropdown>
+        <Badge content={number} placement="bottom-left" color="danger">
+      <DropdownTrigger>
+          <Button
+            variant="light"
+            isIconOnly
+            startContent={<Backpack />}
+            ></Button>
+      </DropdownTrigger>
+        </Badge>
+      <DropdownMenu aria-label="Static Actions">
+        <DropdownItem key="new">New file</DropdownItem>
+        <DropdownItem key="copy">Copy link</DropdownItem>
+        <DropdownItem key="edit">Edit file</DropdownItem>
+        <DropdownItem key="delete" className="text-danger" color="danger">
+          Delete file
+        </DropdownItem>
+      </DropdownMenu>
+    </Dropdown>
+  );
+};

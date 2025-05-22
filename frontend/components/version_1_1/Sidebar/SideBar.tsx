@@ -139,7 +139,7 @@ const SidebarBody = (props: Props) => {
 
   return (
     <div className="w-full flex-1 flex items-center flex-col justify-center py-4 box-border gap-4">
-      <div className="flex flex-col h-auto border p-2 rounded-full border-default-100 bg-default-50 gap-4">
+      <div className="flex flex-col max-sm:flex-row h-auto border p-2 rounded-full border-default-200 dark:border-default-100 bg-default-100 dark:bg-default-50 gap-4">
 
       {linkData.map((item, index) => {
         const isActive =

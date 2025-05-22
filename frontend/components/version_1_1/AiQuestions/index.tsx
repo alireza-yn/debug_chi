@@ -21,7 +21,6 @@ type Props = {
 };
 
 const AiQuestion = ({ question }: Props) => {
-  console.log(question);
   const [message_id, setMessageId] = useState(0);
   const {
     selectedAnswer,
@@ -160,12 +159,11 @@ const AiQuestion = ({ question }: Props) => {
       <span className="text-4xl mb-20">چطور میتونم کمکت کنم؟</span>
 
       <div
-        className=" w-[55%] h-96 grid grid-cols-2 gap-4 mb-4 "
+        className=" w-[55%] max-sm:w-full h-96 max-sm:h-auto grid max-sm:grid-cols-1 grid-cols-2 gap-4 mb-4 "
         id="questions"
       >
         {question.length > 0 &&
           question.map((item, index) => {
-            console.log(item);
             return (
               <div
                 key={index + 1}
@@ -210,7 +208,7 @@ const AiQuestion = ({ question }: Props) => {
                       : "opacity-0 translate-y-2"
                   }`}
                 >
-                  <Button
+                  {/* <Button
                     isIconOnly
                     size="sm"
                     className="bg-lime-300"
@@ -220,7 +218,7 @@ const AiQuestion = ({ question }: Props) => {
                       handleQuestion(item.ai_category[0], index);
                     }}
                     startContent={<ArrowUp color="black" />}
-                  ></Button>
+                  ></Button> */}
                 </div>
               </div>
             );

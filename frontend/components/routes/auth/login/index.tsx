@@ -33,6 +33,7 @@ import {
 import Link from "next/link";
 import BackgorundGLobalGradiant from "@/components/version_1_1/ui/backgorund-gradiant-global";
 import Input from "@/components/version_1_1/ui/input";
+import BackgroundGlobalGradient from "@/components/version_1_1/ui/backgorund-gradiant-global";
 
 export default function Login() {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
@@ -111,9 +112,10 @@ export default function Login() {
       }}
       onOpenChange={onOpenChange}
     >
-      <DrawerContent>
+      <DrawerContent className="relative overflow-hidden">
         {(onClose) => (
-          <BackgorundGLobalGradiant>
+          <>
+            <BackgroundGlobalGradient />
             <Button
               endContent={<ArrowLeft size={28} />}
               variant="light"
@@ -181,15 +183,16 @@ export default function Login() {
                             />
                             <div className="w-full flex items-center justify-start my-2">
                               <Button
-                              as={Link}
+                                as={Link}
                                 variant="light"
                                 href={"/auth/forget-password/"}
                                 className="text-tiny text-blue-500 underline"
-                                onPress={() =>{
-                                  dispatch(showLogin({ show: false, path: "" }))
-                                  onClose()
-                                }
-                                }
+                                onPress={() => {
+                                  dispatch(
+                                    showLogin({ show: false, path: "" })
+                                  );
+                                  onClose();
+                                }}
                               >
                                 بازیابی کلمه عبور؟
                               </Button>
@@ -319,7 +322,7 @@ export default function Login() {
                 </Card>
               </div>
             </DrawerBody>
-          </BackgorundGLobalGradiant>
+          </>
         )}
       </DrawerContent>
     </Drawer>

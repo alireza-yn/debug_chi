@@ -124,12 +124,13 @@ class CustomUserSerializer(ModelSerializer):
             "user_phone",
             "first_name",
             "last_name",
+            "job_title",
             "uuid",
             "user_language",
             "user_expertise",
             "user_bio",
             "debugger_bio",
-            "user_score",
+            "user_score"
         ]
 
 

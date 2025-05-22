@@ -3,21 +3,21 @@
 import { createContext, useContext, useState, ReactNode } from "react";
 import Cookies from "js-cookie";
 import { jwtDecode } from "jwt-decode";
-
+import { Bid } from "@/components/types/RequestListForBid";
 
 // Define the shape of our context
 interface TenderType {
   mode?: "tender" | "auction";
   title?: string;
   description?: string;
-  project?:number,
+  project?: number;
   start_time?: string;
   end_time?: string;
   start_bid?: number;
   image?: File;
 }
 interface ProjectType {
-  project_id?:number;
+  project_id?: number;
   type_class?: "private" | "public";
   class_title?: string;
   description?: string;
@@ -32,25 +32,53 @@ interface ProjectType {
   created_by?: number;
   is_tender?: boolean;
 }
+
+interface Details {
+  state:boolean;
+  bids: any[] ;
+}
+
+
+
 interface TenderContextType {
   images: any[];
-  setImages: (image:any[])=>void;
   tender: TenderType | null;
-  setTenderData: (tender: TenderType) => void;
   project: ProjectType | null;
+  details : Details;
+  acceptModal: boolean;
+  setAcceptModal: (acceptModal: boolean) => void;
+  setDetails: (details: Details) => void;
+  setImages: (image: any[]) => void;
+  setTenderData: (tender: TenderType) => void;
   setProjectData: (project: ProjectType) => void;
 }
 
-// Create the context with default values
+
 const AppContext = createContext<TenderContextType | undefined>(undefined);
 
 export const TenderProvider = ({ children }: { children: ReactNode }) => {
   const [tender, setTenderData] = useState<TenderType | null>(null);
   const [project, setProjectData] = useState<ProjectType | null>(null);
-  const [images,setImages] = useState<any[]>([])
+  const [images, setImages] = useState<any[]>([]);
+  const [details, setDetails] = useState<Details>({
+    state: false,
+    bids: [],
+  });
+  const [acceptModal, setAcceptModal] = useState(false);
   return (
     <AppContext.Provider
-      value={{ tender, setTenderData, setProjectData, project, images, setImages }}
+      value={{
+        acceptModal,
+        setAcceptModal,
+        details,
+        setDetails,
+        tender,
+        setTenderData,
+        setProjectData,
+        project,
+        images,
+        setImages,
+      }}
     >
       {children}
     </AppContext.Provider>

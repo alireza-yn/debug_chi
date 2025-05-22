@@ -11,7 +11,7 @@ import {
   PopoverTrigger,
   User,
 } from "@heroui/react";
-import { Heart, MessageCircleMore, Reply, SendIcon } from "lucide-react";
+import { Eye, Heart, MessageCircle, MessageCircleMore, Reply, SendIcon } from "lucide-react";
 import { useEffect, useState } from "react";
 import { perform_get, perform_post } from "@/lib/api";
 
@@ -44,22 +44,35 @@ const Action = ({ comment_id, is_like, like_count, tender_uuid }: Props) => {
   };
 
   return (
-    <div className="flex flex-1 items-center gap-4 justify-end box-border pr-10">
-      <Button
-        startContent={
-          <Heart
-            className={`${
-              like.is_like ? "fill-red-500 stroke-red-500" : "stroke-slate-100"
-            }`}
-          />
-        }
-        size="sm"
-        variant="light"
-        onPress={likeHandler}
-      >
-        {like.count}
-      </Button>
-      <CommentAction comment_id={comment_id} />
+    <div className="flex flex-1 items-center gap-4 justify-start box-border">
+      <div className="w-auto bg-default-50 border border-default-100 rounded-full">
+        <Button
+          startContent={
+            <Heart
+              className={`${
+                like.is_like
+                  ? "fill-red-500 stroke-red-500"
+                  : "stroke-slate-100"
+              }`}
+            />
+          }
+          size="sm"
+          variant="light"
+          onPress={likeHandler}
+        >
+          {like.count}
+        </Button>
+
+        <CommentAction comment_id={comment_id} />
+        <Button
+          startContent={<Eye />}
+          size="sm"
+          variant="light"
+          onPress={likeHandler}
+        >
+          0
+        </Button>
+      </div>
     </div>
   );
 };
@@ -153,7 +166,7 @@ const CommentAction = ({ comment_id }: { comment_id: string }) => {
     <Popover placement="top">
       <PopoverTrigger>
         <Button
-          startContent={<MessageCircleMore />}
+          startContent={<MessageCircle />}
           size="sm"
           variant="light"
           onClick={fetchComments}

@@ -123,6 +123,7 @@ const config = {
       colors:{
           c_background:"#2c2552",
           c_secondary:"#232035",
+          input:"#1C1C1C",
           main_bg:"#140a31",
           community:"#1D142D",
           bg_global_blur:"#002D78",

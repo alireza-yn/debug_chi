@@ -65,9 +65,9 @@ export default async function Home() {
         <SidebarBody />
         <SidebarFooter token={token} />
       </Sidebar>
-      <BackgroundGlobalGradient>
 
-      <div className="flex-1 flex  h-screen box-border p-4 gap-4">
+      <div className="flex-1 flex relative h-full overflow-hidden box-border p-4 gap-4">
+      <BackgroundGlobalGradient />
         {/* <div className="bg-gray-100 dark:bg-c_background/50  rounded-3xl h-full w-96">
           <AIBotProfile />
         </div> */}
@@ -87,7 +87,6 @@ export default async function Home() {
           </div> */}
         </div>
       </div>
-      </BackgroundGlobalGradient>
 
     </main>
   );
