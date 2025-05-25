@@ -1,8 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import {
-  Accordion,
-  AccordionItem,
+
   Button,
   Card,
   CardBody,
@@ -24,6 +23,7 @@ import {
   DropdownMenu,
   Avatar,
   Alert,
+  addToast,
 } from "@heroui/react";
 import {
   ArrowLeft,
@@ -32,7 +32,9 @@ import {
   ChevronLeft,
   CircleFadingPlusIcon,
   EllipsisVertical,
+  Eye,
   Gavel,
+  Mail,
   PlusSquare,
   Search,
   X,
@@ -127,7 +129,7 @@ const statusOptions = [
 
 const BidIncomingList = () => {
   const [tenderClass, setTenderClass] = useState<Main>();
-  const { details, acceptModal } = tenderContext();
+  const { details,unSeenBid, acceptModal,setBidStatus,showUpload,setShowUpload } = tenderContext();
   useEffect(() => {
     const getAllClassData = async () => {
       const response = await perform_get("api/v1/get_all_tender_class/");
@@ -137,7 +139,7 @@ const BidIncomingList = () => {
       }
     };
     getAllClassData();
-  }, []);
+  }, [setBidStatus]);
 
   // برای هر دو فیلتر مقدار پیش‌فرض "همه"
   const [selectedClass, setSelectedClass] = React.useState<any>(
@@ -166,14 +168,16 @@ const BidIncomingList = () => {
 
   return (
     <div
-      className={`${
-        isOpen ? "w-[500px]" : "w-96"
-      } transition-all duration-500 ease-in-out h-full flex flex-col gap-4 relative`}
+      className={`${isOpen ? "w-[500px]" : "w-96"
+        } transition-all duration-500 ease-in-out h-full flex flex-col gap-4 relative`}
     >
-      {/* <UploadBidSection setIsOpen={setIsOpen} /> */}
-      {/* بخش فیلترها */}
-      {acceptModal && <AcceptModal />}
+      {
+        showUpload && <UploadBidSection setIsOpen={setIsOpen} />
+      }
+  
 
+      {acceptModal.stats && <AcceptModal />}
+      
       <div className="w-full h-10 gap-3 flex items-center justify-between  rounded-t-3xl">
         <TenderSearch />
         {/* <Select
@@ -202,7 +206,7 @@ const BidIncomingList = () => {
           </Select> */}
       </div>
 
-      {/* بخش نمایش بیدها */}
+  
       <div className="w-full h-full flex flex-col gap-2 overflow-y-auto box-border py-1 scrollbar-left relative">
         {details.state == false ? (
           <>
@@ -212,7 +216,14 @@ const BidIncomingList = () => {
             />
           </>
         ) : (
-          <BidIncomingListItem bids={details.bids || []} />
+          <>
+          {
+            !unSeenBid && <BidIncomingListItem bids={details.bids} />
+          }
+          {
+            unSeenBid && <BidUnSeenListItem bids={details.bids}/>
+          }
+          </>
         )}
       </div>
     </div>
@@ -222,7 +233,7 @@ const BidIncomingList = () => {
 export default BidIncomingList;
 
 const TenderSearch = () => {
-  const { details, setDetails } = tenderContext();
+  const { details, setDetails,setUnseenBids,setShowUpload } = tenderContext();
   return (
     <div className="flex gap-2 items-center w-full" dir="rtl">
       <Input
@@ -239,6 +250,7 @@ const TenderSearch = () => {
         isIconOnly
         size="sm"
         color="default"
+        onPress={()=>setShowUpload(true)}
         startContent={<PlusSquare className="stroke-gray-500" />}
       ></Button>
       <Button
@@ -248,7 +260,10 @@ const TenderSearch = () => {
         color="default"
         startContent={<ArrowLeft />}
         isIconOnly
-        onPress={() => setDetails({ bids: [], state: false })}
+        onPress={() =>{
+          setDetails({ bids: [], state: false })
+          setUnseenBids(false)
+        }}
       ></Button>
     </div>
   );
@@ -259,7 +274,7 @@ const PublicAuctionRquestList = ({
 }: {
   public_data: Public[];
 }) => {
-  const { setDetails } = tenderContext();
+  const { setDetails,setUnseenBids } = tenderContext();
 
   if (public_data.length == 0) {
     return null;
@@ -268,7 +283,6 @@ const PublicAuctionRquestList = ({
   return (
     <div className="space-y-4 flex flex-col">
       {public_data.map((item) => {
-        console.log(item);
         return (
           <Card
             dir="rtl"
@@ -298,8 +312,12 @@ const PublicAuctionRquestList = ({
                 variant="light"
                 fullWidth
                 className="justify-between hover:bg-transparent"
+                onPress={() => {
+                  setDetails({ bids: item.bids, state: true });
+                  setUnseenBids(true)
+                }}
               >
-                <span>بررسی شده ها</span>
+                <span>بررسی نشده</span>
                 <ChevronLeft size={14} />
               </Button>
             </CardBody>
@@ -348,7 +366,7 @@ const PrivateTenderRquestList = ({
       {private_data.map((item) => (
         <Card key={item.id} dir="rtl">
           <CardHeader>{item.title}</CardHeader>
-          <CardBody>{/* محتوای بدنه کارت */}</CardBody>
+          <CardBody></CardBody>
           <CardFooter>{/* فوتر کارت */}</CardFooter>
         </Card>
       ))}
@@ -357,18 +375,23 @@ const PrivateTenderRquestList = ({
 };
 
 const BidIncomingListItem = ({ bids }: { bids: MainBid[] }) => {
+
   const { details, setDetails, setAcceptModal } = tenderContext();
 
   return (
     <div className="w-full rounded-xl space-y-4 h-auto flex flex-col items-center gap-2 my-2 ">
-      {bids.map((bid) => (
+      {bids.filter(item => item.status == true).map((bid) => (
         <div className="w-full bg-default-100 h-44 border border-default-200 rounded-2xl space-y-4">
           <div className="flex-1 h-16 flex gap-2 items-center bg-default-50 rounded-2xl border border-default-200 relative justify-between">
             <CardGradient />
             <Button
               variant="solid"
               color="success"
-              onPress={() => setAcceptModal(true)}
+              onPress={() => setAcceptModal({
+                stats:true,
+                uuid:bid.user.uuid,
+                bid_id:bid.id
+              })}
               className="text-white ml-4 bg-[#4A9909]"
               size="sm"
             >
@@ -376,7 +399,7 @@ const BidIncomingListItem = ({ bids }: { bids: MainBid[] }) => {
             </Button>
             <div className="flex items-center gap-2" dir="rtl">
               <User
-              className="z-40 mr-4"
+                className="z-40 mr-4"
                 name={bid.user.first_name + " " + bid.user.last_name}
                 avatarProps={{
                   name: bid.user.image_profile,
@@ -419,6 +442,111 @@ const BidIncomingListItem = ({ bids }: { bids: MainBid[] }) => {
     </div>
   );
 };
+const BidUnSeenListItem = ({ bids }: { bids: MainBid[] }) => {
+  const { details, setDetails, setAcceptModal,setBidStatus } = tenderContext();
+  
+  const [isLoading, setLoading] = useState(false);
+
+  const watchBid = async (bid_id: number) => {
+    setLoading(true);
+    const response = await perform_post(
+      `api/v1/handle_seen_bid/${bid_id}/`,{})
+      if(response.success){
+        setLoading(false);
+        addToast({
+          title:"تایید بررسی",
+          description:response.message,
+          variant:"flat",
+          color:"success",
+          timeout:5000,
+          shouldShowTimeoutProgess: true
+        })
+
+      }
+    }
+  return (
+    <div className="w-full rounded-xl space-y-4 h-auto flex flex-col items-center gap-2 my-2 ">
+      {bids.filter(item => item.status == false).map((bid) => (
+        <div className="w-full bg-default-100 h-auto  rounded-2xl space-y-4 pb-2">
+          <div className="flex-1 h-16 flex gap-2 items-center bg-default-50 rounded-2xl border border-default-200 relative justify-between">
+            <CardGradient />
+            {/* <Button
+              variant="solid"
+              color="success"
+              onPress={() => setAcceptModal({
+                stats:true,
+                bid_id:bid.id
+              })}
+              className="text-white ml-4 bg-[#4A9909]"
+              size="sm"
+            >
+              پذیرش
+            </Button> */}
+             <Button fullWidth className="bg-btn_primary" isDisabled={isLoading} isLoading={isLoading} onPress={()=>{
+              watchBid(bid.id)
+              setBidStatus(bid.id)
+              }}>ثبت بررسی</Button>
+            <div className="flex items-center gap-2" dir="rtl">
+              <User
+                className="z-40 mr-4"
+                name={bid.user.first_name + " " + bid.user.last_name}
+                avatarProps={{
+                  name: bid.user.image_profile,
+                  src: bid.user.image_profile,
+                }}
+                description={bid.user.job_title || "تعیین نشده"}
+              />
+              {/* <Avatar
+                className="mr-4"
+                src={bid.user.image_profile}
+                name={bid.user.first_name + " " + bid.user.last_name}
+              />
+              <span className="text-white z-10 text-xs">
+                {bid.user.first_name + " " + bid.user.last_name}
+              </span> */}
+            </div>
+          </div>
+          <div className="w-full flex-1 flex flex-col gap-2 items-center justify-between box-border px-4">
+            <div className="flex justify-between box-border px-10 w-full">
+              <span className="text-xs font-lightSans">
+                {formatTimeAgo(bid.created_at)}
+              </span>
+              <span className="text-xs font-lightSans">تاریخ درخواست</span>
+            </div>
+            <Image
+              src={"/svg/LineGradient.svg"}
+              alt="LineGradient"
+              width={200}
+              height={1}
+            />
+            <div className="flex justify-between box-border px-10 w-full">
+              <span className="text-xs font-lightSans text-lime-500">
+                در انتظار تایید
+              </span>
+              <span className="text-xs font-lightSans">وضعیت</span>
+            </div>
+            <Image
+              src={"/svg/LineGradient.svg"}
+              alt="LineGradient"
+              width={200}
+              height={1}
+            />
+            <div className="flex justify-between box-border px-10 w-full">
+              <span className="text-xs font-lightSans text-lime-500">
+               {formatCurrency(Number(bid.amount))}
+              </span>
+              <span className="text-xs font-lightSans">قیمت پیشنهادی</span>
+            </div>
+          </div>
+          <div className="w-3/4 mx-auto">
+           
+          </div>
+        </div>
+      ))}
+
+    </div>
+  );
+};
 
 const UploadBidSection = ({
   setIsOpen,
@@ -430,7 +558,7 @@ const UploadBidSection = ({
   const { tender, setTenderData } = tenderContext();
   return (
     <>
-      <div className="absolute bottom-3 flex gap-2 items-center w-full justify-center box-border p-5">
+      <div className="absolute bottom-3 flex gap-2 items-center w-full justify-center box-border p-5 z-50">
         <Button
           fullWidth
           className="bg-white text-background"
@@ -462,9 +590,8 @@ const UploadBidSection = ({
       </div>
 
       <div
-        className={`absolute box-border p-5 transition-all duration-500 ${
-          showUpload ? "w-full h-[100%] z-50" : "w-0 h-[0%] opacity-0 -z-10"
-        }`}
+        className={`absolute box-border p-5 transition-all duration-500 ${showUpload ? "w-full h-[100%] z-50" : "w-0 h-[0%] opacity-0 -z-10"
+          }`}
       >
         <div className="w-full h-full flex flex-col rounded-3xl bg-default-50 box-border p-5">
           {page === 1 && (
@@ -853,6 +980,28 @@ const SubmitPrice = () => {
 
 const AcceptModal = () => {
   const { acceptModal, setAcceptModal } = tenderContext();
+
+  const acceptUser = async ()=>{
+    const response = await perform_post(`api/v1/accept_user_bid/${acceptModal.bid_id}/`,{
+      uuid:acceptModal.uuid
+    })
+    if (response.success){
+      addToast({
+        title:"تایید کاربر",
+        description:response.message,
+        color:"success",
+        variant:"flat"
+      })
+    }else{
+      addToast({
+        title:"تایید کاربر",
+        description:response.message,
+        color:"danger",
+        variant:"flat"
+      })
+    }
+  }
+
   return (
     <div className="absolute z-50 w-full h-full flex items-center justify-center backdrop-blur-md bg-default-50/10 border border-default-100 rounded-2xl box-border p-5">
       <Card className="w-96 h-64 flex items-center justify-center border border-default-100">
@@ -876,8 +1025,11 @@ const AcceptModal = () => {
             radius="full"
             color="default"
             onPress={() => {
-              setAcceptModal(false);
-              // setIsOpen(false);
+              setAcceptModal({
+                stats:false,
+                uuid:"",
+                bid_id:0
+              })
             }}
           >
             خیر
@@ -887,9 +1039,7 @@ const AcceptModal = () => {
             fullWidth
             variant="ghost"
             color="default"
-            onPress={() => {
-              // setIsOpen(false);
-            }}
+            onPress={()=>acceptUser()}
           >
             بله
           </Button>

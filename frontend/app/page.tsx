@@ -67,24 +67,18 @@ export default async function Home() {
       </Sidebar>
 
       <div className="flex-1 flex relative h-full overflow-hidden box-border p-4 gap-4">
-      <BackgroundGlobalGradient />
-        {/* <div className="bg-gray-100 dark:bg-c_background/50  rounded-3xl h-full w-96">
-          <AIBotProfile />
-        </div> */}
+        <BackgroundGlobalGradient />
         <div className="relative flex flex-col h-full w-full">
           <FindUser />
           <AnswerProvider  >
-          <div className="flex-1 w-full">
-            <AiQuestion question={questions}/>
-          </div>
-          <div className="w-full h-auto py-4">
-            <Answers />
-          </div>
+            <div className="flex-1 w-full">
+              <AiQuestion question={questions} />
+            </div>
+            <div className="w-full h-auto py-4">
+              <Answers />
+            </div>
           </AnswerProvider>
-          {/* <div className="w-full h-auto box-border p-5">
-            <ChatWithAi />
-            <SendDescription />
-          </div> */}
+
         </div>
       </div>
 

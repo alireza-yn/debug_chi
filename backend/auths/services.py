@@ -23,19 +23,17 @@ class UserService:
         serializer = RegisterSerializers(data=request.data)
 
         if serializer.is_valid():
+
             user = serializer.save()
 
-            # Serialize the user object to a JSON string
             user_data = {
                 "id": user.id,
                 "username": user.username,
                 "email": user.email,
                 "user_phone": user.user_phone,
-                # Add other fields as needed
             }
             message = json.dumps(user_data)
 
-            # Publish the serialized message to Redis
             redis_client.publish("new_user", message)
 
             created, otp_code = self.create_otp(user.user_phone)
@@ -73,8 +71,6 @@ class UserService:
 
     def activate_user(self, otp_code):
 
-        # user = self.get_by_phone(phone)
-        
         otp = OTP.objects.filter(otp_code=otp_code).first()
         if otp:
             otp.delete()
@@ -88,7 +84,7 @@ class UserService:
                     "access": str(refresh.access_token),
                     "intro": otp.user.intro_completed,
                     "uuid": otp.user.uuid,
-                    "data": UserSerializer(otp.user).data
+                    "data": UserSerializer(otp.user).data,
                 },
                 status=status.HTTP_200_OK,
             )
@@ -130,7 +126,8 @@ class UserService:
     def user_login(self, request: Request):
         username = request.data.get("username")
         password = request.data.get("password")
-
+        user_type = request.data.get("type")
+        print(username, password, user_type)
         if not password:
             return Response(
                 {"error": "Password is required"},
@@ -140,21 +137,50 @@ class UserService:
         user = CustomUser.objects.filter(
             Q(username=username) | Q(email=username) | Q(user_phone=username)
         ).first()
+  
+
+        role = user.user_roles.filter(
+            Q(name="debugger") | Q(name="consultant")
+        ).exists()
 
         if user and user.check_password(password):
-            refresh = RefreshToken.for_user(user)
-            return Response(
-                {
-                    "success": True,
-                    "refresh": str(refresh),
-                    "access": str(refresh.access_token),
-                    "user": UserSerializer(user).data,
-                },
-                status=status.HTTP_200_OK,
-            )
+            if user_type == "specialist":
+                if role == True:
+                    refresh = RefreshToken.for_user(user)
+                    return Response(
+                        {
+                            "success": True,
+                            "refresh": str(refresh),
+                            "access": str(refresh.access_token),
+                            "user": UserSerializer(user).data,
+                        },
+                        status=status.HTTP_200_OK,
+                    )
+                else:
+                    return Response(
+                        {
+                            "error": "نام کاربری وارد شده پیدا نشد",
+                        },
+                        status=status.HTTP_200_OK,
+                    )
+            if user_type == "customer":
+                if role== True:
+                    return Response({
+                        "error":"نام کاربری وارد شده مختص دیباگر است"
+                    })
+                refresh = RefreshToken.for_user(user)
+                return Response(
+                    {
+                        "success": True,
+                        "refresh": str(refresh),
+                        "access": str(refresh.access_token),
+                        "user": UserSerializer(user).data,
+                    },
+                    status=status.HTTP_200_OK,
+                )
 
         return Response(
-            {"error": "Credentials are not valid"},
+            {"error": "نام کاربری یا کلمه عبور اشتباه است"},
             status=status.HTTP_200_OK,
         )
 
@@ -262,7 +288,7 @@ class UserService:
                 {
                     "status": status.HTTP_201_CREATED,
                     "error": False,
-                    "message": "کد ارسالی اشتباه است دوباره اقدام کنید"
+                    "message": "کد ارسالی اشتباه است دوباره اقدام کنید",
                 }
             )
 
@@ -274,7 +300,7 @@ class UserService:
                 {
                     "status": status.HTTP_201_CREATED,
                     "error": False,
-                    "data":str(code.token),
+                    "data": str(code.token),
                     "message": "کد شما تایید شد",
                 }
             )

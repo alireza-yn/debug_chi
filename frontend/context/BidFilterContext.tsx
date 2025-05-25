@@ -11,6 +11,8 @@ interface FilterBid {
 interface BidFilterType {
   filter: FilterBid;
   priceValue: SliderValue;
+  show: boolean;
+  setShow: (show: boolean) => void;
   setValue: (value: SliderValue) => void;
   setFilter: (filter: FilterBid) => void;
 }
@@ -19,12 +21,12 @@ const AppContext = createContext<BidFilterType | undefined>(undefined);
 
 export const BidFilterProvider = ({ children }: { children: ReactNode }) => {
   const [filter, setFilter] = useState<FilterBid>({
-    type:"all"
+    type: "all"
   });
-  const [priceValue, setValue] = useState<SliderValue>([0,50000000]);
-
+  const [priceValue, setValue] = useState<SliderValue>([0, 50000000]);
+  const [show, setShow] = useState<boolean>(false);
   return (
-    <AppContext.Provider value={{ filter, setFilter, priceValue, setValue }}>
+    <AppContext.Provider value={{ show, setShow, filter, setFilter, priceValue, setValue }}>
       {children}
     </AppContext.Provider>
   );

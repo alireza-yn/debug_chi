@@ -27,13 +27,10 @@ const page = async ({ params }: any) => {
           <div className="flex items-center justify-center bg-bg_card/50 backdrop-blur-lg absolute top-2 z-30 border border-default-100 w-[98%] rounded-2xl h-24 ">
             <BidFilter />
           </div>
-          <div className="flex h-full box-border gap-4 min-h-0 overflow-hidden ">
-            <div className="flex flex-col flex-1 w-full min-h-0 overflow-hidden">
-              <div className="w-full flex-1 overflow-y-auto scrollbar-hide">
-                <Bid data={tender} />
-              </div>
+          <div className="flex h-full box-border gap-4 min-h-0 overflow-hidden">
+            <div className={`flex flex-col ${token ? 'w-full flex-1' : 'max-w-7xl mx-auto'}  min-h-0 overflow-hidden`}>
+              <Bid data={tender} />
             </div>
-
             {token ? (
               <div className="bg-bg_card border border-default-100 rounded-2xl w-auto p-4 mt-24">
                 <TenderProvider>

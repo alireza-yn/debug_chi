@@ -13,7 +13,8 @@ from rest_framework.request import Request
 from .service import TenderService
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.exceptions import AuthenticationFailed
-
+from drf_spectacular.utils import extend_schema, inline_serializer
+from rest_framework import serializers
 User = get_user_model()
 import redis
 
@@ -234,29 +235,67 @@ class GetAllClassDetails(APIView):
         return Response(ProjectSerializer(all_educations, many=True).data)
 
 
-
-
 class EducationTenderListView(APIView):
     permission_classes = [IsAuthenticated]
 
     def get(self, request: Request):
 
         # دریافت لیست پروژه‌های آموزشی
-        tender_projects_public = TenderProject.objects.filter(created_by=request.user,project__is_tender=True,project__type_class="public").order_by("-created_at")
-        tender_projects_private = TenderProject.objects.filter(created_by=request.user,project__is_tender=True,project__type_class="private").order_by("-created_at")
+        tender_projects_public = TenderProject.objects.filter(
+            created_by=request.user,
+            project__is_tender=True,
+            project__type_class="public",
+        ).order_by("-created_at")
+        tender_projects_private = TenderProject.objects.filter(
+            created_by=request.user,
+            project__is_tender=True,
+            project__type_class="private",
+        ).order_by("-created_at")
         if not tender_projects_public.exists() and not tender_projects_private.exists():
             return Response(
                 {"message": "No educational projects found."},
                 status=status.HTTP_200_OK,
             )
-        serializer_public = TenderSerializers(tender_projects_public, many=True,context={"request": request})
-        serializer_private = TenderSerializers(tender_projects_private,many=True,context={"request": request})
-        return Response({
-            "public":serializer_public.data,
-            "private":serializer_private.data
-
-        }, status=status.HTTP_200_OK)
+        serializer_public = TenderSerializers(
+            tender_projects_public, many=True, context={"request": request}
+        )
+        serializer_private = TenderSerializers(
+            tender_projects_private, many=True, context={"request": request}
+        )
+        return Response(
+            {"public": serializer_public.data, "private": serializer_private.data},
+            status=status.HTTP_200_OK,
+        )
 
 
 # class UserTenderListView(APIView):
+
+
+@extend_schema(
+    tags=["tender"],
+    summary="علامت گذاری پیشنهاد به عنوان دیده شده",
+    request=inline_serializer(
+        name="HandleSeenBidSerializer",
+        fields={
+        "bid_id":serializers.IntegerField(help_text="شناسه پیشنهاد", required=True),
+        }
+    ),
+)
+class HandleSeenBid(APIView, TenderService):
+    permission_classes = [IsAuthenticated]
+    def post(self, request: Request,bid_id:str):
+        return self.handle_seen_bid(bid_id,request.user)
+     
+
+
+class UserJoinedClassesAPIView(APIView,TenderService):
+    def get(self,request:Request):
+        return self.get_all_active_user_class(request.user)
     
+
+
+class AcceptUserBid(APIView,TenderService):
+    permission_classes=[IsAuthenticated]
+    def post(self,request:Request,bid_id:int):
+        user_uuid = request.data.get('uuid')
+        return self.accept_user(user_uuid,bid_id)

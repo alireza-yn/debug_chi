@@ -14,6 +14,7 @@ export interface Bid {
   created_at: Date;
   updated_at: Date;
   tender: number;
+  status:boolean;
 }
 
 export interface CreatedBy {

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   Card,
   CardBody,
@@ -16,7 +16,8 @@ import {
 } from "@heroui/react";
 import { useBidFilter } from "@/context/BidFilterContext";
 import { Backpack, Search, SearchCode, SlidersHorizontal } from "lucide-react";
-
+import Cookies from "js-cookie";
+import { perform_get } from "@/lib/api";
 type Props = {};
 
 const BidFilter = (props: Props) => {
@@ -125,27 +126,33 @@ const FilterMenu = () => {
   );
 };
 const NotifMenu = () => {
-  const [number, setNumber] = useState(5);
+
+  const [number, setNumber] = useState(0);
+
+
+
+  const getAllClassData = async ()=>{
+    const response = await perform_get('api/v1/my-classes/')
+    setNumber(response.length)
+  }
+useEffect(()=>{
+  const token = Cookies.get('token')
+  if (token){
+    getAllClassData()
+  }
+},[]) 
+
+  const { show, setShow } = useBidFilter()
 
   return (
-    <Dropdown>
-        <Badge content={number} placement="bottom-left" color="danger">
-      <DropdownTrigger>
-          <Button
-            variant="light"
-            isIconOnly
-            startContent={<Backpack />}
-            ></Button>
-      </DropdownTrigger>
-        </Badge>
-      <DropdownMenu aria-label="Static Actions">
-        <DropdownItem key="new">New file</DropdownItem>
-        <DropdownItem key="copy">Copy link</DropdownItem>
-        <DropdownItem key="edit">Edit file</DropdownItem>
-        <DropdownItem key="delete" className="text-danger" color="danger">
-          Delete file
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+    <Badge content={number} placement="bottom-left" color="danger" >
+      <Button
+        onPress={() => setShow(!show)}
+        variant="light"
+        isIconOnly
+        startContent={<Backpack />}
+      ></Button>
+    </Badge>
+
   );
 };

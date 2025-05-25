@@ -18,9 +18,6 @@ from django.core.files.base import ContentFile
 User = get_user_model()
 
 
-
-
-
 class UsersByRoleListView(ListAPIView):
     serializer_class = CustomRoleSerializers
     
@@ -32,16 +29,16 @@ class UsersByRoleListView(ListAPIView):
         else:
             return Role.objects.all()
 
+
+@extend_schema(
+    summary="Get user by UUID",
+    description="Retrieve user details using a UUID provided in the URL path.",
+    responses={200: UserSerializer}
+    )
 class GetUserInfoByUUID(RetrieveAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     lookup_field = "uuid"  # مشخص کردن uuid به عنوان فیلد جستجو
-
-    @extend_schema(
-        summary="Get user by UUID",
-        description="Retrieve user details using a UUID provided in the URL path.",
-        responses={200: UserSerializer},
-    )
     def get_object(self):
         uuid = self.kwargs.get("uuid")  # دریافت uuid از مسیر
         if not uuid:
@@ -52,14 +49,9 @@ class GetUserInfoByUUID(RetrieveAPIView):
         except User.DoesNotExist:
             raise NotFound(detail="User not found.")
 
-
 class GetUserInfo(APIView):
     def get(self,request:Request):
         return request.user    
-        
-    
-    
-
 
 class TextToSpeech(APIView):
     def post(self,request:Request):
@@ -88,37 +80,6 @@ class TextToSpeech(APIView):
             )
         else:
             print(f'Error: {response.status_code} - {response.text}')
-
-# class GetUserInfoByUUID(RetrieveAPIView):
-#     serializer_class = UserSerializer
-#     lookup_field = "uuid"
-#     @extend_schema(
-#         parameters=[
-#             {
-#                 "name": "user",
-#                 "in": "query",
-#                 "required": True,
-#                 "description": "User UUID",
-#                 "schema": {
-#                     "type": "string",
-#                     "format": "uuid"
-#                 }
-#             }
-#         ],
-#         responses={200: UserSerializer}
-#     )
-#     def get_object(self):
-#         request: Request = self.request
-#         uuid = request.query_params.get('user')
-#         if not uuid:
-#             raise NotFound(detail="User UUID is required.")
-        
-#         try:
-#             user = User.objects.get(uuid=uuid)
-#             return user
-#         except User.DoesNotExist:
-#             raise NotFound(detail="User not found.")
-
 
 class TestUploadView(APIView):
     def get(self, request):

@@ -32,6 +32,7 @@ export interface Bid {
     created_at: string;
     updated_at: string;
     tender:     number;
+    status:     boolean;
 }
 
 export interface User {

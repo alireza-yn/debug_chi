@@ -7,7 +7,6 @@ from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, Spec
 from .views import * 
 
 
-
 from user_resume.views import *
 from projects.views import *
 from ConsultHub.views import *
@@ -72,7 +71,6 @@ router.register(r'comments',UserCommentsViewSet,basename='کامنت ها')
 #endregion
 
 
-
 #region Question
 router.register(r'questions',QuestionView,basename='پرسش سوال')
 router.register(r'category',CategoryView,basename='دسته بندی')
@@ -129,12 +127,10 @@ urlpatterns = [
     path('v1/close-session/',view=CloseSession.as_view(),name='close-session'),
     path('v1/reject-session/',view=RejectSession.as_view(),name='reject-session'),
     path('v1/reject-session/',view=SessionHandlerAPIView.as_view(),name="handle-session"),
-
     #endregion 
     
     
     #region Project
-
     path('v1/tender/',TenderProjectListView.as_view(),name='tender_info'),
     path('v1/tender_list/',ShowTenderProject.as_view(),name='tender_list'),
     path('v1/bids_tender_list/',GetBidTender.as_view(),name='bid_tender_list'),
@@ -142,7 +138,9 @@ urlpatterns = [
     path('v1/like_tender/<str:tender_uuid>/',TenderLikeHandlerAPIView.as_view(), name='like_tender'),
     path('v1/get_all_class/',GetAllClassDetails.as_view(), name='all_class'),
     path('v1/get_all_tender_class/',EducationTenderListView.as_view(), name='tender_class'),
- 
+    path('v1/handle_seen_bid/<int:bid_id>/',HandleSeenBid.as_view(), name='handle_seen_bid'),
+    path('v1/my-classes/', UserJoinedClassesAPIView.as_view(), name='user-joined-classes'),
+    path('v1/accept_user_bid/<int:bid_id>/', AcceptUserBid.as_view(), name='accept-user-bid'),
     #endregion
     
     #region question

@@ -38,6 +38,11 @@ interface Details {
   bids: any[] ;
 }
 
+interface AcceptModal {
+  stats : boolean;
+  uuid:string;
+  bid_id:number;
+}
 
 
 interface TenderContextType {
@@ -45,8 +50,14 @@ interface TenderContextType {
   tender: TenderType | null;
   project: ProjectType | null;
   details : Details;
-  acceptModal: boolean;
-  setAcceptModal: (acceptModal: boolean) => void;
+  acceptModal: AcceptModal;
+  unSeenBid:boolean;
+  showUpload:boolean,
+setShowUpload:(show:boolean)=>void;
+
+  setBidStatus:(bid_id:number)=>void;
+  setUnseenBids: (unSeen: boolean) => void;
+  setAcceptModal: (acceptModal: AcceptModal) => void;
   setDetails: (details: Details) => void;
   setImages: (image: any[]) => void;
   setTenderData: (tender: TenderType) => void;
@@ -60,23 +71,45 @@ export const TenderProvider = ({ children }: { children: ReactNode }) => {
   const [tender, setTenderData] = useState<TenderType | null>(null);
   const [project, setProjectData] = useState<ProjectType | null>(null);
   const [images, setImages] = useState<any[]>([]);
+  const [unSeenBid, setUnseenBids] = useState(false);
+  const  [showUpload,setShowUpload] = useState(false);
   const [details, setDetails] = useState<Details>({
     state: false,
     bids: [],
   });
-  const [acceptModal, setAcceptModal] = useState(false);
+
+
+const setBidStatus = (bid_id: number) => {
+  setDetails((prev) => ({
+    ...prev,
+    bids: prev.bids.map((bid) =>
+      bid.id === bid_id ? { ...bid, status: true } : bid
+    ),
+  }));
+};
+  
+  const [acceptModal, setAcceptModal] = useState<AcceptModal>({
+    stats:false,
+    uuid:"",
+    bid_id:0
+  });
   return (
     <AppContext.Provider
       value={{
         acceptModal,
-        setAcceptModal,
         details,
-        setDetails,
-        tender,
-        setTenderData,
-        setProjectData,
         project,
         images,
+        tender,
+        unSeenBid,
+        showUpload,
+        setShowUpload,
+        setBidStatus,
+        setUnseenBids,
+        setDetails,
+        setAcceptModal,
+        setTenderData,
+        setProjectData,
         setImages,
       }}
     >

@@ -1,9 +1,10 @@
-from .models import Bid, TenderProject,TenderLikes
+from .models import Bid, TenderProject, TenderLikes, EducationProject
 from django.contrib.auth import get_user_model
 from rest_framework.response import Response
 from rest_framework.request import Request
 from django.shortcuts import get_object_or_404
 from rest_framework import status
+from .serializers import ProjectSerializer
 
 import redis
 from .serializers import *
@@ -16,18 +17,79 @@ redis_client = redis.StrictRedis(
 
 
 class TenderService:
-    def start_tender(self):
-        pass
 
-    def won_tender(self):
-        pass
+    def accept_user(self, user_uuid, bid_id):
+        try:
+            user = User.objects.filter(uuid=user_uuid).first()
+            bid = Bid.objects.get(id=bid_id, user=user)
+        except Bid.DoesNotExist:
+            return Response(
+                {
+                    "success": False,
+                    "message": "Bid مربوط به این کاربر پیدا نشد",
+                    "status": status.HTTP_200_OK,
+                },
+                status=status.HTTP_200_OK,
+            )
 
-    def stop_tender(self):
-        pass
-    
-    
-    
-    
+        project = bid.tender.project
+        if not project:
+            return Response(
+                {
+                    "success": False,
+                    "message": "پروژه مربوط به این مناقصه یافت نشد",
+                    "status": status.HTTP_404_NOT_FOUND,
+                },
+                status=status.HTTP_404_NOT_FOUND,
+            )
+
+        if not project.users.filter(id=user.id).exists():
+            project.users.add(user)
+
+        bid.is_accepted = True
+        bid.save()
+        publish_data = {
+        "event": "bid_accepted",
+        "user_id": user.id,
+        "user_uuid":user.uuid,
+        "username": user.username,
+        "project_id": project.id,
+        "project_title": project.class_title,
+        "bid_id": bid.id,
+        "amount": str(bid.amount),
+    }
+        redis_client.publish("bid_events", json.dumps(publish_data))
+        return Response(
+            {
+                "success": True,
+                "message": "کاربر با موفقیت تأیید شد",
+                "status": status.HTTP_200_OK,
+            },
+            status=status.HTTP_200_OK,
+        )
+
+    def handle_seen_bid(self, bid_id, user):
+        bid = Bid.objects.filter(id=bid_id).first()
+        if bid.tender.created_by == user:
+            bid.status = True
+            bid.save()
+            return Response(
+                {
+                    "success": True,
+                    "message": "با موفقیت ثبت شد",
+                    "status": status.HTTP_200_OK,
+                },
+                status=status.HTTP_200_OK,
+            )
+        return Response(
+            {
+                "success": False,
+                "message": "خطایی رخ داده دوباره اقدام کنید",
+                "status": status.HTTP_200_OK,
+            },
+            status=status.HTTP_200_OK,
+        )
+
     def tender_users_list(self, tender_id):
         if not tender_id:
             return Response({"error": "tender_id is required"}, status=400)
@@ -65,9 +127,9 @@ class TenderService:
         tender: TenderProject = serializer.validated_data.get("tender")
         amount = serializer.validated_data.get("amount")
         _user = User.objects.get(id=request.user.id)
-        start_price  = Bid.objects.filter(tender=tender).order_by("-amount").first()
+        start_price = Bid.objects.filter(tender=tender).order_by("-amount").first()
         check_user_bid = Bid.objects.filter(tender=tender, user=_user)
-        if (check_user_bid.exists()):
+        if check_user_bid.exists():
             check_user_bid.update(amount=amount)
             return True, "با موفقیت بروزرسانی شد"
         else:
@@ -76,16 +138,16 @@ class TenderService:
             if amount > tender.start_bid:
                 return False, "مقدار پیشنهادی شما نباید بیشتر از مقدار شروع باشد"
 
-
-
-
     def submit_bid(self, serializer: BidSerializers, request: Request):
+
         tender: TenderProject = serializer.validated_data.get("tender")
         amount = serializer.validated_data.get("amount")
         _user = User.objects.get(id=request.user.id)
         highest_price = Bid.objects.filter(tender=tender).order_by("-amount").first()
         check_user_bid = Bid.objects.filter(tender=tender, user=_user).exists()
-        print(_user.digital_wallet)
+
+        if tender.created_by == _user:
+            return False, "شما نمی توانید در مزایده خود شرکت کنید"
 
         if check_user_bid:
             return False, "شما قبلا شرکت کرده‌اید"
@@ -137,25 +199,34 @@ class TenderService:
             return True, "با موفقیت بروزرسانی شد"
         except Bid.DoesNotExist:
             return False, "پیشنهاد شما در این مناقصه ثبت نشده است."
-    
-
 
     def toggle_tender_like_handler(self, user, tender_uuid):
         try:
             tender = TenderProject.objects.get(uuid=tender_uuid)
         except TenderProject.DoesNotExist:
-            return Response({"success": False, "message": "Tender not found."}, status=status.HTTP_404_NOT_FOUND)
+            return Response(
+                {"success": False, "message": "Tender not found."},
+                status=status.HTTP_404_NOT_FOUND,
+            )
 
         like = TenderLikes.objects.filter(user=user, tender=tender).first()
 
         if like:
             like.delete()
-            return Response({
-                "liked": False,
-            })
+            return Response(
+                {
+                    "liked": False,
+                }
+            )
         else:
             TenderLikes.objects.create(user=user, tender=tender)
-            return Response({
-                "liked":True
-  
-            },status=status.HTTP_201_CREATED)
+            return Response({"liked": True}, status=status.HTTP_201_CREATED)
+
+    def get_all_active_user_class(self, user):
+        user_class = EducationProject.objects.filter(users=user, is_deleted=False)
+        if user_class.exists():
+            serializer = ProjectSerializer(user_class, many=True)
+            return Response(serializer.data)
+        return Response({
+            "message":"error"
+        })

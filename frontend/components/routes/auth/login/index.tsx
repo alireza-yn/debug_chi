@@ -14,6 +14,7 @@ import {
   Tabs,
   Tab,
   Link as HeroLink,
+  Alert,
 } from "@heroui/react";
 
 import { motion } from "framer-motion";
@@ -56,43 +57,28 @@ export default function Login() {
     }
   }, [login]);
 
-  // اعتبارسنجی ورودی‌ها قبل از ارسال
-  const validateForm = () => {
-    let errors = { username: "", password: "", server: "" };
-    let isValid = true;
 
-    if (!formData.username.trim()) {
-      errors.username = "لطفا نام کاربری یا ایمیل یا شماره تلفن را وارد کنید";
-      isValid = false;
-    }
-    if (!formData.password.trim()) {
-      errors.password = "لطفا کلمه عبور را وارد کنید";
-      isValid = false;
-    }
 
-    setError(errors);
-    return isValid;
-  };
-
-  // ارسال فرم
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     let data = Object.fromEntries(new FormData(e.currentTarget));
-
+    console.log(selected, data)
     e.preventDefault();
     setIsLoading(true);
 
     Cookies.remove("token");
-    const response = await perform_post("auths/login/", data);
+
+    const response = await perform_post("auths/login/", { ...data, type: selected });
+
     console.log(response);
     if (response.success && response.user) {
       Cookies.set("token", response.access);
       localStorage.setItem("user_data", JSON.stringify(response.user));
       window.location.href = path;
-      dispatch(showLogin({ show: false, path: "" })); // بستن مودال لاگین
+      dispatch(showLogin({ show: false, path: "" }));
     } else {
       setError({
         ...error,
-        server: response.message || "نام کاربری یا رمز عبور نادرست است",
+        server: response.error || "نام کاربری یا کلمه عبور نادرست است",
       });
       setIsLoading(false);
     }
@@ -106,13 +92,13 @@ export default function Login() {
       isOpen={isOpen}
       motionProps={{
         variants: {
-          enter: { opacity: 1, x: 0, dur: 0.3 },
-          exit: { x: 100, opacity: 0, dur: 0.3 },
+          enter: { opacity: 1, x: 0, dur: 1 },
+          exit: { x: 100, opacity: 0, dur: 1 },
         },
       }}
       onOpenChange={onOpenChange}
     >
-      <DrawerContent className="relative overflow-hidden">
+      <DrawerContent className="relative overflow-hidden" >
         {(onClose) => (
           <>
             <BackgroundGlobalGradient />
@@ -135,12 +121,20 @@ export default function Login() {
                       fullWidth
                       className="mt-4"
                       aria-label="Tabs form"
-                      // selectedKey={selected}
+                      onSelectionChange={(value) => {
+                        setSelected(String(value));
+                        setError({
+                          username: "",
+                          password: "",
+                          server: ""
+                        })
+                      }}
                       size="md"
-                      // onSelectionChange={setSelected}
+                    // onSelectionChange={setSelected}
                     >
                       <Tab
-                        key="login"
+                        key="customer"
+
                         title={
                           <div className="flex gap-4 items-center">
                             <CircleUserRound size={16} />
@@ -164,6 +158,7 @@ export default function Login() {
                               placeholder="نام کاربری ، ایمیل یا شماره تلفن"
                               type="text"
                               variant="faded"
+                              autoComplete="username"
                             />
 
                             <Input
@@ -175,6 +170,7 @@ export default function Login() {
                               name="password"
                               size="lg"
                               type="password"
+                              autoComplete="current-password"
                               validate={(value) => {
                                 if (value.length < 8) {
                                   return "حداقل 8 کاراکتر باید وارد کنید";
@@ -197,11 +193,7 @@ export default function Login() {
                                 بازیابی کلمه عبور؟
                               </Button>
                             </div>
-                            {error.server && (
-                              <p className="text-red-500 text-sm mt-2">
-                                {error.server}
-                              </p>
-                            )}
+
 
                             <div className="flex flex-col gap-2 w-full">
                               <br />
@@ -236,11 +228,18 @@ export default function Login() {
                                 ثبت نام
                               </Button>
                             </div>
+                            <div className="w-full">
+
+                              {error.server && (
+
+                                <Alert className="text-right" variant="flat" color="danger" title={error.server} />
+                              )}
+                            </div>
                           </Form>
                         </motion.div>
                       </Tab>
                       <Tab
-                        key="sign-up"
+                        key="specialist"
                         title={
                           <div className="flex gap-4 items-center">
                             <Headset size={16} />
@@ -264,6 +263,7 @@ export default function Login() {
                               placeholder="نام کاربری خود را وارد نمایید"
                               type="text"
                               variant="faded"
+                              autoComplete="username"
                             />
 
                             <Input
@@ -276,19 +276,31 @@ export default function Login() {
                               name="password"
                               size="lg"
                               type="password"
+                              autoComplete="current-password"
                             />
-
-                            {error.server && (
-                              <p className="text-red-500 text-sm mt-2">
-                                {error.server}
-                              </p>
-                            )}
-
+                                 <div className="w-full flex items-center justify-start my-2">
+                              <Button
+                                as={Link}
+                                variant="light"
+                                href={"/auth/forget-password/"}
+                                className="text-tiny text-blue-500 underline"
+                                onPress={() => {
+                                  dispatch(
+                                    showLogin({ show: false, path: "" })
+                                  );
+                                  onClose();
+                                }}
+                              >
+                                بازیابی کلمه عبور؟
+                              </Button>
+                            </div>
+                           
                             <div className="flex flex-col gap-2 w-full">
                               <br />
                               <Button
                                 isLoading={isLoading}
                                 type="submit"
+                                className="bg-btn_primary"
                                 size="lg"
                               >
                                 ورود
@@ -314,7 +326,15 @@ export default function Login() {
                                 ثبت نام
                               </Button>
                             </div>
+                            <div className="w-full">
+
+                              {error.server && (
+
+                                <Alert className="text-right" variant="flat" color="danger" title={error.server} />
+                              )}
+                            </div>
                           </Form>
+
                         </motion.div>
                       </Tab>
                     </Tabs>

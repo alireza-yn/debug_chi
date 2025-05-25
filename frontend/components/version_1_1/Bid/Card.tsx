@@ -20,6 +20,7 @@ import {
   User,
   CardBody,
   CardFooter,
+  user,
 } from "@heroui/react";
 import {
   Check,
@@ -91,6 +92,7 @@ const Card = ({ tender, bids }: Props) => {
           created_at: new Date(),
           updated_at: new Date(),
           tender: 0,
+          status:false
         };
         addToast({
           title: "درخواست شما ثبت شد",
@@ -147,6 +149,7 @@ const Card = ({ tender, bids }: Props) => {
         created_at: msg.created_at,
         updated_at: msg.updated_at,
         tender: 0,
+        status:false
       };
       setBidsList((prevBids) => [...prevBids, newBid]);
     });
@@ -196,9 +199,8 @@ const Card = ({ tender, bids }: Props) => {
           </div>
           <div className="min-h-16 grid grid-cols-3 items-center gap-2 ">
             <div className="flex flex-col gap-2 ">
-              {tender.project != null && <EventCard data={tender.project} />}
-
-              {is_tender ? (
+              {tender.created_by.uuid === userData?.uuid ? null :
+              is_tender ? (
                 <Popover
                   showArrow
                   offset={10}
@@ -294,7 +296,11 @@ const Card = ({ tender, bids }: Props) => {
                   value={value}
                   user_exist={user_exist}
                 />
-              )}
+              )
+              }
+              {tender.project != null && <EventCard data={tender.project} />}
+
+              
 
             </div>
             <div></div>
@@ -627,7 +633,6 @@ const ActionBid = ({
       >
         {"شرکت در مناقصه"}
       </Button>
-      {/* <span className="w-4"></span> */}
       <Popover
         showArrow
         offset={10}
@@ -662,7 +667,6 @@ const ActionBid = ({
                   min={0}
                   placeholder="قیمت خود را وارد نمایید"
                   defaultValue={tender.start_bid}
-                  // defaultValue={`${tender.start_bid}`}
                   endContent={
                     <Button
                       color="success"
@@ -720,15 +724,12 @@ const TenderTimer = ({ time }: { time: any }) => {
       return { days, hours, minutes, seconds };
     };
 
-    // Update time immediately
     setTimeRemaining(calculateTimeRemaining());
 
-    // Set up interval to update every second
     const intervalId = setInterval(() => {
       setTimeRemaining(calculateTimeRemaining());
     }, 1000);
 
-    // Clean up interval on unmount
     return () => clearInterval(intervalId);
   }, [time]);
 

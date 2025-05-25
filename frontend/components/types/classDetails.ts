@@ -18,9 +18,20 @@ export interface Main {
     language:                 null | string;
     expertise:                null | string;
     users:                    any[];
-    created_by:               number;
+    created_by:               CreatedBy;
     is_tender:                boolean;
+    url:                       string;
 }
+
+
+export interface CreatedBy {
+    id:            number;
+    image_profile: string;
+    first_name:    string;
+    last_name:     string;
+    username:      string;
+}
+
 
 export interface Image {
     id:      number;
