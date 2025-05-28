@@ -27,7 +27,7 @@ load_dotenv(os.path.join(BASE_DIR, '.env'))
 SECRET_KEY = "django-insecure-_(6i1%ngkkt+f=hu(!tfy3v$!nis*ze9988#679zk2#u@5v!)s"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     # "localhost:8000",
@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     "api.debugchiai.com",
     "195.248.242.157",
     "www.debugchiai.com",
-    "127.0.0.1"
+    # "127.0.0.1"
 ]
 # Application definition
 
@@ -123,10 +123,11 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        # "PASSWORD": "Mm872872i",
-        "PASSWORD": "Tt1012@@",
+        "PASSWORD": "Mm872872i",
+        # "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
+        
     }
 }
 
