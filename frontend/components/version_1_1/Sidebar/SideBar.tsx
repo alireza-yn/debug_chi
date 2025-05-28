@@ -152,13 +152,13 @@ const SidebarBody = (props: Props) => {
             <Link href={item.path}>
               <Button
                 className={`${
-                  isActive ? "scale-110" : ""
-                } hover:scale-125 transition-all duration-500 ease-in-out`}
-                variant={isActive ? "solid" : "light"}
+                  isActive ? "scale-110 bg-black text-background dark:text-foreground" : ""
+                } hover:scale-125 transition-all  duration-500 ease-in-out`}
+                variant={"light"}
                 name={item.name}
                 isIconOnly
                 radius="full"
-                color={isActive ? "primary" : "default"}
+                
                 startContent={<item.icon size={24} />}
                 size="lg"
               ></Button>

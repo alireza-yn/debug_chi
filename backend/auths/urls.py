@@ -18,6 +18,7 @@ urlpatterns = [
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
     path('token/verify/', TokenVerifyView.as_view(), name='token_verify'),
     path('user_register/', UserRegister.as_view(), name='user_register'),
+    path('register_debuger/', RegisterDebugerApiView.as_view(), name='register_debuger'),
     path('verify_otp/',OTPView.as_view(),name="verify_otp"),
     path('user_info/',GetUserData.as_view(),name="user_info"),
     path('user_cards/',UserBankCardApiView.as_view(),name="user_cards"),

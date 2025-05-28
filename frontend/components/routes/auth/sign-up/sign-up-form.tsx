@@ -1,6 +1,6 @@
 "use client"
 
-import React, { type FormEvent } from "react"
+import React, { useEffect, useState, type FormEvent } from "react"
 import { Form, Divider, InputOtp } from "@heroui/react"
 import { LogoIcon } from "@/components/ui/icons"
 import { perform_post } from "@/lib/api"
@@ -22,16 +22,28 @@ export default function SignUpForm({ switchToLogin }: Props) {
   const [phone, setPhone] = React.useState<any>("")
   const [request, setRequest] = React.useState(false)
   const currnt_path = usePathname()
+  const [url, setUrl] = useState<string>("")
   const [isLoading, setIsLoading] = React.useState(false)
   const [message, setMessage] = React.useState({
     user_phone: "",
   })
 
+
+  useEffect(() => {
+    const type = localStorage.getItem('type')
+    if (type == "specialist") {
+      setUrl("auths/register_debuger/")
+    } else {
+      setUrl('auths/user_register/')
+    }
+  }, [])
+
   const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
-    setIsLoading(true)
     e.preventDefault()
+    setIsLoading(true)
     const data = Object.fromEntries(new FormData(e.currentTarget))
-    const response = await perform_post("auths/user_register/", data)
+
+    const response = await perform_post(url, data)
     console.log(response)
     if (response.success) {
       setOtp(true)
@@ -51,7 +63,6 @@ export default function SignUpForm({ switchToLogin }: Props) {
     e.preventDefault()
     setIsLoading(true)
     const data = Object.fromEntries(new FormData(e.currentTarget))
-    console.log(data)
     const response = await perform_post("auths/verify_otp/", data)
     if (response.user_intro === false) {
       dispatch(setPath("/intro/programmer introduction"))
@@ -65,10 +76,9 @@ export default function SignUpForm({ switchToLogin }: Props) {
   }
 
   return (
-    <div className="w-full h-full flex items-center justify-center p-4 sm:p-6">
-      {/* Registration Form */}
+    <div className="w-full h-full flex items-center justify-center p-4 sm:p-6 bg-background rounded-lg shadow-md">
       <Form
-        className={`w-full max-w-md ${show ? "hidden" : "flex"} flex-col gap-3 sm:gap-4 items-center`}
+        className={`w-full max-w-md sm::scale-50 ${show ? "hidden" : "flex"} flex-col gap-3 sm:gap-4 items-center`}
         onSubmit={registerHandler}
       >
         <div className="mb-2 sm:mb-4">
@@ -158,7 +168,6 @@ export default function SignUpForm({ switchToLogin }: Props) {
             ثبت
           </Button>
         </div>
-
         <div className="flex items-center justify-center w-full gap-4 my-2">
           <Divider className="w-1/4" />
           <span className="text-sm sm:text-base">یا</span>

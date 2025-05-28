@@ -31,7 +31,10 @@ export function SignUpForm({
     const [loading, setLoading] = useState(false)
     const route = useRouter()
     const loginHandler = async (e:FormEvent)=>{
+      
       e.preventDefault()
+      
+      
       setShowOtp(true)
       setLoading(true)
       setPhone(phone.current?.value || "")

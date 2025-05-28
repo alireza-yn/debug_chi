@@ -1,4 +1,4 @@
-from .models import CustomUser, OTP, UserBankCards, RequestPassowordReset
+from .models import CustomUser, OTP, UserBankCards, RequestPassowordReset,Role
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework_simplejwt.tokens import RefreshToken
@@ -7,6 +7,7 @@ from .serializers import RegisterSerializers, UserSerializer
 from rest_framework.request import Request
 import redis
 import json
+
 from django.db.models import Q
 from django.contrib.auth import get_user_model
 from .utils import send_verification_code
@@ -329,3 +330,48 @@ class UserService:
                     "message": "توکن معتبر نیست یا قبلاً استفاده شده است",
                 }
             )
+
+    def regitser_debuger(self, request: Request):
+        serializer = RegisterSerializers(data=request.data)
+
+        if serializer.is_valid():
+            user = serializer.save()
+
+            # Assign debugger role to the user
+            try:
+                debugger_role = Role.objects.get(name="debugger")
+            except Role.DoesNotExist:
+                debugger_role = None
+
+            if debugger_role:
+                debugger_role.users.add(user)
+                debugger_role.save()
+
+            user_data = {
+                "id": user.id,
+                "username": user.username,
+                "email": user.email,
+                "user_phone": user.user_phone,
+            }
+            message = json.dumps(user_data)
+
+            redis_client.publish("new_user", message)
+
+            created, otp_code = self.create_otp(user.user_phone)
+
+            response = None
+            if otp_code is not None:
+                response = send_verification_code(user.user_phone, otp_code)
+
+            return Response(
+                {
+                    "message": "کاربر با موفقیت ثبت شد",
+                    "user_id": user.id,
+                    "success": True,
+                    "intro":True,
+                    "response": response,
+                },
+                status=status.HTTP_201_CREATED,
+            )
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -42,6 +42,7 @@ export default function Login() {
   const dispatch = useAppDispatch();
   const { login } = useAppSelector((state: RootState) => state.gloabal);
   const path = usePathname();
+
   // const query = useSearchParams();
   const [selected, setSelected] = useState<string>("login");
   const [formData, setFormData] = useState({ username: "", password: "" });
@@ -52,6 +53,8 @@ export default function Login() {
   });
 
   useEffect(() => {
+
+
     if (login) {
       onOpen();
     }
@@ -66,7 +69,7 @@ export default function Login() {
     setIsLoading(true);
 
     Cookies.remove("token");
-
+  
     const response = await perform_post("auths/login/", { ...data, type: selected });
 
     console.log(response);
@@ -123,6 +126,7 @@ export default function Login() {
                       aria-label="Tabs form"
                       onSelectionChange={(value) => {
                         setSelected(String(value));
+                        localStorage.setItem('type',String(value))
                         setError({
                           username: "",
                           password: "",
@@ -130,7 +134,7 @@ export default function Login() {
                         })
                       }}
                       size="md"
-                    // onSelectionChange={setSelected}
+                
                     >
                       <Tab
                         key="customer"

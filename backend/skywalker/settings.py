@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     "api.debugchiai.com",
     "195.248.242.157",
     "www.debugchiai.com",
-    # "127.0.0.1"
+    "127.0.0.1"
 ]
 # Application definition
 
@@ -123,8 +123,8 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "debug_chi",
         "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
-        # "PASSWORD": "Tt1012@@",
+        # "PASSWORD": "Mm872872i",
+        "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
         "PORT": "5432",
     }
@@ -157,7 +157,8 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "REDOC_DIST": "SIDECAR",
     "LANGUAGE_CODE": "fa",
-    # OTHER SETTINGS
+    'VERSION': '1.0.0'
+
 }
 
 # Password validation

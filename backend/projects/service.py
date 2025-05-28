@@ -228,5 +228,6 @@ class TenderService:
             serializer = ProjectSerializer(user_class, many=True)
             return Response(serializer.data)
         return Response({
-            "message":"error"
+            "message":False,
+            "data":[]
         })

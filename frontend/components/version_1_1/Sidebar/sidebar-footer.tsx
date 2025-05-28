@@ -31,7 +31,7 @@ const SidebarFooter = ({ user, token }: Props) => {
 
   return (
     <div className="h-auto py-2 w-full flex flex-col gap-4 items-center justify-center">
-      <Tooltip content={"سرویس های من"} placement="right">
+      {/* <Tooltip content={"سرویس های من"} placement="right">
         <Button
           className={`${is_service && "scale-110"}`}
           as={Link}
@@ -43,10 +43,9 @@ const SidebarFooter = ({ user, token }: Props) => {
           size="lg"
           startContent={<LayoutList />}
         ></Button>
-      </Tooltip>
+      </Tooltip> */}
 
       <ThemeSwitcher />
-
       {userData ? (
         <Tooltip
           placement="right"
