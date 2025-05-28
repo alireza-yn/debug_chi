@@ -340,12 +340,15 @@ class UserService:
             # Assign debugger role to the user
             try:
                 debugger_role = Role.objects.get(name="debugger")
+                print(debugger_role)
             except Role.DoesNotExist:
                 debugger_role = None
 
             if debugger_role:
                 debugger_role.users.add(user)
                 debugger_role.save()
+                print(debugger_role)
+
 
             user_data = {
                 "id": user.id,
@@ -373,5 +376,5 @@ class UserService:
                 },
                 status=status.HTTP_201_CREATED,
             )
-
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        print(serializer.errors)
+        return Response(serializer.errors, status=status.HTTP_200_OK)
