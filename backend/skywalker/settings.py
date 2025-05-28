@@ -35,7 +35,7 @@ ALLOWED_HOSTS = [
     "api.debugchiai.com",
     "195.248.242.157",
     "www.debugchiai.com",
-    # "127.0.0.1"
+    "127.0.0.1"
 ]
 # Application definition
 
@@ -121,12 +121,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "debug_chi",
-        "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
-        # "PASSWORD": "Tt1012@@",
+        "NAME": "dibugchi_db",
+        "USER": "postgres",
+        "PASSWORD": "13821395",
         "HOST": "localhost",
-        "PORT": "5432",
+        "PORT": "5433",
     }
 }
 
