@@ -21,7 +21,7 @@ from .utils import IsStaffPermission
 class UserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    # permission_classes=[IsAdminUser,IsStaffPermission]
+    permission_classes=[IsAdminUser,IsStaffPermission]
 
 
 class GetUserData(RetrieveAPIView):
