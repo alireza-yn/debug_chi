@@ -22,35 +22,57 @@ redis_client = redis.StrictRedis(
 class UserService:
     def create_user(self, request: Request):
         serializer = RegisterSerializers(data=request.data)
+        
+        if not serializer.is_valid():
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        if serializer.is_valid():
+        validated_data = serializer.validated_data
+        print(validated_data)
+        # Check if user already exists by username, phone, or email
+        user_exists = CustomUser.objects.filter(
+            Q(username=validated_data.get('username')) |
+            Q(user_phone=validated_data.get('user_phone')) |
+            Q(email=validated_data.get('email'))
+        ).exists()
 
-            user = serializer.save()
-
-            user_data = {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "user_phone": user.user_phone,
-            }
-            message = json.dumps(user_data)
-
-            redis_client.publish("new_user", message)
-
-            created, otp_code = self.create_otp(user.user_phone)
-            if otp_code is not None:
-                response = send_verification_code(user.user_phone, otp_code)
+        if user_exists:
             return Response(
                 {
-                    "message": "کاربر با موفقیت ثبت شد",
-                    "user_id": user.id,
-                    "success": True,
-                    "response": response,
+                    "error": True,
+                    "message": "کاربری با این مشخصات از قبل وجود دارد"
                 },
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK
             )
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+        # Create the user
+        user = serializer.save()
+
+        user_data = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "user_phone": user.user_phone,
+        }
+
+        # Publish user data to Redis
+        message = json.dumps(user_data)
+        redis_client.publish("new_user", message)
+
+        # Create OTP and send it
+        created, otp_code = self.create_otp(user.user_phone)
+        response = None
+        if otp_code:
+            response = send_verification_code(user.user_phone, otp_code)
+
+        return Response(
+            {
+                "message": "کاربر با موفقیت ثبت شد",
+                "user_id": user.id,
+                "success": True,
+                "response": response,
+            },
+            status=status.HTTP_201_CREATED,
+        )
     def create_user_by_phone(self, phone):
         user = CustomUser.objects.filter(user_phone=phone).first()
         otp_exist = OTP.objects.filter(user=user).first()
@@ -124,51 +146,56 @@ class UserService:
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-    def user_login(self, request: Request):
+    def user_login(self, request:Request):
         username = request.data.get("username")
         password = request.data.get("password")
         user_type = request.data.get("type")
-        print(username, password, user_type)
-        if not password:
+
+        if not username or not password or not user_type:
             return Response(
-                {"error": "Password is required"},
+                {"error": "نام کاربری، کلمه عبور و نوع کاربر الزامی است."},
                 status=status.HTTP_400_BAD_REQUEST,
             )
 
         user = CustomUser.objects.filter(
             Q(username=username) | Q(email=username) | Q(user_phone=username)
         ).first()
-  
 
-        role = user.user_roles.filter(
-            Q(name="debugger") | Q(name="consultant")
-        ).exists()
+        if not user or not user.check_password(password):
+            return Response(
+                {"error": "نام کاربری یا کلمه عبور اشتباه است"},
+                status=status.HTTP_200_OK,
+            )
 
-        if user and user.check_password(password):
-            if user_type == "specialist":
-                if role == True:
-                    refresh = RefreshToken.for_user(user)
-                    return Response(
-                        {
-                            "success": True,
-                            "refresh": str(refresh),
-                            "access": str(refresh.access_token),
-                            "user": UserSerializer(user).data,
-                        },
-                        status=status.HTTP_200_OK,
-                    )
-                else:
-                    return Response(
-                        {
-                            "error": "نام کاربری وارد شده پیدا نشد",
-                        },
-                        status=status.HTTP_200_OK,
-                    )
-            if user_type == "customer":
-                if role== True:
-                    return Response({
-                        "error":"نام کاربری وارد شده مختص دیباگر است"
-                    })
+        is_specialist = user.user_roles.filter(Q(name="debugger") | Q(name="consultant")).exists()
+
+        # Handle specialist login
+        if user_type == "specialist":
+            if is_specialist:
+                refresh = RefreshToken.for_user(user)
+                return Response(
+                    {
+                        "success": True,
+                        "refresh": str(refresh),
+                        "access": str(refresh.access_token),
+                        "user": UserSerializer(user).data,
+                    },
+                    status=status.HTTP_200_OK,
+                )
+            else:
+                return Response(
+                    {"error": "نام کاربری وارد شده پیدا نشد"},
+                    status=status.HTTP_200_OK,
+                )
+
+        # Handle customer login
+        if user_type == "customer":
+            if is_specialist:
+                return Response(
+                    {"error": "نام کاربری وارد شده مختص دیباگر است"},
+                    status=status.HTTP_200_OK,
+                )
+            else:
                 refresh = RefreshToken.for_user(user)
                 return Response(
                     {
@@ -181,8 +208,8 @@ class UserService:
                 )
 
         return Response(
-            {"error": "نام کاربری یا کلمه عبور اشتباه است"},
-            status=status.HTTP_200_OK,
+            {"error": "نوع کاربر نامعتبر است"},
+            status=status.HTTP_400_BAD_REQUEST,
         )
 
     def create_otp(self, user_phone):
@@ -333,7 +360,12 @@ class UserService:
 
     def regitser_debuger(self, request: Request):
         serializer = RegisterSerializers(data=request.data)
-
+        user = CustomUser.objects.filter(Q(username=serializer.data.get('username')) | Q(user_phone=serializer.data.get('user_phone')) | Q(email = serializer.data.get('email'))).exists()
+        if user:
+            return Response({
+                "error":True,
+                "message":"user exist"
+            })
         if serializer.is_valid():
             user = serializer.save()
 
