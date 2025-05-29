@@ -24,7 +24,10 @@ class UserService:
         serializer = RegisterSerializers(data=request.data)
         
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            return Response({
+                "error":True,
+                "message":"نام کاربری یا شماره تلفن یا ایمیل وارد شده وجود دارد",
+            },status=status.HTTP_200_OK)
 
         validated_data = serializer.validated_data
         print(validated_data)
@@ -33,7 +36,7 @@ class UserService:
             Q(username=validated_data.get('username')) |
             Q(user_phone=validated_data.get('user_phone')) |
             Q(email=validated_data.get('email'))
-        ).exists()
+        ).first()
 
         if user_exists:
             return Response(
@@ -73,6 +76,9 @@ class UserService:
             },
             status=status.HTTP_201_CREATED,
         )
+    
+
+    
     def create_user_by_phone(self, phone):
         user = CustomUser.objects.filter(user_phone=phone).first()
         otp_exist = OTP.objects.filter(user=user).first()
@@ -360,53 +366,65 @@ class UserService:
 
     def regitser_debuger(self, request: Request):
         serializer = RegisterSerializers(data=request.data)
-        user = CustomUser.objects.filter(Q(username=serializer.data.get('username')) | Q(user_phone=serializer.data.get('user_phone')) | Q(email = serializer.data.get('email'))).exists()
-        if user:
+        if not serializer.is_valid():
             return Response({
                 "error":True,
-                "message":"user exist"
-            })
-        if serializer.is_valid():
-            user = serializer.save()
+                "message":"نام کاربری یا شماره تلفن یا ایمیل وارد شده وجود دارد",
+            },status=status.HTTP_200_OK)
 
-            # Assign debugger role to the user
-            try:
-                debugger_role = Role.objects.get(name="debugger")
-                print(debugger_role)
-            except Role.DoesNotExist:
-                debugger_role = None
+        validated_data = serializer.validated_data
+        print(validated_data)
+        user_exists = CustomUser.objects.filter(
+            Q(username=validated_data.get('username')) |
+            Q(user_phone=validated_data.get('user_phone')) |
+            Q(email=validated_data.get('email'))
+        ).first()
 
-            if debugger_role:
-                debugger_role.users.add(user)
-                debugger_role.save()
-                print(debugger_role)
-
-
-            user_data = {
-                "id": user.id,
-                "username": user.username,
-                "email": user.email,
-                "user_phone": user.user_phone,
-            }
-            message = json.dumps(user_data)
-
-            redis_client.publish("new_user", message)
-
-            created, otp_code = self.create_otp(user.user_phone)
-
-            response = None
-            if otp_code is not None:
-                response = send_verification_code(user.user_phone, otp_code)
-
+        if user_exists:
             return Response(
                 {
-                    "message": "کاربر با موفقیت ثبت شد",
-                    "user_id": user.id,
-                    "success": True,
-                    "intro":True,
-                    "response": response,
+                    "error": True,
+                    "message": "کاربری با این مشخصات از قبل وجود دارد"
                 },
-                status=status.HTTP_201_CREATED,
+                status=status.HTTP_200_OK
             )
-        print(serializer.errors)
-        return Response(serializer.errors, status=status.HTTP_200_OK)
+
+        user = serializer.save()
+        try:
+            debugger_role = Role.objects.get(name="debugger")
+            print(debugger_role)
+        except Role.DoesNotExist:
+            debugger_role = None
+
+        if debugger_role:
+            debugger_role.users.add(user)
+            debugger_role.save()
+            print(debugger_role)
+
+
+        user_data = {
+            "id": user.id,
+            "username": user.username,
+            "email": user.email,
+            "user_phone": user.user_phone,
+        }
+        message = json.dumps(user_data)
+
+        redis_client.publish("new_user", message)
+
+        created, otp_code = self.create_otp(user.user_phone)
+
+        response = None
+        if otp_code is not None:
+            response = send_verification_code(user.user_phone, otp_code)
+
+        return Response(
+            {
+                "message": "کاربر با موفقیت ثبت شد",
+                "user_id": user.id,
+                "success": True,
+                "intro":True,
+                "response": response,
+            },
+            status=status.HTTP_201_CREATED,
+        )

@@ -1,7 +1,7 @@
 "use client"
 
 import React, { useEffect, useState, type FormEvent } from "react"
-import { Form, Divider, InputOtp } from "@heroui/react"
+import { Form, Divider, InputOtp, Alert } from "@heroui/react"
 import { LogoIcon } from "@/components/ui/icons"
 import { perform_post } from "@/lib/api"
 import Cookies from "js-cookie"
@@ -27,6 +27,7 @@ export default function SignUpForm({ switchToLogin }: Props) {
   const [message, setMessage] = React.useState({
     user_phone: "",
   })
+  const [error,setError]= useState<string>("")
 
 
   useEffect(() => {
@@ -50,6 +51,11 @@ export default function SignUpForm({ switchToLogin }: Props) {
       setIsLoading(false)
       setPhone(data.user_phone)
       setMessage({ user_phone: "" })
+    }
+    if (response.error){
+      setIsLoading(false)
+      setError(response.message)
+
     }
     if (response.status === 400) {
       setMessage((prev) => ({
@@ -157,7 +163,9 @@ export default function SignUpForm({ switchToLogin }: Props) {
             }
           }}
         />
-
+        {
+          error.length > 0 && <Alert title={error} color="danger" variant="flat"/>
+        }
         <div className="flex w-full gap-2 mt-2">
           <Button
             isDisabled={isLoading}
