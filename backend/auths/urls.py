@@ -26,5 +26,4 @@ urlpatterns = [
     path('reset-password/',ResetPasswordApiView.as_view(),name="reset-password"),
     path('code-verification/',CodeVerification.as_view(),name="code-verification")
 
-    
 ]
