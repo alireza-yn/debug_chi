@@ -482,8 +482,9 @@ const BidUnSeenListItem = ({ bids }: { bids: MainBid[] }) => {
             >
               پذیرش
             </Button> */}
-             <Button fullWidth className="bg-btn_primary" isDisabled={isLoading} isLoading={isLoading} onPress={()=>{
+             <Button className="bg-btn_primary ml-4" isDisabled={isLoading} isLoading={isLoading} onPress={()=>{
               watchBid(bid.id)
+              
               setBidStatus(bid.id)
               }}>ثبت بررسی</Button>
             <div className="flex items-center gap-2" dir="rtl">

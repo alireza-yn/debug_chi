@@ -8,7 +8,7 @@ import { Accordion, AccordionItem, Button, Checkbox } from "@heroui/react";
 const UserSerivices = () => {
   return (
     <div className="w-full flex flex-col gap-4">
-        <Accordion variant="splitted" hideIndicator className="sticky top-0" dir="rtl" itemClasses={{
+        {/* <Accordion variant="splitted" hideIndicator className="sticky top-0" dir="rtl" itemClasses={{
           base:'bg-default-100'
         }}>
 
@@ -51,7 +51,7 @@ const UserSerivices = () => {
             ></AccordionItem>
           );
         })}
-      </Accordion>
+      </Accordion> */}
     </div>
   );
 };

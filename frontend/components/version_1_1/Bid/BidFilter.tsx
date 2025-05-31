@@ -15,9 +15,10 @@ import {
   Badge,
 } from "@heroui/react";
 import { useBidFilter } from "@/context/BidFilterContext";
-import { Backpack, Search, SearchCode, SlidersHorizontal } from "lucide-react";
+import { Backpack, History, Search, SearchCode, SlidersHorizontal } from "lucide-react";
 import Cookies from "js-cookie";
 import { perform_get } from "@/lib/api";
+import Link from "next/link";
 type Props = {};
 
 const BidFilter = (props: Props) => {
@@ -129,30 +130,32 @@ const NotifMenu = () => {
 
   const [number, setNumber] = useState(0);
 
-
-
-  const getAllClassData = async ()=>{
+  const getAllClassData = async () => {
     const response = await perform_get('api/v1/my-classes/')
-    setNumber(response.length)
+    
+    setNumber(response.length || 0)
   }
-useEffect(()=>{
-  const token = Cookies.get('token')
-  if (token){
-    getAllClassData()
-  }
-},[]) 
+  useEffect(() => {
+    const token = Cookies.get('token')
+    if (token) {
+      getAllClassData()
+    }
+  }, [])
 
   const { show, setShow } = useBidFilter()
 
   return (
-    <Badge content={number} placement="bottom-left" color="danger" >
-      <Button
-        onPress={() => setShow(!show)}
-        variant="light"
-        isIconOnly
-        startContent={<Backpack />}
-      ></Button>
-    </Badge>
+    <div className="flex gap-4">
+      <Badge content={number} placement="bottom-left" color="danger" >
+        <Button
+          onPress={() => setShow(!show)}
+          variant="light"
+          isIconOnly
+          startContent={<Backpack />}
+        ></Button>
+      </Badge>
+      <Button as={Link} variant="light" isIconOnly startContent={<History />} href="/user-services"></Button>
+    </div>
 
   );
 };

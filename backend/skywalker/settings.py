@@ -125,7 +125,7 @@ DATABASES = {
         "USER": "postgres",
         "PASSWORD": "13821395",
         "HOST": "localhost",
-        "PORT": "5433",
+        "PORT": "5433", 
     }
 }
 
@@ -156,7 +156,8 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "REDOC_DIST": "SIDECAR",
     "LANGUAGE_CODE": "fa",
-    # OTHER SETTINGS
+    'VERSION': '1.0.0'
+
 }
 
 # Password validation

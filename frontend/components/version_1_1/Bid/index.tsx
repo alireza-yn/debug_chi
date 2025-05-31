@@ -72,18 +72,23 @@ const AllActivitiesCLass = () => {
   const getData = async () => {
     const response = await perform_get('api/v1/my-classes/')
     console.log(response)
-    setData(response)
+    if (response.message === false){
+      setData(response.data)
+
+    }else{
+      setData(response)
+    }
+
 
   }
   useEffect(() => {
     getData()
   }, [])
 
-
   const sendRequest = (mode: string, title: string) => {
     addToast({
       title: title,
-      description:`درخواست شما برای ارتباط ${mode} ارسال شد`,
+      description: `درخواست شما برای ارتباط ${mode} ارسال شد`,
       variant: "flat",
       color: "default",
       timeout: 5000,
@@ -92,10 +97,18 @@ const AllActivitiesCLass = () => {
   }
 
 
+
   return (
     <>
-      {
-        data.map((item) => {
+      {data.length === 0 ?
+        <div className="w-full  backdrop-blur-xl box-border h-full bg-bg_card/30 absolute z-30 rounded-2xl p-10" dir="rtl">
+          <div className="w-full h-96 flex items-center justify-center bg-default-50 rounded-md">
+          کلاسی برای برگزاری وجود ندارد
+          
+          </div>
+
+        </div> :
+       data.map((item) => {
 
           return <div key={item.id} className="w-full backdrop-blur-xl box-border h-full bg-bg_card/30 absolute z-30 rounded-2xl" dir="rtl">
             <div className="w-full rounded-xl space-y-4 flex flex-col items-center gap-2 my-2 ">
@@ -113,13 +126,13 @@ const AllActivitiesCLass = () => {
                     <Popover placement="right">
                       <PopoverTrigger>
                         <Button variant="light">
-                          <User 
-                          name={item.created_by.first_name + " " + item.created_by.last_name}
-                          avatarProps={{
-                            src:item.created_by.image_profile,
-                            alt:item.created_by.username
-                          }}
-                          description={item.created_by.username}
+                          <User
+                            name={item.created_by.first_name + " " + item.created_by.last_name}
+                            avatarProps={{
+                              src: item.created_by.image_profile,
+                              alt: item.created_by.username
+                            }}
+                            description={item.created_by.username}
                           />
                         </Button>
                       </PopoverTrigger>
@@ -180,8 +193,8 @@ const AllActivitiesCLass = () => {
                     </div>
                     <div className="w-1/4">
                       <Button
-                      as={Link}
-                      href={item.url || "https://meet.google.com"}
+                        as={Link}
+                        href={item.url || "https://meet.google.com"}
                         fullWidth size="lg" className=" bg-gradient-to-r  from-black to-btn_primary h-14 flex justify-between box-border px-4">
                         <span>پیوست به کلاس</span>
                         <Image
@@ -205,6 +218,7 @@ const AllActivitiesCLass = () => {
           </div>
         })
       }
+
 
     </>
   )

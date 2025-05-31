@@ -4,13 +4,13 @@ from rest_framework.request import Request
 from rest_framework.generics import RetrieveAPIView, ListCreateAPIView
 from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from .serializers import *
-
+from rest_framework import serializers
 # from .serializers_services.userSerializers import UserSerializers as testSerializer
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.views import APIView
 import random
-from drf_spectacular.utils import extend_schema_view, extend_schema
+from drf_spectacular.utils import extend_schema_view, extend_schema,inline_serializer
 from .services import UserService
 from rest_framework_simplejwt.tokens import RefreshToken
 from .utils import IsStaffPermission
@@ -18,11 +18,10 @@ from .utils import IsStaffPermission
 
 
 
-
 class UserViewSet(ModelViewSet):
     queryset = CustomUser.objects.all()
     serializer_class = UserSerializer
-    # permission_classes=[IsAdminUser,IsStaffPermission]
+    permission_classes=[IsAdminUser,IsStaffPermission]
 
 
 class GetUserData(RetrieveAPIView):
@@ -129,27 +128,21 @@ class UserBankCardApiView(APIView,UserService):
         return Response({"success": success, "message": message}, status=status.HTTP_400_BAD_REQUEST)
 
 
-
 class UsersByRoleView(APIView):
     def get(self, request, *args, **kwargs):
         try:
-            # استخراج نقش‌های 'debugger' و 'consultants'
             debugger_role = Role.objects.get(name='debugger')
             consultants_role = Role.objects.get(name='consultant')
 
-            # فیلتر کاربران با استفاده از query set برای بهبود کارایی
             users = CustomUser.objects.filter(
                 user_roles__in=[debugger_role, consultants_role]
             ).distinct()
 
-            # استفاده از serializer برای تبدیل کاربران به فرمت JSON
             serializer = CustomUserSerializer(users, many=True)
             return Response(serializer.data, status=status.HTTP_200_OK)
 
         except Role.DoesNotExist:
             return Response({"error": "Role not found."}, status=status.HTTP_400_BAD_REQUEST)
-
-
 
 class CreateResetPasswordLinkApiView(APIView,UserService):
     
@@ -171,3 +164,13 @@ class ResetPasswordApiView(APIView,UserService):
         token = request.data.get('token')
         password = request.data.get('password')
         return self.reset_user_password(token,password)
+
+@extend_schema(
+    tags=["auths"],
+    summary="ثبت نام کاربران دیباگر",
+    description="ارسال کنید post بصورد متد body برای ثبت نام کاربر دیباگر اطلاعات زیر را در بخش  ",
+    request=RegisterSerializers,
+)
+class RegisterDebugerApiView(APIView,UserService):
+    def post(self,request:Request):
+        return self.regitser_debuger(request)

@@ -223,6 +223,7 @@ class ProjectImageViewSet(ModelViewSet):
 
 
 class TenderLikeHandlerAPIView(APIView, TenderService):
+    permission_classes = [IsAuthenticated]
     def get(self, request: Request, tender_uuid: str):
         return self.toggle_tender_like_handler(request.user, tender_uuid)
 
