@@ -76,9 +76,9 @@ const NewRequestIncoming = (props: Props) => {
             </div>
             <div className="w-full h-full overflow-y-auto bg-c_secondary border-t border-[#452669] flex flex-col gap-4 box-border rounded-tr-2xl rounded-tl-2xl p-4 pb-32">
               {/* {pendingList.pending_consult.length == 0 || pendingList.pending_debug.length == 0 && <span>درخواستی وجود ندارد</span>} */}
-              {
-                // <RequestCard data={pendingList} />
-              }
+              
+                <RequestCard data={pendingList} />
+              
             </div>
           </motion.div>
         )}
