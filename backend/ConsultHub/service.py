@@ -225,7 +225,7 @@ class DebugHubService:
                 }
             )
         else:
-            return Response({"message": "there is no pending session"})
+            return Response({"pending_debug": [],"pending_consult":[]})
 
     def OpenedSessionBySessionId(self, request: Request):
         user = request.user

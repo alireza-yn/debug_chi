@@ -17,7 +17,7 @@ const NewRequestIncoming = (props: Props) => {
 
 
   const router = useRouter();
-    const {showNewRequest} = useAppSelector((state: RootState) => state.gloabal);
+  const { showNewRequest } = useAppSelector((state: RootState) => state.gloabal);
   const dispatch = useAppDispatch()
   const [pendingList, setPendingList] = useState<Main>({
     pending_consult: [],
@@ -29,7 +29,7 @@ const NewRequestIncoming = (props: Props) => {
     if (is_online === "true") {
       dispatch(setShowNewRequest(true))
     }
-    
+
     const fetchData = async () => {
       const token = Cookies.get("token");
 
@@ -75,7 +75,10 @@ const NewRequestIncoming = (props: Props) => {
               <BellRing size={16} />
             </div>
             <div className="w-full h-full overflow-y-auto bg-c_secondary border-t border-[#452669] flex flex-col gap-4 box-border rounded-tr-2xl rounded-tl-2xl p-4 pb-32">
-              <RequestCard data={pendingList}/>
+              {/* {pendingList.pending_consult.length == 0 || pendingList.pending_debug.length == 0 && <span>درخواستی وجود ندارد</span>} */}
+              {
+                // <RequestCard data={pendingList} />
+              }
             </div>
           </motion.div>
         )}
@@ -94,9 +97,9 @@ const RequestCard = ({ data }: { data: Main }) => {
     return "file" in item;
   };
 
-  const pendingList = [...pending_debug, ...pending_consult];
-
+  const pendingList = data.pending_consult.length > 0 || data.pending_debug.length > 0 ?  [...pending_debug, ...pending_consult] : [];
   if (pendingList.length === 0) {
+
     return (
       <div className="flex flex-col gap-2 w-full box-border p-4 bg-c_background/50 rounded-3xl">
         <span className="fleSx-1 flex justify-center items-center box-border text-primary-700">
