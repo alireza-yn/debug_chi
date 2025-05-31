@@ -121,11 +121,11 @@ CHANNEL_LAYERS = {
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dibugchi_db",
-        "USER": "postgres",
-        "PASSWORD": "13821395",
+        "NAME": "debug_chi",
+        "USER": "admin_debugchi",
+        "PASSWORD": "Mm872872i",
         "HOST": "localhost",
-        "PORT": "5433", 
+        "PORT": "5432", 
     }
 }
 
