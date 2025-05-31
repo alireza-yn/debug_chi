@@ -5,8 +5,6 @@ from tasks.views import *
 from programming_language.views import *
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
 from .views import * 
-
-
 from user_resume.views import *
 from projects.views import *
 from ConsultHub.views import *
@@ -14,6 +12,7 @@ from questions.views import *
 from followers.views import *
 from post.views import *
 from payments.views import *
+
 router = DefaultRouter()
 router.register('project',viewset=ProjectViewSet)
 router.register('team_project',viewset=ProjectTeamViewSet)
