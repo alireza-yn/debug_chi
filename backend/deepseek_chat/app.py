@@ -17,6 +17,7 @@ client = OpenAI(
 )
 
 app = FastAPI(
+    root_path="/api/chat",
     title="DeepSeek Chat API",
     description="A FastAPI application that integrates with DeepSeek's chat model through OpenRouter",
     version="1.0.0"

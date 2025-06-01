@@ -35,6 +35,7 @@ ALLOWED_HOSTS = [
     "api.debugchiai.com",
     "195.248.242.157",
     "www.debugchiai.com",
+    "www.api.debugchiai.com",
     "127.0.0.1"
 ]
 # Application definition
@@ -118,28 +119,28 @@ CHANNEL_LAYERS = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "debug_chi",
-        "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
-        "HOST": "localhost",
-        "PORT": "5432", 
-    }
-}
-
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
 #         "NAME": "debug_chi",
 #         "USER": "admin_debugchi",
 #         "PASSWORD": "Mm872872i",
-#         # "PASSWORD": "Tt1012@@",
 #         "HOST": "localhost",
-#         "PORT": "5432",
+#         "PORT": "5432", 
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "debug_chi",
+        "USER": "admin_debugchi",
+        "PASSWORD": "Mm872872i",
+        # "PASSWORD": "Tt1012@@",
+        "HOST": "localhost",
+        "PORT": "5432",
+    }
+}
 
 
 
