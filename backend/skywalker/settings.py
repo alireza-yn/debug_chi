@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     "report",
     "storages",
     "django_extensions",
-    'ai_app'
+    # 'ai_app' Disabled for creating the app using FastAPI
 
 ]
 
@@ -128,6 +128,18 @@ DATABASES = {
         "PORT": "5432", 
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "debug_chi",
+#         "USER": "admin_debugchi",
+#         "PASSWORD": "Mm872872i",
+#         # "PASSWORD": "Tt1012@@",
+#         "HOST": "localhost",
+#         "PORT": "5432",
+#     }
+# }
 
 
 
