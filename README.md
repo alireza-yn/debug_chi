@@ -1,43 +1,100 @@
-# DeepSeek Chat Integration with Django
+#  DEBUCHI Backend Documentation
 
-This project integrates DeepSeek's chat model with a Django application using FastAPI as a microservice. The integration allows for seamless communication between Django and the DeepSeek AI model while maintaining a clean architecture.
+## Overview
+This backend project is a comprehensive Django-based application that integrates multiple AI services and features. It includes a main Django application with various modules and a FastAPI microservice for AI chat functionality.
 
 ## Project Structure
-
 ```
 backend/
-├── ai_app/                    # Django application
-│   ├── views.py              # Contains DeepSeekChatView
-│   └── urls.py               # URL routing for chat endpoints
-├── deepseek_chat/            # FastAPI microservice
+├── ai_app/                    # AI Integration Module
+│   ├── views.py              # AI service views (Gemini, DeepSeek)
+│   └── urls.py               # AI endpoints routing
+├── deepseek_chat/            # FastAPI Microservice
 │   ├── app.py                # FastAPI application
-│   ├── requirements.txt      # Dependencies
-│   └── .env                  # Environment variables
-├── run_services.py           # Python script to run both services
-├── run_services.bat          # Windows batch script
-└── run_services.sh           # Linux/Ubuntu bash script
+│   ├── requirements.txt      # FastAPI dependencies
+│   └── .env                  # Environment configuration
+├── chat/                     # Chat Module
+├── core/                     # Core Application Module
+├── followers/                # User Followers Module
+├── home/                     # Home Module
+├── payments/                 # Payment Processing Module
+├── post/                     # Post Management Module
+├── programming_language/     # Programming Language Module
+├── questions/                # Questions Module
+├── report/                   # Reporting Module
+├── tasks/                    # Background Tasks Module
+├── tender/                   # Tender Management Module
+├── user_resume/             # User Resume Module
+├── manage.py                # Django Management Script
+├── requirements.txt         # Main Project Dependencies
+├── run_services.py          # Service Management Script
+├── run_services.bat         # Windows Service Script
+└── run_services.sh          # Linux Service Script
 ```
 
-## Features
+## Key Features
 
-- **Django Integration**: Seamless integration with existing Django application
-- **FastAPI Microservice**: Separate service for DeepSeek chat functionality
-- **Cross-Platform Support**: Works on both Windows and Linux/Ubuntu servers
-- **Unified Service Management**: Run both services with a single command
-- **Error Handling**: Robust error handling and logging
-- **CORS Support**: Secure cross-origin resource sharing
-- **Environment Configuration**: Flexible configuration through .env files
+### 1. AI Integration
+- **Gemini AI Integration**
+  - Text generation and analysis
+  - Custom model configuration
+  - Error handling and response formatting
 
-## Setup
+- **DeepSeek Chat Integration**
+  - Real-time chat functionality
+  - Conversation history management
+  - Asynchronous processing
+
+### 2. User Management
+- User authentication and authorization
+- Profile management
+- Follower system
+- Resume management
+
+### 3. Content Management
+- Post creation and management
+- Programming language categorization
+- Question and answer system
+- Tender management
+
+### 4. Payment Processing
+- Secure payment integration
+- Transaction management
+- Payment history
+
+### 5. Reporting System
+- Custom report generation
+- Data analytics
+- Export functionality
+
+## Technical Stack
+
+### Core Technologies
+- **Django**: Main web framework
+- **FastAPI**: AI & Chat or any async feat microservice
+- **PostgreSQL**: Primary database
+- **Redis**: Caching and session management
+- **Celery**: Background task processing
+
+### AI Services
+- Google Gemini AI
+- DeepSeek AI
+- Custom AI integrations
+
+### Additional Services
+- AWS S3: File storage
+- Payment gateways
+- Email services
+
+## Setup and Installation
 
 ### Prerequisites
-
 - Python 3.8+
-- Django
-- FastAPI
-- DeepSeek API key
+- PostgreSQL
+- Redis
+- Virtual environment
 
-### Installation
+### Installation Steps
 
 1. **Clone the repository**
 
@@ -54,159 +111,126 @@ backend/
 
 3. **Install dependencies**:
    ```bash
-   # Install Django dependencies
    pip install -r requirements.txt
-
-   # Install FastAPI dependencies
    cd deepseek_chat
    pip install -r requirements.txt
    ```
 
 4. **Configure environment variables**:
-   Create `.env` file in `deepseek_chat` directory:
+   Create necessary `.env` files with required configurations:
    ```
-   DEEPSEEK_API_KEY=your_api_key_here
+   # Main .env
+   DEBUG=True
+   SECRET_KEY=your_secret_key
+   DATABASE_URL=postgresql://user:password@localhost:5432/dbname
+   REDIS_URL=redis://localhost:6379/0
+   
+   # DeepSeek .env
+   DEEPSEEK_API_KEY=your_api_key
    API_HOST=0.0.0.0
    API_PORT=8001
    ```
 
-## Running the Services
-
-### Windows
-
-1. **Using batch script**:
-   - Double-click `run_services.bat`
-   - Or run in terminal:
-     ```bash
-     .\run_services.bat
-     ```
-
-2. **Using Python script**:
+5. **Database setup**:
    ```bash
-   python run_services.py
+   python manage.py migrate
+   python manage.py createsuperuser
    ```
 
-### Linux/Ubuntu
+## Running the Application
 
-1. **Make scripts executable**:
-   ```bash
-   chmod +x run_services.sh
-   chmod +x run_services.py
-   ```
+### Development Environment
 
-2. **Run using bash script**:
+1. **Start all services**:
    ```bash
+   # Windows
+   .\run_services.bat
+   
+   # Linux/Ubuntu
    ./run_services.sh
    ```
 
-3. **Or using Python script**:
+2. **Access points**:
+   - Django Admin: `http://localhost:8000/admin`
+   - API Documentation: `http://localhost:8000/api/docs`
+   - FastAPI Documentation: `http://localhost:8001/docs`
+
+### Production Deployment
+
+1. **Server requirements**:
+   - Ubuntu 20.04+
+   - Nginx
+   - Gunicorn
+   - Supervisor
+
+2. **Deployment steps**:
    ```bash
-   python3 run_services.py
-   ```
-
-## API Endpoints
-
-### Django Endpoints
-- `POST /api/deepseek-chat/`: Main chat endpoint
-  ```json
-  {
-      "message": "Your message here",
-      "conversation_history": [
-          {"role": "user", "content": "Previous message"},
-          {"role": "assistant", "content": "Previous response"}
-      ]
-  }
-  ```
-
-### FastAPI Endpoints
-- `GET /`: Health check
-- `POST /api/chat`: Chat endpoint
-- `GET /docs`: Swagger documentation
-- `GET /redoc`: ReDoc documentation
-
-## Server Deployment
-
-### Ubuntu/Linux Server Setup
-
-1. **Install dependencies**:
-   ```bash
+   # Install system dependencies
    sudo apt update
-   sudo apt install python3-venv python3-pip
-   ```
+   sudo apt install python3-venv python3-pip nginx supervisor
 
-2. **Configure firewall**:
-   ```bash
+   # Configure firewall
+   sudo ufw allow 80
+   sudo ufw allow 443
    sudo ufw allow 8000
    sudo ufw allow 8001
    ```
 
-3. **Run services**:
-   ```bash
-   ./run_services.sh
-   ```
+## API Documentation
 
-### Nginx Configuration (Optional)
+### Main Endpoints
 
-```nginx
-# Django
-server {
-    listen 80;
-    server_name your-domain.com;
+1. **AI Services**:
+   - `POST /api/ask/`: Gemini AI endpoint
+   - `POST /api/deepseek-chat/`: DeepSeek chat endpoint
 
-    location / {
-        proxy_pass http://localhost:8000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
+2. **User Management**:
+   - `POST /api/users/`: User registration
+   - `GET /api/users/{id}/`: User profile
+   - `POST /api/followers/`: Follow user
 
-# FastAPI
-server {
-    listen 80;
-    server_name api.your-domain.com;
+3. **Content Management**:
+   - `POST /api/posts/`: Create post
+   - `GET /api/posts/`: List posts
+   - `POST /api/questions/`: Create question
 
-    location / {
-        proxy_pass http://localhost:8001;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-    }
-}
-```
-
-## Error Handling
-
-The application includes comprehensive error handling:
-- API connection errors
-- Invalid requests
-- Server errors
-- Environment configuration errors
+4. **Payment Processing**:
+   - `POST /api/payments/`: Process payment
+   - `GET /api/payments/history/`: Payment history
 
 ## Security Considerations
 
-1. **API Key Protection**:
-   - Store API keys in environment variables
-   - Never commit .env files to version control
+1. **Authentication**:
+   - JWT token-based authentication
+   - Session management
+   - Password hashing
 
-2. **CORS Configuration**:
-   - Configured to allow specific origins
-   - Can be customized for production
+2. **API Security**:
+   - Rate limiting
+   - CORS configuration
+   - Input validation
 
-3. **Server Security**:
-   - Use HTTPS in production
-   - Configure proper firewall rules
-   - Implement rate limiting if needed
+3. **Data Protection**:
+   - Environment variable management
+   - Secure file storage
+   - Database encryption
 
-## Troubleshooting
+## Monitoring and Maintenance
 
-1. **Service won't start**:
-   - Check if ports 8000 and 8001 are available
-   - Verify environment variables
-   - Check Python version compatibility
+1. **Logging**:
+   - Application logs
+   - Error tracking
+   - Performance monitoring
 
-2. **API connection issues**:
-   - Verify DeepSeek API key
-   - Check network connectivity
-   - Review CORS settings
+2. **Backup**:
+   - Database backups
+   - File system backups
+   - Configuration backups
+
+3. **Updates**:
+   - Dependency updates
+   - Security patches
+   - Feature updates
 
 ## Contributing
 
@@ -218,4 +242,4 @@ The application includes comprehensive error handling:
 
 ## License
 
-This project is licensed under the MIT License - see the LICENSE file for details. 
+EVERY THING BELONGS TO M.MODHEJ ⭐😅
