@@ -1,60 +1,68 @@
 import subprocess
 import sys
-import os
-import signal
+import threading
 import time
-from threading import Thread
+import os
 import platform
 
 def run_django():
     try:
-        os.chdir('backend')
-        # Use python3 explicitly on Linux/Ubuntu
+        # Get the current directory
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        
+        # Use python3 on Linux/Ubuntu, sys.executable on Windows
         python_cmd = 'python3' if platform.system() != 'Windows' else sys.executable
-        subprocess.run([python_cmd, 'manage.py', 'runserver', '0.0.0.0:8000'])
+        
+        # Run Django server
+        django_process = subprocess.Popen(
+            [python_cmd, 'manage.py', 'runserver', '0.0.0.0:8000'],
+            cwd=current_dir
+        )
+        django_process.wait()
     except Exception as e:
         print(f"Error running Django: {str(e)}")
         sys.exit(1)
 
 def run_fastapi():
     try:
-        os.chdir('backend/deepseek_chat')
-        # Use python3 explicitly on Linux/Ubuntu
+        # Get the current directory
+        current_dir = os.path.dirname(os.path.abspath(__file__))
+        deepseek_dir = os.path.join(current_dir, 'deepseek_chat')
+        
+        # Use python3 on Linux/Ubuntu, sys.executable on Windows
         python_cmd = 'python3' if platform.system() != 'Windows' else sys.executable
-        subprocess.run([python_cmd, 'app.py'])
+        
+        # Run FastAPI server
+        fastapi_process = subprocess.Popen(
+            [python_cmd, 'app.py'],
+            cwd=deepseek_dir
+        )
+        fastapi_process.wait()
     except Exception as e:
         print(f"Error running FastAPI: {str(e)}")
         sys.exit(1)
 
 def main():
-    # Store the original directory
-    original_dir = os.getcwd()
+    print("Starting services...")
+    print("Django will run on http://0.0.0.0:8000")
+    print("FastAPI will run on http://0.0.0.0:8001")
+    
+    # Create threads for each service
+    django_thread = threading.Thread(target=run_django)
+    fastapi_thread = threading.Thread(target=run_fastapi)
+    
+    # Start both services
+    django_thread.start()
+    time.sleep(2)  # Give Django a head start
+    fastapi_thread.start()
     
     try:
-        print("Starting services...")
-        print("Django will run on http://0.0.0.0:8000")
-        print("FastAPI will run on http://0.0.0.0:8001")
-        
-        # Start Django in a separate thread
-        django_thread = Thread(target=run_django)
-        django_thread.daemon = True
-        django_thread.start()
-        
-        # Wait a bit for Django to start
-        time.sleep(2)
-        
-        # Change back to original directory
-        os.chdir(original_dir)
-        
-        # Start FastAPI
-        run_fastapi()
-        
+        # Keep the main thread alive
+        while True:
+            time.sleep(1)
     except KeyboardInterrupt:
         print("\nShutting down services...")
         sys.exit(0)
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        sys.exit(1)
 
 if __name__ == "__main__":
     main() 
