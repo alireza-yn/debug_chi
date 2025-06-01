@@ -14,10 +14,13 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS
+# Configure CORS - Allow Django application
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # In production, replace with specific origins
+    allow_origins=[
+        "http://localhost:8000",  # Django's URL
+        "http://127.0.0.1:8000",  # Alternative Django URL
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -30,15 +33,13 @@ class ChatRequest(BaseModel):
 class ChatResponse(BaseModel):
     response: str
 
-DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"  # Replace with actual DeepSeek API endpoint
+DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
 
 @app.post("/api/chat", response_model=ChatResponse)
 async def chat(request: ChatRequest):
     try:
-        # Prepare the conversation history
         messages = request.conversation_history + [{"role": "user", "content": request.message}]
         
-        # Make request to DeepSeek API
         async with httpx.AsyncClient() as client:
             response = await client.post(
                 DEEPSEEK_API_URL,
@@ -47,7 +48,7 @@ async def chat(request: ChatRequest):
                     "Content-Type": "application/json"
                 },
                 json={
-                    "model": "deepseek-chat",  # Replace with actual model name
+                    "model": "deepseek-chat",
                     "messages": messages,
                     "temperature": 0.7,
                     "max_tokens": 1000
@@ -76,6 +77,6 @@ if __name__ == "__main__":
     uvicorn.run(
         "app:app",
         host=os.getenv("API_HOST", "0.0.0.0"),
-        port=int(os.getenv("API_PORT", 8000)),
+        port=int(os.getenv("API_PORT", 8001)),
         reload=True
     ) 
