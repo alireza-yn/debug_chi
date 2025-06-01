@@ -70,7 +70,7 @@ INSTALLED_APPS = [
     "report",
     "storages",
     "django_extensions",
-    'ai_app'
+    # 'ai_app' Disabled for creating the app using FastAPI
 
 ]
 
