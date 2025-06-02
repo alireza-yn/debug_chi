@@ -13,10 +13,11 @@ def run_django():
         # Use python3 on Linux/Ubuntu, sys.executable on Windows
         python_cmd = 'python3' if platform.system() != 'Windows' else sys.executable
         
-        # Run Django server
+        # Run Django server with explicit settings module
         django_process = subprocess.Popen(
-            [python_cmd, 'manage.py', 'runserver', '0.0.0.0:8000'],
-            cwd=current_dir
+            [python_cmd, 'manage.py', 'runserver', '0.0.0.0:8000', '--noreload'],
+            cwd=current_dir,
+            env=dict(os.environ, DJANGO_SETTINGS_MODULE='skywalker.settings')
         )
         django_process.wait()
     except Exception as e:

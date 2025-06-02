@@ -57,7 +57,7 @@ class DebugSession(TimeStamp):
     rejected_by = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
 
     def __str__(self):
-        return self.session_id
+        return f"{self.title or 'No Title'} - {self.session_id}"
 
 
 class ConsultSession(TimeStamp):
@@ -91,6 +91,5 @@ class ConsultSession(TimeStamp):
     is_rejected = models.BooleanField(default=False)
     rejected_by = models.ForeignKey(User,on_delete=models.CASCADE,blank=True,null=True)
 
-
     def __str__(self):
-        return self.session_id
+        return f"{self.title or 'No Title'} - {self.session_id}"
