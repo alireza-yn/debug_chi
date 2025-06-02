@@ -27,15 +27,14 @@ def run_fastapi():
     try:
         # Get the current directory
         current_dir = os.path.dirname(os.path.abspath(__file__))
-        deepseek_dir = os.path.join(current_dir, 'deepseek_chat')
         
         # Use python3 on Linux/Ubuntu, sys.executable on Windows
         python_cmd = 'python3' if platform.system() != 'Windows' else sys.executable
         
-        # Run FastAPI server
+        # Run FastAPI server using uvicorn
         fastapi_process = subprocess.Popen(
-            [python_cmd, 'app.py'],
-            cwd=deepseek_dir
+            [python_cmd, '-m', 'uvicorn', 'api_gateway.app:app', '--host', '0.0.0.0', '--port', '8001', '--reload'],
+            cwd=current_dir
         )
         fastapi_process.wait()
     except Exception as e:

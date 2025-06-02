@@ -119,16 +119,8 @@ CHANNEL_LAYERS = {
 #         'NAME': BASE_DIR / 'db.sqlite3',
 #     }
 # }
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "debug_chi",
-#         "USER": "admin_debugchi",
-#         "PASSWORD": "Mm872872i",
-#         "HOST": "localhost",
-#         "PORT": "5432", 
-#     }
-# }
+
+### TODO: SERVER DATABASE CONNECTION CONFIGURATION
 
 DATABASES = {
     "default": {
@@ -142,6 +134,16 @@ DATABASES = {
     }
 }
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "dibugchi_db",
+#         "USER": "postgres",
+#         "PASSWORD": "13821395",
+#         "HOST": "localhost",
+#         "PORT": "5433",
+#     }
+# }
 
 
 STORAGES = {
