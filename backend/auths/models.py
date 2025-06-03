@@ -145,3 +145,28 @@ class RequestPassowordReset(models.Model):
     token = models.UUIDField(default=uuid.uuid4, unique=True, editable=False)
     created_at = models.DateTimeField(auto_now_add=True)
     is_verified = models.BooleanField(default=False)
+
+class DebuggerExam(models.Model):
+    title = models.CharField(max_length=200)
+    description = models.TextField()
+    passing_score = models.IntegerField()
+    time_limit_minutes = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+
+    def __str__(self):
+        return self.title
+
+class DebuggerExamScore(models.Model):
+    debugger = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='exam_scores')
+    exam = models.ForeignKey(DebuggerExam, on_delete=models.CASCADE)
+    score = models.IntegerField()
+    taken_at = models.DateTimeField(auto_now_add=True)
+    passed = models.BooleanField(default=False)
+    answers = models.JSONField(default=dict)  # ذخیره پاسخ‌های کاربر
+    
+    class Meta:
+        unique_together = ['debugger', 'exam']
+    
+    def __str__(self):
+        return f"{self.debugger.username}'s score for {self.exam.title}"

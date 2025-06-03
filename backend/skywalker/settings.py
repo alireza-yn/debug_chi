@@ -122,28 +122,28 @@ CHANNEL_LAYERS = {
 
 ### TODO: SERVER DATABASE CONNECTION CONFIGURATION
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "debug_chi",
-        "USER": "admin_debugchi",
-        "PASSWORD": "Mm872872i",
-        # "PASSWORD": "Tt1012@@",
-        "HOST": "localhost",
-        "PORT": "5432",
-    }
-}
-
 # DATABASES = {
 #     "default": {
 #         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "dibugchi_db",
-#         "USER": "postgres",
-#         "PASSWORD": "13821395",
+#         "NAME": "debug_chi",
+#         "USER": "admin_debugchi",
+#         "PASSWORD": "Mm872872i",
+#         # "PASSWORD": "Tt1012@@",
 #         "HOST": "localhost",
-#         "PORT": "5433",
+#         "PORT": "5432",
 #     }
 # }
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "dibugchi_db",
+        "USER": "postgres",
+        "PASSWORD": "13821395",
+        "HOST": "localhost",
+        "PORT": "5433",
+    }
+}
 
 
 STORAGES = {

@@ -13,7 +13,10 @@ import random
 from drf_spectacular.utils import extend_schema_view, extend_schema,inline_serializer
 from .services import UserService
 from rest_framework_simplejwt.tokens import RefreshToken
-from .utils import IsStaffPermission
+from .utils import IsStaffPermission, IsDebuggerPermission
+from .models import DebuggerExam, DebuggerExamScore
+import json
+import os
 
 
 
@@ -174,3 +177,113 @@ class ResetPasswordApiView(APIView,UserService):
 class RegisterDebugerApiView(APIView,UserService):
     def post(self,request:Request):
         return self.regitser_debuger(request)
+
+class GetDebuggerExam(APIView):
+    permission_classes = [IsAuthenticated, IsDebuggerPermission]
+    
+    def get(self, request):
+        """Get the debugger qualification exam"""
+        try:
+            # خواندن فایل JSON سوالات با encoding مناسب
+            exam_path = os.path.join(os.path.dirname(__file__), "../debugger_exam.json")
+            with open(exam_path, 'r', encoding='utf-8') as f:
+                exam_data = json.load(f)
+            return Response(exam_data)
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class SubmitDebuggerExam(APIView):
+    permission_classes = [IsAuthenticated, IsDebuggerPermission]
+    
+    def post(self, request):
+        """Submit exam answers and get score"""
+        try:
+            # خواندن سوالات با encoding مناسب
+            exam_path = os.path.join(os.path.dirname(__file__), "../debugger_exam.json")
+            with open(exam_path, 'r', encoding='utf-8') as f:
+                exam_data = json.load(f)
+            
+            # محاسبه نمره
+            score = 0
+            answers_dict = {}
+            
+            for answer in request.data.get('answers', []):
+                question = next((q for q in exam_data['questions'] if q['id'] == answer['question_id']), None)
+                if not question:
+                    continue
+                    
+                answers_dict[answer['question_id']] = answer['answer']
+                
+                if answer['answer'] == question['correct_answer']:
+                    score += question['points']
+            
+            # ایجاد یا به‌روزرسانی آزمون
+            exam, _ = DebuggerExam.objects.get_or_create(
+                title="Debugger Qualification Exam",
+                defaults={
+                    'description': "Initial debugger qualification exam",
+                    'passing_score': 7,
+                    'time_limit_minutes': 30
+                }
+            )
+            
+            # ذخیره نمره
+            exam_score, created = DebuggerExamScore.objects.update_or_create(
+                debugger=request.user,
+                exam=exam,
+                defaults={
+                    'score': score,
+                    'passed': score >= exam_data['passing_score'],
+                    'answers': answers_dict
+                }
+            )
+            
+            return Response({
+                "score": score,
+                "passed": score >= exam_data['passing_score'],
+                "passing_score": exam_data['passing_score']
+            })
+            
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )
+
+class GetDebuggerExamScores(APIView):
+    permission_classes = [IsAuthenticated, IsDebuggerPermission]
+    
+    def get(self, request):
+        """Get all exam scores for the current debugger"""
+        try:
+            scores = DebuggerExamScore.objects.filter(debugger=request.user).order_by('-taken_at')
+            
+            if not scores.exists():
+                return Response({
+                    "message": "هنوز هیچ آزمونی انجام نداده‌اید",
+                    "scores": []
+                })
+            
+            result = []
+            for score in scores:
+                result.append({
+                    "exam_title": score.exam.title,
+                    "score": score.score,
+                    "passed": score.passed,
+                    "passing_score": score.exam.passing_score,
+                    "date": score.taken_at,
+                    "answers": score.answers
+                })
+            
+            return Response({
+                "scores": result
+            })
+            
+        except Exception as e:
+            return Response(
+                {"error": str(e)},
+                status=status.HTTP_500_INTERNAL_SERVER_ERROR
+            )

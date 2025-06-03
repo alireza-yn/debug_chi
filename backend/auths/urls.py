@@ -25,6 +25,8 @@ urlpatterns = [
     path('all_debuger/',UsersByRoleView.as_view(),name="all_debuger"),
     path('forget-password/',CreateResetPasswordLinkApiView.as_view(),name="forget-password"),
     path('reset-password/',ResetPasswordApiView.as_view(),name="reset-password"),
-    path('code-verification/',CodeVerification.as_view(),name="code-verification")
-
+    path('code-verification/',CodeVerification.as_view(),name="code-verification"),
+    path('debugger-exam/', GetDebuggerExam.as_view(), name='get-debugger-exam'),
+    path('debugger-exam/submit/', SubmitDebuggerExam.as_view(), name='submit-debugger-exam'),
+    path('debugger-exam/scores/', GetDebuggerExamScores.as_view(), name='get-debugger-exam-scores'),
 ]
