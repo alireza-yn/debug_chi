@@ -122,28 +122,28 @@ CHANNEL_LAYERS = {
 
 ### TODO: SERVER DATABASE CONNECTION CONFIGURATION
 
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.postgresql",
-#         "NAME": "debug_chi",
-#         "USER": "admin_debugchi",
-#         "PASSWORD": "Mm872872i",
-#         # "PASSWORD": "Tt1012@@",
-#         "HOST": "localhost",
-#         "PORT": "5432",
-#     }
-# }
-
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "dibugchi_db",
-        "USER": "postgres",
-        "PASSWORD": "13821395",
+        "NAME": "debug_chi",
+        "USER": "admin_debugchi",
+        "PASSWORD": "Mm872872i",
+        # "PASSWORD": "Tt1012@@",
         "HOST": "localhost",
-        "PORT": "5433",
+        "PORT": "5432",
     }
 }
+
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "dibugchi_db",
+#         "USER": "postgres",
+#         "PASSWORD": "13821395",
+#         "HOST": "localhost",
+#         "PORT": "5433",
+#     }
+# }
 
 
 STORAGES = {
@@ -202,6 +202,15 @@ CORS_ALLOWED_ORIGINS = [
     "https://www.debugchiai.com",
     "https://debugchiai.com"
 ]
+
+CSRF_TRUSTED_ORIGINS = [
+    "https://debugchiai.com",
+    "https://www.debugchiai.com",
+    "https://api.debugchiai.com",
+    "http://localhost:8000",
+    "http://localhost:3000"
+]
+
 # CORS_ALLOW_ALL_ORIGINS = True
 
 # Internationalization
