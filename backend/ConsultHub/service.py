@@ -209,23 +209,33 @@ class DebugHubService:
         return session
 
     def PendingSessionBySessionId(self, request: Request):
-        pending_debug = DebugSession.objects.filter(
-            debuger=request.user, status="pending"
+        # جلسات pending برای دیباگر
+        pending_debug_for_debugger = DebugSession.objects.filter(
+            debuger=request.user, status="pending", is_rejected=False
         ).all()
+        
+        # جلسات pending برای درخواست‌دهنده
+        pending_debug_for_applicator = DebugSession.objects.filter(
+            debuger_applicator=request.user, status="pending", is_rejected=False
+        ).all()
+        
+        # جلسات مشاوره pending برای مشاور
         pending_consult = ConsultSession.objects.filter(
-            consult=request.user, status="pending"
+            consult=request.user, status="pending", is_rejected=False
         ).all()
+        
+        # ترکیب نتایج
+        pending_debug = pending_debug_for_debugger | pending_debug_for_applicator
+        
         if pending_debug or pending_consult:
             return Response(
                 {
                     "pending_debug": DebuggerSerializer(pending_debug, many=True).data,
-                    "pending_consult": ConsultSerializer(
-                        pending_consult, many=True
-                    ).data,
+                    "pending_consult": ConsultSerializer(pending_consult, many=True).data,
                 }
             )
         else:
-            return Response({"pending_debug": [],"pending_consult":[]})
+            return Response({"pending_debug": [], "pending_consult": []})
 
     def OpenedSessionBySessionId(self, request: Request):
         user = request.user
