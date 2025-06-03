@@ -60,3 +60,15 @@ def send_verification_code(mobile, code,templateID="300543"):
     except requests.exceptions.RequestException as e:
         logging.error(f'Failed to send SMS: {e}')
         return False
+
+class IsDebuggerPermission(BasePermission):
+    """
+    اجازه دسترسی فقط به کاربرانی داده می‌شود که نقش 'debugger' را داشته باشند.
+    """
+    def has_permission(self, request, view):
+        # بررسی احراز هویت کاربر
+        if not request.user or not request.user.is_authenticated:
+            return False
+        
+        # بررسی اینکه آیا کاربر نقش "debugger" را دارد
+        return request.user.user_roles.filter(name="debugger").exists()
