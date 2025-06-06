@@ -12,11 +12,18 @@ from rest_framework import status
 from rest_framework.exceptions import NotFound
 from rest_framework.views import APIView 
 import requests
-from core.permissions import RoleMixin
+from core.permissions import RoleMixin, HasRolePermission
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
-User = get_user_model()
+from openai import OpenAI
+from typing import List, Dict
+import os
+from dotenv import load_dotenv
+from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticated
 
+User = get_user_model()
+load_dotenv()
 
 class UsersByRoleListView(ListAPIView):
     serializer_class = CustomRoleSerializers

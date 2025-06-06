@@ -4,7 +4,7 @@ from management.views import *
 from tasks.views import *
 from programming_language.views import *
 from drf_spectacular.views import SpectacularAPIView, SpectacularRedocView, SpectacularSwaggerView
-from .views import * 
+from .views import TestUploadView, UsersByRoleListView, GetUserInfoByUUID, TextToSpeech
 from user_resume.views import *
 from projects.views import *
 from ConsultHub.views import *
@@ -31,11 +31,7 @@ router.register(r'user_portfolio', UserPortfolioViewSet, basename='UserPortfolio
 router.register(r'user_portfolio_image', UserPortfolioImageViewSet, basename='UserPortfolioImage')
 router.register(r'job_history', UserJobHistoryViewSet, basename='UserJobHistory')
 
-
-
 #endregion
-
-
 
 #region ProgrammingLanguage Router
 router.register(r'programming-languages', ProgrammingLanguageViewSet)
@@ -43,14 +39,11 @@ router.register(r'programmer-skills', ProgrammerSkillViewSet)
 router.register(r'programmer-exprertise', ProgrammerExpertiseViewSet)
 #endregion
 
-
 #region project router
 router.register(r'create_project', ProjectViewSet,basename="project_created")
 router.register(r'new_project', CreateProjectAPIView,basename="new_project")
 router.register(r'tender_project',TenderProjectViewSet,basename='tender_project')
 router.register(r'project_image',ProjectImageViewSet,basename='project_image')
-# router.register(r'bid_project',BidProjectViewSet,basename='bid_project')
-
 #endregion
 
 #region ConsultHub Router
@@ -58,17 +51,10 @@ router.register(r'consult-hub', ConsultHubView,basename="consult-hub")
 router.register(r'debug-hub', DebuggerHubView,basename="debug-hub")
 #endregion
 
-
-
-#region Management Router
-
-#endregion
-
 #region Follower Router
 router.register(r'followers',FollowerViewSet,basename='دنبال کنندگان')
 router.register(r'comments',UserCommentsViewSet,basename='کامنت ها')
 #endregion
-
 
 #region Question
 router.register(r'questions',QuestionView,basename='پرسش سوال')
@@ -76,7 +62,6 @@ router.register(r'category',CategoryView,basename='دسته بندی')
 router.register(r'answers',AnswersView,basename='پایسخ سوالات')
 router.register(r'section',SectionView,basename='سکشن')
 #endregion
-
 
 #region Posts Router
 router.register(r'posts',PostsViewSet,basename='پست آموزشی'),
@@ -89,13 +74,9 @@ router.register(r'Like',LikedPostViewSet,basename='لایک ویدیوی آمو�
 router.register(r'payment_withdraw',WithDrawViewSet,basename='برداشت اعتبار')
 #endregion
 
-
-
-
 #UserResume Region
 router.register(r'foriegn_language',viewset=UserForeignLanguageViewSet,basename='foriegn_language')
 #endregion
-
 
 urlpatterns = [
     path('v1/',include(router.urls)),
@@ -114,7 +95,6 @@ urlpatterns = [
     path('v1/programming-language/',ProgrammingList.as_view(),name='list'),
     #endregion 
     
-    
     #region  ConsultantAPI
     path('v1/debug/accept_debug_session/',view=AcceptDebugSession.as_view(),name='قبول کردن جلسه دیباگ'),
     path('v1/debug/open_debug_session/',view=OpenedDebugSession.as_view(),name='open_debug_session'),
@@ -127,7 +107,6 @@ urlpatterns = [
     path('v1/reject-session/',view=RejectSession.as_view(),name='reject-session'),
     path('v1/reject-session/',view=SessionHandlerAPIView.as_view(),name="handle-session"),
     #endregion 
-    
     
     #region Project
     path('v1/tender/',TenderProjectListView.as_view(),name='tender_info'),
@@ -143,30 +122,24 @@ urlpatterns = [
     #endregion
     
     #region question
-        path('questions/', CategoryDetailAPIView.as_view(), name='category-detail'),
+    path('questions/', CategoryDetailAPIView.as_view(), name='category-detail'),
     #endregion
 
-
     #region Posts
-        path('v1/get_post/', UserPostList.as_view(), name='user-post'),
-        path('v1/like_post/', PostActionApiView.as_view(), name='user-post-action'),
-        path('v1/user/<str:uuid>/', GetUserInfoAndPost.as_view(), name='user-profile'),
+    path('v1/get_post/', UserPostList.as_view(), name='user-post'),
+    path('v1/like_post/', PostActionApiView.as_view(), name='user-post-action'),
+    path('v1/user/<str:uuid>/', GetUserInfoAndPost.as_view(), name='user-profile'),
     #endregion
 
     #region report
-        path('v1/report/',include('report.urls')),
+    path('v1/report/',include('report.urls')),
     #endregion
 
     #region payment
-        path('v1/payment_withdraw_view/',view=WithDrawApiView.as_view(),name="برداشت"),
-
+    path('v1/payment_withdraw_view/',view=WithDrawApiView.as_view(),name="برداشت"),
     #endregion 
-    
-
-
 
     #region language
     path('v1/add_language/',view=AddLanguageForUser.as_view(),name="add-language")
     #endregion
-
 ]
