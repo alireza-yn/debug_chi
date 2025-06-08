@@ -1,9 +1,8 @@
 # gemini_api/urls.py
 
 from django.urls import path
-from .views import AskGemini, DeepSeekChatView
+from .views import DeepSeekChatView
 
 urlpatterns = [
-    path('ask/', AskGemini.as_view(),name="ask_gemini"),
-    path('deepseek-chat/', DeepSeekChatView.as_view(), name='deepseek-chat'),
+    path('chat/deepseek/', DeepSeekChatView.as_view(), name='deepseek-chat'),
 ]

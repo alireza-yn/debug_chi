@@ -68,7 +68,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     safe_withdraw = models.IntegerField(default=0,verbose_name='برداشت امن')
     user_bio = models.CharField(max_length=1000, blank=True,null=True)
     debugger_bio = models.CharField(max_length=1000, blank=True,null=True)
-    user_score = models.IntegerField(default=0,validators=[MaxValueValidator(5,"امتیاز نمیتواند بیشتر از 5 باشد")])
+    user_score = models.IntegerField(default=0,validators=[MaxValueValidator(10,"امتیاز نمیتواند بیشتر از 10 باشد")])
 
 
     def user_directory_path(instance, filename):
